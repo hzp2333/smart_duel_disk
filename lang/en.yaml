@@ -1,0 +1,11 @@
+# Loco yaml export: Simple YAML object
+# Project: smart_duel_disk
+# Release: Working copy
+# Locale: en-US, English (USA)
+# Exported by: Bram De Coninck
+# Exported at: Tue, 29 Dec 2020 15:28:17 +0100
+---
+home_tab_news: News
+home_tab_duel: Duel
+home_tab_deck: Deck
+...
