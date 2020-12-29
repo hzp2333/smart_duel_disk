@@ -12,6 +12,8 @@ dependencies:
   auto_localized: ^0.7.0
   auto_route: ^1.0.0-beta.5+1
   cupertino_icons: ^1.0.0
+  firebase_core: ^0.5.3
+  firebase_crashlytics: ^0.2.4
   get_it: ^5.0.3
   injectable: ^1.0.5
   provider: ^4.3.2+3
@@ -31,5 +33,6 @@ flutter:
 
 scripts:
   go: flutter run
+  all: flutter run -d all
   build: flutter pub run build_runner build --delete-conflicting-outputs
   watch: flutter pub run build_runner watch --delete-conflicting-outputs

@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Smart Duel Disk</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -12,7 +14,7 @@
 	<string>6.0</string>
 	<key>CFBundleLocalizations</key>
 	<array>
-  		<string>en</string>
+		<string>en</string>
 	</array>
 	<key>CFBundleName</key>
 	<string>smart_duel_disk</string>
