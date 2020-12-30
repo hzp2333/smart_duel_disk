@@ -1,7 +1,7 @@
 import 'package:ant_icons/ant_icons.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:smart_duel_disk/packages/features/feature_home/feature_home_impl/lib/src/home/models/home_tab.dart';
+import 'package:smart_duel_disk/packages/features/feature_home/lib/src/home/models/home_tab.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 import 'package:smart_duel_disk/src/localization/strings.al.dart';
 import 'package:smart_duel_disk/src/navigation/router.gr.dart';
