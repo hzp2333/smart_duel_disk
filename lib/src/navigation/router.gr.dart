@@ -5,14 +5,7 @@
 // **************************************************************************
 
 import 'package:auto_route/auto_route.dart' as _i1;
-import '../../packages/features/feature_home/feature_home_impl/lib/src/home/widgets/home_screen_provider.dart'
-    as _i2;
-import '../../packages/features/feature_home/feature_home_impl/lib/src/duel/widgets/duel_screen_provider.dart'
-    as _i3;
-import '../../packages/features/feature_home/feature_home_impl/lib/src/news/widgets/news_screen_provider.dart'
-    as _i4;
-import '../../packages/features/feature_home/feature_home_impl/lib/src/deck/widgets/deck_screen_provider.dart'
-    as _i5;
+import '../../packages/features/feature_home/lib/feature_home.dart' as _i2;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter();
@@ -23,13 +16,13 @@ class AppRouter extends _i1.RootStackRouter {
       return _i1.AdaptivePage(entry: entry, child: _i2.HomeScreenProvider());
     },
     DuelTab.name: (entry) {
-      return _i1.AdaptivePage(entry: entry, child: _i3.DuelScreenProvider());
+      return _i1.AdaptivePage(entry: entry, child: _i2.DuelScreenProvider());
     },
     NewsTab.name: (entry) {
-      return _i1.AdaptivePage(entry: entry, child: _i4.NewsScreenProvider());
+      return _i1.AdaptivePage(entry: entry, child: _i2.NewsScreenProvider());
     },
     DeckTab.name: (entry) {
-      return _i1.AdaptivePage(entry: entry, child: _i5.DeckScreenProvider());
+      return _i1.AdaptivePage(entry: entry, child: _i2.DeckScreenProvider());
     }
   };
 

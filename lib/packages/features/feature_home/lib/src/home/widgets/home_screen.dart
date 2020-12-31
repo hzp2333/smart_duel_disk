@@ -113,7 +113,7 @@ class _BottomNavigationBarItem extends StatelessWidget {
       height: AppDimensions.tabBarItemHeight,
       child: InkWell(
         highlightColor: Colors.transparent,
-        splashColor: AppColors.tabSplashColor,
+        splashColor: AppColors.splashColor,
         onTap: onPressed,
         child: Column(
           mainAxisSize: MainAxisSize.min,

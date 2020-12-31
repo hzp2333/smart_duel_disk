@@ -9,12 +9,12 @@ import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../packages/wrappers/wrapper_crashlytics_provider/wrapper_crashlytics_provider_interface/lib/wrapper_crashlytics_provider_interface.dart';
-import '../../packages/features/feature_home/feature_home_impl/lib/src/deck/deck_viewmodel.dart';
-import '../../packages/features/feature_home/feature_home_impl/lib/src/duel/duel_viewmodel.dart';
+import '../../packages/features/feature_home/lib/src/deck/deck_viewmodel.dart';
+import '../../packages/features/feature_home/lib/src/duel/duel_viewmodel.dart';
 import '../../packages/wrappers/wrapper_crashlytics_provider/wrapper_crashlytics_provider_impl/lib/src/firebase/firebase_crashlytics_provider.dart';
 import 'modules/third_party_modules.dart';
-import '../../packages/features/feature_home/feature_home_impl/lib/src/home/home_viewmodel.dart';
-import '../../packages/features/feature_home/feature_home_impl/lib/src/news/news_viewmodel.dart';
+import '../../packages/features/feature_home/lib/src/home/home_viewmodel.dart';
+import '../../packages/features/feature_home/lib/src/news/news_viewmodel.dart';
 
 /// adds generated dependencies
 /// to the provided [GetIt] instance
