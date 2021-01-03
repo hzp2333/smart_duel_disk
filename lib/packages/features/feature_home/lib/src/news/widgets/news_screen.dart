@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/news/models/social_media.dart';
+import 'package:smart_duel_disk/packages/features/feature_home/lib/src/news/news_viewmodel.dart';
 
 import 'widgets/social_media_header.dart';
 
@@ -15,6 +17,8 @@ class NewsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final vm = Provider.of<NewsViewModel>(context);
+
     return SingleChildScrollView(
       physics: const ClampingScrollPhysics(),
       child: Column(

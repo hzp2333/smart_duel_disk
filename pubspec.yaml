@@ -12,6 +12,8 @@ dependencies:
   auto_localized: ^0.7.0
   auto_route: ^1.0.0-beta.5+1
   cupertino_icons: ^1.0.0
+  dart_twitter_api: ^0.3.5
+  equatable: ^1.2.5
   firebase_core: ^0.5.3
   firebase_crashlytics: ^0.2.4
   font_awesome_flutter: ^8.11.0
