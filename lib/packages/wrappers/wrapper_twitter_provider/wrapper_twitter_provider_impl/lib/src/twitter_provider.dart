@@ -2,6 +2,7 @@ import 'package:dart_twitter_api/twitter_api.dart';
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_twitter_provider/wrapper_twitter_provider_interface/lib/src/twitter_provider.dart';
+import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 
 @LazySingleton(as: TwitterProvider)
 class TwitterProviderImpl implements TwitterProvider {
@@ -18,7 +19,7 @@ class TwitterProviderImpl implements TwitterProvider {
     final tweets = await _twitterApi.timelineService.userTimeline(userId: userId, count: count);
 
     for (final tweet in tweets) {
-      final imageUrl = tweet.entities.media.isEmpty ? null : tweet.entities.media.first.expandedUrl;
+      final imageUrl = tweet.entities.media.isNullOrEmpty ? null : tweet.entities.media.first.expandedUrl;
 
       newsItems.add(NewsItem(
         text: tweet.fullText,
