@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/news/models/news_list_item.dart';
+import 'package:smart_duel_disk/packages/features/feature_home/lib/src/news/news_viewmodel.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
 class NewsList extends StatelessWidget {
@@ -37,8 +39,8 @@ class _NewsListItemBuilder extends StatelessWidget {
     return Stack(
       children: [
         _NewsListItem(newsItem: newsItem),
-        const Positioned.fill(
-          child: _NewsListItemRipple(),
+        Positioned.fill(
+          child: _NewsListItemRipple(newsItem: newsItem),
         ),
       ],
     );
@@ -206,16 +208,22 @@ class _NewsListItemText extends StatelessWidget {
 }
 
 class _NewsListItemRipple extends StatelessWidget {
-  const _NewsListItemRipple();
+  final NewsListItem newsItem;
+
+  const _NewsListItemRipple({
+    @required this.newsItem,
+  });
 
   @override
   Widget build(BuildContext context) {
+    final vm = Provider.of<NewsViewModel>(context);
+
     return Material(
       color: Colors.transparent,
       child: Padding(
         padding: const EdgeInsets.all(AppDimensions.newsCardMargin),
         child: InkWell(
-          onTap: () {},
+          onTap: () => vm.onNewsItemTapped(newsItem),
           highlightColor: Colors.transparent,
           splashColor: AppColors.cardSplashColor,
           borderRadius: BorderRadius.circular(AppDimensions.newsCardBorderRadius),
