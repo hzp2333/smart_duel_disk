@@ -17,6 +17,7 @@ dependencies:
   equatable: ^1.2.5
   firebase_core: ^0.5.3
   firebase_crashlytics: ^0.2.4
+  flutter_dotenv: ^2.1.0
   font_awesome_flutter: ^8.11.0
   freezed_annotation: ^0.12.0
   get_it: ^5.0.3
@@ -39,6 +40,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - secrets.env
 
 scripts:
   go: flutter run

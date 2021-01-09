@@ -24,3 +24,4 @@ ios/Runner/GoogleService-Info.plist
 .flutter-plugins
 .flutter-plugins-dependencies
 ios/Flutter/.last_build_id
+*.env
