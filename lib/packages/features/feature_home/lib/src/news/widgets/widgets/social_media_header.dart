@@ -37,10 +37,10 @@ class _SocialMediaHeaderItem extends StatelessWidget {
       child: IconButton(
         onPressed: () {},
         highlightColor: Colors.transparent,
-        splashColor: AppColors.splashColor,
+        splashColor: AppColors.tabSplashColor,
         icon: Icon(
           socialMedia.icon,
-          color: AppColors.iconColor,
+          color: AppColors.primaryIconColor,
         ),
       ),
     );

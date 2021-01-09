@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/news/models/news_list_item.dart';
+import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
 import '../models/news_state.dart';
 import '../news_viewmodel.dart';
@@ -52,7 +53,12 @@ class _DataBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: const ClampingScrollPhysics(),
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(
+        AppDimensions.screenMargin,
+        0,
+        AppDimensions.screenMargin,
+        AppDimensions.screenMargin,
+      ),
       child: Column(
         children: [
           SocialMediaHeader(),
@@ -72,9 +78,7 @@ class _LoadingBody extends StatelessWidget {
       children: [
         SocialMediaHeader(),
         const Expanded(
-          child: Center(
-            child: CircularProgressIndicator(),
-          ),
+          child: GeneralLoadingState(),
         ),
       ],
     );
@@ -91,7 +95,9 @@ class _ErrorBody extends StatelessWidget {
         SocialMediaHeader(),
         const Expanded(
           child: Center(
-            child: Text('The data could not be loaded.'),
+            child: Text(
+              'The latest could not be loaded. Please check your internet connection and try again.',
+            ),
           ),
         ),
       ],

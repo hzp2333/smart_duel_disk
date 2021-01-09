@@ -24,7 +24,7 @@ class HomeScreen extends StatelessWidget {
 
         return Scaffold(
           appBar: const _AppBar(),
-          backgroundColor: AppColors.backgroundColor,
+          backgroundColor: AppColors.primaryBackgroundColor,
           body: FadeTransition(
             opacity: animation,
             child: child,
@@ -46,7 +46,7 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 0,
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: AppColors.primaryBackgroundColor,
     );
   }
 
@@ -71,7 +71,7 @@ class _BottomNavigationBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return BottomAppBar(
       elevation: 0,
-      color: AppColors.backgroundColor,
+      color: AppColors.primaryBackgroundColor,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: tabs
@@ -113,7 +113,7 @@ class _BottomNavigationBarItem extends StatelessWidget {
       height: AppDimensions.tabBarItemHeight,
       child: InkWell(
         highlightColor: Colors.transparent,
-        splashColor: AppColors.splashColor,
+        splashColor: AppColors.tabSplashColor,
         onTap: onPressed,
         child: Column(
           mainAxisSize: MainAxisSize.min,

@@ -58,8 +58,11 @@ GetIt $initGetIt(
         get<CrashlyticsProvider>(),
       ));
   gh.lazySingleton<DataManager>(() => DataManagerImpl(get<NewsDataManager>()));
-  gh.factory<NewsViewModel>(
-      () => NewsViewModel(get<DataManager>(), get<DateFormatter>()));
+  gh.factory<NewsViewModel>(() => NewsViewModel(
+        get<DataManager>(),
+        get<DateFormatter>(),
+        get<CrashlyticsProvider>(),
+      ));
   return get;
 }
 

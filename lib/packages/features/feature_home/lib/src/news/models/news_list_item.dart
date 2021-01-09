@@ -21,6 +21,8 @@ class NewsListItem extends Equatable {
     @required this.imageUrl,
   });
 
+  bool get hasImage => imageUrl != null;
+
   @override
   List<Object> get props => [
         id,
