@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/news/models/news_list_item.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
@@ -94,8 +95,8 @@ class _NewsListItemImage extends StatelessWidget {
           topLeft: Radius.circular(AppDimensions.newsCardBorderRadius),
           topRight: Radius.circular(AppDimensions.newsCardBorderRadius),
         ),
-        child: Image.network(
-          imageUrl,
+        child: CachedNetworkImage(
+          imageUrl: imageUrl,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -154,7 +155,7 @@ class _NewsListItemAuthor extends StatelessWidget {
     return Row(
       children: [
         CircleAvatar(
-          backgroundImage: NetworkImage(newsItem.authorImageUrl),
+          backgroundImage: CachedNetworkImageProvider(newsItem.authorImageUrl),
           radius: AppDimensions.newsCardAuthorImageRadius,
         ),
         const SizedBox(width: AppDimensions.newsCardAuthorImageNameSpacing),
