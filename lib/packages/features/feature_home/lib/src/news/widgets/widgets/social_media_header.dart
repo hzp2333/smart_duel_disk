@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/news/models/social_media.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
 class SocialMediaHeader extends StatelessWidget {
-  final List<SocialMedia> socialMedia;
-
-  const SocialMediaHeader({
-    @required this.socialMedia,
-  });
+  static final _socialMedia = List<SocialMedia>.unmodifiable(<SocialMedia>[
+    const SocialMedia(icon: FontAwesomeIcons.youtube),
+    const SocialMedia(icon: FontAwesomeIcons.twitter),
+    const SocialMedia(icon: FontAwesomeIcons.discord),
+  ]);
 
   @override
   Widget build(BuildContext context) {
     return Center(
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: socialMedia.map((sm) => _SocialMediaHeaderItem(socialMedia: sm)).toList(),
+        children: _socialMedia.map((sm) => _SocialMediaHeaderItem(socialMedia: sm)).toList(),
       ),
     );
   }

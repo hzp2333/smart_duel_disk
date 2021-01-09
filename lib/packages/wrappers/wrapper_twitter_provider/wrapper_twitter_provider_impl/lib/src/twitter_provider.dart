@@ -19,11 +19,13 @@ class TwitterProviderImpl implements TwitterProvider {
     final tweets = await _twitterApi.timelineService.userTimeline(userId: userId, count: count);
 
     for (final tweet in tweets) {
-      final imageUrl = tweet.entities.media.isNullOrEmpty ? null : tweet.entities.media.first.expandedUrl;
+      final imageUrl = tweet.entities.media.isNullOrEmpty ? null : tweet.entities.media.first.mediaUrlHttps;
 
       newsItems.add(NewsItem(
+        id: tweet.idStr,
         text: tweet.fullText,
-        authorName: tweet.user.screenName,
+        authorId: tweet.user.screenName,
+        authorName: tweet.user.name,
         authorImageUrl: tweet.user.profileImageUrlHttps,
         createdAt: tweet.createdAt,
         imageUrl: imageUrl,

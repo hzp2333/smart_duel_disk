@@ -14,6 +14,7 @@ class SmartDuelDiskApp extends StatelessWidget {
         title: 'Smart Duel Disk',
         theme: ThemeData(
           primarySwatch: Colors.blue,
+          brightness: Brightness.dark,
           visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
         routerDelegate: router.delegate(),

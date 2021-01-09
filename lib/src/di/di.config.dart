@@ -13,6 +13,9 @@ import '../../packages/core/core_config/core_config_interface/lib/core_config_in
 import '../../packages/wrappers/wrapper_crashlytics_provider/wrapper_crashlytics_provider_interface/lib/wrapper_crashlytics_provider_interface.dart';
 import '../../packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/data_manager.dart';
+import '../../packages/core/core_general/lib/core_general.dart';
+import '../../packages/core/core_general/lib/src/formatters/date_formatter.dart'
+    as smart_duel_disk1;
 import '../../packages/features/feature_home/lib/src/deck/deck_viewmodel.dart';
 import '../../packages/features/feature_home/lib/src/duel/duel_viewmodel.dart';
 import '../../packages/wrappers/wrapper_crashlytics_provider/wrapper_crashlytics_provider_impl/lib/src/firebase/firebase_crashlytics_provider.dart';
@@ -36,6 +39,8 @@ GetIt $initGetIt(
   final gh = GetItHelper(get, environment, environmentFilter);
   final firebaseModule = _$FirebaseModule();
   final twitterModule = _$TwitterModule();
+  gh.lazySingleton<smart_duel_disk1.DateFormatter>(
+      () => smart_duel_disk1.DateFormatter());
   gh.factory<DeckViewModel>(() => DeckViewModel());
   gh.factory<DuelViewModel>(() => DuelViewModel());
   gh.lazySingleton<FirebaseCrashlytics>(
@@ -53,7 +58,8 @@ GetIt $initGetIt(
         get<CrashlyticsProvider>(),
       ));
   gh.lazySingleton<DataManager>(() => DataManagerImpl(get<NewsDataManager>()));
-  gh.factory<NewsViewModel>(() => NewsViewModel(get<DataManager>()));
+  gh.factory<NewsViewModel>(
+      () => NewsViewModel(get<DataManager>(), get<DateFormatter>()));
   return get;
 }
 

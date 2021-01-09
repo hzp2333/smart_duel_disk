@@ -2,16 +2,16 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
-class NewsItem extends Equatable {
+class NewsListItem extends Equatable {
   final String id;
   final String text;
   final String authorId;
   final String authorName;
   final String authorImageUrl;
-  final DateTime createdAt;
+  final String createdAt;
   final String imageUrl;
 
-  const NewsItem({
+  const NewsListItem({
     @required this.id,
     @required this.text,
     @required this.authorId,
