@@ -72,4 +72,19 @@ class Strings {
       'en': '''Deck''',
     },
   );
+
+  static const generalErrorTryAgain = PlainLocalizedString(
+    key: 'general_error_try_again',
+    values: {
+      'en': '''Try again''',
+    },
+  );
+
+  static const newsGeneralErrorDescription = PlainLocalizedString(
+    key: 'news_general_error_description',
+    values: {
+      'en':
+          '''The latest news could not be loaded. Please check your internet connection and try again.''',
+    },
+  );
 }

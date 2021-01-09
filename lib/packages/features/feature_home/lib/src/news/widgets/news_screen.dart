@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/news/models/news_list_item.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
+import 'package:smart_duel_disk/src/localization/strings.al.dart';
 
 import '../models/news_state.dart';
 import '../news_viewmodel.dart';
@@ -51,19 +52,23 @@ class _DataBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const ClampingScrollPhysics(),
-      padding: const EdgeInsets.fromLTRB(
-        AppDimensions.screenMargin,
-        0,
-        AppDimensions.screenMargin,
-        AppDimensions.screenMargin,
-      ),
-      child: Column(
-        children: [
-          SocialMediaHeader(),
-          NewsList(newsItems: newsItems),
-        ],
+    final vm = Provider.of<NewsViewModel>(context);
+
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppDimensions.screenMargin),
+      child: RefreshIndicator(
+        onRefresh: vm.onRefresh,
+        color: AppColors.primaryAccentColor,
+        child: SingleChildScrollView(
+          physics: const ClampingScrollPhysics(),
+          padding: const EdgeInsets.symmetric(horizontal: AppDimensions.screenMargin),
+          child: Column(
+            children: [
+              SocialMediaHeader(),
+              NewsList(newsItems: newsItems),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -90,14 +95,16 @@ class _ErrorBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final vm = Provider.of<NewsViewModel>(context);
+
     return Column(
       children: [
         SocialMediaHeader(),
-        const Expanded(
-          child: Center(
-            child: Text(
-              'The latest could not be loaded. Please check your internet connection and try again.',
-            ),
+        Expanded(
+          child: GeneralErrorState(
+            description: Strings.newsGeneralErrorDescription.get(),
+            canRetry: true,
+            retryAction: vm.onRetryPressed,
           ),
         ),
       ],

@@ -3,9 +3,11 @@
 # Release: Working copy
 # Locale: en-US, English (USA)
 # Exported by: Bram De Coninck
-# Exported at: Tue, 29 Dec 2020 15:28:17 +0100
+# Exported at: Sat, 09 Jan 2021 15:47:44 +0100
 ---
 home_tab_news: News
 home_tab_duel: Duel
 home_tab_deck: Deck
+general_error_try_again: Try again
+news_general_error_description: The latest news could not be loaded. Please check your internet connection and try again.
 ...

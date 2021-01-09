@@ -16,4 +16,7 @@ class AppDimensions {
   static const newsCardImageAspectRatio = 16 / 9;
 
   static const titleDescriptionSpacing = 16.0;
+
+  static const buttonBorderRadius = 8.0;
+  static const descriptionButtonSpacing = 8.0;
 }

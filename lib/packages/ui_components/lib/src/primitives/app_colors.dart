@@ -8,7 +8,7 @@ class AppColors {
 
   static const cardBackgroundColor = Color(0xff32333a);
   static const cardHeaderBackgroundColor = Color(0xff28292e);
-  static final cardSplashColor = const Color(0xff3f4049).withOpacity(0.1);
+  static final cardSplashColor = const Color(0xff9e9e9e).withOpacity(0.1);
 
   static const tabSelectedColor = primaryAccentColor;
   static const tabUnselectedColor = Color(0xff9e9e9e);

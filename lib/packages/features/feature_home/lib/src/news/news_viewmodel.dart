@@ -23,6 +23,18 @@ class NewsViewModel {
   );
 
   Future<void> init() async {
+    return _fetchData();
+  }
+
+  Future<void> onRefresh() {
+    return _fetchData();
+  }
+
+  Future<void> onRetryPressed() {
+    return _fetchData();
+  }
+
+  Future<void> _fetchData() async {
     _newsState.add(const NewsState.loading());
 
     try {
