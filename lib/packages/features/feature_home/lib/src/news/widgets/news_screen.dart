@@ -56,17 +56,20 @@ class _DataBody extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.only(bottom: AppDimensions.screenMargin),
-      child: RefreshIndicator(
-        onRefresh: vm.onRefresh,
-        color: AppColors.primaryAccentColor,
-        child: SingleChildScrollView(
-          physics: const ClampingScrollPhysics(),
-          padding: const EdgeInsets.symmetric(horizontal: AppDimensions.screenMargin),
-          child: Column(
-            children: [
-              SocialMediaHeader(),
-              NewsList(newsItems: newsItems),
-            ],
+      child: ScrollConfiguration(
+        behavior: NoScrollGlowBehavior(),
+        child: RefreshIndicator(
+          onRefresh: vm.onRefresh,
+          color: AppColors.primaryAccentColor,
+          child: SingleChildScrollView(
+            physics: const ClampingScrollPhysics(),
+            padding: const EdgeInsets.symmetric(horizontal: AppDimensions.screenMargin),
+            child: Column(
+              children: [
+                SocialMediaHeader(),
+                NewsList(newsItems: newsItems),
+              ],
+            ),
           ),
         ),
       ),
