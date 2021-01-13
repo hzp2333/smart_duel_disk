@@ -1,0 +1,1 @@
+library core_ygoprodeck_interface;
