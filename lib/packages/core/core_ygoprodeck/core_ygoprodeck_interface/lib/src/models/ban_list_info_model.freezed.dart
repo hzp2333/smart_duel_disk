@@ -18,9 +18,9 @@ class _$BanListInfoModelTearOff {
 
 // ignore: unused_element
   _BanListInfoModel call(
-      {@required @JsonKey(name: 'ban_ocg') String banOcg,
-      @required @JsonKey(name: 'ban_goat') String banGoat,
-      @required @JsonKey(name: 'ban_tcg') String banTcg}) {
+      {@JsonKey(name: 'ban_ocg') String banOcg,
+      @JsonKey(name: 'ban_goat') String banGoat,
+      @JsonKey(name: 'ban_tcg') String banTcg}) {
     return _BanListInfoModel(
       banOcg: banOcg,
       banGoat: banGoat,
@@ -128,12 +128,9 @@ class __$BanListInfoModelCopyWithImpl<$Res>
 /// @nodoc
 class _$_BanListInfoModel implements _BanListInfoModel {
   const _$_BanListInfoModel(
-      {@required @JsonKey(name: 'ban_ocg') this.banOcg,
-      @required @JsonKey(name: 'ban_goat') this.banGoat,
-      @required @JsonKey(name: 'ban_tcg') this.banTcg})
-      : assert(banOcg != null),
-        assert(banGoat != null),
-        assert(banTcg != null);
+      {@JsonKey(name: 'ban_ocg') this.banOcg,
+      @JsonKey(name: 'ban_goat') this.banGoat,
+      @JsonKey(name: 'ban_tcg') this.banTcg});
 
   factory _$_BanListInfoModel.fromJson(Map<String, dynamic> json) =>
       _$_$_BanListInfoModelFromJson(json);
@@ -185,9 +182,9 @@ class _$_BanListInfoModel implements _BanListInfoModel {
 
 abstract class _BanListInfoModel implements BanListInfoModel {
   const factory _BanListInfoModel(
-      {@required @JsonKey(name: 'ban_ocg') String banOcg,
-      @required @JsonKey(name: 'ban_goat') String banGoat,
-      @required @JsonKey(name: 'ban_tcg') String banTcg}) = _$_BanListInfoModel;
+      {@JsonKey(name: 'ban_ocg') String banOcg,
+      @JsonKey(name: 'ban_goat') String banGoat,
+      @JsonKey(name: 'ban_tcg') String banTcg}) = _$_BanListInfoModel;
 
   factory _BanListInfoModel.fromJson(Map<String, dynamic> json) =
       _$_BanListInfoModel.fromJson;

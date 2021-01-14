@@ -18,7 +18,7 @@ class _$CardImageModelTearOff {
 
 // ignore: unused_element
   _CardImageModel call(
-      {@required @JsonKey(name: 'cardmarket_price') int id,
+      {@required @JsonKey(name: 'id') int id,
       @required @JsonKey(name: 'image_url') String imageUrl,
       @required @JsonKey(name: 'image_url_small') String imageUrlSmall}) {
     return _CardImageModel(
@@ -40,7 +40,7 @@ const $CardImageModel = _$CardImageModelTearOff();
 
 /// @nodoc
 mixin _$CardImageModel {
-  @JsonKey(name: 'cardmarket_price')
+  @JsonKey(name: 'id')
   int get id;
   @JsonKey(name: 'image_url')
   String get imageUrl;
@@ -57,7 +57,7 @@ abstract class $CardImageModelCopyWith<$Res> {
           CardImageModel value, $Res Function(CardImageModel) then) =
       _$CardImageModelCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'cardmarket_price') int id,
+      {@JsonKey(name: 'id') int id,
       @JsonKey(name: 'image_url') String imageUrl,
       @JsonKey(name: 'image_url_small') String imageUrlSmall});
 }
@@ -95,7 +95,7 @@ abstract class _$CardImageModelCopyWith<$Res>
       __$CardImageModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'cardmarket_price') int id,
+      {@JsonKey(name: 'id') int id,
       @JsonKey(name: 'image_url') String imageUrl,
       @JsonKey(name: 'image_url_small') String imageUrlSmall});
 }
@@ -132,7 +132,7 @@ class __$CardImageModelCopyWithImpl<$Res>
 /// @nodoc
 class _$_CardImageModel implements _CardImageModel {
   const _$_CardImageModel(
-      {@required @JsonKey(name: 'cardmarket_price') this.id,
+      {@required @JsonKey(name: 'id') this.id,
       @required @JsonKey(name: 'image_url') this.imageUrl,
       @required @JsonKey(name: 'image_url_small') this.imageUrlSmall})
       : assert(id != null),
@@ -143,7 +143,7 @@ class _$_CardImageModel implements _CardImageModel {
       _$_$_CardImageModelFromJson(json);
 
   @override
-  @JsonKey(name: 'cardmarket_price')
+  @JsonKey(name: 'id')
   final int id;
   @override
   @JsonKey(name: 'image_url')
@@ -190,7 +190,7 @@ class _$_CardImageModel implements _CardImageModel {
 
 abstract class _CardImageModel implements CardImageModel {
   const factory _CardImageModel(
-          {@required @JsonKey(name: 'cardmarket_price') int id,
+          {@required @JsonKey(name: 'id') int id,
           @required @JsonKey(name: 'image_url') String imageUrl,
           @required @JsonKey(name: 'image_url_small') String imageUrlSmall}) =
       _$_CardImageModel;
@@ -199,7 +199,7 @@ abstract class _CardImageModel implements CardImageModel {
       _$_CardImageModel.fromJson;
 
   @override
-  @JsonKey(name: 'cardmarket_price')
+  @JsonKey(name: 'id')
   int get id;
   @override
   @JsonKey(name: 'image_url')

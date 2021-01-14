@@ -4,6 +4,7 @@
 // InjectableConfigGenerator
 // **************************************************************************
 
+import 'package:dio/dio.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
@@ -29,6 +30,11 @@ import '../../packages/wrappers/wrapper_twitter/wrapper_twitter_interface/lib/wr
 import '../../packages/wrappers/wrapper_twitter/wrapper_twitter_impl/lib/src/twitter_provider.dart';
 import '../../packages/wrappers/wrapper_url_launcher/wrapper_url_launcher_interface/lib/wrapper_url_launcher_interface.dart';
 import '../../packages/wrappers/wrapper_url_launcher/wrapper_url_launcher_impl/lib/src/url_launcher_provider.dart';
+import '../../packages/core/core_ygoprodeck/core_ygoprodeck_interface/lib/core_ygoprodeck_interface.dart';
+import '../../packages/core/core_ygoprodeck/core_ygoprodeck_impl/lib/src/ygoprodeck_api_provider.dart';
+import 'modules/core_modules.dart';
+import '../../packages/core/core_ygoprodeck/core_ygoprodeck_impl/lib/src/api/ygoprodeck_api.dart';
+import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/yugioh_cards/yugioh_cards_data_manager.dart';
 
 /// adds generated dependencies
 /// to the provided [GetIt] instance
@@ -39,10 +45,12 @@ GetIt $initGetIt(
   EnvironmentFilter environmentFilter,
 }) {
   final gh = GetItHelper(get, environment, environmentFilter);
+  final ygoProDeckModule = _$YgoProDeckModule();
   final firebaseModule = _$FirebaseModule();
   final twitterModule = _$TwitterModule();
   gh.lazySingleton<DateFormatter>(() => DateFormatter());
-  gh.factory<DeckViewModel>(() => DeckViewModel());
+  gh.lazySingleton<Dio>(
+      () => ygoProDeckModule.provideYgoProDeckDio(get<AppConfig>()));
   gh.factory<DuelViewModel>(() => DuelViewModel());
   gh.lazySingleton<FirebaseCrashlytics>(
       () => firebaseModule.provideFirebaseCrashlytics());
@@ -52,13 +60,21 @@ GetIt $initGetIt(
   gh.lazySingleton<TwitterProvider>(
       () => TwitterProviderImpl(get<TwitterApi>()));
   gh.lazySingleton<UrlLauncherProvider>(() => UrlLauncherProviderImpl());
+  gh.lazySingleton<YgoProDeckRestClient>(
+      () => YgoProDeckRestClient(get<Dio>()));
   gh.lazySingleton<CrashlyticsProvider>(
       () => FirebaseCrashlyticsProvider(get<FirebaseCrashlytics>()));
   gh.lazySingleton<NewsDataManager>(
       () => NewsDataManagerImpl(get<AppConfig>(), get<TwitterProvider>()));
   gh.lazySingleton<RouterHelper>(
       () => RouterHelperImpl(get<AppConfig>(), get<UrlLauncherProvider>()));
-  gh.lazySingleton<DataManager>(() => DataManagerImpl(get<NewsDataManager>()));
+  gh.lazySingleton<YgoProDeckApiProvider>(
+      () => YgoProDeckApiProviderImpl(get<YgoProDeckRestClient>()));
+  gh.lazySingleton<YugiohCardsDataManager>(
+      () => YugiohCardsDataManagerImpl(get<YgoProDeckApiProvider>()));
+  gh.lazySingleton<DataManager>(() =>
+      DataManagerImpl(get<NewsDataManager>(), get<YugiohCardsDataManager>()));
+  gh.factory<DeckViewModel>(() => DeckViewModel(get<DataManager>()));
   gh.factory<NewsViewModel>(() => NewsViewModel(
         get<RouterHelper>(),
         get<DataManager>(),
@@ -67,6 +83,8 @@ GetIt $initGetIt(
       ));
   return get;
 }
+
+class _$YgoProDeckModule extends YgoProDeckModule {}
 
 class _$FirebaseModule extends FirebaseModule {}
 

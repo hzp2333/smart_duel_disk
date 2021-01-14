@@ -6,7 +6,7 @@ part 'card_image_model.g.dart';
 @freezed
 abstract class CardImageModel with _$CardImageModel {
   const factory CardImageModel({
-    @required @JsonKey(name: 'cardmarket_price') int id,
+    @required @JsonKey(name: 'id') int id,
     @required @JsonKey(name: 'image_url') String imageUrl,
     @required @JsonKey(name: 'image_url_small') String imageUrlSmall,
   }) = _CardImageModel;
