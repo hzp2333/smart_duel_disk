@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:smart_duel_disk/packages/core/core_config/core_config_interface/lib/core_config_interface.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_interface/lib/wrapper_crashlytics_interface.dart';
 import 'package:smart_duel_disk/src/app/app.dart';
@@ -21,6 +22,11 @@ Future<void> start(AppConfig appConfig) async {
 
   // Catch all uncaught errors from the framework and report them.
   runZonedGuarded<Future<void>>(() async {
+    SystemChrome.setPreferredOrientations([
+      // Allow only portrait mode.
+      DeviceOrientation.portraitUp,
+    ]);
+
     runApp(SmartDuelDiskApp());
   }, crashlyticsProvider.logException);
 }

@@ -10,6 +10,10 @@ enum CardAttribute {
 }
 
 CardAttribute parseCardAttribute(String value) {
+  if (value == null) {
+    return CardAttribute.unknown;
+  }
+
   switch (value.toLowerCase()) {
     case 'dark':
       return CardAttribute.dark;

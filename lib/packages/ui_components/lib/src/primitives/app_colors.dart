@@ -13,4 +13,20 @@ class AppColors {
   static const tabSelectedColor = primaryAccentColor;
   static const tabUnselectedColor = Color(0xff9e9e9e);
   static const tabSplashColor = Color(0xff28292e);
+
+  static final deckYugiBackgroundColor = Colors.red[700];
+  static final deckKaibaBackgroundColor = Colors.blue[700];
+
+  static final whiteOverlayGradient = LinearGradient(
+    colors: [Colors.white.withOpacity(0.35), Colors.white.withOpacity(0)],
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+  );
+
+  static final blackShadow = BoxShadow(
+    color: Colors.black.withOpacity(0.5),
+    blurRadius: 20.0,
+    spreadRadius: 8,
+    offset: const Offset(0, 4),
+  );
 }
