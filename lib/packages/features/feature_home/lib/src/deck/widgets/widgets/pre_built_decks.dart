@@ -91,7 +91,45 @@ class _PreBuiltDeckCard extends StatelessWidget {
               style: TextStyles.subtitle,
             ),
           ),
+          Positioned.fill(
+            child: _PreBuiltDeckCardRipple(
+              backgroundColor: backgroundColor,
+              deckName: deckName,
+            ),
+          ),
         ],
+      ),
+    );
+  }
+}
+
+class _PreBuiltDeckCardRipple extends StatelessWidget {
+  final Color backgroundColor;
+  final String deckName;
+
+  const _PreBuiltDeckCardRipple({
+    @required this.backgroundColor,
+    @required this.deckName,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: () {
+          Scaffold.of(context).hideCurrentSnackBar();
+          Scaffold.of(context).showSnackBar(SnackBar(
+            content: Text(
+              '$deckName is not available yet',
+              style: const TextStyle(color: AppColors.primaryIconColor),
+            ),
+            backgroundColor: AppColors.cardBackgroundColor,
+          ));
+        },
+        highlightColor: Colors.transparent,
+        splashColor: backgroundColor.withOpacity(0.15),
+        borderRadius: BorderRadius.circular(AppDimensions.newsCardBorderRadius),
       ),
     );
   }
