@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/feature_deck_builder.dart';
+import 'package:smart_duel_disk/packages/features/feature_draw_card/lib/src/widgets/draw_card_screen_provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/feature_home.dart';
 import 'package:smart_duel_disk/packages/features/feature_yugioh_card_detail/lib/feature_yugioh_card_detail.dart';
 
@@ -18,6 +19,7 @@ import 'package:smart_duel_disk/packages/features/feature_yugioh_card_detail/lib
     ),
     AutoRoute<void>(page: DeckBuilderScreenProvider),
     AutoRoute<void>(page: YugiohCardDetailScreenProvider),
+    AutoRoute<void>(page: DrawCardScreenProvider),
   ],
 )
 class $AppRouter {}

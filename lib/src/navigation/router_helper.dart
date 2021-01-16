@@ -18,6 +18,11 @@ class RouterHelperImpl implements RouterHelper {
     this._urlLauncherProvider,
   );
 
+  @override
+  Future<void> closeScreen() {
+    return _router.pop();
+  }
+
   //region News
 
   @override
@@ -29,28 +34,6 @@ class RouterHelperImpl implements RouterHelper {
       debugPrint(exception.toString());
     }
   }
-
-  //endregion
-
-  //region Deck
-
-  @override
-  Future<void> showDeckBuilder() {
-    return _router.navigate(const DeckBuilderRoute());
-  }
-
-  //endregion
-
-  //region Yu-Gi-Oh! Card Detail
-
-  @override
-  Future<void> showYugiohCardDetail(YugiohCard yugiohCard) {
-    return _router.navigate(YugiohCardDetailRoute(yugiohCard: yugiohCard));
-  }
-
-  //endregion
-
-  //region Social Media
 
   @override
   Future<void> showYoutube() async {
@@ -77,6 +60,33 @@ class RouterHelperImpl implements RouterHelper {
     } catch (exception) {
       debugPrint(exception.toString());
     }
+  }
+
+  //endregion
+
+  //region Deck
+
+  @override
+  Future<void> showDeckBuilder() {
+    return _router.navigate(const DeckBuilderRoute());
+  }
+
+  //endregion
+
+  //region Duel
+
+  @override
+  Future<void> showDrawCard() {
+    return _router.navigate(const DrawCardRoute());
+  }
+
+  //endregion
+
+  //region Deck builder
+
+  @override
+  Future<void> showYugiohCardDetail(YugiohCard yugiohCard) {
+    return _router.navigate(YugiohCardDetailRoute(yugiohCard: yugiohCard));
   }
 
   //endregion

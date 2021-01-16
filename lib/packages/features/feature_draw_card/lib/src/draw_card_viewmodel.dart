@@ -2,14 +2,14 @@ import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 
 @Injectable()
-class DuelViewModel {
+class DrawCardViewModel {
   final RouterHelper _router;
 
-  DuelViewModel(
+  DrawCardViewModel(
     this._router,
   );
 
-  Future<void> onDrawCardDemoPressed() {
-    return _router.showDrawCard();
+  Future<void> onCardDrawn() {
+    return _router.closeScreen();
   }
 }
