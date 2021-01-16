@@ -12,7 +12,10 @@ class NewsScreenProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(create: (_) => di.get<NewsViewModel>()),
+        Provider<NewsViewModel>(
+          create: (_) => di.get<NewsViewModel>(),
+          dispose: (_, vm) => vm.dispose(),
+        ),
       ],
       child: const NewsScreen(),
     );

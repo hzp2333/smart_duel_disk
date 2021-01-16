@@ -8,7 +8,7 @@ import 'package:smart_duel_disk/packages/features/feature_home/lib/src/news/mode
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/news/models/social_media.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_interface/lib/wrapper_crashlytics_interface.dart';
 
-import './extensions/news_item_extensions.dart';
+import 'extensions/news_item_extensions.dart';
 
 @Injectable()
 class NewsViewModel {
@@ -67,5 +67,9 @@ class NewsViewModel {
       _crashlyticsProvider.logException(exception, stackTrace);
       _newsState.add(const NewsState.error());
     }
+  }
+
+  void dispose() {
+    _newsState?.close();
   }
 }

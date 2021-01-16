@@ -87,4 +87,75 @@ class Strings {
           '''The latest news could not be loaded. Please check your internet connection and try again.''',
     },
   );
+
+  static const deckBuilderGeneralErrorDescription = PlainLocalizedString(
+    key: 'deck_builder_general_error_description',
+    values: {
+      'en':
+          '''An error occurred while fetching the cards. Please check your internet connection and try again.''',
+    },
+  );
+
+  static const deckBuilderNoDataErrorDescription = PlainLocalizedString(
+    key: 'deck_builder_no_data_error_description',
+    values: {
+      'en': '''No cards were found. Please update the filter.''',
+    },
+  );
+
+  static const deckBuilderSearchHint = PlainLocalizedString(
+    key: 'deck_builder_search_hint',
+    values: {
+      'en': '''Search by name or archetype...''',
+    },
+  );
+
+  static const deckPreBuiltDecksTitle = PlainLocalizedString(
+    key: 'deck_pre_built_decks_title',
+    values: {
+      'en': '''Pre-built decks''',
+    },
+  );
+
+  static const deckPersonalDecksTitle = PlainLocalizedString(
+    key: 'deck_personal_decks_title',
+    values: {
+      'en': '''Personal decks''',
+    },
+  );
+
+  static const deckPreBuiltYugiTitle = PlainLocalizedString(
+    key: 'deck_pre_built_yugi_title',
+    values: {
+      'en': '''Yugi's Deck''',
+    },
+  );
+
+  static const deckPreBuiltKaibaTitle = PlainLocalizedString(
+    key: 'deck_pre_built_kaiba_title',
+    values: {
+      'en': '''Kaiba's Deck''',
+    },
+  );
+
+  static const featureNotAvailableYetDescription = ArgLocalizedString1(
+    key: 'feature_not_available_yet_description',
+    values: {
+      'en': '''{1} is not available yet''',
+    },
+  );
+
+  static const deckPersonalCreateDeck = PlainLocalizedString(
+    key: 'deck_personal_create_deck',
+    values: {
+      'en': '''Create a deck''',
+    },
+  );
+
+  static const deckPersonalSearchCard = PlainLocalizedString(
+    key: 'deck_personal_search_card',
+    values: {
+      'en': '''Search a card''',
+    },
+  );
 }

@@ -1,15 +1,19 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_config/core_config_interface/lib/core_config_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/src/yugioh_cards/entities/yugioh_card.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_url_launcher/wrapper_url_launcher_interface/lib/wrapper_url_launcher_interface.dart';
+import 'package:smart_duel_disk/src/navigation/router.gr.dart';
 
 @LazySingleton(as: RouterHelper)
 class RouterHelperImpl implements RouterHelper {
+  final AppRouter _router;
   final AppConfig _appConfig;
   final UrlLauncherProvider _urlLauncherProvider;
 
   RouterHelperImpl(
+    this._router,
     this._appConfig,
     this._urlLauncherProvider,
   );
@@ -24,6 +28,24 @@ class RouterHelperImpl implements RouterHelper {
     } catch (exception) {
       debugPrint(exception.toString());
     }
+  }
+
+  //endregion
+
+  //region Deck
+
+  @override
+  Future<void> showDeckBuilder() {
+    return _router.navigate(const DeckBuilderRoute());
+  }
+
+  //endregion
+
+  //region Yu-Gi-Oh! Card Detail
+
+  @override
+  Future<void> showYugiohCardDetail(YugiohCard yugiohCard) {
+    return _router.navigate(YugiohCardDetailRoute(yugiohCard: yugiohCard));
   }
 
   //endregion

@@ -3,6 +3,10 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 @immutable
 class AppConfig {
+  String get ygoProDeckBaseUrl => 'https://db.ygoprodeck.com/api/v7';
+  int get ygoProDeckReceiveTimeout => 10000;
+  int get ygoProDeckConnectTimeout => 10000;
+
   String get twitterUrl => 'https://twitter.com/CrownCorpBE';
   String get tweetUrl => 'https://twitter.com/{0}/status/{1}';
   String get youtubeUrl => 'https://www.youtube.com/channel/UCz2Que3btHnGkwrW-emZV5A';

@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -132,7 +133,6 @@ class _NewsListItemHeader extends StatelessWidget {
         AppDimensions.titleDescriptionSpacing / 2,
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.baseline,
         children: <Widget>[
           Expanded(
             child: _NewsListItemAuthor(newsItem: newsItem),
@@ -161,9 +161,10 @@ class _NewsListItemAuthor extends StatelessWidget {
           radius: AppDimensions.newsCardAuthorImageRadius,
         ),
         const SizedBox(width: AppDimensions.newsCardAuthorImageNameSpacing),
-        Text(
+        AutoSizeText(
           newsItem.authorName,
-          style: TextStyles.cardTitle,
+          style: TextStyles.subtitle,
+          maxLines: 1,
         ),
       ],
     );
@@ -181,7 +182,8 @@ class _NewsListItemDate extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       createdAt,
-      style: TextStyles.cardDate,
+      style: TextStyles.newsCardDate,
+      maxLines: 1,
     );
   }
 }

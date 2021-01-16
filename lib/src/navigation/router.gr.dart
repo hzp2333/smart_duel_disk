@@ -6,6 +6,13 @@
 
 import 'package:auto_route/auto_route.dart' as _i1;
 import '../../packages/features/feature_home/lib/feature_home.dart' as _i2;
+import '../../packages/features/feature_deck_builder/lib/feature_deck_builder.dart'
+    as _i3;
+import '../../packages/features/feature_yugioh_card_detail/lib/feature_yugioh_card_detail.dart'
+    as _i4;
+import 'package:flutter/material.dart' as _i5;
+import '../../packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart'
+    as _i6;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter();
@@ -14,6 +21,17 @@ class AppRouter extends _i1.RootStackRouter {
   final Map<String, _i1.PageFactory> pagesMap = {
     HomeRoute.name: (entry) {
       return _i1.AdaptivePage(entry: entry, child: _i2.HomeScreenProvider());
+    },
+    DeckBuilderRoute.name: (entry) {
+      return _i1.AdaptivePage(
+          entry: entry, child: _i3.DeckBuilderScreenProvider());
+    },
+    YugiohCardDetailRoute.name: (entry) {
+      var route = entry.routeData.as<YugiohCardDetailRoute>();
+      return _i1.AdaptivePage(
+          entry: entry,
+          child:
+              _i4.YugiohCardDetailScreenProvider(yugiohCard: route.yugiohCard));
     },
     DuelTab.name: (entry) {
       return _i1.AdaptivePage(entry: entry, child: _i2.DuelScreenProvider());
@@ -42,7 +60,13 @@ class AppRouter extends _i1.RootStackRouter {
               _i1.RouteConfig<DeckTab>(DeckTab.name,
                   path: 'deck-screen-provider',
                   routeBuilder: (_) => const DeckTab())
-            ])
+            ]),
+        _i1.RouteConfig<DeckBuilderRoute>(DeckBuilderRoute.name,
+            path: '/deck-builder-screen-provider',
+            routeBuilder: (_) => const DeckBuilderRoute()),
+        _i1.RouteConfig<YugiohCardDetailRoute>(YugiohCardDetailRoute.name,
+            path: '/yugioh-card-detail-screen-provider',
+            routeBuilder: (match) => YugiohCardDetailRoute.fromMatch(match))
       ];
 }
 
@@ -53,6 +77,27 @@ class HomeRoute extends _i1.PageRouteInfo {
   HomeRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
 
   static const String name = 'HomeRoute';
+}
+
+class DeckBuilderRoute extends _i1.PageRouteInfo {
+  const DeckBuilderRoute() : super(name, path: '/deck-builder-screen-provider');
+
+  static const String name = 'DeckBuilderRoute';
+}
+
+class YugiohCardDetailRoute extends _i1.PageRouteInfo {
+  YugiohCardDetailRoute({@_i5.required this.yugiohCard})
+      : super(name,
+            path: '/yugioh-card-detail-screen-provider',
+            argProps: [yugiohCard]);
+
+  YugiohCardDetailRoute.fromMatch(_i1.RouteMatch match)
+      : yugiohCard = null,
+        super.fromMatch(match);
+
+  final _i6.YugiohCard yugiohCard;
+
+  static const String name = 'YugiohCardDetailRoute';
 }
 
 class DuelTab extends _i1.PageRouteInfo {
