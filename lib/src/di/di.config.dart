@@ -38,6 +38,7 @@ import '../../packages/core/core_ygoprodeck/core_ygoprodeck_interface/lib/core_y
 import '../../packages/core/core_ygoprodeck/core_ygoprodeck_impl/lib/src/ygoprodeck_api_provider.dart';
 import 'modules/core_modules.dart';
 import '../../packages/core/core_ygoprodeck/core_ygoprodeck_impl/lib/src/api/ygoprodeck_api.dart';
+import '../../packages/features/feature_yugioh_card_detail/lib/src/yugioh_card_detail_viewmodel.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/yugioh_cards/yugioh_cards_data_manager.dart';
 
 /// adds generated dependencies
@@ -67,6 +68,8 @@ GetIt $initGetIt(
   gh.lazySingleton<UrlLauncherProvider>(() => UrlLauncherProviderImpl());
   gh.lazySingleton<YgoProDeckRestClient>(
       () => YgoProDeckRestClient(get<Dio>()));
+  gh.factory<YugiohCardDetailViewModel>(
+      () => YugiohCardDetailViewModel(get<YugiohCard>()));
   gh.lazySingleton<CrashlyticsProvider>(
       () => FirebaseCrashlyticsProvider(get<FirebaseCrashlytics>()));
   gh.lazySingleton<NewsDataManager>(
@@ -82,8 +85,11 @@ GetIt $initGetIt(
       () => YugiohCardsDataManagerImpl(get<YgoProDeckApiProvider>()));
   gh.lazySingleton<DataManager>(() =>
       DataManagerImpl(get<NewsDataManager>(), get<YugiohCardsDataManager>()));
-  gh.factory<DeckBuilderViewModel>(() =>
-      DeckBuilderViewModel(get<DataManager>(), get<CrashlyticsProvider>()));
+  gh.factory<DeckBuilderViewModel>(() => DeckBuilderViewModel(
+        get<RouterHelper>(),
+        get<DataManager>(),
+        get<CrashlyticsProvider>(),
+      ));
   gh.factory<DeckViewModel>(() => DeckViewModel(get<RouterHelper>()));
   gh.factory<NewsViewModel>(() => NewsViewModel(
         get<RouterHelper>(),

@@ -11,20 +11,22 @@ class SmartDuelDiskApp extends StatelessWidget {
     final router = di.get<AppRouter>();
 
     return AutoLocalizedApp(
-      child: MaterialApp.router(
-        title: 'Smart Duel Disk',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-          brightness: Brightness.dark,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-          cursorColor: AppColors.primaryAccentColor,
-          textSelectionColor: AppColors.primaryAccentColor,
-          textSelectionHandleColor: AppColors.primaryAccentColor,
+      child: KeyboardDismisser(
+        child: MaterialApp.router(
+          title: 'Smart Duel Disk',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+            brightness: Brightness.dark,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+            cursorColor: AppColors.primaryAccentColor,
+            textSelectionColor: AppColors.primaryAccentColor,
+            textSelectionHandleColor: AppColors.primaryAccentColor,
+          ),
+          routerDelegate: router.delegate(),
+          routeInformationParser: router.defaultRouteParser(),
+          supportedLocales: context.supportedLocales,
+          localizationsDelegates: context.localizationsDelegates,
         ),
-        routerDelegate: router.delegate(),
-        routeInformationParser: router.defaultRouteParser(),
-        supportedLocales: context.supportedLocales,
-        localizationsDelegates: context.localizationsDelegates,
       ),
     );
   }

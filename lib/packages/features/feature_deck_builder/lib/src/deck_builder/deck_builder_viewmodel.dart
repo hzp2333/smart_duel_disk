@@ -4,11 +4,13 @@ import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/deck_builder/models/deck_builder_state.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_interface/lib/wrapper_crashlytics_interface.dart';
 
 @Injectable()
 class DeckBuilderViewModel {
+  final RouterHelper _routerHelper;
   final DataManager _dataManager;
   final CrashlyticsProvider _crashlyticsProvider;
 
@@ -21,11 +23,10 @@ class DeckBuilderViewModel {
   StreamSubscription<DeckBuilderState> _filteredCardsSubscription;
 
   DeckBuilderViewModel(
+    this._routerHelper,
     this._dataManager,
     this._crashlyticsProvider,
   );
-
-  //region Data fetching
 
   Future<void> init() async {
     _filteredCardsSubscription =
@@ -69,10 +70,6 @@ class DeckBuilderViewModel {
     }
   }
 
-  //endregion
-
-  //region Data filtering
-
   void onTextFilterChanged(String value) {
     _textFilter.add(value);
   }
@@ -81,7 +78,9 @@ class DeckBuilderViewModel {
     _textFilter.add('');
   }
 
-  //endregion
+  Future<void> onYugiohCardPressed(YugiohCard yugiohCard) {
+    return _routerHelper.showYugiohCardDetail(yugiohCard);
+  }
 
   void dispose() {
     _filteredCardsSubscription?.cancel();
