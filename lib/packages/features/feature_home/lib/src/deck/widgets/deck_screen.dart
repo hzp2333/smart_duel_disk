@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
+import 'package:smart_duel_disk/src/localization/strings.al.dart';
 
 import 'widgets/personal_decks.dart';
 import 'widgets/pre_built_decks.dart';
@@ -13,15 +14,15 @@ class DeckScreen extends StatelessWidget {
       padding: const EdgeInsets.all(AppDimensions.screenMargin),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: const [
+        children: [
           _Section(
-            title: 'Pre-built decks',
-            child: PreBuiltDecks(),
+            title: Strings.deckPreBuiltDecksTitle.get(),
+            child: const PreBuiltDecks(),
           ),
-          SizedBox(height: AppDimensions.deckSectionSeparator),
+          const SizedBox(height: AppDimensions.deckSectionSeparator),
           _Section(
-            title: 'Personal decks',
-            child: PersonalDecks(),
+            title: Strings.deckPersonalDecksTitle.get(),
+            child: const PersonalDecks(),
           ),
         ],
       ),

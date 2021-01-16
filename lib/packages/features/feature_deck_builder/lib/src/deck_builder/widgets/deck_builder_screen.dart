@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart';
 import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/deck_builder/models/deck_builder_state.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
+import 'package:smart_duel_disk/src/localization/strings.al.dart';
 
 import 'widgets/card_grid.dart';
 
@@ -44,7 +45,7 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: AppColors.primaryBackgroundColor,
       leading: const BackButton(color: AppColors.primaryIconColor),
       title: TextFieldWithoutValidation(
-        hintText: 'Search by name or archetype',
+        hintText: Strings.deckBuilderSearchHint.get(),
         onChanged: vm.onTextFilterChanged,
         onClearPressed: vm.onClearTextFilterPressed,
       ),
@@ -91,8 +92,8 @@ class _NoCardsBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const GeneralErrorState(
-      description: 'No cards were found. Please change the filter.',
+    return GeneralErrorState(
+      description: Strings.deckBuilderNoDataErrorDescription.get(),
     );
   }
 }
@@ -105,7 +106,7 @@ class _ErrorBody extends StatelessWidget {
     final vm = Provider.of<DeckBuilderViewModel>(context);
 
     return GeneralErrorState(
-      description: 'An error occurred while fetching the cards. Please check your internet connection and try again.',
+      description: Strings.deckBuilderGeneralErrorDescription.get(),
       canRetry: true,
       retryAction: vm.onRetryPressed,
     );

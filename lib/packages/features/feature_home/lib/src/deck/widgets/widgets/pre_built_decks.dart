@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
+import 'package:smart_duel_disk/src/localization/strings.al.dart';
 
 class PreBuiltDecks extends StatelessWidget {
   static const _yugiImageUrl =
@@ -19,7 +21,7 @@ class PreBuiltDecks extends StatelessWidget {
           child: _PreBuiltDeckCard(
             backgroundColor: AppColors.deckYugiBackgroundColor,
             imageUrl: _yugiImageUrl,
-            deckName: "Yugi's Deck",
+            deckName: Strings.deckPreBuiltYugiTitle.get(),
           ),
         ),
         const SizedBox(width: AppDimensions.deckPrebuiltCardSeparator),
@@ -27,7 +29,7 @@ class PreBuiltDecks extends StatelessWidget {
           child: _PreBuiltDeckCard(
             backgroundColor: AppColors.deckKaibaBackgroundColor,
             imageUrl: _kaibaImageUrl,
-            deckName: "Kaiba's Deck",
+            deckName: Strings.deckPreBuiltKaibaTitle.get(),
           ),
         ),
       ],
@@ -119,16 +121,9 @@ class _PreBuiltDeckCardRipple extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () {
-          Scaffold.of(context).hideCurrentSnackBar();
-          Scaffold.of(context).showSnackBar(SnackBar(
-            content: Text(
-              '$deckName is not available yet',
-              style: const TextStyle(color: AppColors.primaryIconColor),
-            ),
-            backgroundColor: AppColors.cardBackgroundColor,
-          ));
-        },
+        onTap: () => context.snackbar(
+          Strings.featureNotAvailableYetDescription.get(deckName),
+        ),
         highlightColor: Colors.transparent,
         splashColor: backgroundColor.withOpacity(0.15),
         borderRadius: BorderRadius.circular(AppDimensions.newsCardBorderRadius),

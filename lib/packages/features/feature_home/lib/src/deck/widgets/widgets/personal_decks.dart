@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
+import 'package:smart_duel_disk/src/localization/strings.al.dart';
+import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 
 import '../../deck_viewmodel.dart';
 
@@ -16,22 +18,15 @@ class PersonalDecks extends StatelessWidget {
       children: [
         _PersonalDeckCard(
           icon: Icons.add,
-          text: 'Create a deck',
-          onPressed: () {
-            Scaffold.of(context).hideCurrentSnackBar();
-            Scaffold.of(context).showSnackBar(const SnackBar(
-              content: Text(
-                'Creating a personal deck is not available yet',
-                style: TextStyle(color: AppColors.primaryIconColor),
-              ),
-              backgroundColor: AppColors.cardBackgroundColor,
-            ));
-          },
+          text: Strings.deckPersonalCreateDeck.get(),
+          onPressed: () => context.snackbar(
+            Strings.featureNotAvailableYetDescription.get('Creating a personal deck'),
+          ),
         ),
         const SizedBox(height: AppDimensions.deckPersonalCardSeparator),
         _PersonalDeckCard(
           icon: Icons.search,
-          text: 'Search a card',
+          text: Strings.deckPersonalSearchCard.get(),
           onPressed: vm.onSearchCardPressed,
         ),
       ],

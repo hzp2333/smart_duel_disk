@@ -1,5 +1,6 @@
 class AppDimensions {
   static const screenMargin = 16.0;
+  static const screenMarginSmall = 8.0;
 
   static const tabBarItemHeight = 60.0;
   static const tabBarIconSize = 24.0;
@@ -29,4 +30,7 @@ class AppDimensions {
   static const descriptionButtonSpacing = 8.0;
 
   static const generalBorderRadius = 8.0;
+
+  static const gridMainAxisSpacing = 8.0;
+  static const gridCrossAxisSpacing = 8.0;
 }

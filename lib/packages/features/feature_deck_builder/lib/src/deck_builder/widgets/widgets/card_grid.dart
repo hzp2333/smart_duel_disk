@@ -20,11 +20,11 @@ class CardGrid extends StatelessWidget {
         behavior: NoScrollGlowBehavior(),
         child: GridView.builder(
           shrinkWrap: true,
-          padding: const EdgeInsets.all(8),
+          padding: const EdgeInsets.all(AppDimensions.screenMarginSmall),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 6,
-            mainAxisSpacing: 8,
-            crossAxisSpacing: 8,
+            mainAxisSpacing: AppDimensions.gridMainAxisSpacing,
+            crossAxisSpacing: AppDimensions.gridCrossAxisSpacing,
             childAspectRatio: 168 / 246,
           ),
           itemCount: yugiohCards.length,
