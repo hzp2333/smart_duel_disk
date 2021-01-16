@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
@@ -7,6 +8,7 @@ class PreBuiltDecks extends StatelessWidget {
       'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/84dc13b7-a2e7-4b45-83ec-311e72e82900/ddzt2in-de8eafe5-72bd-43b8-828c-f7ecbb634e6e.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvODRkYzEzYjctYTJlNy00YjQ1LTgzZWMtMzExZTcyZTgyOTAwXC9kZHp0MmluLWRlOGVhZmU1LTcyYmQtNDNiOC04MjhjLWY3ZWNiYjYzNGU2ZS5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.nPSgoHWVu3imeEyPLFBR1swCyy33DIdEjo4jOIR9VBQ';
   static const _kaibaImageUrl =
       'https://static.wikia.nocookie.net/yugioh/images/2/2e/SetoKaibaDSOD-DULI.png/revision/latest?cb=20190929175200';
+
   const PreBuiltDecks();
 
   @override
@@ -68,8 +70,8 @@ class _PreBuiltDeckCard extends StatelessWidget {
             ),
           ),
           Positioned.fill(
-            child: Image.network(
-              imageUrl,
+            child: CachedNetworkImage(
+              imageUrl: imageUrl,
               fit: BoxFit.fitHeight,
               alignment: Alignment.topCenter,
             ),

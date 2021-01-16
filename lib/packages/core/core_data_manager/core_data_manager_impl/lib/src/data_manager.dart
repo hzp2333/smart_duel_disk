@@ -23,8 +23,8 @@ class DataManagerImpl implements DataManager {
   //region Yu-Gi-Oh! cards
 
   @override
-  Future<Iterable<YugiohCard>> getSpeedDuelCards() {
-    return _yugiohCardsDataManager.getSpeedDuelCards();
+  Future<Iterable<YugiohCard>> getSpeedDuelCards({bool includeSkillCards = false}) {
+    return _yugiohCardsDataManager.getSpeedDuelCards(includeSkillCards: includeSkillCards);
   }
 
   //endregion

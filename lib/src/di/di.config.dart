@@ -11,12 +11,16 @@ import 'package:injectable/injectable.dart';
 import 'package:dart_twitter_api/twitter_api.dart';
 
 import '../../packages/core/core_config/core_config_interface/lib/core_config_interface.dart';
+import '../navigation/router.gr.dart';
+import '../../packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
+import '../../packages/wrappers/wrapper_assets/wrapper_assets_impl/lib/src/assets_provider.dart';
 import '../../packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_interface/lib/wrapper_crashlytics_interface.dart';
 import '../../packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/data_manager.dart';
 import '../../packages/core/core_general/lib/src/formatters/date_formatter.dart';
 import '../../packages/core/core_general/lib/core_general.dart'
     as smart_duel_disk;
+import '../../packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart';
 import '../../packages/features/feature_home/lib/src/deck/deck_viewmodel.dart';
 import '../../packages/features/feature_home/lib/src/duel/duel_viewmodel.dart';
 import '../../packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_impl/lib/src/firebase/firebase_crashlytics_provider.dart';
@@ -48,6 +52,7 @@ GetIt $initGetIt(
   final ygoProDeckModule = _$YgoProDeckModule();
   final firebaseModule = _$FirebaseModule();
   final twitterModule = _$TwitterModule();
+  gh.lazySingleton<AssetsProvider>(() => AssetsProviderImpl());
   gh.lazySingleton<DateFormatter>(() => DateFormatter());
   gh.lazySingleton<Dio>(
       () => ygoProDeckModule.provideYgoProDeckDio(get<AppConfig>()));
@@ -66,15 +71,20 @@ GetIt $initGetIt(
       () => FirebaseCrashlyticsProvider(get<FirebaseCrashlytics>()));
   gh.lazySingleton<NewsDataManager>(
       () => NewsDataManagerImpl(get<AppConfig>(), get<TwitterProvider>()));
-  gh.lazySingleton<RouterHelper>(
-      () => RouterHelperImpl(get<AppConfig>(), get<UrlLauncherProvider>()));
+  gh.lazySingleton<RouterHelper>(() => RouterHelperImpl(
+        get<AppRouter>(),
+        get<AppConfig>(),
+        get<UrlLauncherProvider>(),
+      ));
   gh.lazySingleton<YgoProDeckApiProvider>(
       () => YgoProDeckApiProviderImpl(get<YgoProDeckRestClient>()));
   gh.lazySingleton<YugiohCardsDataManager>(
       () => YugiohCardsDataManagerImpl(get<YgoProDeckApiProvider>()));
   gh.lazySingleton<DataManager>(() =>
       DataManagerImpl(get<NewsDataManager>(), get<YugiohCardsDataManager>()));
-  gh.factory<DeckViewModel>(() => DeckViewModel(get<DataManager>()));
+  gh.factory<DeckBuilderViewModel>(() =>
+      DeckBuilderViewModel(get<DataManager>(), get<CrashlyticsProvider>()));
+  gh.factory<DeckViewModel>(() => DeckViewModel(get<RouterHelper>()));
   gh.factory<NewsViewModel>(() => NewsViewModel(
         get<RouterHelper>(),
         get<DataManager>(),

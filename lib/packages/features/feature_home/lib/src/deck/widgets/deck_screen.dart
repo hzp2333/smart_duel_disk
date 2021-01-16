@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
-import '../deck_viewmodel.dart';
 import 'widgets/personal_decks.dart';
 import 'widgets/pre_built_decks.dart';
 
@@ -11,8 +9,6 @@ class DeckScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final vm = Provider.of<DeckViewModel>(context);
-
     return Padding(
       padding: const EdgeInsets.all(AppDimensions.screenMargin),
       child: Column(

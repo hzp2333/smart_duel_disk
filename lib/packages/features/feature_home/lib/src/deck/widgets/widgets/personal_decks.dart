@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
+
+import '../../deck_viewmodel.dart';
 
 class PersonalDecks extends StatelessWidget {
   const PersonalDecks();
 
   @override
   Widget build(BuildContext context) {
+    final vm = Provider.of<DeckViewModel>(context);
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -27,7 +32,7 @@ class PersonalDecks extends StatelessWidget {
         _PersonalDeckCard(
           icon: Icons.search,
           text: 'Search a card',
-          onPressed: () {},
+          onPressed: vm.onSearchCardPressed,
         ),
       ],
     );

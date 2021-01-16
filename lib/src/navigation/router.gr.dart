@@ -6,6 +6,8 @@
 
 import 'package:auto_route/auto_route.dart' as _i1;
 import '../../packages/features/feature_home/lib/feature_home.dart' as _i2;
+import '../../packages/features/feature_deck_builder/lib/feature_deck_builder.dart'
+    as _i3;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter();
@@ -14,6 +16,10 @@ class AppRouter extends _i1.RootStackRouter {
   final Map<String, _i1.PageFactory> pagesMap = {
     HomeRoute.name: (entry) {
       return _i1.AdaptivePage(entry: entry, child: _i2.HomeScreenProvider());
+    },
+    DeckBuilderRoute.name: (entry) {
+      return _i1.AdaptivePage(
+          entry: entry, child: _i3.DeckBuilderScreenProvider());
     },
     DuelTab.name: (entry) {
       return _i1.AdaptivePage(entry: entry, child: _i2.DuelScreenProvider());
@@ -42,7 +48,10 @@ class AppRouter extends _i1.RootStackRouter {
               _i1.RouteConfig<DeckTab>(DeckTab.name,
                   path: 'deck-screen-provider',
                   routeBuilder: (_) => const DeckTab())
-            ])
+            ]),
+        _i1.RouteConfig<DeckBuilderRoute>(DeckBuilderRoute.name,
+            path: '/deck-builder-screen-provider',
+            routeBuilder: (_) => const DeckBuilderRoute())
       ];
 }
 
@@ -53,6 +62,12 @@ class HomeRoute extends _i1.PageRouteInfo {
   HomeRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
 
   static const String name = 'HomeRoute';
+}
+
+class DeckBuilderRoute extends _i1.PageRouteInfo {
+  const DeckBuilderRoute() : super(name, path: '/deck-builder-screen-provider');
+
+  static const String name = 'DeckBuilderRoute';
 }
 
 class DuelTab extends _i1.PageRouteInfo {

@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/feature_deck_builder.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/feature_home.dart';
 
 @AdaptiveAutoRouter(
@@ -13,6 +14,9 @@ import 'package:smart_duel_disk/packages/features/feature_home/lib/feature_home.
         AutoRoute<void>(name: 'NewsTab', page: NewsScreenProvider),
         AutoRoute<void>(name: 'DeckTab', page: DeckScreenProvider),
       ],
+    ),
+    AutoRoute<void>(
+      page: DeckBuilderScreenProvider,
     ),
   ],
 )

@@ -5,6 +5,12 @@ abstract class RouterHelper {
 
   //endregion
 
+  //region Deck
+
+  Future<void> showDeckBuilder();
+
+  //endregion
+
   //region Social Media
 
   Future<void> showYoutube();
