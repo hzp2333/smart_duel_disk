@@ -10,7 +10,7 @@ dependencies:
     sdk: flutter
   ant_icons: ^1.0.0
   auto_localized: ^0.7.0
-  auto_route: ^1.0.0-beta.5+1
+  auto_route: ^1.0.0-beta.7
   auto_size_text: ^2.1.0
   cached_network_image: ^2.5.0
   cupertino_icons: ^1.0.0
@@ -38,7 +38,7 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   auto_localized_generator: ^0.7.1
-  auto_route_generator: ^1.0.0-beta.5
+  auto_route_generator: ^1.0.0-beta.7
   build_runner: ^1.10.11
   freezed: ^0.12.6
   injectable_generator: ^1.0.6

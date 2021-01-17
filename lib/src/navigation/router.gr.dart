@@ -59,23 +59,23 @@ class AppRouter extends _i1.RootStackRouter {
             children: [
               _i1.RouteConfig<DuelTab>(DuelTab.name,
                   path: 'duel-screen-provider',
-                  routeBuilder: (_) => const DuelTab()),
+                  routeBuilder: (match) => DuelTab.fromMatch(match)),
               _i1.RouteConfig<NewsTab>(NewsTab.name,
                   path: 'news-screen-provider',
-                  routeBuilder: (_) => const NewsTab()),
+                  routeBuilder: (match) => NewsTab.fromMatch(match)),
               _i1.RouteConfig<DeckTab>(DeckTab.name,
                   path: 'deck-screen-provider',
-                  routeBuilder: (_) => const DeckTab())
+                  routeBuilder: (match) => DeckTab.fromMatch(match))
             ]),
         _i1.RouteConfig<DeckBuilderRoute>(DeckBuilderRoute.name,
             path: '/deck-builder-screen-provider',
-            routeBuilder: (_) => const DeckBuilderRoute()),
+            routeBuilder: (match) => DeckBuilderRoute.fromMatch(match)),
         _i1.RouteConfig<YugiohCardDetailRoute>(YugiohCardDetailRoute.name,
             path: '/yugioh-card-detail-screen-provider',
             routeBuilder: (match) => YugiohCardDetailRoute.fromMatch(match)),
         _i1.RouteConfig<DrawCardRoute>(DrawCardRoute.name,
             path: '/draw-card-screen-provider',
-            routeBuilder: (_) => const DrawCardRoute())
+            routeBuilder: (match) => DrawCardRoute.fromMatch(match))
       ];
 }
 
@@ -91,14 +91,14 @@ class HomeRoute extends _i1.PageRouteInfo {
 class DeckBuilderRoute extends _i1.PageRouteInfo {
   const DeckBuilderRoute() : super(name, path: '/deck-builder-screen-provider');
 
+  DeckBuilderRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
+
   static const String name = 'DeckBuilderRoute';
 }
 
 class YugiohCardDetailRoute extends _i1.PageRouteInfo {
   YugiohCardDetailRoute({@_i6.required this.yugiohCard})
-      : super(name,
-            path: '/yugioh-card-detail-screen-provider',
-            argProps: [yugiohCard]);
+      : super(name, path: '/yugioh-card-detail-screen-provider');
 
   YugiohCardDetailRoute.fromMatch(_i1.RouteMatch match)
       : yugiohCard = null,
@@ -112,11 +112,15 @@ class YugiohCardDetailRoute extends _i1.PageRouteInfo {
 class DrawCardRoute extends _i1.PageRouteInfo {
   const DrawCardRoute() : super(name, path: '/draw-card-screen-provider');
 
+  DrawCardRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
+
   static const String name = 'DrawCardRoute';
 }
 
 class DuelTab extends _i1.PageRouteInfo {
   const DuelTab() : super(name, path: 'duel-screen-provider');
+
+  DuelTab.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
 
   static const String name = 'DuelTab';
 }
@@ -124,11 +128,15 @@ class DuelTab extends _i1.PageRouteInfo {
 class NewsTab extends _i1.PageRouteInfo {
   const NewsTab() : super(name, path: 'news-screen-provider');
 
+  NewsTab.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
+
   static const String name = 'NewsTab';
 }
 
 class DeckTab extends _i1.PageRouteInfo {
   const DeckTab() : super(name, path: 'deck-screen-provider');
+
+  DeckTab.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
 
   static const String name = 'DeckTab';
 }
