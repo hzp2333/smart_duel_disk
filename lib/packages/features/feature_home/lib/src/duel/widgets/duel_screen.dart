@@ -16,7 +16,7 @@ class DuelScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           IconTitleTile(
-            icon: Icons.search,
+            icon: Icons.credit_card,
             title: 'Draw card demo',
             onPressed: vm.onDrawCardDemoPressed,
           ),

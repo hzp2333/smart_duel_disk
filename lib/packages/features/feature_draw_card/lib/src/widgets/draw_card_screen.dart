@@ -32,25 +32,18 @@ class _DrawCardScreenState extends State<DrawCardScreen> {
 
   void _startAnimation() {
     Future.delayed(const Duration(), () {
-      setState(() {
-        _isAnimationStarted = true;
-      });
-
+      setState(() => _isAnimationStarted = true);
       Future.delayed(_animationDuration, () {
-        setState(() {
-          _isAnimating = false;
-        });
+        setState(() => _isAnimating = false);
       });
     });
   }
 
-  void _onCardDrawn() {
-    setState(() {
-      _cardImage = const SizedBox.shrink();
-    });
+  Future<void> _onCardDrawn() {
+    setState(() => _cardImage = const SizedBox.shrink());
 
     final vm = Provider.of<DrawCardViewModel>(context, listen: false);
-    vm.onCardDrawn();
+    return vm.onCardDrawn();
   }
 
   @override
@@ -58,31 +51,28 @@ class _DrawCardScreenState extends State<DrawCardScreen> {
     final assetsProvider = Provider.of<AssetsProvider>(context);
 
     final screenHeight = MediaQuery.of(context).size.height;
+    final animatingBottomOffset = screenHeight * 2;
+    final animatingTopOffset = animatingBottomOffset * -1;
 
     return Scaffold(
       backgroundColor: AppColors.primaryBackgroundColor,
       body: Stack(
+        alignment: Alignment.center,
         children: [
           const SizedBox.expand(),
           Positioned.fill(
-            child: _CardDragTarget(
-              onCardDrawn: _onCardDrawn,
-            ),
+            child: _CardDragTarget(onCardDrawn: _onCardDrawn),
           ),
           if (_isAnimating) ...{
             AnimatedPositioned(
               duration: _animationDuration,
               curve: Curves.fastOutSlowIn,
-              top: _isAnimationStarted ? 0 : -(screenHeight * 2),
-              bottom: _isAnimationStarted ? 0 : screenHeight * 2,
+              top: _isAnimationStarted ? 0 : animatingTopOffset,
+              bottom: _isAnimationStarted ? 0 : animatingBottomOffset,
               child: _CardImage(imageAssetId: assetsProvider.cardBack),
             ),
           } else ...{
-            Align(
-              child: _CardDraggable(
-                cardImage: _cardImage,
-              ),
-            )
+            _CardDraggable(cardImage: _cardImage),
           }
         ],
       ),
@@ -99,13 +89,9 @@ class _CardDragTarget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DragTarget(
-      builder: (context, List<String> candidateData, rejectedData) {
-        return const SizedBox.expand();
-      },
-      onLeave: (_) {
-        onCardDrawn();
-      },
+    return DragTarget<String>(
+      builder: (_, __, ___) => const SizedBox.expand(),
+      onLeave: (_) => onCardDrawn(),
     );
   }
 }
@@ -122,9 +108,9 @@ class _CardDraggable extends StatelessWidget {
     return Draggable<Object>(
       axis: Axis.vertical,
       maxSimultaneousDrags: 1,
-      feedback: cardImage,
-      childWhenDragging: const SizedBox(),
+      childWhenDragging: const SizedBox.shrink(),
       onDragStarted: HapticFeedback.heavyImpact,
+      feedback: cardImage,
       child: cardImage,
     );
   }
@@ -139,11 +125,11 @@ class _CardImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cardWidth = MediaQuery.of(context).size.width;
+    final screenWidth = MediaQuery.of(context).size.width;
 
     return Image.asset(
       imageAssetId,
-      width: cardWidth,
+      width: screenWidth,
       fit: BoxFit.fitWidth,
     );
   }

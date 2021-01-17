@@ -7,7 +7,7 @@ class AppDimensions {
 
   static const newsSocialMediaSpacing = 8.0;
   static const newsListPaddingVertical = 8.0;
-  static const newsListItemSeparatorSize = 8.0;
+  static const newsListItemSeparatorSize = 16.0;
   static const newsCardBorderRadius = 8.0;
   static const newsCardPadding = 12.0;
   static const newsCardMargin = 4.0;
