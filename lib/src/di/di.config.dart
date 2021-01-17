@@ -22,6 +22,7 @@ import '../../packages/core/core_general/lib/core_general.dart'
     as smart_duel_disk;
 import '../../packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart';
 import '../../packages/features/feature_home/lib/src/deck/deck_viewmodel.dart';
+import '../../packages/features/feature_draw_card/lib/src/draw_card_viewmodel.dart';
 import '../../packages/features/feature_home/lib/src/duel/duel_viewmodel.dart';
 import '../../packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_impl/lib/src/firebase/firebase_crashlytics_provider.dart';
 import 'modules/third_party_modules.dart';
@@ -57,7 +58,6 @@ GetIt $initGetIt(
   gh.lazySingleton<DateFormatter>(() => DateFormatter());
   gh.lazySingleton<Dio>(
       () => ygoProDeckModule.provideYgoProDeckDio(get<AppConfig>()));
-  gh.factory<DuelViewModel>(() => DuelViewModel());
   gh.lazySingleton<FirebaseCrashlytics>(
       () => firebaseModule.provideFirebaseCrashlytics());
   gh.factory<HomeViewModel>(() => HomeViewModel());
@@ -91,6 +91,8 @@ GetIt $initGetIt(
         get<CrashlyticsProvider>(),
       ));
   gh.factory<DeckViewModel>(() => DeckViewModel(get<RouterHelper>()));
+  gh.factory<DrawCardViewModel>(() => DrawCardViewModel(get<RouterHelper>()));
+  gh.factory<DuelViewModel>(() => DuelViewModel(get<RouterHelper>()));
   gh.factory<NewsViewModel>(() => NewsViewModel(
         get<RouterHelper>(),
         get<DataManager>(),

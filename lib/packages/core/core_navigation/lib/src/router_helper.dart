@@ -1,9 +1,14 @@
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 
 abstract class RouterHelper {
+  Future<void> closeScreen();
+
   //region News
 
   Future<void> showNewsDetails(String newsItemId, String newsItemAuthorId);
+  Future<void> showYoutube();
+  Future<void> showTwitter();
+  Future<void> showDiscord();
 
   //endregion
 
@@ -13,17 +18,15 @@ abstract class RouterHelper {
 
   //endregion
 
-  //region Yu-Gi-Oh! Card Detail
+  //region Duel
 
-  Future<void> showYugiohCardDetail(YugiohCard yugiohCard);
+  Future<void> showDrawCard();
 
   //endregion
 
-  //region Social Media
+  //region Deck builder
 
-  Future<void> showYoutube();
-  Future<void> showTwitter();
-  Future<void> showDiscord();
+  Future<void> showYugiohCardDetail(YugiohCard yugiohCard);
 
   //endregion
 }
