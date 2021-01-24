@@ -14,9 +14,9 @@ import '../../packages/features/feature_draw_card/lib/feature_draw_card.dart'
     as _i5;
 import '../../packages/features/feature_speed_duel/lib/feature_speed_duel.dart'
     as _i6;
-import 'package:flutter/material.dart' as _i7;
 import '../../packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart'
-    as _i8;
+    as _i7;
+import 'package:flutter/material.dart' as _i8;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter();
@@ -27,8 +27,11 @@ class AppRouter extends _i1.RootStackRouter {
       return _i1.AdaptivePage(entry: entry, child: _i2.HomeScreenProvider());
     },
     DeckBuilderRoute.name: (entry) {
+      var route = entry.routeData.as<DeckBuilderRoute>();
       return _i1.AdaptivePage(
-          entry: entry, child: _i3.DeckBuilderScreenProvider());
+          entry: entry,
+          child:
+              _i3.DeckBuilderScreenProvider(preBuiltDeck: route.preBuiltDeck));
     },
     YugiohCardDetailRoute.name: (entry) {
       var route = entry.routeData.as<YugiohCardDetailRoute>();
@@ -98,22 +101,27 @@ class HomeRoute extends _i1.PageRouteInfo {
 }
 
 class DeckBuilderRoute extends _i1.PageRouteInfo {
-  const DeckBuilderRoute() : super(name, path: '/deck-builder-screen-provider');
+  DeckBuilderRoute({this.preBuiltDeck})
+      : super(name, path: '/deck-builder-screen-provider');
 
-  DeckBuilderRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
+  DeckBuilderRoute.fromMatch(_i1.RouteMatch match)
+      : preBuiltDeck = null,
+        super.fromMatch(match);
+
+  final _i7.PreBuiltDeck preBuiltDeck;
 
   static const String name = 'DeckBuilderRoute';
 }
 
 class YugiohCardDetailRoute extends _i1.PageRouteInfo {
-  YugiohCardDetailRoute({@_i7.required this.yugiohCard})
+  YugiohCardDetailRoute({@_i8.required this.yugiohCard})
       : super(name, path: '/yugioh-card-detail-screen-provider');
 
   YugiohCardDetailRoute.fromMatch(_i1.RouteMatch match)
       : yugiohCard = null,
         super.fromMatch(match);
 
-  final _i8.YugiohCard yugiohCard;
+  final _i7.YugiohCard yugiohCard;
 
   static const String name = 'YugiohCardDetailRoute';
 }

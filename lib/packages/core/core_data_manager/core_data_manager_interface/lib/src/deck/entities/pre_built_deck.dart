@@ -1,0 +1,4 @@
+enum PreBuiltDeck {
+  kaiba,
+  yugi,
+}

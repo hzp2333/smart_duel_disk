@@ -14,7 +14,7 @@ abstract class RouterHelper {
 
   //region Deck
 
-  Future<void> showDeckBuilder();
+  Future<void> showDeckBuilder({PreBuiltDeck preBuiltDeck});
 
   //endregion
 

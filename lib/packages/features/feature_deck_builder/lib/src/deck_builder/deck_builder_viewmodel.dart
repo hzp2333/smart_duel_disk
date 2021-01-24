@@ -10,6 +10,7 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/wrapper_cr
 
 @Injectable()
 class DeckBuilderViewModel {
+  final PreBuiltDeck _preBuiltDeck;
   final RouterHelper _routerHelper;
   final DataManager _dataManager;
   final CrashlyticsProvider _crashlyticsProvider;
@@ -23,6 +24,7 @@ class DeckBuilderViewModel {
   StreamSubscription<DeckBuilderState> _filteredCardsSubscription;
 
   DeckBuilderViewModel(
+    this._preBuiltDeck,
     this._routerHelper,
     this._dataManager,
     this._crashlyticsProvider,

@@ -1,7 +1,9 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
+import 'package:smart_duel_disk/packages/features/feature_home/lib/src/deck/deck_viewmodel.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 import 'package:smart_duel_disk/src/localization/strings.al.dart';
 
@@ -15,6 +17,8 @@ class PreBuiltDecks extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final vm = Provider.of<DeckViewModel>(context);
+
     return Row(
       children: [
         Expanded(
@@ -30,6 +34,7 @@ class PreBuiltDecks extends StatelessWidget {
             backgroundColor: AppColors.deckKaibaBackgroundColor,
             imageUrl: _kaibaImageUrl,
             deckName: Strings.deckPreBuiltKaibaTitle.get(),
+            onPressed: vm.onKaibaPreBuiltDeckPressed,
           ),
         ),
       ],
@@ -41,11 +46,13 @@ class _PreBuiltDeckCard extends StatelessWidget {
   final Color backgroundColor;
   final String imageUrl;
   final String deckName;
+  final VoidCallback onPressed;
 
   const _PreBuiltDeckCard({
     @required this.backgroundColor,
     @required this.imageUrl,
     @required this.deckName,
+    this.onPressed,
   });
 
   @override
@@ -99,6 +106,7 @@ class _PreBuiltDeckCard extends StatelessWidget {
             child: _PreBuiltDeckCardRipple(
               backgroundColor: backgroundColor,
               deckName: deckName,
+              onPressed: onPressed,
             ),
           ),
         ],
@@ -110,10 +118,12 @@ class _PreBuiltDeckCard extends StatelessWidget {
 class _PreBuiltDeckCardRipple extends StatelessWidget {
   final Color backgroundColor;
   final String deckName;
+  final VoidCallback onPressed;
 
   const _PreBuiltDeckCardRipple({
     @required this.backgroundColor,
     @required this.deckName,
+    this.onPressed,
   });
 
   @override
@@ -121,9 +131,7 @@ class _PreBuiltDeckCardRipple extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: () => context.snackbar(
-          Strings.featureNotAvailableYetDescription.get(deckName),
-        ),
+        onTap: onPressed ?? () => context.snackbar(Strings.featureNotAvailableYetDescription.get(deckName)),
         highlightColor: Colors.transparent,
         splashColor: backgroundColor.withOpacity(0.15),
         borderRadius: BorderRadius.circular(AppDimensions.newsCardBorderRadius),
