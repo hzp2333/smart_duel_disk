@@ -31,6 +31,7 @@ import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/new
 import '../../packages/features/feature_home/lib/src/news/news_viewmodel.dart';
 import '../../packages/core/core_navigation/lib/core_navigation.dart';
 import '../navigation/router_helper.dart';
+import '../../packages/features/feature_speed_duel/lib/src/speed_duel_viewmodel.dart';
 import '../../packages/wrappers/wrapper_twitter/wrapper_twitter_interface/lib/wrapper_twitter_interface.dart';
 import '../../packages/wrappers/wrapper_twitter/wrapper_twitter_impl/lib/src/twitter_provider.dart';
 import '../../packages/wrappers/wrapper_url_launcher/wrapper_url_launcher_interface/lib/wrapper_url_launcher_interface.dart';
@@ -61,6 +62,7 @@ GetIt $initGetIt(
   gh.lazySingleton<FirebaseCrashlytics>(
       () => firebaseModule.provideFirebaseCrashlytics());
   gh.factory<HomeViewModel>(() => HomeViewModel());
+  gh.factory<SpeedDuelViewModel>(() => SpeedDuelViewModel());
   gh.lazySingleton<TwitterApi>(
       () => twitterModule.provideTwitterApi(get<AppConfig>()));
   gh.lazySingleton<TwitterProvider>(

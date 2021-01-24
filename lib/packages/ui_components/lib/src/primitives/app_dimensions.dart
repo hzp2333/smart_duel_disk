@@ -2,6 +2,8 @@ class AppDimensions {
   static const screenMargin = 16.0;
   static const screenMarginSmall = 8.0;
 
+  static const yugiohCardAspectRatio = 168 / 246;
+
   static const tabBarItemHeight = 60.0;
   static const tabBarIconSize = 24.0;
 
@@ -17,8 +19,8 @@ class AppDimensions {
   static const newsCardImageAspectRatio = 16 / 9;
 
   static const deckSectionSeparator = 48.0;
-  static const deckSectionTitleChildSeparator = 16.0;
-  static const deckPersonalCardSeparator = 10.0;
+  static const sectionTitleChildSeparator = 16.0;
+  static const iconTitleTileSeparator = 10.0;
   static const deckPersonalCardPadding = 8.0;
   static const deckPrebuiltCardSeparator = 16.0;
   static const deckPrebuiltTextPadding = 8.0;

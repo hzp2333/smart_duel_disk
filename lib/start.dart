@@ -23,7 +23,6 @@ Future<void> start(AppConfig appConfig) async {
   // Catch all uncaught errors from the framework and report them.
   runZonedGuarded<Future<void>>(() async {
     SystemChrome.setPreferredOrientations([
-      // Allow only portrait mode.
       DeviceOrientation.portraitUp,
     ]);
 

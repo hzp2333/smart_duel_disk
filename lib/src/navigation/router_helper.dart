@@ -80,6 +80,11 @@ class RouterHelperImpl implements RouterHelper {
     return _router.navigate(const DrawCardRoute());
   }
 
+  @override
+  Future<void> showSpeedDuel() {
+    return _router.navigate(const SpeedDuelRoute());
+  }
+
   //endregion
 
   //region Deck builder

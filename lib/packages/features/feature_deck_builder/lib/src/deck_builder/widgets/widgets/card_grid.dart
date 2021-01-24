@@ -25,7 +25,7 @@ class CardGrid extends StatelessWidget {
             crossAxisCount: 6,
             mainAxisSpacing: AppDimensions.gridMainAxisSpacing,
             crossAxisSpacing: AppDimensions.gridCrossAxisSpacing,
-            childAspectRatio: 168 / 246,
+            childAspectRatio: AppDimensions.yugiohCardAspectRatio,
           ),
           itemCount: yugiohCards.length,
           itemBuilder: (context, index) {
@@ -64,7 +64,7 @@ class _GridCard extends StatelessWidget {
           imageUrl: yugiohCard.imageSmallUrl,
           fit: BoxFit.fitWidth,
           placeholder: (_, __) => ImagePlaceholder(imageAssetId: assetsProvider.cardBack),
-          errorWidget: (_, __, dynamic ___) => const ImageError(),
+          errorWidget: (_, __, dynamic ___) => ImagePlaceholder(imageAssetId: assetsProvider.cardBack),
         ),
       ),
     );

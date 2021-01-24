@@ -21,6 +21,7 @@ abstract class RouterHelper {
   //region Duel
 
   Future<void> showDrawCard();
+  Future<void> showSpeedDuel();
 
   //endregion
 

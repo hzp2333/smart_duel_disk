@@ -15,43 +15,17 @@ class DeckScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _Section(
+          Section(
             title: Strings.deckPreBuiltDecksTitle.get(),
             child: const PreBuiltDecks(),
           ),
           const SizedBox(height: AppDimensions.deckSectionSeparator),
-          _Section(
+          Section(
             title: Strings.deckPersonalDecksTitle.get(),
             child: const PersonalDecks(),
           ),
         ],
       ),
-    );
-  }
-}
-
-class _Section extends StatelessWidget {
-  final String title;
-  final Widget child;
-
-  const _Section({
-    @required this.title,
-    @required this.child,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: TextStyles.deckSectionTitle,
-        ),
-        const SizedBox(height: AppDimensions.deckSectionTitleChildSeparator),
-        child,
-      ],
     );
   }
 }
