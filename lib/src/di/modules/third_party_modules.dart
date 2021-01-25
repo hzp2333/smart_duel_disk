@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_twitter_api/twitter_api.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:injectable/injectable.dart';
@@ -8,6 +9,11 @@ abstract class FirebaseModule {
   @LazySingleton()
   FirebaseCrashlytics provideFirebaseCrashlytics() {
     return FirebaseCrashlytics.instance;
+  }
+
+  @LazySingleton()
+  FirebaseFirestore provideFirebaseFirestore() {
+    return FirebaseFirestore.instance;
   }
 }
 

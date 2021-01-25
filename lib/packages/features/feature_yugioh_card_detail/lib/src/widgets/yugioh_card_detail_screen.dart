@@ -51,7 +51,7 @@ class _Body extends StatelessWidget {
     return Center(
       child: InteractiveViewer(
         child: Hero(
-          tag: vm.yugiohCard.id,
+          tag: vm.heroTag,
           child: CachedNetworkImage(
             imageUrl: vm.yugiohCard.imageLargeUrl,
             fit: BoxFit.fitWidth,

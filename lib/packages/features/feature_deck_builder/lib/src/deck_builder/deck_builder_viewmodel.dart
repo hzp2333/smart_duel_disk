@@ -10,6 +10,7 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/wrapper_cr
 
 @Injectable()
 class DeckBuilderViewModel {
+  final PreBuiltDeck _preBuiltDeck;
   final RouterHelper _routerHelper;
   final DataManager _dataManager;
   final CrashlyticsProvider _crashlyticsProvider;
@@ -19,20 +20,37 @@ class DeckBuilderViewModel {
 
   final _yugiohCards = BehaviorSubject<Iterable<YugiohCard>>();
   final _textFilter = BehaviorSubject<String>.seeded('');
+  final _preBuiltDeckCardIds = BehaviorSubject<Iterable<int>>();
 
   StreamSubscription<DeckBuilderState> _filteredCardsSubscription;
 
+  bool get showFilter => _preBuiltDeck == null;
+
   DeckBuilderViewModel(
+    @factoryParam this._preBuiltDeck,
     this._routerHelper,
     this._dataManager,
     this._crashlyticsProvider,
   );
 
   Future<void> init() async {
-    _filteredCardsSubscription =
-        Rx.combineLatest2(_yugiohCards, _textFilter, (Iterable<YugiohCard> cards, String filterValue) {
+    if (_preBuiltDeck == null) {
+      _preBuiltDeckCardIds.add([]);
+    } else {
+      final preBuiltDeckCardIds = await _dataManager.getPreBuiltDeckCardIds(_preBuiltDeck);
+      _preBuiltDeckCardIds.add(preBuiltDeckCardIds);
+    }
+
+    _filteredCardsSubscription = Rx.combineLatest3(_yugiohCards, _textFilter, _preBuiltDeckCardIds,
+        (Iterable<YugiohCard> cards, String filterValue, Iterable<int> preBuiltDeckCardIds) {
+      if (!preBuiltDeckCardIds.isNullOrEmpty) {
+        final deckCards = preBuiltDeckCardIds.map((id) => cards.singleWhere((card) => card.id == id)).toList()
+          ..sort((c1, c2) => c1.name.compareTo(c2.name));
+        return DeckBuilderState(deckCards, isPreBuilt: true);
+      }
+
       if (filterValue.isNullOrEmpty) {
-        return DeckBuilderState(cards);
+        return DeckBuilderState(cards, isPreBuilt: false);
       }
 
       final textFilter = filterValue.toLowerCase();
@@ -44,7 +62,7 @@ class DeckBuilderViewModel {
         return const DeckBuilderState.noData();
       }
 
-      return DeckBuilderState(filteredCards);
+      return DeckBuilderState(filteredCards, isPreBuilt: false);
     }).listen(_deckBuilderState.add);
 
     return _fetchData();
@@ -78,8 +96,8 @@ class DeckBuilderViewModel {
     _textFilter.add('');
   }
 
-  Future<void> onYugiohCardPressed(YugiohCard yugiohCard) {
-    return _routerHelper.showYugiohCardDetail(yugiohCard);
+  Future<void> onYugiohCardPressed(YugiohCard yugiohCard, int index) {
+    return _routerHelper.showYugiohCardDetail(yugiohCard, index);
   }
 
   void dispose() {

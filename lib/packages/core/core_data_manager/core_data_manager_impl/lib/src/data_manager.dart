@@ -5,10 +5,12 @@ import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manage
 class DataManagerImpl implements DataManager {
   final NewsDataManager _newsDataManager;
   final YugiohCardsDataManager _yugiohCardsDataManager;
+  final DeckDataManager _deckDataManager;
 
   DataManagerImpl(
     this._newsDataManager,
     this._yugiohCardsDataManager,
+    this._deckDataManager,
   );
 
   //region News
@@ -25,6 +27,15 @@ class DataManagerImpl implements DataManager {
   @override
   Future<Iterable<YugiohCard>> getSpeedDuelCards({bool includeSkillCards = false}) {
     return _yugiohCardsDataManager.getSpeedDuelCards(includeSkillCards: includeSkillCards);
+  }
+
+  //endregion
+
+  //region Decks
+
+  @override
+  Future<Iterable<int>> getPreBuiltDeckCardIds(PreBuiltDeck deck) {
+    return _deckDataManager.getPreBuiltDeckCardIds(deck);
   }
 
   //endregion

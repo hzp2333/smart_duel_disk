@@ -8,20 +8,43 @@ class DuelScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final vm = Provider.of<DuelViewModel>(context);
-
     return Padding(
       padding: const EdgeInsets.all(AppDimensions.screenMargin),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          IconTitleTile(
-            icon: Icons.credit_card,
-            title: 'Draw card demo',
-            onPressed: vm.onDrawCardDemoPressed,
+        children: const [
+          Section(
+            title: 'Duel demo',
+            child: _DuelDemoSection(),
           ),
         ],
       ),
+    );
+  }
+}
+
+class _DuelDemoSection extends StatelessWidget {
+  const _DuelDemoSection();
+
+  @override
+  Widget build(BuildContext context) {
+    final vm = Provider.of<DuelViewModel>(context);
+
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        IconTitleTile(
+          icon: Icons.credit_card,
+          title: 'Draw card demo',
+          onPressed: vm.onDrawCardDemoPressed,
+        ),
+        const SizedBox(height: AppDimensions.iconTitleTileSeparator),
+        IconTitleTile(
+          icon: Icons.speed,
+          title: 'Speed Duel demo',
+          onPressed: vm.onSpeedDuelDemoPressed,
+        ),
+      ],
     );
   }
 }

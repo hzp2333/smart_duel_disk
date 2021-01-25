@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_config/core_config_interface/lib/core_config_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/src/yugioh_cards/entities/yugioh_card.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_url_launcher/wrapper_url_launcher_interface/lib/wrapper_url_launcher_interface.dart';
@@ -67,8 +68,8 @@ class RouterHelperImpl implements RouterHelper {
   //region Deck
 
   @override
-  Future<void> showDeckBuilder() {
-    return _router.navigate(const DeckBuilderRoute());
+  Future<void> showDeckBuilder({PreBuiltDeck preBuiltDeck}) {
+    return _router.navigate(DeckBuilderRoute(preBuiltDeck: preBuiltDeck));
   }
 
   //endregion
@@ -80,13 +81,18 @@ class RouterHelperImpl implements RouterHelper {
     return _router.navigate(const DrawCardRoute());
   }
 
+  @override
+  Future<void> showSpeedDuel() {
+    return _router.navigate(const SpeedDuelRoute());
+  }
+
   //endregion
 
   //region Deck builder
 
   @override
-  Future<void> showYugiohCardDetail(YugiohCard yugiohCard) {
-    return _router.navigate(YugiohCardDetailRoute(yugiohCard: yugiohCard));
+  Future<void> showYugiohCardDetail(YugiohCard yugiohCard, int index) {
+    return _router.navigate(YugiohCardDetailRoute(yugiohCard: yugiohCard, index: index));
   }
 
   //endregion

@@ -4,10 +4,13 @@ import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manage
 @Injectable()
 class YugiohCardDetailViewModel {
   final YugiohCard _yugiohCard;
+  final int _index;
 
   YugiohCardDetailViewModel(
-    this._yugiohCard,
+    @factoryParam this._yugiohCard,
+    @factoryParam this._index,
   );
 
   YugiohCard get yugiohCard => _yugiohCard;
+  String get heroTag => '${_yugiohCard.id} - $_index';
 }

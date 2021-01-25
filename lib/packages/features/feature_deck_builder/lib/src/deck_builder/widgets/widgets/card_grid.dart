@@ -16,22 +16,23 @@ class CardGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: ScrollConfiguration(
-        behavior: NoScrollGlowBehavior(),
-        child: GridView.builder(
-          shrinkWrap: true,
-          padding: const EdgeInsets.all(AppDimensions.screenMarginSmall),
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 6,
-            mainAxisSpacing: AppDimensions.gridMainAxisSpacing,
-            crossAxisSpacing: AppDimensions.gridCrossAxisSpacing,
-            childAspectRatio: 168 / 246,
-          ),
-          itemCount: yugiohCards.length,
-          itemBuilder: (context, index) {
-            return _GridCard(yugiohCard: yugiohCards.elementAt(index));
-          },
+      child: GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.all(AppDimensions.screenMarginSmall),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 6,
+          mainAxisSpacing: AppDimensions.deckBuilderGridSpacing,
+          crossAxisSpacing: AppDimensions.deckBuilderGridSpacing,
+          childAspectRatio: AppDimensions.yugiohCardAspectRatio,
         ),
+        itemCount: yugiohCards.length,
+        itemBuilder: (context, index) {
+          return _GridCard(
+            yugiohCard: yugiohCards.elementAt(index),
+            index: index,
+          );
+        },
       ),
     );
   }
@@ -39,9 +40,11 @@ class CardGrid extends StatelessWidget {
 
 class _GridCard extends StatelessWidget {
   final YugiohCard yugiohCard;
+  final int index;
 
   const _GridCard({
     @required this.yugiohCard,
+    @required this.index,
   });
 
   @override
@@ -56,15 +59,15 @@ class _GridCard extends StatelessWidget {
           currentFocus.unfocus();
         }
 
-        vm.onYugiohCardPressed(yugiohCard);
+        vm.onYugiohCardPressed(yugiohCard, index);
       },
       child: Hero(
-        tag: yugiohCard.id,
+        tag: '${yugiohCard.id} - $index',
         child: CachedNetworkImage(
           imageUrl: yugiohCard.imageSmallUrl,
           fit: BoxFit.fitWidth,
           placeholder: (_, __) => ImagePlaceholder(imageAssetId: assetsProvider.cardBack),
-          errorWidget: (_, __, dynamic ___) => const ImageError(),
+          errorWidget: (_, __, dynamic ___) => ImagePlaceholder(imageAssetId: assetsProvider.cardBack),
         ),
       ),
     );

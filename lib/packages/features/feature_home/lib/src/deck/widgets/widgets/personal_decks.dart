@@ -23,7 +23,7 @@ class PersonalDecks extends StatelessWidget {
             Strings.featureNotAvailableYetDescription.get('Creating a personal deck'),
           ),
         ),
-        const SizedBox(height: AppDimensions.deckPersonalCardSeparator),
+        const SizedBox(height: AppDimensions.iconTitleTileSeparator),
         IconTitleTile(
           icon: Icons.search,
           title: Strings.deckPersonalSearchCard.get(),

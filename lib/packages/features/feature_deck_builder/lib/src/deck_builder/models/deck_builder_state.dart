@@ -5,7 +5,7 @@ part 'deck_builder_state.freezed.dart';
 
 @freezed
 abstract class DeckBuilderState with _$DeckBuilderState {
-  const factory DeckBuilderState(Iterable<YugiohCard> speedDuelCards) = Data;
+  const factory DeckBuilderState(Iterable<YugiohCard> speedDuelCards, {@required bool isPreBuilt}) = Data;
   const factory DeckBuilderState.loading() = Loading;
   const factory DeckBuilderState.noData() = NoData;
   const factory DeckBuilderState.error() = Error;
