@@ -76,8 +76,8 @@ GetIt $initGetIt(
   gh.lazySingleton<UrlLauncherProvider>(() => UrlLauncherProviderImpl());
   gh.lazySingleton<YgoProDeckRestClient>(
       () => YgoProDeckRestClient(get<Dio>()));
-  gh.factory<YugiohCardDetailViewModel>(
-      () => YugiohCardDetailViewModel(get<YugiohCard>()));
+  gh.factoryParam<YugiohCardDetailViewModel, YugiohCard, int>(
+      (_yugiohCard, _index) => YugiohCardDetailViewModel(_yugiohCard, _index));
   gh.lazySingleton<CloudDatabaseProvider>(
       () => FirebaseCloudDatabaseProvider(get<FirebaseFirestore>()));
   gh.lazySingleton<CrashlyticsProvider>(
@@ -100,12 +100,13 @@ GetIt $initGetIt(
         get<YugiohCardsDataManager>(),
         get<DeckDataManager>(),
       ));
-  gh.factory<DeckBuilderViewModel>(() => DeckBuilderViewModel(
-        get<PreBuiltDeck>(),
-        get<RouterHelper>(),
-        get<DataManager>(),
-        get<CrashlyticsProvider>(),
-      ));
+  gh.factoryParam<DeckBuilderViewModel, PreBuiltDeck, dynamic>(
+      (_preBuiltDeck, _) => DeckBuilderViewModel(
+            _preBuiltDeck,
+            get<RouterHelper>(),
+            get<DataManager>(),
+            get<CrashlyticsProvider>(),
+          ));
   gh.factory<DeckViewModel>(() => DeckViewModel(get<RouterHelper>()));
   gh.factory<DrawCardViewModel>(() => DrawCardViewModel(get<RouterHelper>()));
   gh.factory<DuelViewModel>(() => DuelViewModel(get<RouterHelper>()));

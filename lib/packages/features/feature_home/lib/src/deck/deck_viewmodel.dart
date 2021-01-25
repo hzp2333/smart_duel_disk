@@ -10,8 +10,8 @@ class DeckViewModel {
     this._routerHelper,
   );
 
-  Future<void> onKaibaPreBuiltDeckPressed() {
-    return _routerHelper.showDeckBuilder(preBuiltDeck: PreBuiltDeck.kaiba);
+  Future<void> onPreBuiltDeckPressed(PreBuiltDeck preBuiltDeck) {
+    return _routerHelper.showDeckBuilder(preBuiltDeck: preBuiltDeck);
   }
 
   Future<void> onSearchCardPressed() {

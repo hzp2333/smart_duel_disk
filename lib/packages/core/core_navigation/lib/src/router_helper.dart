@@ -27,7 +27,7 @@ abstract class RouterHelper {
 
   //region Deck builder
 
-  Future<void> showYugiohCardDetail(YugiohCard yugiohCard);
+  Future<void> showYugiohCardDetail(YugiohCard yugiohCard, int index);
 
   //endregion
 }

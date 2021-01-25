@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/deck/deck_viewmodel.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
@@ -26,6 +27,7 @@ class PreBuiltDecks extends StatelessWidget {
             backgroundColor: AppColors.deckYugiBackgroundColor,
             imageUrl: _yugiImageUrl,
             deckName: Strings.deckPreBuiltYugiTitle.get(),
+            onPressed: () => vm.onPreBuiltDeckPressed(PreBuiltDeck.yugi),
           ),
         ),
         const SizedBox(width: AppDimensions.deckPrebuiltCardSeparator),
@@ -34,7 +36,7 @@ class PreBuiltDecks extends StatelessWidget {
             backgroundColor: AppColors.deckKaibaBackgroundColor,
             imageUrl: _kaibaImageUrl,
             deckName: Strings.deckPreBuiltKaibaTitle.get(),
-            onPressed: vm.onKaibaPreBuiltDeckPressed,
+            onPressed: () => vm.onPreBuiltDeckPressed(PreBuiltDeck.kaiba),
           ),
         ),
       ],

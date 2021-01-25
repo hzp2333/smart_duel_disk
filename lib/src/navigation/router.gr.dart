@@ -37,8 +37,8 @@ class AppRouter extends _i1.RootStackRouter {
       var route = entry.routeData.as<YugiohCardDetailRoute>();
       return _i1.AdaptivePage(
           entry: entry,
-          child:
-              _i4.YugiohCardDetailScreenProvider(yugiohCard: route.yugiohCard));
+          child: _i4.YugiohCardDetailScreenProvider(
+              yugiohCard: route.yugiohCard, index: route.index));
     },
     DrawCardRoute.name: (entry) {
       return _i1.AdaptivePage(
@@ -114,14 +114,18 @@ class DeckBuilderRoute extends _i1.PageRouteInfo {
 }
 
 class YugiohCardDetailRoute extends _i1.PageRouteInfo {
-  YugiohCardDetailRoute({@_i8.required this.yugiohCard})
+  YugiohCardDetailRoute(
+      {@_i8.required this.yugiohCard, @_i8.required this.index})
       : super(name, path: '/yugioh-card-detail-screen-provider');
 
   YugiohCardDetailRoute.fromMatch(_i1.RouteMatch match)
       : yugiohCard = null,
+        index = null,
         super.fromMatch(match);
 
   final _i7.YugiohCard yugiohCard;
+
+  final int index;
 
   static const String name = 'YugiohCardDetailRoute';
 }

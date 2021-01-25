@@ -16,7 +16,7 @@ class Section extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        _SectionTitle(title: title),
+        SectionTitle(title: title),
         const SizedBox(height: AppDimensions.sectionTitleChildSeparator),
         child,
       ],
@@ -24,10 +24,10 @@ class Section extends StatelessWidget {
   }
 }
 
-class _SectionTitle extends StatelessWidget {
+class SectionTitle extends StatelessWidget {
   final String title;
 
-  const _SectionTitle({
+  const SectionTitle({
     @required this.title,
   });
 

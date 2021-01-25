@@ -35,4 +35,5 @@ class AppDimensions {
 
   static const gridMainAxisSpacing = 8.0;
   static const gridCrossAxisSpacing = 8.0;
+  static const deckBuilderSectionSeparator = 16.0;
 }

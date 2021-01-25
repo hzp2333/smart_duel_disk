@@ -9,17 +9,24 @@ import 'yugioh_card_detail_screen.dart';
 
 class YugiohCardDetailScreenProvider extends StatelessWidget {
   final YugiohCard yugiohCard;
+  final int index;
 
   const YugiohCardDetailScreenProvider({
     @required this.yugiohCard,
+    @required this.index,
   });
 
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider.value(value: YugiohCardDetailViewModel(yugiohCard)),
-        Provider.value(value: di.get<AssetsProvider>()),
+        Provider(
+          create: (_) => di.get<YugiohCardDetailViewModel>(
+            param1: yugiohCard,
+            param2: index,
+          ),
+        ),
+        Provider(create: (_) => di.get<AssetsProvider>()),
       ],
       child: const YugiohCardDetailScreen(),
     );

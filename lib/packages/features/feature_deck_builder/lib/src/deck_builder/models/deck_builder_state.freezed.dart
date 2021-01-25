@@ -14,9 +14,10 @@ class _$DeckBuilderStateTearOff {
   const _$DeckBuilderStateTearOff();
 
 // ignore: unused_element
-  Data call(Iterable<YugiohCard> speedDuelCards) {
+  Data call(Iterable<YugiohCard> speedDuelCards, {@required bool isPreBuilt}) {
     return Data(
       speedDuelCards,
+      isPreBuilt: isPreBuilt,
     );
   }
 
@@ -44,14 +45,14 @@ const $DeckBuilderState = _$DeckBuilderStateTearOff();
 mixin _$DeckBuilderState {
   @optionalTypeArgs
   TResult when<TResult extends Object>(
-    TResult $default(Iterable<YugiohCard> speedDuelCards), {
+    TResult $default(Iterable<YugiohCard> speedDuelCards, bool isPreBuilt), {
     @required TResult loading(),
     @required TResult noData(),
     @required TResult error(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>(
-    TResult $default(Iterable<YugiohCard> speedDuelCards), {
+    TResult $default(Iterable<YugiohCard> speedDuelCards, bool isPreBuilt), {
     TResult loading(),
     TResult noData(),
     TResult error(),
@@ -95,7 +96,7 @@ class _$DeckBuilderStateCopyWithImpl<$Res>
 abstract class $DataCopyWith<$Res> {
   factory $DataCopyWith(Data value, $Res Function(Data) then) =
       _$DataCopyWithImpl<$Res>;
-  $Res call({Iterable<YugiohCard> speedDuelCards});
+  $Res call({Iterable<YugiohCard> speedDuelCards, bool isPreBuilt});
 }
 
 /// @nodoc
@@ -110,25 +111,32 @@ class _$DataCopyWithImpl<$Res> extends _$DeckBuilderStateCopyWithImpl<$Res>
   @override
   $Res call({
     Object speedDuelCards = freezed,
+    Object isPreBuilt = freezed,
   }) {
     return _then(Data(
       speedDuelCards == freezed
           ? _value.speedDuelCards
           : speedDuelCards as Iterable<YugiohCard>,
+      isPreBuilt:
+          isPreBuilt == freezed ? _value.isPreBuilt : isPreBuilt as bool,
     ));
   }
 }
 
 /// @nodoc
 class _$Data implements Data {
-  const _$Data(this.speedDuelCards) : assert(speedDuelCards != null);
+  const _$Data(this.speedDuelCards, {@required this.isPreBuilt})
+      : assert(speedDuelCards != null),
+        assert(isPreBuilt != null);
 
   @override
   final Iterable<YugiohCard> speedDuelCards;
+  @override
+  final bool isPreBuilt;
 
   @override
   String toString() {
-    return 'DeckBuilderState(speedDuelCards: $speedDuelCards)';
+    return 'DeckBuilderState(speedDuelCards: $speedDuelCards, isPreBuilt: $isPreBuilt)';
   }
 
   @override
@@ -137,13 +145,17 @@ class _$Data implements Data {
         (other is Data &&
             (identical(other.speedDuelCards, speedDuelCards) ||
                 const DeepCollectionEquality()
-                    .equals(other.speedDuelCards, speedDuelCards)));
+                    .equals(other.speedDuelCards, speedDuelCards)) &&
+            (identical(other.isPreBuilt, isPreBuilt) ||
+                const DeepCollectionEquality()
+                    .equals(other.isPreBuilt, isPreBuilt)));
   }
 
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(speedDuelCards);
+      const DeepCollectionEquality().hash(speedDuelCards) ^
+      const DeepCollectionEquality().hash(isPreBuilt);
 
   @override
   $DataCopyWith<Data> get copyWith =>
@@ -152,7 +164,7 @@ class _$Data implements Data {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>(
-    TResult $default(Iterable<YugiohCard> speedDuelCards), {
+    TResult $default(Iterable<YugiohCard> speedDuelCards, bool isPreBuilt), {
     @required TResult loading(),
     @required TResult noData(),
     @required TResult error(),
@@ -161,13 +173,13 @@ class _$Data implements Data {
     assert(loading != null);
     assert(noData != null);
     assert(error != null);
-    return $default(speedDuelCards);
+    return $default(speedDuelCards, isPreBuilt);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>(
-    TResult $default(Iterable<YugiohCard> speedDuelCards), {
+    TResult $default(Iterable<YugiohCard> speedDuelCards, bool isPreBuilt), {
     TResult loading(),
     TResult noData(),
     TResult error(),
@@ -175,7 +187,7 @@ class _$Data implements Data {
   }) {
     assert(orElse != null);
     if ($default != null) {
-      return $default(speedDuelCards);
+      return $default(speedDuelCards, isPreBuilt);
     }
     return orElse();
   }
@@ -213,9 +225,11 @@ class _$Data implements Data {
 }
 
 abstract class Data implements DeckBuilderState {
-  const factory Data(Iterable<YugiohCard> speedDuelCards) = _$Data;
+  const factory Data(Iterable<YugiohCard> speedDuelCards,
+      {@required bool isPreBuilt}) = _$Data;
 
   Iterable<YugiohCard> get speedDuelCards;
+  bool get isPreBuilt;
   $DataCopyWith<Data> get copyWith;
 }
 
@@ -255,7 +269,7 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>(
-    TResult $default(Iterable<YugiohCard> speedDuelCards), {
+    TResult $default(Iterable<YugiohCard> speedDuelCards, bool isPreBuilt), {
     @required TResult loading(),
     @required TResult noData(),
     @required TResult error(),
@@ -270,7 +284,7 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>(
-    TResult $default(Iterable<YugiohCard> speedDuelCards), {
+    TResult $default(Iterable<YugiohCard> speedDuelCards, bool isPreBuilt), {
     TResult loading(),
     TResult noData(),
     TResult error(),
@@ -355,7 +369,7 @@ class _$NoData implements NoData {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>(
-    TResult $default(Iterable<YugiohCard> speedDuelCards), {
+    TResult $default(Iterable<YugiohCard> speedDuelCards, bool isPreBuilt), {
     @required TResult loading(),
     @required TResult noData(),
     @required TResult error(),
@@ -370,7 +384,7 @@ class _$NoData implements NoData {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>(
-    TResult $default(Iterable<YugiohCard> speedDuelCards), {
+    TResult $default(Iterable<YugiohCard> speedDuelCards, bool isPreBuilt), {
     TResult loading(),
     TResult noData(),
     TResult error(),
@@ -455,7 +469,7 @@ class _$Error implements Error {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>(
-    TResult $default(Iterable<YugiohCard> speedDuelCards), {
+    TResult $default(Iterable<YugiohCard> speedDuelCards, bool isPreBuilt), {
     @required TResult loading(),
     @required TResult noData(),
     @required TResult error(),
@@ -470,7 +484,7 @@ class _$Error implements Error {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>(
-    TResult $default(Iterable<YugiohCard> speedDuelCards), {
+    TResult $default(Iterable<YugiohCard> speedDuelCards, bool isPreBuilt), {
     TResult loading(),
     TResult noData(),
     TResult error(),

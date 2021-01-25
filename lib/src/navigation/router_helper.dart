@@ -91,8 +91,8 @@ class RouterHelperImpl implements RouterHelper {
   //region Deck builder
 
   @override
-  Future<void> showYugiohCardDetail(YugiohCard yugiohCard) {
-    return _router.navigate(YugiohCardDetailRoute(yugiohCard: yugiohCard));
+  Future<void> showYugiohCardDetail(YugiohCard yugiohCard, int index) {
+    return _router.navigate(YugiohCardDetailRoute(yugiohCard: yugiohCard, index: index));
   }
 
   //endregion
