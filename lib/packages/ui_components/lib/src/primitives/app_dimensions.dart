@@ -33,7 +33,8 @@ class AppDimensions {
 
   static const generalBorderRadius = 8.0;
 
-  static const gridMainAxisSpacing = 8.0;
-  static const gridCrossAxisSpacing = 8.0;
+  static const deckBuilderGridSpacing = 8.0;
   static const deckBuilderSectionSeparator = 16.0;
+
+  static const duelFieldCardSpacing = 8.0;
 }

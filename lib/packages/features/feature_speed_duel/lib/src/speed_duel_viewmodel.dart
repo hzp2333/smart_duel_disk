@@ -40,6 +40,8 @@ class SpeedDuelViewModel {
 
   bool onWillAccept(YugiohCard yugiohCard, Zone zone) {
     switch (zone.zoneType) {
+      case ZoneType.hand:
+        return yugiohCard.type != CardType.fusionMonster;
       case ZoneType.field:
         return yugiohCard.race == CardRace.field;
       case ZoneType.mainMonster1:
@@ -75,6 +77,10 @@ class SpeedDuelViewModel {
 
     // Remove the card from the current zone.
     final cardOldZone = currentZones.firstWhere((zone) => zone.cards.contains(yugiohCard));
+    if (cardOldZone.zoneType == newZone.zoneType) {
+      return;
+    }
+
     final updatedOldZone = cardOldZone.copyWith(cards: [...cardOldZone.cards]..remove(yugiohCard));
 
     // Move the card to the new zone.

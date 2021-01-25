@@ -22,8 +22,8 @@ class CardGrid extends StatelessWidget {
         padding: const EdgeInsets.all(AppDimensions.screenMarginSmall),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 6,
-          mainAxisSpacing: AppDimensions.gridMainAxisSpacing,
-          crossAxisSpacing: AppDimensions.gridCrossAxisSpacing,
+          mainAxisSpacing: AppDimensions.deckBuilderGridSpacing,
+          crossAxisSpacing: AppDimensions.deckBuilderGridSpacing,
           childAspectRatio: AppDimensions.yugiohCardAspectRatio,
         ),
         itemCount: yugiohCards.length,

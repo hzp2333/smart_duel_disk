@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone_type.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
 
@@ -100,7 +99,7 @@ class _PlayerField extends StatelessWidget {
         ),
         const SizedBox(height: 32),
         Expanded(
-          child: _HandRow(hand: playerState.hand.cards),
+          child: _HandRow(zone: playerState.hand),
         ),
       ],
     );
@@ -120,16 +119,18 @@ class _FirstPlayerFieldRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _SingleCardFieldZone(zone: playerState.fieldZone),
+        const SizedBox(width: AppDimensions.duelFieldCardSpacing),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             _SingleCardFieldZone(zone: playerState.mainMonsterZone1),
-            const SizedBox(width: 16),
+            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
             _SingleCardFieldZone(zone: playerState.mainMonsterZone2),
-            const SizedBox(width: 16),
+            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
             _SingleCardFieldZone(zone: playerState.mainMonsterZone3),
           ],
         ),
+        const SizedBox(width: AppDimensions.duelFieldCardSpacing),
         _SingleCardFieldZone(zone: playerState.graveyardZone),
       ],
     );
@@ -149,16 +150,18 @@ class _SecondPlayerFieldRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _SingleCardFieldZone(zone: playerState.extraDeckZone),
+        const SizedBox(width: AppDimensions.duelFieldCardSpacing),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
             _SingleCardFieldZone(zone: playerState.spellTrapZone1),
-            const SizedBox(width: 16),
+            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
             _SingleCardFieldZone(zone: playerState.spellTrapZone2),
-            const SizedBox(width: 16),
+            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
             _SingleCardFieldZone(zone: playerState.spellTrapZone3),
           ],
         ),
+        const SizedBox(width: AppDimensions.duelFieldCardSpacing),
         _SingleCardFieldZone(zone: playerState.deckZone),
       ],
     );
@@ -188,36 +191,56 @@ class _SingleCardFieldZone extends StatelessWidget {
                   child: const SizedBox.expand(),
                 ),
               )
-            : _DraggableCard(yugiohCard: zone.cards.first);
+            : _DraggableCard(
+                yugiohCard: zone.cards.first,
+                zone: zone,
+              );
       },
     );
   }
 }
 
 class _HandRow extends StatelessWidget {
-  final Iterable<YugiohCard> hand;
+  final Zone zone;
 
   const _HandRow({
-    @required this.hand,
+    @required this.zone,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      shrinkWrap: true,
-      scrollDirection: Axis.horizontal,
-      itemCount: hand.length,
-      itemBuilder: (_, index) => _DraggableCard(yugiohCard: hand.elementAt(index)),
-      separatorBuilder: (_, __) => const SizedBox(width: 16),
+    final vm = Provider.of<SpeedDuelViewModel>(context);
+
+    return DragTarget<YugiohCard>(
+      onWillAccept: (card) => vm.onWillAccept(card, zone),
+      onAccept: (card) => vm.onAccept(card, zone),
+      builder: (_, __, ___) {
+        return SizedBox.expand(
+          child: Center(
+            child: ListView.separated(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: zone.cards.length,
+              itemBuilder: (_, index) => _DraggableCard(
+                yugiohCard: zone.cards.elementAt(index),
+                zone: zone,
+              ),
+              separatorBuilder: (_, __) => const SizedBox(width: 16),
+            ),
+          ),
+        );
+      },
     );
   }
 }
 
 class _DraggableCard extends StatelessWidget {
   final YugiohCard yugiohCard;
+  final Zone zone;
 
   const _DraggableCard({
     @required this.yugiohCard,
+    @required this.zone,
   });
 
   @override
@@ -232,8 +255,8 @@ class _DraggableCard extends StatelessWidget {
         imageUrl: yugiohCard.imageSmallUrl,
         placeholderAssetId: assetsProvider.cardBack,
       ),
-      childWhenDragging: const _SingleCardFieldZone(
-        zone: Zone(zoneType: ZoneType.hand),
+      childWhenDragging: _SingleCardFieldZone(
+        zone: Zone(zoneType: zone.zoneType),
       ),
       child: _CardImage(
         imageUrl: yugiohCard.imageSmallUrl,
