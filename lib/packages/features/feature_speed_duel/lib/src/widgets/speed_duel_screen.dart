@@ -25,12 +25,21 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
     ]);
+
+    // Make the app full screen.
+    SystemChrome.setEnabledSystemUIOverlays([]);
   }
 
   @override
   void dispose() {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
+    ]);
+
+    // Show the status bar and bottom bar again.
+    SystemChrome.setEnabledSystemUIOverlays([
+      SystemUiOverlay.bottom,
+      SystemUiOverlay.top,
     ]);
 
     super.dispose();
