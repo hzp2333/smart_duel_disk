@@ -12,6 +12,8 @@ class AppConfig {
   String get youtubeUrl => 'https://www.youtube.com/channel/UCz2Que3btHnGkwrW-emZV5A';
   String get discordUrl => 'https://discord.gg/SxmeN9Yh8a';
 
+  String get webSocketUrl => 'http://192.168.0.106:3000';
+
   final String twitterUserId;
   final String twitterConsumerKey;
   final String twitterConsumerSecret;

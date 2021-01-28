@@ -3,15 +3,20 @@ import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
+import 'package:smart_duel_disk/packages/wrappers/wrapper_web_socket/wrapper_web_socket_interface/lib/wrapper_web_socket_interface.dart';
 
 import 'models/zone_type.dart';
 
 @Injectable()
 class SpeedDuelViewModel {
+  final WebSocketProvider _webSocketProvider;
+
   final _playerState = BehaviorSubject<PlayerState>.seeded(const PlayerState());
   Stream<PlayerState> get playerState => _playerState.stream;
 
-  SpeedDuelViewModel() {
+  SpeedDuelViewModel(
+    this._webSocketProvider,
+  ) {
     _init();
   }
 
@@ -36,6 +41,8 @@ class SpeedDuelViewModel {
     final currentState = _playerState.value;
     final updatedState = currentState.copyWith(hand: currentState.hand.copyWith(cards: hand));
     _playerState.add(updatedState);
+
+    _webSocketProvider.connect();
   }
 
   bool onWillAccept(YugiohCard yugiohCard, Zone zone) {
@@ -110,6 +117,7 @@ class SpeedDuelViewModel {
   }
 
   void dispose() {
+    _webSocketProvider?.dispose();
     _playerState?.close();
   }
 }

@@ -9,6 +9,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
+import 'package:socket_io_client/socket_io_client.dart';
 import 'package:dart_twitter_api/twitter_api.dart';
 
 import '../../packages/core/core_config/core_config_interface/lib/core_config_interface.dart';
@@ -40,6 +41,8 @@ import '../../packages/wrappers/wrapper_twitter/wrapper_twitter_interface/lib/wr
 import '../../packages/wrappers/wrapper_twitter/wrapper_twitter_impl/lib/src/twitter_provider.dart';
 import '../../packages/wrappers/wrapper_url_launcher/wrapper_url_launcher_interface/lib/wrapper_url_launcher_interface.dart';
 import '../../packages/wrappers/wrapper_url_launcher/wrapper_url_launcher_impl/lib/src/url_launcher_provider.dart';
+import '../../packages/wrappers/wrapper_web_socket/wrapper_web_socket_interface/lib/wrapper_web_socket_interface.dart';
+import '../../packages/wrappers/wrapper_web_socket/wrapper_web_socket_impl/lib/src/web_socket_provider.dart';
 import '../../packages/core/core_ygoprodeck/core_ygoprodeck_interface/lib/core_ygoprodeck_interface.dart';
 import '../../packages/core/core_ygoprodeck/core_ygoprodeck_impl/lib/src/ygoprodeck_api_provider.dart';
 import 'modules/core_modules.dart';
@@ -58,6 +61,7 @@ GetIt $initGetIt(
   final gh = GetItHelper(get, environment, environmentFilter);
   final ygoProDeckModule = _$YgoProDeckModule();
   final firebaseModule = _$FirebaseModule();
+  final socketIoModule = _$SocketIoModule();
   final twitterModule = _$TwitterModule();
   gh.lazySingleton<AssetsProvider>(() => AssetsProviderImpl());
   gh.lazySingleton<DateFormatter>(() => DateFormatter());
@@ -68,12 +72,13 @@ GetIt $initGetIt(
   gh.lazySingleton<FirebaseFirestore>(
       () => firebaseModule.provideFirebaseFirestore());
   gh.factory<HomeViewModel>(() => HomeViewModel());
-  gh.factory<SpeedDuelViewModel>(() => SpeedDuelViewModel());
+  gh.factory<Socket>(() => socketIoModule.provideSocket(get<AppConfig>()));
   gh.lazySingleton<TwitterApi>(
       () => twitterModule.provideTwitterApi(get<AppConfig>()));
   gh.lazySingleton<TwitterProvider>(
       () => TwitterProviderImpl(get<TwitterApi>()));
   gh.lazySingleton<UrlLauncherProvider>(() => UrlLauncherProviderImpl());
+  gh.factory<WebSocketProvider>(() => WebSocketProviderImpl(get<Socket>()));
   gh.lazySingleton<YgoProDeckRestClient>(
       () => YgoProDeckRestClient(get<Dio>()));
   gh.factoryParam<YugiohCardDetailViewModel, YugiohCard, int>(
@@ -91,6 +96,8 @@ GetIt $initGetIt(
         get<AppConfig>(),
         get<UrlLauncherProvider>(),
       ));
+  gh.factory<SpeedDuelViewModel>(
+      () => SpeedDuelViewModel(get<WebSocketProvider>()));
   gh.lazySingleton<YgoProDeckApiProvider>(
       () => YgoProDeckApiProviderImpl(get<YgoProDeckRestClient>()));
   gh.lazySingleton<YugiohCardsDataManager>(
@@ -122,5 +129,7 @@ GetIt $initGetIt(
 class _$YgoProDeckModule extends YgoProDeckModule {}
 
 class _$FirebaseModule extends FirebaseModule {}
+
+class _$SocketIoModule extends SocketIoModule {}
 
 class _$TwitterModule extends TwitterModule {}
