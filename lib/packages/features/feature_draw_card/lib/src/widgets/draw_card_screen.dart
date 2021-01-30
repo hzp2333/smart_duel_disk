@@ -24,10 +24,24 @@ class _DrawCardScreenState extends State<DrawCardScreen> {
   void initState() {
     super.initState();
 
+    // Make the app full screen.
+    SystemChrome.setEnabledSystemUIOverlays([]);
+
     final assetsProvider = Provider.of<AssetsProvider>(context, listen: false);
     _cardImage = _CardImage(imageAssetId: assetsProvider.cardBack);
 
     _startAnimation();
+  }
+
+  @override
+  void dispose() {
+    // Show the status bar and bottom bar again.
+    SystemChrome.setEnabledSystemUIOverlays([
+      SystemUiOverlay.bottom,
+      SystemUiOverlay.top,
+    ]);
+
+    super.dispose();
   }
 
   void _startAnimation() {
@@ -55,7 +69,7 @@ class _DrawCardScreenState extends State<DrawCardScreen> {
     final animatingTopOffset = animatingBottomOffset * -1;
 
     return Scaffold(
-      backgroundColor: AppColors.primaryBackgroundColor,
+      backgroundColor: Colors.black,
       body: Stack(
         alignment: Alignment.center,
         children: [
