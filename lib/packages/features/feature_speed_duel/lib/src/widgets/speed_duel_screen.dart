@@ -129,7 +129,6 @@ class _FirstPlayerFieldRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _SingleCardFieldZone(zone: playerState.fieldZone),
-        const SizedBox(width: AppDimensions.duelFieldCardSpacing),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -140,7 +139,6 @@ class _FirstPlayerFieldRow extends StatelessWidget {
             _SingleCardFieldZone(zone: playerState.mainMonsterZone3),
           ],
         ),
-        const SizedBox(width: AppDimensions.duelFieldCardSpacing),
         _SingleCardFieldZone(zone: playerState.graveyardZone),
       ],
     );
@@ -160,7 +158,6 @@ class _SecondPlayerFieldRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _SingleCardFieldZone(zone: playerState.extraDeckZone),
-        const SizedBox(width: AppDimensions.duelFieldCardSpacing),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -171,7 +168,6 @@ class _SecondPlayerFieldRow extends StatelessWidget {
             _SingleCardFieldZone(zone: playerState.spellTrapZone3),
           ],
         ),
-        const SizedBox(width: AppDimensions.duelFieldCardSpacing),
         _SingleCardFieldZone(zone: playerState.deckZone),
       ],
     );

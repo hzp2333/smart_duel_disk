@@ -1,26 +1,33 @@
+import 'package:enum_to_string/enum_to_string.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_web_socket/wrapper_web_socket_interface/lib/wrapper_web_socket_interface.dart';
 
 import 'models/zone_type.dart';
 
 @Injectable()
 class SpeedDuelViewModel {
-  final WebSocketProvider _webSocketProvider;
+  final SmartDuelServer _smartDuelServer;
 
   final _playerState = BehaviorSubject<PlayerState>.seeded(const PlayerState());
   Stream<PlayerState> get playerState => _playerState.stream;
 
   SpeedDuelViewModel(
-    this._webSocketProvider,
+    this._smartDuelServer,
   ) {
     _init();
   }
 
   void _init() {
+    _initDemoCards();
+
+    _smartDuelServer.connect();
+  }
+
+  void _initDemoCards() {
     final hand = [
       const YugiohCard(
         id: 89631139,
@@ -36,13 +43,39 @@ class SpeedDuelViewModel {
         attribute: CardAttribute.light,
         archetype: 'Blue-Eyes',
       ),
+      const YugiohCard(
+        id: 46986414,
+        name: 'Dark Magician',
+        type: CardType.normalMonster,
+        description: 'The ultimate wizard in terms of attack and defense.',
+        race: CardRace.spellcaster,
+        imageSmallUrl: 'https://storage.googleapis.com/ygoprodeck.com/pics_small/46986414.jpg',
+        imageLargeUrl: 'https://storage.googleapis.com/ygoprodeck.com/pics/46986414.jpg',
+        atk: 2500,
+        def: 2100,
+        level: 7,
+        attribute: CardAttribute.dark,
+        archetype: 'Dark Magician',
+      ),
+      const YugiohCard(
+        id: 38033121,
+        name: 'Dark Magician Girl',
+        type: CardType.effectMonster,
+        description: 'Gains 300 ATK for every Dark Magician or Magician of Black Chaos in the GY.',
+        race: CardRace.spellcaster,
+        imageSmallUrl: 'https://storage.googleapis.com/ygoprodeck.com/pics_small/38033121.jpg',
+        imageLargeUrl: 'https://storage.googleapis.com/ygoprodeck.com/pics/38033121.jpg',
+        atk: 2000,
+        def: 1700,
+        level: 6,
+        attribute: CardAttribute.dark,
+        archetype: 'Dark Magician',
+      ),
     ];
 
     final currentState = _playerState.value;
     final updatedState = currentState.copyWith(hand: currentState.hand.copyWith(cards: hand));
     _playerState.add(updatedState);
-
-    _webSocketProvider.connect();
   }
 
   bool onWillAccept(YugiohCard yugiohCard, Zone zone) {
@@ -88,10 +121,28 @@ class SpeedDuelViewModel {
       return;
     }
 
-    final updatedOldZone = cardOldZone.copyWith(cards: [...cardOldZone.cards]..remove(yugiohCard));
+    _sendSummonEvent(yugiohCard, newZone);
+    _updatePlayerState(currentState, currentZones, yugiohCard, newZone, cardOldZone);
+  }
+
+  void _sendSummonEvent(YugiohCard yugiohCard, Zone newZone) {
+    _smartDuelServer.emitEvent(SummonDuelEvent(
+      yugiohCardId: yugiohCard.id,
+      zoneName: EnumToString.convertToString(newZone.zoneType),
+    ));
+  }
+
+  void _updatePlayerState(
+    PlayerState currentState,
+    Iterable<Zone> currentZones,
+    YugiohCard yugiohCard,
+    Zone newZone,
+    Zone oldZone,
+  ) {
+    final updatedOldZone = oldZone.copyWith(cards: [...oldZone.cards]..remove(yugiohCard));
 
     // Move the card to the new zone.
-    final updatedNewZone = newZone.copyWith(cards: [yugiohCard]);
+    final updatedNewZone = newZone.copyWith(cards: [...newZone.cards, yugiohCard]);
 
     final updatedZones = currentZones.toList()
       ..removeWhere((zone) => zone.zoneType == updatedOldZone.zoneType)
@@ -117,7 +168,7 @@ class SpeedDuelViewModel {
   }
 
   void dispose() {
-    _webSocketProvider?.dispose();
+    _smartDuelServer?.dispose();
     _playerState?.close();
   }
 }

@@ -36,11 +36,14 @@ import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/new
 import '../../packages/features/feature_home/lib/src/news/news_viewmodel.dart';
 import '../../packages/core/core_navigation/lib/core_navigation.dart';
 import '../navigation/router_helper.dart';
+import '../../packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
+import '../../packages/core/core_smart_duel_server/core_smart_duel_server_impl/lib/src/smart_duel_server.dart';
 import '../../packages/features/feature_speed_duel/lib/src/speed_duel_viewmodel.dart';
 import '../../packages/wrappers/wrapper_twitter/wrapper_twitter_interface/lib/wrapper_twitter_interface.dart';
 import '../../packages/wrappers/wrapper_twitter/wrapper_twitter_impl/lib/src/twitter_provider.dart';
 import '../../packages/wrappers/wrapper_url_launcher/wrapper_url_launcher_interface/lib/wrapper_url_launcher_interface.dart';
 import '../../packages/wrappers/wrapper_url_launcher/wrapper_url_launcher_impl/lib/src/url_launcher_provider.dart';
+import '../../packages/wrappers/wrapper_web_socket/wrapper_web_socket_impl/lib/src/web_socket_factory.dart';
 import '../../packages/wrappers/wrapper_web_socket/wrapper_web_socket_interface/lib/wrapper_web_socket_interface.dart';
 import '../../packages/wrappers/wrapper_web_socket/wrapper_web_socket_impl/lib/src/web_socket_provider.dart';
 import '../../packages/core/core_ygoprodeck/core_ygoprodeck_interface/lib/core_ygoprodeck_interface.dart';
@@ -78,6 +81,7 @@ GetIt $initGetIt(
   gh.lazySingleton<TwitterProvider>(
       () => TwitterProviderImpl(get<TwitterApi>()));
   gh.lazySingleton<UrlLauncherProvider>(() => UrlLauncherProviderImpl());
+  gh.lazySingleton<WebSocketFactory>(() => WebSocketFactoryImpl());
   gh.factory<WebSocketProvider>(() => WebSocketProviderImpl(get<Socket>()));
   gh.lazySingleton<YgoProDeckRestClient>(
       () => YgoProDeckRestClient(get<Dio>()));
@@ -96,8 +100,10 @@ GetIt $initGetIt(
         get<AppConfig>(),
         get<UrlLauncherProvider>(),
       ));
+  gh.lazySingleton<SmartDuelServer>(
+      () => SmartDuelServerImpl(get<WebSocketFactory>()));
   gh.factory<SpeedDuelViewModel>(
-      () => SpeedDuelViewModel(get<WebSocketProvider>()));
+      () => SpeedDuelViewModel(get<SmartDuelServer>()));
   gh.lazySingleton<YgoProDeckApiProvider>(
       () => YgoProDeckApiProviderImpl(get<YgoProDeckRestClient>()));
   gh.lazySingleton<YugiohCardsDataManager>(
