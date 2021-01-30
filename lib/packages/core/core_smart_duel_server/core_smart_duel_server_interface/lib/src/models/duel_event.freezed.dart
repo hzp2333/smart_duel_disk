@@ -18,7 +18,7 @@ class _$SummonDuelEventTearOff {
 
 // ignore: unused_element
   _SummonDuelEvent call(
-      {@required int yugiohCardId, @required String zoneName}) {
+      {@required String yugiohCardId, @required String zoneName}) {
     return _SummonDuelEvent(
       yugiohCardId: yugiohCardId,
       zoneName: zoneName,
@@ -37,7 +37,7 @@ const $SummonDuelEvent = _$SummonDuelEventTearOff();
 
 /// @nodoc
 mixin _$SummonDuelEvent {
-  int get yugiohCardId;
+  String get yugiohCardId;
   String get zoneName;
 
   Map<String, dynamic> toJson();
@@ -49,7 +49,7 @@ abstract class $SummonDuelEventCopyWith<$Res> {
   factory $SummonDuelEventCopyWith(
           SummonDuelEvent value, $Res Function(SummonDuelEvent) then) =
       _$SummonDuelEventCopyWithImpl<$Res>;
-  $Res call({int yugiohCardId, String zoneName});
+  $Res call({String yugiohCardId, String zoneName});
 }
 
 /// @nodoc
@@ -67,8 +67,9 @@ class _$SummonDuelEventCopyWithImpl<$Res>
     Object zoneName = freezed,
   }) {
     return _then(_value.copyWith(
-      yugiohCardId:
-          yugiohCardId == freezed ? _value.yugiohCardId : yugiohCardId as int,
+      yugiohCardId: yugiohCardId == freezed
+          ? _value.yugiohCardId
+          : yugiohCardId as String,
       zoneName: zoneName == freezed ? _value.zoneName : zoneName as String,
     ));
   }
@@ -81,7 +82,7 @@ abstract class _$SummonDuelEventCopyWith<$Res>
           _SummonDuelEvent value, $Res Function(_SummonDuelEvent) then) =
       __$SummonDuelEventCopyWithImpl<$Res>;
   @override
-  $Res call({int yugiohCardId, String zoneName});
+  $Res call({String yugiohCardId, String zoneName});
 }
 
 /// @nodoc
@@ -101,8 +102,9 @@ class __$SummonDuelEventCopyWithImpl<$Res>
     Object zoneName = freezed,
   }) {
     return _then(_SummonDuelEvent(
-      yugiohCardId:
-          yugiohCardId == freezed ? _value.yugiohCardId : yugiohCardId as int,
+      yugiohCardId: yugiohCardId == freezed
+          ? _value.yugiohCardId
+          : yugiohCardId as String,
       zoneName: zoneName == freezed ? _value.zoneName : zoneName as String,
     ));
   }
@@ -121,7 +123,7 @@ class _$_SummonDuelEvent implements _SummonDuelEvent {
       _$_$_SummonDuelEventFromJson(json);
 
   @override
-  final int yugiohCardId;
+  final String yugiohCardId;
   @override
   final String zoneName;
 
@@ -160,14 +162,14 @@ class _$_SummonDuelEvent implements _SummonDuelEvent {
 
 abstract class _SummonDuelEvent implements SummonDuelEvent {
   const factory _SummonDuelEvent(
-      {@required int yugiohCardId,
+      {@required String yugiohCardId,
       @required String zoneName}) = _$_SummonDuelEvent;
 
   factory _SummonDuelEvent.fromJson(Map<String, dynamic> json) =
       _$_SummonDuelEvent.fromJson;
 
   @override
-  int get yugiohCardId;
+  String get yugiohCardId;
   @override
   String get zoneName;
   @override

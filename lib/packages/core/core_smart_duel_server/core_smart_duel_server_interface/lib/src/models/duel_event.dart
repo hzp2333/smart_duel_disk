@@ -6,7 +6,7 @@ part 'duel_event.g.dart';
 @freezed
 abstract class SummonDuelEvent with _$SummonDuelEvent {
   const factory SummonDuelEvent({
-    @required int yugiohCardId,
+    @required String yugiohCardId,
     @required String zoneName,
   }) = _SummonDuelEvent;
 

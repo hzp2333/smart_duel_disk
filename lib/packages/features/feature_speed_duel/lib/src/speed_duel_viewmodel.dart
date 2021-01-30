@@ -127,7 +127,7 @@ class SpeedDuelViewModel {
 
   void _sendSummonEvent(YugiohCard yugiohCard, Zone newZone) {
     _smartDuelServer.emitEvent(SummonDuelEvent(
-      yugiohCardId: yugiohCard.id,
+      yugiohCardId: yugiohCard.id.toString(),
       zoneName: EnumToString.convertToString(newZone.zoneType),
     ));
   }

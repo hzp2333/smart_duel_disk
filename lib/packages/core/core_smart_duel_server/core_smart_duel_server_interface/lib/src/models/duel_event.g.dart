@@ -8,7 +8,7 @@ part of 'duel_event.dart';
 
 _$_SummonDuelEvent _$_$_SummonDuelEventFromJson(Map<String, dynamic> json) {
   return _$_SummonDuelEvent(
-    yugiohCardId: json['yugiohCardId'] as int,
+    yugiohCardId: json['yugiohCardId'] as String,
     zoneName: json['zoneName'] as String,
   );
 }
