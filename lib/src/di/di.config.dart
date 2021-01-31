@@ -20,14 +20,16 @@ import '../../packages/wrappers/wrapper_cloud_database/wrapper_cloud_database_in
 import '../../packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_interface/lib/wrapper_crashlytics_interface.dart';
 import '../../packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/data_manager.dart';
+import '../../packages/core/core_general/lib/src/formatters/date_formatter.dart';
 import '../../packages/core/core_general/lib/core_general.dart'
     as smart_duel_disk;
-import '../../packages/core/core_general/lib/src/formatters/date_formatter.dart';
 import '../../packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/deck/deck_data_manager.dart';
 import '../../packages/features/feature_home/lib/src/deck/deck_viewmodel.dart';
 import '../../packages/features/feature_draw_card/lib/src/draw_card_viewmodel.dart';
 import '../../packages/features/feature_home/lib/src/duel/duel_viewmodel.dart';
+import '../../packages/wrappers/wrapper_enum_helper/wrapper_enum_helper_interface/lib/wrapper_enum_helper_interface.dart';
+import '../../packages/wrappers/wrapper_enum_helper/wrapper_enum_helper_impl/lib/src/enum_helper.dart';
 import '../../packages/wrappers/wrapper_cloud_database/wrapper_cloud_database_impl/lib/src/firebase/firebase_cloud_database_provider.dart';
 import '../../packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_impl/lib/src/firebase/firebase_crashlytics_provider.dart';
 import 'modules/third_party_modules.dart';
@@ -70,6 +72,7 @@ GetIt $initGetIt(
   gh.lazySingleton<DateFormatter>(() => DateFormatter());
   gh.lazySingleton<Dio>(
       () => ygoProDeckModule.provideYgoProDeckDio(get<AppConfig>()));
+  gh.lazySingleton<EnumHelper>(() => EnumHelperImpl());
   gh.lazySingleton<FirebaseCrashlytics>(
       () => firebaseModule.provideFirebaseCrashlytics());
   gh.lazySingleton<FirebaseFirestore>(
@@ -87,8 +90,8 @@ GetIt $initGetIt(
       () => YgoProDeckRestClient(get<Dio>()));
   gh.factoryParam<YugiohCardDetailViewModel, YugiohCard, int>(
       (_yugiohCard, _index) => YugiohCardDetailViewModel(_yugiohCard, _index));
-  gh.lazySingleton<CloudDatabaseProvider>(
-      () => FirebaseCloudDatabaseProvider(get<FirebaseFirestore>()));
+  gh.lazySingleton<CloudDatabaseProvider>(() => FirebaseCloudDatabaseProvider(
+      get<FirebaseFirestore>(), get<EnumHelper>()));
   gh.lazySingleton<CrashlyticsProvider>(
       () => FirebaseCrashlyticsProvider(get<FirebaseCrashlytics>()));
   gh.lazySingleton<DeckDataManager>(
@@ -103,7 +106,7 @@ GetIt $initGetIt(
   gh.lazySingleton<SmartDuelServer>(
       () => SmartDuelServerImpl(get<WebSocketFactory>()));
   gh.factory<SpeedDuelViewModel>(
-      () => SpeedDuelViewModel(get<SmartDuelServer>()));
+      () => SpeedDuelViewModel(get<SmartDuelServer>(), get<EnumHelper>()));
   gh.lazySingleton<YgoProDeckApiProvider>(
       () => YgoProDeckApiProviderImpl(get<YgoProDeckRestClient>()));
   gh.lazySingleton<YugiohCardsDataManager>(

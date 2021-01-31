@@ -1,4 +1,3 @@
-import 'package:enum_to_string/enum_to_string.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
@@ -6,18 +5,21 @@ import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
+import 'package:smart_duel_disk/packages/wrappers/wrapper_enum_helper/wrapper_enum_helper_interface/lib/wrapper_enum_helper_interface.dart';
 
 import 'models/zone_type.dart';
 
 @Injectable()
 class SpeedDuelViewModel extends BaseViewModel {
   final SmartDuelServer _smartDuelServer;
+  final EnumHelper _enumHelper;
 
   final _playerState = BehaviorSubject<PlayerState>.seeded(const PlayerState());
   Stream<PlayerState> get playerState => _playerState.stream;
 
   SpeedDuelViewModel(
     this._smartDuelServer,
+    this._enumHelper,
   ) {
     _init();
   }
@@ -129,7 +131,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   void _sendSummonEvent(YugiohCard yugiohCard, Zone newZone) {
     _smartDuelServer.emitEvent(SummonDuelEvent(
       yugiohCardId: yugiohCard.id.toString(),
-      zoneName: EnumToString.convertToString(newZone.zoneType),
+      zoneName: _enumHelper.convertToString(newZone.zoneType),
     ));
   }
 
