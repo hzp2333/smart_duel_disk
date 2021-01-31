@@ -9,7 +9,7 @@ import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/d
 import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_interface/lib/wrapper_crashlytics_interface.dart';
 
 @Injectable()
-class DeckBuilderViewModel {
+class DeckBuilderViewModel extends BaseViewModel {
   final PreBuiltDeck _preBuiltDeck;
   final RouterHelper _routerHelper;
   final DataManager _dataManager;
@@ -100,6 +100,7 @@ class DeckBuilderViewModel {
     return _routerHelper.showYugiohCardDetail(yugiohCard, index);
   }
 
+  @override
   void dispose() {
     _filteredCardsSubscription?.cancel();
     _filteredCardsSubscription = null;
@@ -107,5 +108,7 @@ class DeckBuilderViewModel {
     _deckBuilderState?.close();
     _yugiohCards?.close();
     _textFilter?.close();
+
+    super.dispose();
   }
 }

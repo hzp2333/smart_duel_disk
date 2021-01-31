@@ -2,6 +2,7 @@ import 'package:enum_to_string/enum_to_string.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
@@ -9,7 +10,7 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 import 'models/zone_type.dart';
 
 @Injectable()
-class SpeedDuelViewModel {
+class SpeedDuelViewModel extends BaseViewModel {
   final SmartDuelServer _smartDuelServer;
 
   final _playerState = BehaviorSubject<PlayerState>.seeded(const PlayerState());
@@ -167,8 +168,11 @@ class SpeedDuelViewModel {
     _playerState.add(updatedState);
   }
 
+  @override
   void dispose() {
     _smartDuelServer?.dispose();
     _playerState?.close();
+
+    super.dispose();
   }
 }

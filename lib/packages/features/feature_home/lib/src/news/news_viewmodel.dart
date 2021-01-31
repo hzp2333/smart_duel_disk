@@ -11,7 +11,7 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/wrapper_cr
 import 'extensions/news_item_extensions.dart';
 
 @Injectable()
-class NewsViewModel {
+class NewsViewModel extends BaseViewModel {
   final RouterHelper _routerHelper;
   final DataManager _dataManager;
   final DateFormatter _dateFormatter;
@@ -69,7 +69,10 @@ class NewsViewModel {
     }
   }
 
+  @override
   void dispose() {
     _newsState?.close();
+
+    super.dispose();
   }
 }
