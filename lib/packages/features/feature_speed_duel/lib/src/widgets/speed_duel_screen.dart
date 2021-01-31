@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone_type.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
 
@@ -25,12 +26,21 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.landscapeLeft,
     ]);
+
+    // Make the app full screen.
+    SystemChrome.setEnabledSystemUIOverlays([]);
   }
 
   @override
   void dispose() {
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
+    ]);
+
+    // Show the status bar and bottom bar again.
+    SystemChrome.setEnabledSystemUIOverlays([
+      SystemUiOverlay.bottom,
+      SystemUiOverlay.top,
     ]);
 
     super.dispose();
@@ -119,7 +129,6 @@ class _FirstPlayerFieldRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _SingleCardFieldZone(zone: playerState.fieldZone),
-        const SizedBox(width: AppDimensions.duelFieldCardSpacing),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -130,7 +139,6 @@ class _FirstPlayerFieldRow extends StatelessWidget {
             _SingleCardFieldZone(zone: playerState.mainMonsterZone3),
           ],
         ),
-        const SizedBox(width: AppDimensions.duelFieldCardSpacing),
         _SingleCardFieldZone(zone: playerState.graveyardZone),
       ],
     );
@@ -150,7 +158,6 @@ class _SecondPlayerFieldRow extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         _SingleCardFieldZone(zone: playerState.extraDeckZone),
-        const SizedBox(width: AppDimensions.duelFieldCardSpacing),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -161,7 +168,6 @@ class _SecondPlayerFieldRow extends StatelessWidget {
             _SingleCardFieldZone(zone: playerState.spellTrapZone3),
           ],
         ),
-        const SizedBox(width: AppDimensions.duelFieldCardSpacing),
         _SingleCardFieldZone(zone: playerState.deckZone),
       ],
     );
@@ -255,9 +261,11 @@ class _DraggableCard extends StatelessWidget {
         imageUrl: yugiohCard.imageSmallUrl,
         placeholderAssetId: assetsProvider.cardBack,
       ),
-      childWhenDragging: _SingleCardFieldZone(
-        zone: Zone(zoneType: zone.zoneType),
-      ),
+      childWhenDragging: zone.zoneType == ZoneType.hand
+          ? const SizedBox.shrink()
+          : _SingleCardFieldZone(
+              zone: Zone(zoneType: zone.zoneType),
+            ),
       child: _CardImage(
         imageUrl: yugiohCard.imageSmallUrl,
         placeholderAssetId: assetsProvider.cardBack,

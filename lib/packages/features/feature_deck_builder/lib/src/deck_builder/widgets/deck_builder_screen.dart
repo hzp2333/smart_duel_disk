@@ -73,7 +73,7 @@ class _Body extends StatelessWidget {
         initialData: const DeckBuilderState.loading(),
         builder: (context, snapshot) {
           return snapshot.data.when(
-            (cards, isPreBuilt) => isPreBuilt ? _PreBuiltDeckBody(yugiohCards: cards) : _SearchBody(yugiohCards: cards),
+            (cards, isPreBuilt) => isPreBuilt ? _PreBuiltDeckBody(yugiohCards: cards) : CardGrid(yugiohCards: cards),
             loading: () => const _LoadingBody(),
             noData: () => const _NoCardsBody(),
             error: () => const _ErrorBody(),
@@ -135,26 +135,10 @@ class _PreBuiltDeckSection extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: AppDimensions.screenMarginSmall),
           child: SectionTitle(title: title),
         ),
-        CardGrid(yugiohCards: yugiohCards),
-      ],
-    );
-  }
-}
-
-class _SearchBody extends StatelessWidget {
-  final Iterable<YugiohCard> yugiohCards;
-
-  const _SearchBody({
-    @required this.yugiohCards,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
-      children: [
-        CardGrid(yugiohCards: yugiohCards),
+        CardGrid(
+          yugiohCards: yugiohCards,
+          scrollPhysics: const NeverScrollableScrollPhysics(),
+        ),
       ],
     );
   }

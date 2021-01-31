@@ -8,9 +8,11 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_
 
 class CardGrid extends StatelessWidget {
   final Iterable<YugiohCard> yugiohCards;
+  final ScrollPhysics scrollPhysics;
 
   const CardGrid({
     @required this.yugiohCards,
+    this.scrollPhysics = const ClampingScrollPhysics(),
   });
 
   @override
@@ -18,7 +20,7 @@ class CardGrid extends StatelessWidget {
     return SafeArea(
       child: GridView.builder(
         shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
+        physics: scrollPhysics,
         padding: const EdgeInsets.all(AppDimensions.screenMarginSmall),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 6,
