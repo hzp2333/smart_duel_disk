@@ -4,16 +4,17 @@ import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_logger/core_logger_interface/lib/core_logger_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/deck_builder/models/deck_builder_state.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_interface/lib/wrapper_crashlytics_interface.dart';
 
 @Injectable()
 class DeckBuilderViewModel extends BaseViewModel {
+  static const _tag = 'DeckBuilderViewModel';
+
   final PreBuiltDeck _preBuiltDeck;
   final RouterHelper _routerHelper;
   final DataManager _dataManager;
-  final CrashlyticsProvider _crashlyticsProvider;
 
   final _deckBuilderState = BehaviorSubject<DeckBuilderState>();
   Stream<DeckBuilderState> get deckBuilderState => _deckBuilderState.stream;
@@ -27,13 +28,17 @@ class DeckBuilderViewModel extends BaseViewModel {
   bool get showFilter => _preBuiltDeck == null;
 
   DeckBuilderViewModel(
+    Logger logger,
     @factoryParam this._preBuiltDeck,
     this._routerHelper,
     this._dataManager,
-    this._crashlyticsProvider,
-  );
+  ) : super(
+          logger,
+        );
 
   Future<void> init() async {
+    logger.info(_tag, 'init()');
+
     if (_preBuiltDeck == null) {
       _preBuiltDeckCardIds.add([]);
     } else {
@@ -69,10 +74,14 @@ class DeckBuilderViewModel extends BaseViewModel {
   }
 
   Future<void> onRetryPressed() {
+    logger.info(_tag, 'onRetryPressed()');
+
     return _fetchData();
   }
 
   Future<void> _fetchData() async {
+    logger.verbose(_tag, '_fetchData()');
+
     _deckBuilderState.add(const DeckBuilderState.loading());
 
     try {
@@ -83,20 +92,26 @@ class DeckBuilderViewModel extends BaseViewModel {
 
       _yugiohCards.add(speedDuelCards);
     } catch (exception, stackTrace) {
-      _crashlyticsProvider.logException(exception, stackTrace);
+      logger.error(_tag, 'An error occurred while fetching the speed tuel cards.', exception, stackTrace);
       _deckBuilderState.add(const DeckBuilderState.error());
     }
   }
 
   void onTextFilterChanged(String value) {
+    logger.info(_tag, 'onTextFilterChanged($value)');
+
     _textFilter.add(value);
   }
 
   void onClearTextFilterPressed() {
+    logger.info(_tag, 'onClearTextFilterPressed()');
+
     _textFilter.add('');
   }
 
   Future<void> onYugiohCardPressed(YugiohCard yugiohCard, int index) {
+    logger.info(_tag, 'onYugiohCardPressed($yugiohCard, $index)');
+
     return _routerHelper.showYugiohCardDetail(yugiohCard, index);
   }
 

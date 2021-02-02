@@ -3,6 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 @immutable
 class AppConfig {
+  bool get loggingEnabled => true;
+
   String get ygoProDeckBaseUrl => 'https://db.ygoprodeck.com/api/v7';
   int get ygoProDeckReceiveTimeout => 10000;
   int get ygoProDeckConnectTimeout => 10000;
