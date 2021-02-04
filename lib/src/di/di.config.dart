@@ -20,9 +20,9 @@ import '../../packages/wrappers/wrapper_cloud_database/wrapper_cloud_database_in
 import '../../packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_interface/lib/wrapper_crashlytics_interface.dart';
 import '../../packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/data_manager.dart';
-import '../../packages/core/core_general/lib/src/formatters/date_formatter.dart';
 import '../../packages/core/core_general/lib/core_general.dart'
     as smart_duel_disk1;
+import '../../packages/core/core_general/lib/src/formatters/date_formatter.dart';
 import '../../packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/deck/deck_data_manager.dart';
 import '../../packages/features/feature_home/lib/src/deck/deck_viewmodel.dart';
@@ -33,6 +33,7 @@ import '../../packages/wrappers/wrapper_enum_helper/wrapper_enum_helper_impl/lib
 import '../../packages/wrappers/wrapper_cloud_database/wrapper_cloud_database_impl/lib/src/firebase/firebase_cloud_database_provider.dart';
 import '../../packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_impl/lib/src/firebase/firebase_crashlytics_provider.dart';
 import 'modules/third_party_modules.dart';
+import '../../packages/features/feature_speed_duel/lib/src/usecases/get_cards_from_deck_use_case.dart';
 import '../../packages/features/feature_home/lib/src/home/home_viewmodel.dart';
 import '../../packages/core/core_logger/core_logger_interface/lib/core_logger_interface.dart';
 import '../../packages/core/core_logger/core_logger_interface/lib/src/logger.dart'
@@ -105,11 +106,6 @@ GetIt $initGetIt(
       ));
   gh.lazySingleton<SmartDuelServer>(
       () => SmartDuelServerImpl(get<WebSocketFactory>()));
-  gh.factory<SpeedDuelViewModel>(() => SpeedDuelViewModel(
-        get<Logger>(),
-        get<SmartDuelServer>(),
-        get<EnumHelper>(),
-      ));
   gh.factoryParam<YugiohCardDetailViewModel, YugiohCard, int>(
       (_yugiohCard, _index) => YugiohCardDetailViewModel(
             get<Logger>(),
@@ -142,6 +138,8 @@ GetIt $initGetIt(
             get<RouterHelper>(),
             get<DataManager>(),
           ));
+  gh.lazySingleton<GetCardsFromDeckUseCase>(
+      () => GetCardsFromDeckUseCase(get<DataManager>()));
   gh.factory<NewsViewModel>(() => NewsViewModel(
         get<Logger>(),
         get<RouterHelper>(),
@@ -149,6 +147,14 @@ GetIt $initGetIt(
         get<smart_duel_disk1.DateFormatter>(),
         get<CrashlyticsProvider>(),
       ));
+  gh.factoryParam<SpeedDuelViewModel, PreBuiltDeck, dynamic>(
+      (_preBuiltDeck, _) => SpeedDuelViewModel(
+            get<Logger>(),
+            _preBuiltDeck,
+            get<SmartDuelServer>(),
+            get<GetCardsFromDeckUseCase>(),
+            get<EnumHelper>(),
+          ));
   return get;
 }
 

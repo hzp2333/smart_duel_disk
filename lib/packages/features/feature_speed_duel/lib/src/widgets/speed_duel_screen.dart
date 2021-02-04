@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone_type.dart';
@@ -185,7 +185,7 @@ class _SingleCardFieldZone extends StatelessWidget {
   Widget build(BuildContext context) {
     final vm = Provider.of<SpeedDuelViewModel>(context);
 
-    return DragTarget<YugiohCard>(
+    return DragTarget<PlayCard>(
       onWillAccept: (card) => vm.onWillAccept(card, zone),
       onAccept: (card) => vm.onAccept(card, zone),
       builder: (_, __, ___) {
@@ -198,7 +198,7 @@ class _SingleCardFieldZone extends StatelessWidget {
                 ),
               )
             : _DraggableCard(
-                yugiohCard: zone.cards.first,
+                card: zone.cards.first,
                 zone: zone,
               );
       },
@@ -217,7 +217,7 @@ class _HandRow extends StatelessWidget {
   Widget build(BuildContext context) {
     final vm = Provider.of<SpeedDuelViewModel>(context);
 
-    return DragTarget<YugiohCard>(
+    return DragTarget<PlayCard>(
       onWillAccept: (card) => vm.onWillAccept(card, zone),
       onAccept: (card) => vm.onAccept(card, zone),
       builder: (_, __, ___) {
@@ -228,7 +228,7 @@ class _HandRow extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemCount: zone.cards.length,
               itemBuilder: (_, index) => _DraggableCard(
-                yugiohCard: zone.cards.elementAt(index),
+                card: zone.cards.elementAt(index),
                 zone: zone,
               ),
               separatorBuilder: (_, __) => const SizedBox(width: 16),
@@ -241,11 +241,11 @@ class _HandRow extends StatelessWidget {
 }
 
 class _DraggableCard extends StatelessWidget {
-  final YugiohCard yugiohCard;
+  final PlayCard card;
   final Zone zone;
 
   const _DraggableCard({
-    @required this.yugiohCard,
+    @required this.card,
     @required this.zone,
   });
 
@@ -253,12 +253,12 @@ class _DraggableCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final assetsProvider = Provider.of<AssetsProvider>(context);
 
-    return Draggable<YugiohCard>(
+    return Draggable<PlayCard>(
       maxSimultaneousDrags: 1,
       onDragStarted: HapticFeedback.selectionClick,
-      data: yugiohCard,
+      data: card,
       feedback: _CardImage(
-        imageUrl: yugiohCard.imageSmallUrl,
+        imageUrl: card.yugiohCard.imageSmallUrl,
         placeholderAssetId: assetsProvider.cardBack,
       ),
       childWhenDragging: zone.zoneType == ZoneType.hand
@@ -267,7 +267,7 @@ class _DraggableCard extends StatelessWidget {
               zone: Zone(zoneType: zone.zoneType),
             ),
       child: _CardImage(
-        imageUrl: yugiohCard.imageSmallUrl,
+        imageUrl: card.yugiohCard.imageSmallUrl,
         placeholderAssetId: assetsProvider.cardBack,
       ),
     );

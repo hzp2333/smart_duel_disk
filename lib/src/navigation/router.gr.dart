@@ -45,8 +45,10 @@ class AppRouter extends _i1.RootStackRouter {
           entry: entry, child: _i5.DrawCardScreenProvider());
     },
     SpeedDuelRoute.name: (entry) {
+      var route = entry.routeData.as<SpeedDuelRoute>();
       return _i1.AdaptivePage(
-          entry: entry, child: _i6.SpeedDuelScreenProvider());
+          entry: entry,
+          child: _i6.SpeedDuelScreenProvider(preBuiltDeck: route.preBuiltDeck));
     },
     DuelTab.name: (entry) {
       return _i1.AdaptivePage(entry: entry, child: _i2.DuelScreenProvider());
@@ -139,9 +141,14 @@ class DrawCardRoute extends _i1.PageRouteInfo {
 }
 
 class SpeedDuelRoute extends _i1.PageRouteInfo {
-  const SpeedDuelRoute() : super(name, path: '/speed-duel-screen-provider');
+  SpeedDuelRoute({@_i8.required this.preBuiltDeck})
+      : super(name, path: '/speed-duel-screen-provider');
 
-  SpeedDuelRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
+  SpeedDuelRoute.fromMatch(_i1.RouteMatch match)
+      : preBuiltDeck = null,
+        super.fromMatch(match);
+
+  final _i7.PreBuiltDeck preBuiltDeck;
 
   static const String name = 'SpeedDuelRoute';
 }
