@@ -86,33 +86,74 @@ class SpeedDuelViewModel extends BaseViewModel {
   }
 
   bool onWillAccept(YugiohCard yugiohCard, Zone zone) {
+    final currentState = _playerState.value;
+    final currentZones = currentState.zones;
+
     switch (zone.zoneType) {
       case ZoneType.hand:
         return yugiohCard.type != CardType.fusionMonster;
+
       case ZoneType.field:
-        return yugiohCard.race == CardRace.field;
+        return yugiohCard.race == CardRace.field &&
+            currentZones.singleWhere((zone) => zone.zoneType == ZoneType.field).cards.isEmpty;
+
       case ZoneType.mainMonster1:
+        return (yugiohCard.type == CardType.effectMonster ||
+                yugiohCard.type == CardType.flipEffectMonster ||
+                yugiohCard.type == CardType.fusionMonster ||
+                yugiohCard.type == CardType.normalMonster ||
+                yugiohCard.type == CardType.ritualEffectMonster ||
+                yugiohCard.type == CardType.ritualMonster ||
+                yugiohCard.type == CardType.toonMonster ||
+                yugiohCard.type == CardType.unionEffectMonster) &&
+            currentZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster1).cards.isEmpty;
+
       case ZoneType.mainMonster2:
+        return (yugiohCard.type == CardType.effectMonster ||
+                yugiohCard.type == CardType.flipEffectMonster ||
+                yugiohCard.type == CardType.fusionMonster ||
+                yugiohCard.type == CardType.normalMonster ||
+                yugiohCard.type == CardType.ritualEffectMonster ||
+                yugiohCard.type == CardType.ritualMonster ||
+                yugiohCard.type == CardType.toonMonster ||
+                yugiohCard.type == CardType.unionEffectMonster) &&
+            currentZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster2).cards.isEmpty;
+
       case ZoneType.mainMonster3:
-        return yugiohCard.type == CardType.effectMonster ||
-            yugiohCard.type == CardType.flipEffectMonster ||
-            yugiohCard.type == CardType.fusionMonster ||
-            yugiohCard.type == CardType.normalMonster ||
-            yugiohCard.type == CardType.ritualEffectMonster ||
-            yugiohCard.type == CardType.ritualMonster ||
-            yugiohCard.type == CardType.toonMonster ||
-            yugiohCard.type == CardType.unionEffectMonster;
+        return (yugiohCard.type == CardType.effectMonster ||
+                yugiohCard.type == CardType.flipEffectMonster ||
+                yugiohCard.type == CardType.fusionMonster ||
+                yugiohCard.type == CardType.normalMonster ||
+                yugiohCard.type == CardType.ritualEffectMonster ||
+                yugiohCard.type == CardType.ritualMonster ||
+                yugiohCard.type == CardType.toonMonster ||
+                yugiohCard.type == CardType.unionEffectMonster) &&
+            currentZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster3).cards.isEmpty;
+
       case ZoneType.graveyard:
         return true;
+
       case ZoneType.extraDeck:
         return yugiohCard.type == CardType.fusionMonster;
+
       case ZoneType.spellTrap1:
+        return (yugiohCard.type == CardType.trapCard ||
+                (yugiohCard.type == CardType.spellCard && yugiohCard.race != CardRace.field)) &&
+            currentZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap1).cards.isEmpty;
+
       case ZoneType.spellTrap2:
+        return (yugiohCard.type == CardType.trapCard ||
+                (yugiohCard.type == CardType.spellCard && yugiohCard.race != CardRace.field)) &&
+            currentZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap2).cards.isEmpty;
+
       case ZoneType.spellTrap3:
-        return yugiohCard.type == CardType.trapCard ||
-            (yugiohCard.type == CardType.spellCard && yugiohCard.race != CardRace.field);
+        return (yugiohCard.type == CardType.trapCard ||
+                (yugiohCard.type == CardType.spellCard && yugiohCard.race != CardRace.field)) &&
+            currentZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap3).cards.isEmpty;
+
       case ZoneType.deck:
         return true;
+
       default:
         return false;
     }
