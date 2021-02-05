@@ -156,6 +156,9 @@ class SpeedDuelViewModel extends BaseViewModel {
       case ZoneType.graveyard:
         return true;
 
+      case ZoneType.banished:
+        return true;
+
       case ZoneType.extraDeck:
         return card.yugiohCard.type == CardType.fusionMonster;
 
@@ -231,6 +234,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       mainMonsterZone2: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster2),
       mainMonsterZone3: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster3),
       graveyardZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.graveyard),
+      banishedZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.banished),
       extraDeckZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.extraDeck),
       spellTrapZone1: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap1),
       spellTrapZone2: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap2),

@@ -139,7 +139,20 @@ class _FirstPlayerFieldRow extends StatelessWidget {
             _SingleCardFieldZone(zone: playerState.mainMonsterZone3),
           ],
         ),
-        _SingleCardFieldZone(zone: playerState.graveyardZone),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _MultiCardFieldZone(
+              zone: playerState.graveyardZone,
+              showCardBack: false,
+            ),
+            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
+            _MultiCardFieldZone(
+              zone: playerState.banishedZone,
+              showCardBack: false,
+            ),
+          ],
+        ),
       ],
     );
   }
@@ -157,7 +170,10 @@ class _SecondPlayerFieldRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _SingleCardFieldZone(zone: playerState.extraDeckZone),
+        _MultiCardFieldZone(
+          zone: playerState.extraDeckZone,
+          showCardBack: true,
+        ),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -168,7 +184,20 @@ class _SecondPlayerFieldRow extends StatelessWidget {
             _SingleCardFieldZone(zone: playerState.spellTrapZone3),
           ],
         ),
-        _SingleCardFieldZone(zone: playerState.deckZone),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            _MultiCardFieldZone(
+              zone: playerState.deckZone,
+              showCardBack: true,
+            ),
+            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
+            const AspectRatio(
+              aspectRatio: AppDimensions.yugiohCardAspectRatio,
+              child: SizedBox.expand(),
+            ),
+          ],
+        ),
       ],
     );
   }
@@ -201,6 +230,62 @@ class _SingleCardFieldZone extends StatelessWidget {
                 card: zone.cards.first,
                 zone: zone,
               );
+      },
+    );
+  }
+}
+
+class _MultiCardFieldZone extends StatelessWidget {
+  final Zone zone;
+  final bool showCardBack;
+
+  const _MultiCardFieldZone({
+    @required this.zone,
+    @required this.showCardBack,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final vm = Provider.of<SpeedDuelViewModel>(context);
+    final assetsProvider = Provider.of<AssetsProvider>(context);
+
+    return DragTarget<PlayCard>(
+      onWillAccept: (card) => vm.onWillAccept(card, zone),
+      onAccept: (card) => vm.onAccept(card, zone),
+      builder: (_, __, ___) {
+        final amountOfCards = zone.cards.length.toString();
+
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            if (zone.cards.isEmpty) ...{
+              const _EmptyZone(),
+            } else if (showCardBack) ...{
+              ImagePlaceholder(imageAssetId: assetsProvider.cardBack),
+            } else ...{
+              _CardImage(
+                imageUrl: zone.cards.last.yugiohCard.imageSmallUrl,
+                placeholderAssetId: assetsProvider.cardBack,
+              ),
+            },
+            if (zone.cards.isNotEmpty) ...{
+              Stack(
+                children: [
+                  Text(
+                    amountOfCards,
+                    style: TextStyle(
+                      foreground: Paint()
+                        ..style = PaintingStyle.stroke
+                        ..strokeWidth = 2
+                        ..color = Colors.black,
+                    ),
+                  ),
+                  Text(amountOfCards),
+                ],
+              ),
+            }
+          ],
+        );
       },
     );
   }
@@ -290,6 +375,21 @@ class _CardImage extends StatelessWidget {
       fit: BoxFit.fitHeight,
       placeholder: (_, __) => ImagePlaceholder(imageAssetId: placeholderAssetId),
       errorWidget: (_, __, dynamic ___) => ImagePlaceholder(imageAssetId: placeholderAssetId),
+    );
+  }
+}
+
+class _EmptyZone extends StatelessWidget {
+  const _EmptyZone();
+
+  @override
+  Widget build(BuildContext context) {
+    return AspectRatio(
+      aspectRatio: AppDimensions.yugiohCardAspectRatio,
+      child: Container(
+        decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
+        child: const SizedBox.expand(),
+      ),
     );
   }
 }
