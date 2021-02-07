@@ -29,6 +29,9 @@ class SpeedDuelViewModel extends BaseViewModel {
   final _playerState = BehaviorSubject<PlayerState>.seeded(const PlayerState());
   Stream<PlayerState> get playerState => _playerState.stream;
 
+  bool _surrendered = false;
+  bool get hasSurrendered => _surrendered;
+
   SpeedDuelViewModel(
     Logger logger,
     @factoryParam this._preBuiltDeck,
@@ -42,14 +45,16 @@ class SpeedDuelViewModel extends BaseViewModel {
     _init();
   }
 
+  //region Initialization
+
   Future<void> _init() async {
     logger.verbose(_tag, '_init()');
+
+    _smartDuelServer.connect();
 
     await _setDeck();
     _shuffleDeck();
     _drawStartHand();
-
-    _smartDuelServer.connect();
   }
 
   Future<void> _setDeck() async {
@@ -74,17 +79,6 @@ class SpeedDuelViewModel extends BaseViewModel {
     _playerState.add(updatedState);
   }
 
-  void _shuffleDeck() {
-    logger.verbose(_tag, '_shuffleDeck()');
-
-    final currentState = _playerState.value;
-    final updatedState = currentState.copyWith(
-      deckZone: currentState.deckZone.copyWith(cards: currentState.deckZone.cards.toList()..shuffle()),
-    );
-
-    _playerState.add(updatedState);
-  }
-
   void _drawStartHand() {
     logger.verbose(_tag, '_drawStartHand()');
 
@@ -93,24 +87,9 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
   }
 
-  void _drawCard() {
-    logger.verbose(_tag, '_drawCard()');
+  //endregion
 
-    final currentState = _playerState.value;
-    final deck = currentState.deckZone.cards.toList();
-    if (deck.isEmpty) {
-      throw Exception('Deck is empty');
-    }
-
-    final drawnCard = deck.removeLast().copyWith(zoneType: ZoneType.hand);
-
-    final updatedState = currentState.copyWith(
-      deckZone: currentState.deckZone.copyWith(cards: deck),
-      hand: currentState.hand.copyWith(cards: [...currentState.hand.cards, drawnCard]),
-    );
-
-    _playerState.add(updatedState);
-  }
+  //region Drag & drop
 
   bool onWillAccept(PlayCard card, Zone zone) {
     logger.info(_tag, 'onWillAccept($card, $zone)');
@@ -255,6 +234,8 @@ class SpeedDuelViewModel extends BaseViewModel {
     _playerState.add(updatedState);
   }
 
+  //endregion
+
   //region Deck actions
 
   Future<void> onDeckActionSelected(DeckAction deckAction) {
@@ -263,11 +244,44 @@ class SpeedDuelViewModel extends BaseViewModel {
     switch (deckAction) {
       case DeckAction.drawCard:
         return _router.showDrawCard(_drawCard);
+      case DeckAction.shuffleDeck:
+        return Future.sync(_shuffleDeck);
       case DeckAction.surrender:
         return _surrender();
       default:
         return Future.value();
     }
+  }
+
+  void _drawCard() {
+    logger.verbose(_tag, '_drawCard()');
+
+    final currentState = _playerState.value;
+    final deck = currentState.deckZone.cards.toList();
+    if (deck.isEmpty) {
+      throw Exception('Deck is empty');
+    }
+
+    final drawnCard = deck.removeLast().copyWith(zoneType: ZoneType.hand);
+
+    final updatedState = currentState.copyWith(
+      deckZone: currentState.deckZone.copyWith(cards: deck),
+      hand: currentState.hand.copyWith(cards: [...currentState.hand.cards, drawnCard]),
+    );
+
+    _playerState.add(updatedState);
+  }
+
+  void _shuffleDeck() {
+    logger.verbose(_tag, '_shuffleDeck()');
+
+    final currentState = _playerState.value;
+    final shuffledDeck = currentState.deckZone.cards.toList()..shuffle();
+    final updatedState = currentState.copyWith(
+      deckZone: currentState.deckZone.copyWith(cards: shuffledDeck),
+    );
+
+    _playerState.add(updatedState);
   }
 
   Future<void> _surrender() async {
@@ -281,6 +295,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     ));
 
     if (surrender ?? false) {
+      _surrendered = true;
       _router.closeScreen();
     }
   }

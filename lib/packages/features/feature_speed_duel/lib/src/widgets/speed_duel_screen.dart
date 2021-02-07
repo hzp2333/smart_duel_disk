@@ -51,10 +51,17 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final vm = Provider.of<SpeedDuelViewModel>(context);
+
     return WillPopScope(
       onWillPop: () {
+        if (vm.hasSurrendered) {
+          return Future.value(true);
+        }
+
+        _scaffoldKey.currentState.hideCurrentSnackBar();
         _scaffoldKey.currentState.showSnackBar(const SnackBar(
-          content: Text('You cannot close the screen regularly. Click the deck and choose the surrender option'),
+          content: Text('Currently, the back key cannot be used.'),
         ));
 
         return Future.value(false);
@@ -315,6 +322,13 @@ class _DeckZone extends StatelessWidget {
               child: _DeckZoneMenuItem(
                 title: 'Draw card',
                 icon: Icons.credit_card,
+              ),
+            ),
+            const PopupMenuItem<DeckAction>(
+              value: DeckAction.shuffleDeck,
+              child: _DeckZoneMenuItem(
+                title: 'Shuffle deck',
+                icon: Icons.shuffle,
               ),
             ),
             const PopupMenuItem<DeckAction>(
