@@ -20,7 +20,11 @@ import 'package:smart_duel_disk/packages/features/feature_yugioh_card_detail/lib
     ),
     AutoRoute<void>(page: DeckBuilderScreenProvider),
     AutoRoute<void>(page: YugiohCardDetailScreenProvider),
-    AutoRoute<void>(page: DrawCardScreenProvider),
+    CustomRoute<void>(
+      page: DrawCardScreenProvider,
+      durationInMilliseconds: 0,
+      reverseDurationInMilliseconds: 0,
+    ),
     AutoRoute<void>(page: SpeedDuelScreenProvider),
   ],
 )

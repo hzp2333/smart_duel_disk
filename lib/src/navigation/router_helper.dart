@@ -10,11 +10,13 @@ import 'package:smart_duel_disk/src/navigation/router.gr.dart';
 @LazySingleton(as: RouterHelper)
 class RouterHelperImpl implements RouterHelper {
   final AppRouter _router;
+  final DialogService _dialogService;
   final AppConfig _appConfig;
   final UrlLauncherProvider _urlLauncherProvider;
 
   RouterHelperImpl(
     this._router,
+    this._dialogService,
     this._appConfig,
     this._urlLauncherProvider,
   );
@@ -22,6 +24,11 @@ class RouterHelperImpl implements RouterHelper {
   @override
   Future<void> closeScreen() {
     return _router.pop();
+  }
+
+  @override
+  Future<bool> showDialog(DialogConfig dialogConfig) {
+    return _dialogService.showAlertDialog(dialogConfig);
   }
 
   //region News
@@ -77,8 +84,8 @@ class RouterHelperImpl implements RouterHelper {
   //region Duel
 
   @override
-  Future<void> showDrawCard() {
-    return _router.navigate(const DrawCardRoute());
+  Future<void> showDrawCard(VoidCallback cardDrawnCallback) {
+    return _router.navigate(DrawCardRoute(cardDrawnCallback: cardDrawnCallback));
   }
 
   @override

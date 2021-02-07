@@ -26,7 +26,9 @@ import '../../packages/core/core_general/lib/src/formatters/date_formatter.dart'
 import '../../packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/deck/deck_data_manager.dart';
 import '../../packages/features/feature_home/lib/src/deck/deck_viewmodel.dart';
-import '../../packages/features/feature_draw_card/lib/src/draw_card_viewmodel.dart';
+import '../../packages/core/core_navigation/lib/src/dialogs/dialog_service.dart'
+    as smart_duel_disk2;
+import '../navigation/dialogs/dialog_service.dart';
 import '../../packages/features/feature_home/lib/src/duel/duel_viewmodel.dart';
 import '../../packages/wrappers/wrapper_enum_helper/wrapper_enum_helper_interface/lib/wrapper_enum_helper_interface.dart';
 import '../../packages/wrappers/wrapper_enum_helper/wrapper_enum_helper_impl/lib/src/enum_helper.dart';
@@ -75,6 +77,8 @@ GetIt $initGetIt(
   final ygoProDeckModule = _$YgoProDeckModule();
   gh.lazySingleton<AssetsProvider>(() => AssetsProviderImpl());
   gh.lazySingleton<DateFormatter>(() => DateFormatter());
+  gh.lazySingleton<smart_duel_disk2.DialogService>(
+      () => DialogServiceImpl(get<AppRouter>()));
   gh.lazySingleton<EnumHelper>(() => EnumHelperImpl());
   gh.lazySingleton<FirebaseCrashlytics>(
       () => firebaseModule.provideFirebaseCrashlytics());
@@ -101,6 +105,7 @@ GetIt $initGetIt(
       () => NewsDataManagerImpl(get<AppConfig>(), get<TwitterProvider>()));
   gh.lazySingleton<RouterHelper>(() => RouterHelperImpl(
         get<AppRouter>(),
+        get<DialogService>(),
         get<AppConfig>(),
         get<UrlLauncherProvider>(),
       ));
@@ -116,8 +121,6 @@ GetIt $initGetIt(
       () => DeckViewModel(get<Logger>(), get<RouterHelper>()));
   gh.lazySingleton<Dio>(() =>
       ygoProDeckModule.provideYgoProDeckDio(get<AppConfig>(), get<Logger>()));
-  gh.factory<DrawCardViewModel>(
-      () => DrawCardViewModel(get<Logger>(), get<RouterHelper>()));
   gh.factory<DuelViewModel>(
       () => DuelViewModel(get<Logger>(), get<RouterHelper>()));
   gh.lazySingleton<YgoProDeckRestClient>(
@@ -151,6 +154,7 @@ GetIt $initGetIt(
       (_preBuiltDeck, _) => SpeedDuelViewModel(
             get<Logger>(),
             _preBuiltDeck,
+            get<RouterHelper>(),
             get<SmartDuelServer>(),
             get<GetCardsFromDeckUseCase>(),
             get<EnumHelper>(),

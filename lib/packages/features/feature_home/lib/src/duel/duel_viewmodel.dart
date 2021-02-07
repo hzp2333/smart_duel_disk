@@ -15,10 +15,6 @@ class DuelViewModel extends BaseViewModel {
           logger,
         );
 
-  Future<void> onDrawCardDemoPressed() {
-    return _router.showDrawCard();
-  }
-
   Future<void> onSpeedDuelDemoPressed() async {
     return _router.showSpeedDuel(PreBuiltDeck.kaiba);
   }

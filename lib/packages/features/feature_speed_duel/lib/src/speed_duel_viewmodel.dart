@@ -3,12 +3,14 @@ import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/core_logger_interface/lib/core_logger_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_enum_helper/wrapper_enum_helper_interface/lib/wrapper_enum_helper_interface.dart';
 
+import 'models/deck_action.dart';
 import 'models/zone_type.dart';
 import 'usecases/get_cards_from_deck_use_case.dart';
 
@@ -19,6 +21,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   static const _speedDuelStartHandLength = 4;
 
   final PreBuiltDeck _preBuiltDeck;
+  final RouterHelper _router;
   final SmartDuelServer _smartDuelServer;
   final GetCardsFromDeckUseCase _getCardsFromDeckUseCase;
   final EnumHelper _enumHelper;
@@ -29,6 +32,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   SpeedDuelViewModel(
     Logger logger,
     @factoryParam this._preBuiltDeck,
+    this._router,
     this._smartDuelServer,
     this._getCardsFromDeckUseCase,
     this._enumHelper,
@@ -85,12 +89,12 @@ class SpeedDuelViewModel extends BaseViewModel {
     logger.verbose(_tag, '_drawStartHand()');
 
     for (var i = 0; i < _speedDuelStartHandLength; i++) {
-      _drawCard(withDrawAnimation: false);
+      _drawCard();
     }
   }
 
-  void _drawCard({bool withDrawAnimation = true}) {
-    logger.verbose(_tag, '_drawCard(withDrawAnimation: $withDrawAnimation)');
+  void _drawCard() {
+    logger.verbose(_tag, '_drawCard()');
 
     final currentState = _playerState.value;
     final deck = currentState.deckZone.cards.toList();
@@ -164,17 +168,23 @@ class SpeedDuelViewModel extends BaseViewModel {
 
       case ZoneType.spellTrap1:
         return (card.yugiohCard.type == CardType.trapCard ||
-                (card.yugiohCard.type == CardType.spellCard && card.yugiohCard.race != CardRace.field)) &&
+                (card.yugiohCard.type == CardType.spellCard && card.yugiohCard.race != CardRace.field) ||
+                // For Y-Dragon Head and Z-Metal Tank
+                card.yugiohCard.type == CardType.unionEffectMonster) &&
             currentState.spellTrapZone1.cards.isEmpty;
 
       case ZoneType.spellTrap2:
         return (card.yugiohCard.type == CardType.trapCard ||
-                (card.yugiohCard.type == CardType.spellCard && card.yugiohCard.race != CardRace.field)) &&
+                (card.yugiohCard.type == CardType.spellCard && card.yugiohCard.race != CardRace.field) ||
+                // For Y-Dragon Head and Z-Metal Tank
+                card.yugiohCard.type == CardType.unionEffectMonster) &&
             currentState.spellTrapZone2.cards.isEmpty;
 
       case ZoneType.spellTrap3:
         return (card.yugiohCard.type == CardType.trapCard ||
-                (card.yugiohCard.type == CardType.spellCard && card.yugiohCard.race != CardRace.field)) &&
+                (card.yugiohCard.type == CardType.spellCard && card.yugiohCard.race != CardRace.field) ||
+                // For Y-Dragon Head and Z-Metal Tank
+                card.yugiohCard.type == CardType.unionEffectMonster) &&
             currentState.spellTrapZone3.cards.isEmpty;
 
       case ZoneType.deck:
@@ -245,6 +255,40 @@ class SpeedDuelViewModel extends BaseViewModel {
     _playerState.add(updatedState);
   }
 
+  //region Deck actions
+
+  Future<void> onDeckActionSelected(DeckAction deckAction) {
+    logger.info(_tag, 'onDeckActionSelected($deckAction)');
+
+    switch (deckAction) {
+      case DeckAction.drawCard:
+        return _router.showDrawCard(_drawCard);
+      case DeckAction.surrender:
+        return _surrender();
+      default:
+        return Future.value();
+    }
+  }
+
+  Future<void> _surrender() async {
+    logger.verbose(_tag, '_surrender()');
+
+    final surrender = await _router.showDialog(const DialogConfig(
+      title: 'Surrender',
+      description: 'Are you sure you want to surrender?',
+      positiveButton: 'Yes',
+      negativeButton: 'Cancel',
+    ));
+
+    if (surrender ?? false) {
+      _router.closeScreen();
+    }
+  }
+
+  //endregion
+
+  //region Clean-up
+
   @override
   void dispose() {
     logger.info(_tag, 'dispose()');
@@ -254,4 +298,6 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     super.dispose();
   }
+
+  //endregion
 }

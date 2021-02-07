@@ -34,12 +34,6 @@ class _DuelDemoSection extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         IconTitleTile(
-          icon: Icons.credit_card,
-          title: 'Draw card demo',
-          onPressed: vm.onDrawCardDemoPressed,
-        ),
-        const SizedBox(height: AppDimensions.iconTitleTileSeparator),
-        IconTitleTile(
           icon: Icons.speed,
           title: 'Speed Duel demo',
           onPressed: vm.onSpeedDuelDemoPressed,
