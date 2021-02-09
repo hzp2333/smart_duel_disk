@@ -158,6 +158,7 @@ GetIt $initGetIt(
             get<SmartDuelServer>(),
             get<GetCardsFromDeckUseCase>(),
             get<EnumHelper>(),
+            get<CrashlyticsProvider>(),
           ));
   return get;
 }

@@ -7,7 +7,9 @@ import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigatio
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
+import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_interface/lib/wrapper_crashlytics_interface.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_enum_helper/wrapper_enum_helper_interface/lib/wrapper_enum_helper_interface.dart';
 
 import 'models/deck_action.dart';
@@ -25,9 +27,12 @@ class SpeedDuelViewModel extends BaseViewModel {
   final SmartDuelServer _smartDuelServer;
   final GetCardsFromDeckUseCase _getCardsFromDeckUseCase;
   final EnumHelper _enumHelper;
+  final CrashlyticsProvider _crashlyticsProvider;
 
   final _playerState = BehaviorSubject<PlayerState>.seeded(const PlayerState());
-  Stream<PlayerState> get playerState => _playerState.stream;
+
+  final _speedDuelState = BehaviorSubject<SpeedDuelState>.seeded(const SpeedDuelLoading());
+  Stream<SpeedDuelState> get speedDuelState => _speedDuelState.stream;
 
   bool _surrendered = false;
   bool get hasSurrendered => _surrendered;
@@ -39,6 +44,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     this._smartDuelServer,
     this._getCardsFromDeckUseCase,
     this._enumHelper,
+    this._crashlyticsProvider,
   ) : super(
           logger,
         ) {
@@ -52,9 +58,16 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     _smartDuelServer.connect();
 
-    await _setDeck();
-    _shuffleDeck();
-    _drawStartHand();
+    try {
+      await _setDeck();
+      _shuffleDeck();
+      _drawStartHand();
+
+      _speedDuelState.add(SpeedDuelState(_playerState.value));
+    } catch (e, stackTrace) {
+      _crashlyticsProvider.logException(e, stackTrace);
+      _speedDuelState.add(const SpeedDuelError());
+    }
   }
 
   Future<void> _setDeck() async {
@@ -310,6 +323,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     _smartDuelServer?.dispose();
     _playerState?.close();
+    _speedDuelState?.close();
 
     super.dispose();
   }

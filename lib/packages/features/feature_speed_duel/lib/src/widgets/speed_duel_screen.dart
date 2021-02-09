@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/deck_action.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone_type.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
@@ -84,25 +85,29 @@ class _Body extends StatelessWidget {
       child: Center(
         child: Padding(
           padding: EdgeInsets.all(AppDimensions.screenMargin),
-          child: _PlayerFieldBuilder(),
+          child: _SpeedDuelStateBuilder(),
         ),
       ),
     );
   }
 }
 
-class _PlayerFieldBuilder extends StatelessWidget {
-  const _PlayerFieldBuilder();
+class _SpeedDuelStateBuilder extends StatelessWidget {
+  const _SpeedDuelStateBuilder();
 
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<SpeedDuelViewModel>(context);
 
-    return StreamBuilder<PlayerState>(
-      stream: vm.playerState,
-      initialData: const PlayerState(),
+    return StreamBuilder<SpeedDuelState>(
+      stream: vm.speedDuelState,
+      initialData: const SpeedDuelLoading(),
       builder: (context, snapshot) {
-        return _PlayerField(playerState: snapshot.data);
+        return snapshot.data.when(
+          (playerState) => _PlayerField(playerState: playerState),
+          loading: () => const GeneralLoadingState(),
+          error: () => const GeneralErrorState(description: 'An error occurred while starting the speed duel'),
+        );
       },
     );
   }
