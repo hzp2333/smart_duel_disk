@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
@@ -34,6 +36,9 @@ class SpeedDuelViewModel extends BaseViewModel {
   final _speedDuelState = BehaviorSubject<SpeedDuelState>.seeded(const SpeedDuelLoading());
   Stream<SpeedDuelState> get speedDuelState => _speedDuelState.stream;
 
+  bool _initialized = false;
+  StreamSubscription<PlayerState> _playerStateSubscription;
+
   bool _surrendered = false;
   bool get hasSurrendered => _surrendered;
 
@@ -56,18 +61,31 @@ class SpeedDuelViewModel extends BaseViewModel {
   Future<void> _init() async {
     logger.verbose(_tag, '_init()');
 
-    _smartDuelServer.connect();
-
     try {
+      _smartDuelServer.connect();
+
+      _initPlayerStateSubscription();
+
       await _setDeck();
       _shuffleDeck();
       _drawStartHand();
 
       _speedDuelState.add(SpeedDuelState(_playerState.value));
+      _initialized = true;
     } catch (e, stackTrace) {
       _crashlyticsProvider.logException(e, stackTrace);
       _speedDuelState.add(const SpeedDuelError());
     }
+  }
+
+  void _initPlayerStateSubscription() {
+    logger.verbose(_tag, '_initPlayerStateSubscription()');
+
+    _playerStateSubscription = _playerState.listen((playerState) {
+      if (_initialized && _speedDuelState.value is SpeedDuelData) {
+        _speedDuelState.add(SpeedDuelState(playerState));
+      }
+    });
   }
 
   Future<void> _setDeck() async {
@@ -317,11 +335,21 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   //region Clean-up
 
+  void _cancelPlayerStateSubscription() {
+    logger.verbose(_tag, '_cancelPlayerStateSubscription()');
+
+    _playerStateSubscription?.cancel();
+    _playerStateSubscription = null;
+  }
+
   @override
   void dispose() {
     logger.info(_tag, 'dispose()');
 
     _smartDuelServer?.dispose();
+
+    _cancelPlayerStateSubscription();
+
     _playerState?.close();
     _speedDuelState?.close();
 
