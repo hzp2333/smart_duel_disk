@@ -9,6 +9,7 @@ import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigatio
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_event.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_interface/lib/wrapper_crashlytics_interface.dart';
@@ -35,6 +36,9 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   final _speedDuelState = BehaviorSubject<SpeedDuelState>.seeded(const SpeedDuelLoading());
   Stream<SpeedDuelState> get speedDuelState => _speedDuelState.stream;
+
+  final _speedDuelEvent = BehaviorSubject<SpeedDuelEvent>();
+  Stream<SpeedDuelEvent> get speedDuelEvent => _speedDuelEvent.stream;
 
   bool _initialized = false;
   StreamSubscription<PlayerState> _playerStateSubscription;
@@ -333,6 +337,20 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   //endregion
 
+  // Multi-card zone actions
+
+  void onMultiCardZonePressed(Zone zone) {
+    logger.info(_tag, 'onMultiCardZonePressed()');
+
+    if (zone.cards.isEmpty) {
+      return;
+    }
+
+    _speedDuelEvent.add(SpeedDuelInspectCardPileEvent(zone));
+  }
+
+  //endregion
+
   //region Clean-up
 
   void _cancelPlayerStateSubscription() {
@@ -352,6 +370,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     _playerState?.close();
     _speedDuelState?.close();
+    _speedDuelEvent?.close();
 
     super.dispose();
   }
