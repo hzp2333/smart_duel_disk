@@ -14,6 +14,11 @@ class _$SpeedDuelEventTearOff {
   const _$SpeedDuelEventTearOff();
 
 // ignore: unused_element
+  SpeedDuelHideOverlaysEvent hideOverlays() {
+    return const SpeedDuelHideOverlaysEvent();
+  }
+
+// ignore: unused_element
   SpeedDuelInspectCardPileEvent inspectCardPile(Zone zone) {
     return SpeedDuelInspectCardPileEvent(
       zone,
@@ -27,28 +32,28 @@ const $SpeedDuelEvent = _$SpeedDuelEventTearOff();
 
 /// @nodoc
 mixin _$SpeedDuelEvent {
-  Zone get zone;
-
   @optionalTypeArgs
   TResult when<TResult extends Object>({
+    @required TResult hideOverlays(),
     @required TResult inspectCardPile(Zone zone),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
+    TResult hideOverlays(),
     TResult inspectCardPile(Zone zone),
     @required TResult orElse(),
   });
   @optionalTypeArgs
   TResult map<TResult extends Object>({
+    @required TResult hideOverlays(SpeedDuelHideOverlaysEvent value),
     @required TResult inspectCardPile(SpeedDuelInspectCardPileEvent value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
+    TResult hideOverlays(SpeedDuelHideOverlaysEvent value),
     TResult inspectCardPile(SpeedDuelInspectCardPileEvent value),
     @required TResult orElse(),
   });
-
-  $SpeedDuelEventCopyWith<SpeedDuelEvent> get copyWith;
 }
 
 /// @nodoc
@@ -56,7 +61,6 @@ abstract class $SpeedDuelEventCopyWith<$Res> {
   factory $SpeedDuelEventCopyWith(
           SpeedDuelEvent value, $Res Function(SpeedDuelEvent) then) =
       _$SpeedDuelEventCopyWithImpl<$Res>;
-  $Res call({Zone zone});
 }
 
 /// @nodoc
@@ -67,25 +71,106 @@ class _$SpeedDuelEventCopyWithImpl<$Res>
   final SpeedDuelEvent _value;
   // ignore: unused_field
   final $Res Function(SpeedDuelEvent) _then;
-
-  @override
-  $Res call({
-    Object zone = freezed,
-  }) {
-    return _then(_value.copyWith(
-      zone: zone == freezed ? _value.zone : zone as Zone,
-    ));
-  }
 }
 
 /// @nodoc
-abstract class $SpeedDuelInspectCardPileEventCopyWith<$Res>
-    implements $SpeedDuelEventCopyWith<$Res> {
+abstract class $SpeedDuelHideOverlaysEventCopyWith<$Res> {
+  factory $SpeedDuelHideOverlaysEventCopyWith(SpeedDuelHideOverlaysEvent value,
+          $Res Function(SpeedDuelHideOverlaysEvent) then) =
+      _$SpeedDuelHideOverlaysEventCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$SpeedDuelHideOverlaysEventCopyWithImpl<$Res>
+    extends _$SpeedDuelEventCopyWithImpl<$Res>
+    implements $SpeedDuelHideOverlaysEventCopyWith<$Res> {
+  _$SpeedDuelHideOverlaysEventCopyWithImpl(SpeedDuelHideOverlaysEvent _value,
+      $Res Function(SpeedDuelHideOverlaysEvent) _then)
+      : super(_value, (v) => _then(v as SpeedDuelHideOverlaysEvent));
+
+  @override
+  SpeedDuelHideOverlaysEvent get _value =>
+      super._value as SpeedDuelHideOverlaysEvent;
+}
+
+/// @nodoc
+class _$SpeedDuelHideOverlaysEvent implements SpeedDuelHideOverlaysEvent {
+  const _$SpeedDuelHideOverlaysEvent();
+
+  @override
+  String toString() {
+    return 'SpeedDuelEvent.hideOverlays()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is SpeedDuelHideOverlaysEvent);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult hideOverlays(),
+    @required TResult inspectCardPile(Zone zone),
+  }) {
+    assert(hideOverlays != null);
+    assert(inspectCardPile != null);
+    return hideOverlays();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult hideOverlays(),
+    TResult inspectCardPile(Zone zone),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (hideOverlays != null) {
+      return hideOverlays();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult hideOverlays(SpeedDuelHideOverlaysEvent value),
+    @required TResult inspectCardPile(SpeedDuelInspectCardPileEvent value),
+  }) {
+    assert(hideOverlays != null);
+    assert(inspectCardPile != null);
+    return hideOverlays(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult hideOverlays(SpeedDuelHideOverlaysEvent value),
+    TResult inspectCardPile(SpeedDuelInspectCardPileEvent value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (hideOverlays != null) {
+      return hideOverlays(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class SpeedDuelHideOverlaysEvent implements SpeedDuelEvent {
+  const factory SpeedDuelHideOverlaysEvent() = _$SpeedDuelHideOverlaysEvent;
+}
+
+/// @nodoc
+abstract class $SpeedDuelInspectCardPileEventCopyWith<$Res> {
   factory $SpeedDuelInspectCardPileEventCopyWith(
           SpeedDuelInspectCardPileEvent value,
           $Res Function(SpeedDuelInspectCardPileEvent) then) =
       _$SpeedDuelInspectCardPileEventCopyWithImpl<$Res>;
-  @override
   $Res call({Zone zone});
 }
 
@@ -144,8 +229,10 @@ class _$SpeedDuelInspectCardPileEvent implements SpeedDuelInspectCardPileEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
+    @required TResult hideOverlays(),
     @required TResult inspectCardPile(Zone zone),
   }) {
+    assert(hideOverlays != null);
     assert(inspectCardPile != null);
     return inspectCardPile(zone);
   }
@@ -153,6 +240,7 @@ class _$SpeedDuelInspectCardPileEvent implements SpeedDuelInspectCardPileEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
+    TResult hideOverlays(),
     TResult inspectCardPile(Zone zone),
     @required TResult orElse(),
   }) {
@@ -166,8 +254,10 @@ class _$SpeedDuelInspectCardPileEvent implements SpeedDuelInspectCardPileEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object>({
+    @required TResult hideOverlays(SpeedDuelHideOverlaysEvent value),
     @required TResult inspectCardPile(SpeedDuelInspectCardPileEvent value),
   }) {
+    assert(hideOverlays != null);
     assert(inspectCardPile != null);
     return inspectCardPile(this);
   }
@@ -175,6 +265,7 @@ class _$SpeedDuelInspectCardPileEvent implements SpeedDuelInspectCardPileEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
+    TResult hideOverlays(SpeedDuelHideOverlaysEvent value),
     TResult inspectCardPile(SpeedDuelInspectCardPileEvent value),
     @required TResult orElse(),
   }) {
@@ -190,9 +281,7 @@ abstract class SpeedDuelInspectCardPileEvent implements SpeedDuelEvent {
   const factory SpeedDuelInspectCardPileEvent(Zone zone) =
       _$SpeedDuelInspectCardPileEvent;
 
-  @override
   Zone get zone;
-  @override
   $SpeedDuelInspectCardPileEventCopyWith<SpeedDuelInspectCardPileEvent>
       get copyWith;
 }

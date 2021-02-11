@@ -16,6 +16,6 @@ class DuelViewModel extends BaseViewModel {
         );
 
   Future<void> onSpeedDuelDemoPressed() async {
-    return _router.showSpeedDuel(PreBuiltDeck.kaiba);
+    return _router.showSpeedDuel(PreBuiltDeck.yugi);
   }
 }

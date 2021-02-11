@@ -6,5 +6,6 @@ part 'speed_duel_event.freezed.dart';
 
 @freezed
 abstract class SpeedDuelEvent with _$SpeedDuelEvent {
+  const factory SpeedDuelEvent.hideOverlays() = SpeedDuelHideOverlaysEvent;
   const factory SpeedDuelEvent.inspectCardPile(Zone zone) = SpeedDuelInspectCardPileEvent;
 }

@@ -100,6 +100,13 @@ class DeckZone extends StatelessWidget {
               ),
             ),
             const PopupMenuItem<DeckAction>(
+              value: DeckAction.showDeckList,
+              child: _DeckZoneMenuItem(
+                title: 'Show deck list',
+                icon: Icons.view_carousel_rounded,
+              ),
+            ),
+            const PopupMenuItem<DeckAction>(
               value: DeckAction.shuffleDeck,
               child: _DeckZoneMenuItem(
                 title: 'Shuffle deck',

@@ -97,13 +97,18 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     final allCards = await _getCardsFromDeckUseCase(_preBuiltDeck);
 
-    final mainDeck = allCards
-        .where((card) => card.type != CardType.fusionMonster)
-        .map((card) => PlayCard(yugiohCard: card, zoneType: ZoneType.deck));
+    final mainDeck = <PlayCard>[];
+    final extraDeck = <PlayCard>[];
 
-    final extraDeck = allCards
-        .where((card) => card.type == CardType.fusionMonster)
-        .map((card) => PlayCard(yugiohCard: card, zoneType: ZoneType.extraDeck));
+    for (final card in allCards) {
+      if (card.type == CardType.fusionMonster) {
+        final copyNumber = extraDeck.where((playCard) => playCard.yugiohCard == card).length + 1;
+        extraDeck.add(PlayCard(yugiohCard: card, zoneType: ZoneType.extraDeck, copyNumber: copyNumber));
+      } else {
+        final copyNumber = mainDeck.where((playCard) => playCard.yugiohCard == card).length + 1;
+        mainDeck.add(PlayCard(yugiohCard: card, zoneType: ZoneType.deck, copyNumber: copyNumber));
+      }
+    }
 
     final currentState = _playerState.value;
     final updatedState = currentState.copyWith(
@@ -128,6 +133,8 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   bool onWillAccept(PlayCard card, Zone zone) {
     logger.info(_tag, 'onWillAccept($card, $zone)');
+
+    _speedDuelEvent.add(const SpeedDuelHideOverlaysEvent());
 
     final currentState = _playerState.value;
 
@@ -212,10 +219,11 @@ class SpeedDuelViewModel extends BaseViewModel {
   void onAccept(PlayCard card, Zone newZone) {
     logger.info(_tag, 'onAccept($card, $newZone)');
 
+    _speedDuelEvent.add(const SpeedDuelHideOverlaysEvent());
+
     final currentState = _playerState.value;
     final currentZones = currentState.zones;
 
-    // Remove the card from the current zone.
     final cardOldZone = currentZones.singleWhere((zone) => zone.zoneType == card.zoneType);
     if (cardOldZone.zoneType == newZone.zoneType) {
       return;
@@ -279,6 +287,8 @@ class SpeedDuelViewModel extends BaseViewModel {
     switch (deckAction) {
       case DeckAction.drawCard:
         return _router.showDrawCard(_drawCard);
+      case DeckAction.showDeckList:
+        return Future.sync(_showDeckList);
       case DeckAction.shuffleDeck:
         return Future.sync(_shuffleDeck);
       case DeckAction.surrender:
@@ -286,6 +296,13 @@ class SpeedDuelViewModel extends BaseViewModel {
       default:
         return Future.value();
     }
+  }
+
+  void _showDeckList() {
+    logger.verbose(_tag, '_showDeckList()');
+
+    final currentState = _playerState.value;
+    onMultiCardZonePressed(currentState.deckZone);
   }
 
   void _drawCard() {

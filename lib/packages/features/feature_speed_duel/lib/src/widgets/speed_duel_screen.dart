@@ -39,7 +39,10 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
 
     final vm = Provider.of<SpeedDuelViewModel>(context, listen: false);
     _speedDuelEventSubscription = vm.speedDuelEvent.listen((speedDuelEvent) {
-      speedDuelEvent.when(inspectCardPile: (zone) => _onInspectCardPileEventReceived(zone));
+      speedDuelEvent.when(
+        hideOverlays: () => _hideOverlays(),
+        inspectCardPile: (zone) => _onInspectCardPileEventReceived(zone),
+      );
     });
   }
 
@@ -61,18 +64,28 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
     super.dispose();
   }
 
+  void _hideOverlays() {
+    _closeBottomSheet();
+  }
+
   void _onInspectCardPileEventReceived(Zone zone) {
     _closeBottomSheet();
     _bottomSheetController = _scaffoldKey.currentState.showBottomSheet<void>((context) {
+      final bottomSheetHeight = MediaQuery.of(context).size.height * 0.35;
+      final cards = zone.cards.toList().reversed;
+
       return SizedBox(
-        height: 100,
-        child: ListView.separated(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.all(8),
-          itemCount: zone.cards.length,
-          itemBuilder: (context, index) => DraggableCard(card: zone.cards.elementAt(index), zone: zone),
-          separatorBuilder: (_, __) => const SizedBox(width: 8),
+        height: bottomSheetHeight,
+        width: double.infinity,
+        child: Center(
+          child: ListView.separated(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.fromLTRB(8, 8, 8, 32),
+            itemCount: cards.length,
+            itemBuilder: (context, index) => DraggableCard(card: cards.elementAt(index), zone: zone),
+            separatorBuilder: (_, __) => const SizedBox(width: 12),
+          ),
         ),
       );
     });
@@ -83,11 +96,19 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
       return;
     }
 
-    _bottomSheetController.close();
-    _bottomSheetController = null;
+    try {
+      _bottomSheetController.close();
+    } finally {
+      _bottomSheetController = null;
+    }
   }
 
   Future<bool> _onWillPop() {
+    if (_bottomSheetController != null) {
+      _closeBottomSheet();
+      return Future.value(false);
+    }
+
     final vm = Provider.of<SpeedDuelViewModel>(context, listen: false);
 
     if (vm.hasSurrendered) {
