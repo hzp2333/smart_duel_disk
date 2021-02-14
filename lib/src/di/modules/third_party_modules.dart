@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dart_twitter_api/twitter_api.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:injectable/injectable.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_duel_disk/packages/core/core_config/core_config_interface/lib/core_config_interface.dart';
 import 'package:socket_io_client/socket_io_client.dart';
 
@@ -41,5 +42,14 @@ abstract class SocketIoModule {
       'transports': ['websocket'],
       'autoConnect': false,
     });
+  }
+}
+
+@module
+abstract class SharedPreferencesModule {
+  @preResolve
+  @LazySingleton()
+  Future<SharedPreferences> provideSharedPreferences() {
+    return SharedPreferences.getInstance();
   }
 }

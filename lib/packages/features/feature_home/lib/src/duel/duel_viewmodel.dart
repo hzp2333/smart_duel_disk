@@ -6,16 +6,26 @@ import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigatio
 
 @Injectable()
 class DuelViewModel extends BaseViewModel {
+  static const _tag = 'DuelViewModel';
+
   final RouterHelper _router;
+  final DataManager _dataManager;
 
   DuelViewModel(
     Logger logger,
     this._router,
+    this._dataManager,
   ) : super(
           logger,
         );
 
   Future<void> onSpeedDuelDemoPressed() async {
+    logger.info(_tag, 'onSpeedDuelDemoPressed()');
+
+    if (_dataManager.getConnectionInfo() == null) {
+      
+    }
+
     return _router.showSpeedDuel(PreBuiltDeck.yugi);
   }
 }
