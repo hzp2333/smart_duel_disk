@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_event.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_event.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/widgets/body/draggable_card.dart';
@@ -23,7 +23,7 @@ class SpeedDuelScreen extends StatefulWidget {
 class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  StreamSubscription<SpeedDuelEvent> _speedDuelEventSubscription;
+  StreamSubscription<SpeedDuelScreenEvent> _speedDuelEventSubscription;
   PersistentBottomSheetController<void> _bottomSheetController;
 
   @override
@@ -38,7 +38,7 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     final vm = Provider.of<SpeedDuelViewModel>(context, listen: false);
-    _speedDuelEventSubscription = vm.speedDuelEvent.listen((speedDuelEvent) {
+    _speedDuelEventSubscription = vm.speedDuelScreenEvent.listen((speedDuelEvent) {
       speedDuelEvent.when(
         hideOverlays: () => _hideOverlays(),
         inspectCardPile: (zone) => _onInspectCardPileEventReceived(zone),

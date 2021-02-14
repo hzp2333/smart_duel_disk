@@ -9,7 +9,7 @@ import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigatio
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_event.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_event.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_interface/lib/wrapper_crashlytics_interface.dart';
@@ -37,8 +37,8 @@ class SpeedDuelViewModel extends BaseViewModel {
   final _speedDuelState = BehaviorSubject<SpeedDuelState>.seeded(const SpeedDuelLoading());
   Stream<SpeedDuelState> get speedDuelState => _speedDuelState.stream;
 
-  final _speedDuelEvent = BehaviorSubject<SpeedDuelEvent>();
-  Stream<SpeedDuelEvent> get speedDuelEvent => _speedDuelEvent.stream;
+  final _speedDuelScreenEvent = BehaviorSubject<SpeedDuelScreenEvent>();
+  Stream<SpeedDuelScreenEvent> get speedDuelScreenEvent => _speedDuelScreenEvent.stream;
 
   bool _initialized = false;
   StreamSubscription<PlayerState> _playerStateSubscription;
@@ -134,7 +134,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   bool onWillAccept(PlayCard card, Zone zone) {
     logger.info(_tag, 'onWillAccept($card, $zone)');
 
-    _speedDuelEvent.add(const SpeedDuelHideOverlaysEvent());
+    _speedDuelScreenEvent.add(const SpeedDuelHideOverlaysEvent());
 
     final currentState = _playerState.value;
 
@@ -219,7 +219,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   void onAccept(PlayCard card, Zone newZone) {
     logger.info(_tag, 'onAccept($card, $newZone)');
 
-    _speedDuelEvent.add(const SpeedDuelHideOverlaysEvent());
+    _speedDuelScreenEvent.add(const SpeedDuelHideOverlaysEvent());
 
     final currentState = _playerState.value;
     final currentZones = currentState.zones;
@@ -230,16 +230,9 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
 
     _sendSummonEvent(card.yugiohCard, newZone);
+    _sendRemoveCardEvent(cardOldZone);
+
     _updatePlayerState(card, newZone, cardOldZone);
-  }
-
-  void _sendSummonEvent(YugiohCard yugiohCard, Zone newZone) {
-    logger.verbose(_tag, '_sendSummonEvent($yugiohCard, $newZone)');
-
-    _smartDuelServer.emitEvent(SummonDuelEvent(
-      yugiohCardId: yugiohCard.id.toString(),
-      zoneName: _enumHelper.convertToString(newZone.zoneType),
-    ));
   }
 
   void _updatePlayerState(PlayCard card, Zone newZone, Zone oldZone) {
@@ -363,7 +356,36 @@ class SpeedDuelViewModel extends BaseViewModel {
       return;
     }
 
-    _speedDuelEvent.add(SpeedDuelInspectCardPileEvent(zone));
+    _speedDuelScreenEvent.add(SpeedDuelInspectCardPileEvent(zone));
+  }
+
+  //endregion
+
+  //region Server events
+
+  void _sendSummonEvent(YugiohCard yugiohCard, Zone newZone) {
+    logger.verbose(_tag, '_sendSummonEvent($yugiohCard, $newZone)');
+
+    _smartDuelServer.emitSpeedDuelEvent(
+      SummonDuelEvent(
+        SummonEvent(
+          yugiohCardId: yugiohCard.id.toString(),
+          zoneName: _enumHelper.convertToString(newZone.zoneType),
+        ),
+      ),
+    );
+  }
+
+  void _sendRemoveCardEvent(Zone oldZone) {
+    logger.verbose(_tag, '_sendRemoveCardEvent($oldZone)');
+
+    _smartDuelServer.emitSpeedDuelEvent(
+      RemoveCardDuelEvent(
+        RemoveCardEvent(
+          zoneName: _enumHelper.convertToString(oldZone.zoneType),
+        ),
+      ),
+    );
   }
 
   //endregion
@@ -387,7 +409,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     _playerState?.close();
     _speedDuelState?.close();
-    _speedDuelEvent?.close();
+    _speedDuelScreenEvent?.close();
 
     super.dispose();
   }

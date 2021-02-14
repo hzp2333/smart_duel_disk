@@ -1,65 +1,64 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
-part of 'duel_event.dart';
+part of 'summon_event.dart';
 
 // **************************************************************************
 // FreezedGenerator
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
-SummonDuelEvent _$SummonDuelEventFromJson(Map<String, dynamic> json) {
-  return _SummonDuelEvent.fromJson(json);
+SummonEvent _$SummonEventFromJson(Map<String, dynamic> json) {
+  return _SummonEvent.fromJson(json);
 }
 
 /// @nodoc
-class _$SummonDuelEventTearOff {
-  const _$SummonDuelEventTearOff();
+class _$SummonEventTearOff {
+  const _$SummonEventTearOff();
 
 // ignore: unused_element
-  _SummonDuelEvent call(
+  _SummonEvent call(
       {@required String yugiohCardId, @required String zoneName}) {
-    return _SummonDuelEvent(
+    return _SummonEvent(
       yugiohCardId: yugiohCardId,
       zoneName: zoneName,
     );
   }
 
 // ignore: unused_element
-  SummonDuelEvent fromJson(Map<String, Object> json) {
-    return SummonDuelEvent.fromJson(json);
+  SummonEvent fromJson(Map<String, Object> json) {
+    return SummonEvent.fromJson(json);
   }
 }
 
 /// @nodoc
 // ignore: unused_element
-const $SummonDuelEvent = _$SummonDuelEventTearOff();
+const $SummonEvent = _$SummonEventTearOff();
 
 /// @nodoc
-mixin _$SummonDuelEvent {
+mixin _$SummonEvent {
   String get yugiohCardId;
   String get zoneName;
 
   Map<String, dynamic> toJson();
-  $SummonDuelEventCopyWith<SummonDuelEvent> get copyWith;
+  $SummonEventCopyWith<SummonEvent> get copyWith;
 }
 
 /// @nodoc
-abstract class $SummonDuelEventCopyWith<$Res> {
-  factory $SummonDuelEventCopyWith(
-          SummonDuelEvent value, $Res Function(SummonDuelEvent) then) =
-      _$SummonDuelEventCopyWithImpl<$Res>;
+abstract class $SummonEventCopyWith<$Res> {
+  factory $SummonEventCopyWith(
+          SummonEvent value, $Res Function(SummonEvent) then) =
+      _$SummonEventCopyWithImpl<$Res>;
   $Res call({String yugiohCardId, String zoneName});
 }
 
 /// @nodoc
-class _$SummonDuelEventCopyWithImpl<$Res>
-    implements $SummonDuelEventCopyWith<$Res> {
-  _$SummonDuelEventCopyWithImpl(this._value, this._then);
+class _$SummonEventCopyWithImpl<$Res> implements $SummonEventCopyWith<$Res> {
+  _$SummonEventCopyWithImpl(this._value, this._then);
 
-  final SummonDuelEvent _value;
+  final SummonEvent _value;
   // ignore: unused_field
-  final $Res Function(SummonDuelEvent) _then;
+  final $Res Function(SummonEvent) _then;
 
   @override
   $Res call({
@@ -76,32 +75,31 @@ class _$SummonDuelEventCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$SummonDuelEventCopyWith<$Res>
-    implements $SummonDuelEventCopyWith<$Res> {
-  factory _$SummonDuelEventCopyWith(
-          _SummonDuelEvent value, $Res Function(_SummonDuelEvent) then) =
-      __$SummonDuelEventCopyWithImpl<$Res>;
+abstract class _$SummonEventCopyWith<$Res>
+    implements $SummonEventCopyWith<$Res> {
+  factory _$SummonEventCopyWith(
+          _SummonEvent value, $Res Function(_SummonEvent) then) =
+      __$SummonEventCopyWithImpl<$Res>;
   @override
   $Res call({String yugiohCardId, String zoneName});
 }
 
 /// @nodoc
-class __$SummonDuelEventCopyWithImpl<$Res>
-    extends _$SummonDuelEventCopyWithImpl<$Res>
-    implements _$SummonDuelEventCopyWith<$Res> {
-  __$SummonDuelEventCopyWithImpl(
-      _SummonDuelEvent _value, $Res Function(_SummonDuelEvent) _then)
-      : super(_value, (v) => _then(v as _SummonDuelEvent));
+class __$SummonEventCopyWithImpl<$Res> extends _$SummonEventCopyWithImpl<$Res>
+    implements _$SummonEventCopyWith<$Res> {
+  __$SummonEventCopyWithImpl(
+      _SummonEvent _value, $Res Function(_SummonEvent) _then)
+      : super(_value, (v) => _then(v as _SummonEvent));
 
   @override
-  _SummonDuelEvent get _value => super._value as _SummonDuelEvent;
+  _SummonEvent get _value => super._value as _SummonEvent;
 
   @override
   $Res call({
     Object yugiohCardId = freezed,
     Object zoneName = freezed,
   }) {
-    return _then(_SummonDuelEvent(
+    return _then(_SummonEvent(
       yugiohCardId: yugiohCardId == freezed
           ? _value.yugiohCardId
           : yugiohCardId as String,
@@ -113,14 +111,13 @@ class __$SummonDuelEventCopyWithImpl<$Res>
 @JsonSerializable()
 
 /// @nodoc
-class _$_SummonDuelEvent implements _SummonDuelEvent {
-  const _$_SummonDuelEvent(
-      {@required this.yugiohCardId, @required this.zoneName})
+class _$_SummonEvent implements _SummonEvent {
+  const _$_SummonEvent({@required this.yugiohCardId, @required this.zoneName})
       : assert(yugiohCardId != null),
         assert(zoneName != null);
 
-  factory _$_SummonDuelEvent.fromJson(Map<String, dynamic> json) =>
-      _$_$_SummonDuelEventFromJson(json);
+  factory _$_SummonEvent.fromJson(Map<String, dynamic> json) =>
+      _$_$_SummonEventFromJson(json);
 
   @override
   final String yugiohCardId;
@@ -129,13 +126,13 @@ class _$_SummonDuelEvent implements _SummonDuelEvent {
 
   @override
   String toString() {
-    return 'SummonDuelEvent(yugiohCardId: $yugiohCardId, zoneName: $zoneName)';
+    return 'SummonEvent(yugiohCardId: $yugiohCardId, zoneName: $zoneName)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SummonDuelEvent &&
+        (other is _SummonEvent &&
             (identical(other.yugiohCardId, yugiohCardId) ||
                 const DeepCollectionEquality()
                     .equals(other.yugiohCardId, yugiohCardId)) &&
@@ -151,27 +148,27 @@ class _$_SummonDuelEvent implements _SummonDuelEvent {
       const DeepCollectionEquality().hash(zoneName);
 
   @override
-  _$SummonDuelEventCopyWith<_SummonDuelEvent> get copyWith =>
-      __$SummonDuelEventCopyWithImpl<_SummonDuelEvent>(this, _$identity);
+  _$SummonEventCopyWith<_SummonEvent> get copyWith =>
+      __$SummonEventCopyWithImpl<_SummonEvent>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_SummonDuelEventToJson(this);
+    return _$_$_SummonEventToJson(this);
   }
 }
 
-abstract class _SummonDuelEvent implements SummonDuelEvent {
-  const factory _SummonDuelEvent(
+abstract class _SummonEvent implements SummonEvent {
+  const factory _SummonEvent(
       {@required String yugiohCardId,
-      @required String zoneName}) = _$_SummonDuelEvent;
+      @required String zoneName}) = _$_SummonEvent;
 
-  factory _SummonDuelEvent.fromJson(Map<String, dynamic> json) =
-      _$_SummonDuelEvent.fromJson;
+  factory _SummonEvent.fromJson(Map<String, dynamic> json) =
+      _$_SummonEvent.fromJson;
 
   @override
   String get yugiohCardId;
   @override
   String get zoneName;
   @override
-  _$SummonDuelEventCopyWith<_SummonDuelEvent> get copyWith;
+  _$SummonEventCopyWith<_SummonEvent> get copyWith;
 }

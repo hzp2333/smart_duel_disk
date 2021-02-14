@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
-part of 'speed_duel_event.dart';
+part of 'speed_duel_screen_event.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -10,8 +10,8 @@ part of 'speed_duel_event.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-class _$SpeedDuelEventTearOff {
-  const _$SpeedDuelEventTearOff();
+class _$SpeedDuelScreenEventTearOff {
+  const _$SpeedDuelScreenEventTearOff();
 
 // ignore: unused_element
   SpeedDuelHideOverlaysEvent hideOverlays() {
@@ -28,10 +28,10 @@ class _$SpeedDuelEventTearOff {
 
 /// @nodoc
 // ignore: unused_element
-const $SpeedDuelEvent = _$SpeedDuelEventTearOff();
+const $SpeedDuelScreenEvent = _$SpeedDuelScreenEventTearOff();
 
 /// @nodoc
-mixin _$SpeedDuelEvent {
+mixin _$SpeedDuelScreenEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
     @required TResult hideOverlays(),
@@ -57,20 +57,20 @@ mixin _$SpeedDuelEvent {
 }
 
 /// @nodoc
-abstract class $SpeedDuelEventCopyWith<$Res> {
-  factory $SpeedDuelEventCopyWith(
-          SpeedDuelEvent value, $Res Function(SpeedDuelEvent) then) =
-      _$SpeedDuelEventCopyWithImpl<$Res>;
+abstract class $SpeedDuelScreenEventCopyWith<$Res> {
+  factory $SpeedDuelScreenEventCopyWith(SpeedDuelScreenEvent value,
+          $Res Function(SpeedDuelScreenEvent) then) =
+      _$SpeedDuelScreenEventCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$SpeedDuelEventCopyWithImpl<$Res>
-    implements $SpeedDuelEventCopyWith<$Res> {
-  _$SpeedDuelEventCopyWithImpl(this._value, this._then);
+class _$SpeedDuelScreenEventCopyWithImpl<$Res>
+    implements $SpeedDuelScreenEventCopyWith<$Res> {
+  _$SpeedDuelScreenEventCopyWithImpl(this._value, this._then);
 
-  final SpeedDuelEvent _value;
+  final SpeedDuelScreenEvent _value;
   // ignore: unused_field
-  final $Res Function(SpeedDuelEvent) _then;
+  final $Res Function(SpeedDuelScreenEvent) _then;
 }
 
 /// @nodoc
@@ -82,7 +82,7 @@ abstract class $SpeedDuelHideOverlaysEventCopyWith<$Res> {
 
 /// @nodoc
 class _$SpeedDuelHideOverlaysEventCopyWithImpl<$Res>
-    extends _$SpeedDuelEventCopyWithImpl<$Res>
+    extends _$SpeedDuelScreenEventCopyWithImpl<$Res>
     implements $SpeedDuelHideOverlaysEventCopyWith<$Res> {
   _$SpeedDuelHideOverlaysEventCopyWithImpl(SpeedDuelHideOverlaysEvent _value,
       $Res Function(SpeedDuelHideOverlaysEvent) _then)
@@ -99,7 +99,7 @@ class _$SpeedDuelHideOverlaysEvent implements SpeedDuelHideOverlaysEvent {
 
   @override
   String toString() {
-    return 'SpeedDuelEvent.hideOverlays()';
+    return 'SpeedDuelScreenEvent.hideOverlays()';
   }
 
   @override
@@ -161,7 +161,7 @@ class _$SpeedDuelHideOverlaysEvent implements SpeedDuelHideOverlaysEvent {
   }
 }
 
-abstract class SpeedDuelHideOverlaysEvent implements SpeedDuelEvent {
+abstract class SpeedDuelHideOverlaysEvent implements SpeedDuelScreenEvent {
   const factory SpeedDuelHideOverlaysEvent() = _$SpeedDuelHideOverlaysEvent;
 }
 
@@ -176,7 +176,7 @@ abstract class $SpeedDuelInspectCardPileEventCopyWith<$Res> {
 
 /// @nodoc
 class _$SpeedDuelInspectCardPileEventCopyWithImpl<$Res>
-    extends _$SpeedDuelEventCopyWithImpl<$Res>
+    extends _$SpeedDuelScreenEventCopyWithImpl<$Res>
     implements $SpeedDuelInspectCardPileEventCopyWith<$Res> {
   _$SpeedDuelInspectCardPileEventCopyWithImpl(
       SpeedDuelInspectCardPileEvent _value,
@@ -206,7 +206,7 @@ class _$SpeedDuelInspectCardPileEvent implements SpeedDuelInspectCardPileEvent {
 
   @override
   String toString() {
-    return 'SpeedDuelEvent.inspectCardPile(zone: $zone)';
+    return 'SpeedDuelScreenEvent.inspectCardPile(zone: $zone)';
   }
 
   @override
@@ -277,7 +277,7 @@ class _$SpeedDuelInspectCardPileEvent implements SpeedDuelInspectCardPileEvent {
   }
 }
 
-abstract class SpeedDuelInspectCardPileEvent implements SpeedDuelEvent {
+abstract class SpeedDuelInspectCardPileEvent implements SpeedDuelScreenEvent {
   const factory SpeedDuelInspectCardPileEvent(Zone zone) =
       _$SpeedDuelInspectCardPileEvent;
 

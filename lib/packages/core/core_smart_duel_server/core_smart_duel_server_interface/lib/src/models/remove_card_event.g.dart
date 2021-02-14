@@ -1,20 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'duel_event.dart';
+part of 'remove_card_event.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_SummonDuelEvent _$_$_SummonDuelEventFromJson(Map<String, dynamic> json) {
-  return _$_SummonDuelEvent(
-    yugiohCardId: json['yugiohCardId'] as String,
+_$_RemoveCardEvent _$_$_RemoveCardEventFromJson(Map<String, dynamic> json) {
+  return _$_RemoveCardEvent(
     zoneName: json['zoneName'] as String,
   );
 }
 
-Map<String, dynamic> _$_$_SummonDuelEventToJson(_$_SummonDuelEvent instance) =>
+Map<String, dynamic> _$_$_RemoveCardEventToJson(_$_RemoveCardEvent instance) =>
     <String, dynamic>{
-      'yugiohCardId': instance.yugiohCardId,
       'zoneName': instance.zoneName,
     };

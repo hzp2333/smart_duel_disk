@@ -25,8 +25,11 @@ class SmartDuelServerImpl implements SmartDuelServer {
   }
 
   @override
-  void emitEvent(SummonDuelEvent duelEvent) {
-    _socket.emitEvent(_summonEventName, duelEvent.toJson());
+  void emitSpeedDuelEvent(SpeedDuelEvent duelEvent) {
+    duelEvent.when(
+      summon: (data) => _socket.emitEvent(_summonEventName, data.toJson()),
+      removeCard: (data) => _socket.emitEvent(_summonEventName, data.toJson()),
+    );
   }
 
   @override
