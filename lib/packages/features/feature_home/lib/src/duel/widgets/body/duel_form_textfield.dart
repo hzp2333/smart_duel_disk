@@ -28,21 +28,32 @@ class DuelFormTextField extends HookWidget {
 
     final hasFocus = useState(false);
     final focusNode = useFocusNode();
-    focusNode.addListener(() => hasFocus.value = focusNode.hasFocus);
+    focusNode.addListener(() {
+      hasFocus.value = focusNode.hasFocus;
+      if (!focusNode.hasFocus) {
+        onSubmitted(controller.text);
+      }
+    });
 
-    final labelColor = hasFocus.value ? AppColors.primaryAccentColor : Colors.grey;
+    final labelColor = hasFocus.value
+        ? snapshot.hasError
+            ? Colors.red
+            : AppColors.primaryAccentColor
+        : Colors.grey;
+
+    final errorText = snapshot.hasError ? snapshot.error.toString() : null;
 
     return TextField(
       controller: controller,
       focusNode: focusNode,
       cursorColor: AppColors.primaryAccentColor,
       onChanged: onChanged,
-      onSubmitted: onSubmitted,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.all(16),
         labelText: label,
         labelStyle: TextStyle(color: labelColor),
         hintText: hint,
+        errorText: errorText,
         border: const OutlineInputBorder(),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.primaryAccentColor),
