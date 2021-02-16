@@ -12,7 +12,10 @@ class DuelScreenProvider extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        Provider(create: (_) => di.get<DuelViewModel>()),
+        Provider<DuelViewModel>(
+          create: (_) => di.get<DuelViewModel>(),
+          dispose: (_, vm) => vm.dispose(),
+        ),
       ],
       child: const DuelScreen(),
     );

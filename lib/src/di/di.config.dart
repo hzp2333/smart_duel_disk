@@ -31,6 +31,7 @@ import '../../packages/core/core_navigation/lib/src/dialogs/dialog_service.dart'
     as smart_duel_disk2;
 import '../navigation/dialogs/dialog_service.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/duel/duel_data_manager.dart';
+import '../../packages/features/feature_home/lib/src/duel/mixins/duel_form_validators.dart';
 import '../../packages/core/core_storage/core_storage_interface/lib/core_storage_interface.dart';
 import '../../packages/core/core_storage/core_storage_impl/lib/src/duel/duel_storage_provider.dart';
 import '../../packages/features/feature_home/lib/src/duel/duel_viewmodel.dart';
@@ -79,13 +80,14 @@ Future<GetIt> $initGetIt(
   final gh = GetItHelper(get, environment, environmentFilter);
   final firebaseModule = _$FirebaseModule();
   final sharedPreferencesModule = _$SharedPreferencesModule();
-  final socketIoModule = _$SocketIoModule();
   final twitterModule = _$TwitterModule();
   final ygoProDeckModule = _$YgoProDeckModule();
+  final socketIoModule = _$SocketIoModule();
   gh.lazySingleton<AssetsProvider>(() => AssetsProviderImpl());
   gh.lazySingleton<DateFormatter>(() => DateFormatter());
   gh.lazySingleton<smart_duel_disk2.DialogService>(
       () => DialogServiceImpl(get<AppRouter>()));
+  gh.lazySingleton<DuelFormValidators>(() => DuelFormValidators());
   gh.lazySingleton<EnumHelper>(() => EnumHelperImpl());
   gh.lazySingleton<FirebaseCrashlytics>(
       () => firebaseModule.provideFirebaseCrashlytics());
@@ -97,14 +99,12 @@ Future<GetIt> $initGetIt(
   gh.lazySingleton<SharedPreferences>(() => resolvedSharedPreferences);
   gh.lazySingleton<SharedPreferencesProvider>(
       () => SharedPreferencesProviderImpl(get<SharedPreferences>()));
-  gh.factory<Socket>(() => socketIoModule.provideSocket(get<AppConfig>()));
   gh.lazySingleton<TwitterApi>(
       () => twitterModule.provideTwitterApi(get<AppConfig>()));
   gh.lazySingleton<TwitterProvider>(
       () => TwitterProviderImpl(get<TwitterApi>()));
   gh.lazySingleton<UrlLauncherProvider>(() => UrlLauncherProviderImpl());
   gh.lazySingleton<WebSocketFactory>(() => WebSocketFactoryImpl());
-  gh.factory<WebSocketProvider>(() => WebSocketProviderImpl(get<Socket>()));
   gh.lazySingleton<CloudDatabaseProvider>(() => FirebaseCloudDatabaseProvider(
       get<FirebaseFirestore>(), get<EnumHelper>()));
   gh.lazySingleton<CrashlyticsProvider>(
@@ -123,8 +123,6 @@ Future<GetIt> $initGetIt(
         get<AppConfig>(),
         get<UrlLauncherProvider>(),
       ));
-  gh.lazySingleton<SmartDuelServer>(
-      () => SmartDuelServerImpl(get<WebSocketFactory>()));
   gh.factoryParam<YugiohCardDetailViewModel, YugiohCard, int>(
       (_yugiohCard, _index) => YugiohCardDetailViewModel(
             get<Logger>(),
@@ -158,6 +156,7 @@ Future<GetIt> $initGetIt(
           ));
   gh.factory<DuelViewModel>(() => DuelViewModel(
         get<Logger>(),
+        get<DuelFormValidators>(),
         get<RouterHelper>(),
         get<DataManager>(),
       ));
@@ -170,6 +169,9 @@ Future<GetIt> $initGetIt(
         get<smart_duel_disk1.DateFormatter>(),
         get<CrashlyticsProvider>(),
       ));
+  gh.lazySingleton<SmartDuelServer>(
+      () => SmartDuelServerImpl(get<WebSocketFactory>(), get<DataManager>()));
+  gh.factory<Socket>(() => socketIoModule.provideSocket(get<DataManager>()));
   gh.factoryParam<SpeedDuelViewModel, PreBuiltDeck, dynamic>(
       (_preBuiltDeck, _) => SpeedDuelViewModel(
             get<Logger>(),
@@ -180,6 +182,7 @@ Future<GetIt> $initGetIt(
             get<EnumHelper>(),
             get<CrashlyticsProvider>(),
           ));
+  gh.factory<WebSocketProvider>(() => WebSocketProviderImpl(get<Socket>()));
   return get;
 }
 
@@ -187,8 +190,8 @@ class _$FirebaseModule extends FirebaseModule {}
 
 class _$SharedPreferencesModule extends SharedPreferencesModule {}
 
-class _$SocketIoModule extends SocketIoModule {}
-
 class _$TwitterModule extends TwitterModule {}
 
 class _$YgoProDeckModule extends YgoProDeckModule {}
+
+class _$SocketIoModule extends SocketIoModule {}

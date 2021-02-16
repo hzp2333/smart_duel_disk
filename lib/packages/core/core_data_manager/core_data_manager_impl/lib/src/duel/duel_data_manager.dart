@@ -15,8 +15,8 @@ class DuelDataManagerImpl implements DuelDataManager {
     final model = _duelStorageProvider.getConnectionInfo();
 
     return ConnectionInfo(
-      ipAddress: model.ipAddress,
-      port: model.port,
+      ipAddress: model?.ipAddress,
+      port: model?.port,
     );
   }
 
