@@ -44,7 +44,6 @@ class SpeedDuelViewModel extends BaseViewModel {
   StreamSubscription<PlayerState> _playerStateSubscription;
 
   bool _surrendered = false;
-  bool get hasSurrendered => _surrendered;
 
   SpeedDuelViewModel(
     Logger logger,
@@ -59,6 +58,16 @@ class SpeedDuelViewModel extends BaseViewModel {
         ) {
     _init();
   }
+
+  //region Lifecycle
+
+  bool onWillPop() {
+    logger.info(_tag, 'onWillPop()');
+
+    return _surrendered || _speedDuelState.value is! SpeedDuelData;
+  }
+
+  //endregion
 
   //region Initialization
 

@@ -110,8 +110,7 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
     }
 
     final vm = Provider.of<SpeedDuelViewModel>(context, listen: false);
-
-    if (vm.hasSurrendered) {
+    if (vm.onWillPop()) {
       return Future.value(true);
     }
 

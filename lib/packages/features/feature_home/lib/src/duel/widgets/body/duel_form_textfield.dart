@@ -9,6 +9,7 @@ class DuelFormTextField extends HookWidget {
   final Stream<String> textStream;
   final TextChangedCallback onChanged;
   final TextChangedCallback onSubmitted;
+  final TextInputType textInputType;
 
   const DuelFormTextField({
     @required this.label,
@@ -16,6 +17,7 @@ class DuelFormTextField extends HookWidget {
     @required this.textStream,
     @required this.onChanged,
     @required this.onSubmitted,
+    this.textInputType = TextInputType.text,
   });
 
   @override
@@ -48,6 +50,7 @@ class DuelFormTextField extends HookWidget {
       focusNode: focusNode,
       cursorColor: AppColors.primaryAccentColor,
       onChanged: onChanged,
+      keyboardType: textInputType,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.all(16),
         labelText: label,
