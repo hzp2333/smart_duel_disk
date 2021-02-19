@@ -1,3 +1,3 @@
 import '../core_data_manager_interface.dart';
 
-abstract class DataManager implements NewsDataManager, YugiohCardsDataManager, DeckDataManager {}
+abstract class DataManager implements NewsDataManager, YugiohCardsDataManager, DeckDataManager, DuelDataManager {}

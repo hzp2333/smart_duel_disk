@@ -1,15 +1,17 @@
-import 'package:cached_network_image/cached_network_image.dart';
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_event.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone_type.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/widgets/body/draggable_card.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
 
 import '../speed_duel_viewmodel.dart';
+import 'body/card_zones.dart';
 
 class SpeedDuelScreen extends StatefulWidget {
   const SpeedDuelScreen();
@@ -19,6 +21,11 @@ class SpeedDuelScreen extends StatefulWidget {
 }
 
 class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  StreamSubscription<SpeedDuelScreenEvent> _speedDuelEventSubscription;
+  PersistentBottomSheetController<void> _bottomSheetController;
+
   @override
   void initState() {
     super.initState();
@@ -29,10 +36,21 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
 
     // Make the app full screen.
     SystemChrome.setEnabledSystemUIOverlays([]);
+
+    final vm = Provider.of<SpeedDuelViewModel>(context, listen: false);
+    _speedDuelEventSubscription = vm.speedDuelScreenEvent.listen((speedDuelEvent) {
+      speedDuelEvent.when(
+        hideOverlays: () => _hideOverlays(),
+        inspectCardPile: (zone) => _onInspectCardPileEventReceived(zone),
+      );
+    });
   }
 
   @override
   void dispose() {
+    _speedDuelEventSubscription?.cancel();
+    _speedDuelEventSubscription = null;
+
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
@@ -46,11 +64,76 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
     super.dispose();
   }
 
+  void _hideOverlays() {
+    _closeBottomSheet();
+  }
+
+  void _onInspectCardPileEventReceived(Zone zone) {
+    _closeBottomSheet();
+    _bottomSheetController = _scaffoldKey.currentState.showBottomSheet<void>((context) {
+      final bottomSheetHeight = MediaQuery.of(context).size.height * 0.35;
+      final cards = zone.cards.toList().reversed;
+
+      return SizedBox(
+        height: bottomSheetHeight,
+        width: double.infinity,
+        child: Center(
+          child: ListView.separated(
+            shrinkWrap: true,
+            scrollDirection: Axis.horizontal,
+            padding: const EdgeInsets.fromLTRB(8, 8, 8, 32),
+            itemCount: cards.length,
+            itemBuilder: (context, index) => DraggableCard(card: cards.elementAt(index), zone: zone),
+            separatorBuilder: (_, __) => const SizedBox(width: 12),
+          ),
+        ),
+      );
+    });
+  }
+
+  void _closeBottomSheet() {
+    if (_bottomSheetController == null) {
+      return;
+    }
+
+    try {
+      _bottomSheetController.close();
+    } finally {
+      _bottomSheetController = null;
+    }
+  }
+
+  Future<bool> _onWillPop() {
+    if (_bottomSheetController != null) {
+      _closeBottomSheet();
+      return Future.value(false);
+    }
+
+    final vm = Provider.of<SpeedDuelViewModel>(context, listen: false);
+    if (vm.onWillPop()) {
+      return Future.value(true);
+    }
+
+    _scaffoldKey.currentState.hideCurrentSnackBar();
+    _scaffoldKey.currentState.showSnackBar(const SnackBar(
+      content: Text('Currently, the back key cannot be used.'),
+    ));
+
+    return Future.value(false);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: AppColors.primaryBackgroundColor,
-      body: _Body(),
+    return WillPopScope(
+      onWillPop: _onWillPop,
+      child: GestureDetector(
+        onTap: () => _closeBottomSheet(),
+        child: Scaffold(
+          key: _scaffoldKey,
+          backgroundColor: AppColors.primaryBackgroundColor,
+          body: const _Body(),
+        ),
+      ),
     );
   }
 }
@@ -64,25 +147,29 @@ class _Body extends StatelessWidget {
       child: Center(
         child: Padding(
           padding: EdgeInsets.all(AppDimensions.screenMargin),
-          child: _PlayerFieldBuilder(),
+          child: _SpeedDuelStateBuilder(),
         ),
       ),
     );
   }
 }
 
-class _PlayerFieldBuilder extends StatelessWidget {
-  const _PlayerFieldBuilder();
+class _SpeedDuelStateBuilder extends StatelessWidget {
+  const _SpeedDuelStateBuilder();
 
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<SpeedDuelViewModel>(context);
 
-    return StreamBuilder<PlayerState>(
-      stream: vm.playerState,
-      initialData: const PlayerState(),
+    return StreamBuilder<SpeedDuelState>(
+      stream: vm.speedDuelState,
+      initialData: const SpeedDuelLoading(),
       builder: (context, snapshot) {
-        return _PlayerField(playerState: snapshot.data);
+        return snapshot.data.when(
+          (playerState) => _PlayerField(playerState: playerState),
+          loading: () => const GeneralLoadingState(),
+          error: () => const GeneralErrorState(description: 'An error occurred while starting the speed duel'),
+        );
       },
     );
   }
@@ -109,7 +196,7 @@ class _PlayerField extends StatelessWidget {
         ),
         const SizedBox(height: 32),
         Expanded(
-          child: _HandRow(zone: playerState.hand),
+          child: HandRow(zone: playerState.hand),
         ),
       ],
     );
@@ -128,18 +215,38 @@ class _FirstPlayerFieldRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _SingleCardFieldZone(zone: playerState.fieldZone),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _SingleCardFieldZone(zone: playerState.mainMonsterZone1),
+            const _ZoneFiller(),
             const SizedBox(width: AppDimensions.duelFieldCardSpacing),
-            _SingleCardFieldZone(zone: playerState.mainMonsterZone2),
-            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
-            _SingleCardFieldZone(zone: playerState.mainMonsterZone3),
+            SingleCardFieldZone(zone: playerState.fieldZone),
           ],
         ),
-        _SingleCardFieldZone(zone: playerState.graveyardZone),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SingleCardFieldZone(zone: playerState.mainMonsterZone1),
+            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
+            SingleCardFieldZone(zone: playerState.mainMonsterZone2),
+            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
+            SingleCardFieldZone(zone: playerState.mainMonsterZone3),
+          ],
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            MultiCardFieldZoneBuilder(
+              zone: playerState.graveyardZone,
+              showCardBack: false,
+            ),
+            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
+            MultiCardFieldZoneBuilder(
+              zone: playerState.banishedZone,
+              showCardBack: false,
+            ),
+          ],
+        ),
       ],
     );
   }
@@ -157,139 +264,54 @@ class _SecondPlayerFieldRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        _SingleCardFieldZone(zone: playerState.extraDeckZone),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _SingleCardFieldZone(zone: playerState.spellTrapZone1),
+            const _ZoneFiller(),
             const SizedBox(width: AppDimensions.duelFieldCardSpacing),
-            _SingleCardFieldZone(zone: playerState.spellTrapZone2),
-            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
-            _SingleCardFieldZone(zone: playerState.spellTrapZone3),
+            MultiCardFieldZoneBuilder(
+              zone: playerState.extraDeckZone,
+              showCardBack: true,
+            ),
           ],
         ),
-        _SingleCardFieldZone(zone: playerState.deckZone),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SingleCardFieldZone(zone: playerState.spellTrapZone1),
+            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
+            SingleCardFieldZone(zone: playerState.spellTrapZone2),
+            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
+            SingleCardFieldZone(zone: playerState.spellTrapZone3),
+          ],
+        ),
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            DeckZone(
+              zone: playerState.deckZone,
+              showCardBack: true,
+            ),
+            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
+            const AspectRatio(
+              aspectRatio: AppDimensions.yugiohCardAspectRatio,
+              child: SizedBox.expand(),
+            ),
+          ],
+        ),
       ],
     );
   }
 }
 
-class _SingleCardFieldZone extends StatelessWidget {
-  final Zone zone;
-
-  const _SingleCardFieldZone({
-    @required this.zone,
-  });
+class _ZoneFiller extends StatelessWidget {
+  const _ZoneFiller();
 
   @override
   Widget build(BuildContext context) {
-    final vm = Provider.of<SpeedDuelViewModel>(context);
-
-    return DragTarget<YugiohCard>(
-      onWillAccept: (card) => vm.onWillAccept(card, zone),
-      onAccept: (card) => vm.onAccept(card, zone),
-      builder: (_, __, ___) {
-        return zone.cards.isEmpty
-            ? AspectRatio(
-                aspectRatio: AppDimensions.yugiohCardAspectRatio,
-                child: Container(
-                  decoration: BoxDecoration(border: Border.all(color: Colors.grey)),
-                  child: const SizedBox.expand(),
-                ),
-              )
-            : _DraggableCard(
-                yugiohCard: zone.cards.first,
-                zone: zone,
-              );
-      },
-    );
-  }
-}
-
-class _HandRow extends StatelessWidget {
-  final Zone zone;
-
-  const _HandRow({
-    @required this.zone,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final vm = Provider.of<SpeedDuelViewModel>(context);
-
-    return DragTarget<YugiohCard>(
-      onWillAccept: (card) => vm.onWillAccept(card, zone),
-      onAccept: (card) => vm.onAccept(card, zone),
-      builder: (_, __, ___) {
-        return SizedBox.expand(
-          child: Center(
-            child: ListView.separated(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: zone.cards.length,
-              itemBuilder: (_, index) => _DraggableCard(
-                yugiohCard: zone.cards.elementAt(index),
-                zone: zone,
-              ),
-              separatorBuilder: (_, __) => const SizedBox(width: 16),
-            ),
-          ),
-        );
-      },
-    );
-  }
-}
-
-class _DraggableCard extends StatelessWidget {
-  final YugiohCard yugiohCard;
-  final Zone zone;
-
-  const _DraggableCard({
-    @required this.yugiohCard,
-    @required this.zone,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final assetsProvider = Provider.of<AssetsProvider>(context);
-
-    return Draggable<YugiohCard>(
-      maxSimultaneousDrags: 1,
-      onDragStarted: HapticFeedback.selectionClick,
-      data: yugiohCard,
-      feedback: _CardImage(
-        imageUrl: yugiohCard.imageSmallUrl,
-        placeholderAssetId: assetsProvider.cardBack,
-      ),
-      childWhenDragging: zone.zoneType == ZoneType.hand
-          ? const SizedBox.shrink()
-          : _SingleCardFieldZone(
-              zone: Zone(zoneType: zone.zoneType),
-            ),
-      child: _CardImage(
-        imageUrl: yugiohCard.imageSmallUrl,
-        placeholderAssetId: assetsProvider.cardBack,
-      ),
-    );
-  }
-}
-
-class _CardImage extends StatelessWidget {
-  final String imageUrl;
-  final String placeholderAssetId;
-
-  const _CardImage({
-    @required this.imageUrl,
-    @required this.placeholderAssetId,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return CachedNetworkImage(
-      imageUrl: imageUrl,
-      fit: BoxFit.fitHeight,
-      placeholder: (_, __) => ImagePlaceholder(imageAssetId: placeholderAssetId),
-      errorWidget: (_, __, dynamic ___) => ImagePlaceholder(imageAssetId: placeholderAssetId),
+    return const AspectRatio(
+      aspectRatio: AppDimensions.yugiohCardAspectRatio,
+      child: SizedBox.expand(),
     );
   }
 }

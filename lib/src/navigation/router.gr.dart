@@ -41,12 +41,19 @@ class AppRouter extends _i1.RootStackRouter {
               yugiohCard: route.yugiohCard, index: route.index));
     },
     DrawCardRoute.name: (entry) {
-      return _i1.AdaptivePage(
-          entry: entry, child: _i5.DrawCardScreenProvider());
+      var route = entry.routeData.as<DrawCardRoute>();
+      return _i1.CustomPage(
+          entry: entry,
+          child: _i5.DrawCardScreenProvider(
+              cardDrawnCallback: route.cardDrawnCallback),
+          durationInMilliseconds: 0,
+          reverseDurationInMilliseconds: 0);
     },
     SpeedDuelRoute.name: (entry) {
+      var route = entry.routeData.as<SpeedDuelRoute>();
       return _i1.AdaptivePage(
-          entry: entry, child: _i6.SpeedDuelScreenProvider());
+          entry: entry,
+          child: _i6.SpeedDuelScreenProvider(preBuiltDeck: route.preBuiltDeck));
     },
     DuelTab.name: (entry) {
       return _i1.AdaptivePage(entry: entry, child: _i2.DuelScreenProvider());
@@ -131,17 +138,27 @@ class YugiohCardDetailRoute extends _i1.PageRouteInfo {
 }
 
 class DrawCardRoute extends _i1.PageRouteInfo {
-  const DrawCardRoute() : super(name, path: '/draw-card-screen-provider');
+  DrawCardRoute({@_i8.required this.cardDrawnCallback})
+      : super(name, path: '/draw-card-screen-provider');
 
-  DrawCardRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
+  DrawCardRoute.fromMatch(_i1.RouteMatch match)
+      : cardDrawnCallback = null,
+        super.fromMatch(match);
+
+  final void Function() cardDrawnCallback;
 
   static const String name = 'DrawCardRoute';
 }
 
 class SpeedDuelRoute extends _i1.PageRouteInfo {
-  const SpeedDuelRoute() : super(name, path: '/speed-duel-screen-provider');
+  SpeedDuelRoute({@_i8.required this.preBuiltDeck})
+      : super(name, path: '/speed-duel-screen-provider');
 
-  SpeedDuelRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
+  SpeedDuelRoute.fromMatch(_i1.RouteMatch match)
+      : preBuiltDeck = null,
+        super.fromMatch(match);
+
+  final _i7.PreBuiltDeck preBuiltDeck;
 
   static const String name = 'SpeedDuelRoute';
 }

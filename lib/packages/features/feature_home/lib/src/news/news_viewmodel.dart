@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
+import 'package:smart_duel_disk/packages/core/core_logger/core_logger_interface/lib/core_logger_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/news/models/news_list_item.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/news/models/news_state.dart';
@@ -11,7 +12,7 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/wrapper_cr
 import 'extensions/news_item_extensions.dart';
 
 @Injectable()
-class NewsViewModel {
+class NewsViewModel extends BaseViewModel {
   final RouterHelper _routerHelper;
   final DataManager _dataManager;
   final DateFormatter _dateFormatter;
@@ -21,11 +22,14 @@ class NewsViewModel {
   Stream<NewsState> get newsState => _newsState.stream;
 
   NewsViewModel(
+    Logger logger,
     this._routerHelper,
     this._dataManager,
     this._dateFormatter,
     this._crashlyticsProvider,
-  );
+  ) : super(
+          logger,
+        );
 
   Future<void> init() async {
     return _fetchData();
@@ -69,7 +73,10 @@ class NewsViewModel {
     }
   }
 
+  @override
   void dispose() {
     _newsState?.close();
+
+    super.dispose();
   }
 }

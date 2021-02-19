@@ -3,6 +3,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 @immutable
 class AppConfig {
+  bool get loggingEnabled => true;
+
   String get ygoProDeckBaseUrl => 'https://db.ygoprodeck.com/api/v7';
   int get ygoProDeckReceiveTimeout => 10000;
   int get ygoProDeckConnectTimeout => 10000;
@@ -12,7 +14,7 @@ class AppConfig {
   String get youtubeUrl => 'https://www.youtube.com/channel/UCz2Que3btHnGkwrW-emZV5A';
   String get discordUrl => 'https://discord.gg/SxmeN9Yh8a';
 
-  String get webSocketUrl => 'http://192.168.0.106:3000';
+  String get webSocketUrl => 'http://192.168.0.106:52300';
 
   final String twitterUserId;
   final String twitterConsumerKey;

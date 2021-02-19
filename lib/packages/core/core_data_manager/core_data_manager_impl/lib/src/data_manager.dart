@@ -6,11 +6,13 @@ class DataManagerImpl implements DataManager {
   final NewsDataManager _newsDataManager;
   final YugiohCardsDataManager _yugiohCardsDataManager;
   final DeckDataManager _deckDataManager;
+  final DuelDataManager _duelDataManager;
 
   DataManagerImpl(
     this._newsDataManager,
     this._yugiohCardsDataManager,
     this._deckDataManager,
+    this._duelDataManager,
   );
 
   //region News
@@ -36,6 +38,20 @@ class DataManagerImpl implements DataManager {
   @override
   Future<Iterable<int>> getPreBuiltDeckCardIds(PreBuiltDeck deck) {
     return _deckDataManager.getPreBuiltDeckCardIds(deck);
+  }
+
+  //endregion
+
+  //region Duel
+
+  @override
+  ConnectionInfo getConnectionInfo() {
+    return _duelDataManager.getConnectionInfo();
+  }
+
+  @override
+  Future<void> saveConnectionInfo(ConnectionInfo connectionInfo) {
+    return _duelDataManager.saveConnectionInfo(connectionInfo);
   }
 
   //endregion

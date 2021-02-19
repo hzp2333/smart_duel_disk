@@ -1,5 +1,6 @@
 library core_general;
 
+export 'src/base/base_viewmodel.dart';
 export 'src/extensions/context_extensions.dart';
 export 'src/extensions/iterable_extensions.dart';
 export 'src/extensions/string_extensions.dart';

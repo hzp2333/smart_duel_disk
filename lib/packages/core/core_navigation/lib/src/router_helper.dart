@@ -1,7 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
+
+import '../core_navigation.dart';
 
 abstract class RouterHelper {
   Future<void> closeScreen();
+  Future<bool> showDialog(DialogConfig dialogConfig);
 
   //region News
 
@@ -20,8 +24,8 @@ abstract class RouterHelper {
 
   //region Duel
 
-  Future<void> showDrawCard();
-  Future<void> showSpeedDuel();
+  Future<void> showDrawCard(VoidCallback cardDrawnCallback);
+  Future<void> showSpeedDuel(PreBuiltDeck preBuiltDeck);
 
   //endregion
 
