@@ -6,8 +6,8 @@ class AppConfig {
   bool get loggingEnabled => true;
 
   String get ygoProDeckBaseUrl => 'https://db.ygoprodeck.com/api/v7';
-  int get ygoProDeckReceiveTimeout => 10000;
-  int get ygoProDeckConnectTimeout => 10000;
+  int get ygoProDeckReceiveTimeout => 60000;
+  int get ygoProDeckConnectTimeout => 60000;
 
   String get twitterUrl => 'https://twitter.com/CrownCorpBE';
   String get tweetUrl => 'https://twitter.com/{0}/status/{1}';
