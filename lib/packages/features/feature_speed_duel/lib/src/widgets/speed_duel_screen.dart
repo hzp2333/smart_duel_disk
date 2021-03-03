@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_event.dart';
@@ -11,7 +12,11 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/wid
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
 import '../speed_duel_viewmodel.dart';
-import 'body/card_zones.dart';
+import 'body/card_list_bottom_sheet.dart';
+import 'body/card_zones/deck_zone.dart';
+import 'body/card_zones/hand_zone.dart';
+import 'body/card_zones/multi_card_field_zone.dart';
+import 'body/card_zones/single_card_field_zone.dart';
 
 class SpeedDuelScreen extends StatefulWidget {
   const SpeedDuelScreen();
@@ -70,25 +75,7 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
 
   void _onInspectCardPileEventReceived(Zone zone) {
     _closeBottomSheet();
-    _bottomSheetController = _scaffoldKey.currentState.showBottomSheet<void>((context) {
-      final bottomSheetHeight = MediaQuery.of(context).size.height * 0.35;
-      final cards = zone.cards.toList().reversed;
-
-      return SizedBox(
-        height: bottomSheetHeight,
-        width: double.infinity,
-        child: Center(
-          child: ListView.separated(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.fromLTRB(8, 8, 8, 32),
-            itemCount: cards.length,
-            itemBuilder: (context, index) => DraggableCard(card: cards.elementAt(index), zone: zone),
-            separatorBuilder: (_, __) => const SizedBox(width: 12),
-          ),
-        ),
-      );
-    });
+    _bottomSheetController = _scaffoldKey.currentState.showBottomSheet((_) => CardListBottomSheet(zone: zone));
   }
 
   void _closeBottomSheet() {
@@ -154,23 +141,18 @@ class _Body extends StatelessWidget {
   }
 }
 
-class _SpeedDuelStateBuilder extends StatelessWidget {
+class _SpeedDuelStateBuilder extends HookWidget {
   const _SpeedDuelStateBuilder();
 
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<SpeedDuelViewModel>(context);
+    final speedDuelState = useStream(vm.speedDuelState, initialData: const SpeedDuelLoading());
 
-    return StreamBuilder<SpeedDuelState>(
-      stream: vm.speedDuelState,
-      initialData: const SpeedDuelLoading(),
-      builder: (context, snapshot) {
-        return snapshot.data.when(
-          (playerState) => _PlayerField(playerState: playerState),
-          loading: () => const GeneralLoadingState(),
-          error: () => const GeneralErrorState(description: 'An error occurred while starting the speed duel'),
-        );
-      },
+    return speedDuelState.data.when(
+      (playerState) => _PlayerField(playerState: playerState),
+      loading: () => const GeneralLoadingState(),
+      error: () => const GeneralErrorState(description: 'An error occurred while starting the speed duel'),
     );
   }
 }
@@ -196,7 +178,7 @@ class _PlayerField extends StatelessWidget {
         ),
         const SizedBox(height: 32),
         Expanded(
-          child: HandRow(zone: playerState.hand),
+          child: HandZone(zone: playerState.hand),
         ),
       ],
     );
@@ -236,12 +218,12 @@ class _FirstPlayerFieldRow extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            MultiCardFieldZoneBuilder(
+            MultiCardFieldZone(
               zone: playerState.graveyardZone,
               showCardBack: false,
             ),
             const SizedBox(width: AppDimensions.duelFieldCardSpacing),
-            MultiCardFieldZoneBuilder(
+            MultiCardFieldZone(
               zone: playerState.banishedZone,
               showCardBack: false,
             ),
@@ -269,7 +251,7 @@ class _SecondPlayerFieldRow extends StatelessWidget {
           children: [
             const _ZoneFiller(),
             const SizedBox(width: AppDimensions.duelFieldCardSpacing),
-            MultiCardFieldZoneBuilder(
+            MultiCardFieldZone(
               zone: playerState.extraDeckZone,
               showCardBack: true,
             ),

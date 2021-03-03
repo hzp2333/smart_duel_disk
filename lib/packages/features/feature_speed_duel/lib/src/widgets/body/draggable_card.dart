@@ -5,10 +5,9 @@ import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone_type.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/widgets/body/card_zones/shared.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
-
-import 'card_zones.dart';
 
 class DraggableCard extends StatelessWidget {
   final PlayCard card;
@@ -36,11 +35,7 @@ class DraggableCard extends StatelessWidget {
         imageUrl: card.yugiohCard.imageSmallUrl,
         placeholderAssetId: assetsProvider.cardBack,
       ),
-      childWhenDragging: zone.zoneType == ZoneType.hand
-          ? const SizedBox.shrink()
-          : SingleCardFieldZone(
-              zone: Zone(zoneType: zone.zoneType),
-            ),
+      childWhenDragging: zone.zoneType == ZoneType.hand ? const SizedBox.shrink() : const EmptyZone(),
       child: CardImage(
         imageUrl: card.yugiohCard.imageSmallUrl,
         placeholderAssetId: assetsProvider.cardBack,
