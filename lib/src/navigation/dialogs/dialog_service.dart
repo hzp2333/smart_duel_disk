@@ -43,12 +43,12 @@ class DialogServiceImpl implements DialogService {
       ),
       actions: [
         if (dialogConfig.negativeButton != null) ...{
-          FlatButton(
+          TextButton(
             onPressed: () => _popDialog(false),
             child: Text(dialogConfig.negativeButton),
           ),
         },
-        FlatButton(
+        TextButton(
           onPressed: () => _popDialog(true),
           child: Text(dialogConfig.positiveButton),
         ),
