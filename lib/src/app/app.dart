@@ -6,6 +6,8 @@ import 'package:smart_duel_disk/src/localization/strings.al.dart';
 import 'package:smart_duel_disk/src/navigation/router.gr.dart';
 
 class SmartDuelDiskApp extends StatelessWidget {
+  const SmartDuelDiskApp();
+
   @override
   Widget build(BuildContext context) {
     final router = di.get<AppRouter>();

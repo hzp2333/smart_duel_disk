@@ -104,20 +104,10 @@ class SpeedDuelViewModel extends BaseViewModel {
   Future<void> _setDeck() async {
     logger.verbose(_tag, '_setDeck()');
 
-    final allCards = await _getCardsFromDeckUseCase(_preBuiltDeck);
+    final playCards = await _getCardsFromDeckUseCase(_preBuiltDeck);
 
-    final mainDeck = <PlayCard>[];
-    final extraDeck = <PlayCard>[];
-
-    for (final card in allCards) {
-      if (card.type == CardType.fusionMonster) {
-        final copyNumber = extraDeck.where((playCard) => playCard.yugiohCard == card).length + 1;
-        extraDeck.add(PlayCard(yugiohCard: card, zoneType: ZoneType.extraDeck, copyNumber: copyNumber));
-      } else {
-        final copyNumber = mainDeck.where((playCard) => playCard.yugiohCard == card).length + 1;
-        mainDeck.add(PlayCard(yugiohCard: card, zoneType: ZoneType.deck, copyNumber: copyNumber));
-      }
-    }
+    final mainDeck = playCards.where((card) => card.yugiohCard.type != CardType.fusionMonster);
+    final extraDeck = playCards.where((card) => card.yugiohCard.type == CardType.fusionMonster);
 
     final currentState = _playerState.value;
     final updatedState = currentState.copyWith(

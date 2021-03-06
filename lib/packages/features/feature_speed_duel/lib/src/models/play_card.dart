@@ -9,11 +9,21 @@ class PlayCard extends Equatable {
   final YugiohCard yugiohCard;
   final ZoneType zoneType;
   final int copyNumber;
+  final String formattedRaceAndType;
+  final String formattedAttack;
+  final String formattedDefence;
+  final String formattedLevel;
+  final String attributeAssetName;
 
   const PlayCard({
     @required this.yugiohCard,
     @required this.zoneType,
     @required this.copyNumber,
+    @required this.formattedRaceAndType,
+    this.formattedAttack,
+    this.formattedDefence,
+    this.formattedLevel,
+    this.attributeAssetName,
   });
 
   PlayCard copyWith({ZoneType zoneType}) {
@@ -21,6 +31,11 @@ class PlayCard extends Equatable {
       yugiohCard: yugiohCard,
       zoneType: zoneType ?? this.zoneType,
       copyNumber: copyNumber,
+      formattedRaceAndType: formattedRaceAndType,
+      formattedAttack: formattedAttack,
+      formattedDefence: formattedDefence,
+      formattedLevel: formattedLevel,
+      attributeAssetName: attributeAssetName,
     );
   }
 
@@ -29,6 +44,11 @@ class PlayCard extends Equatable {
         yugiohCard,
         zoneType,
         copyNumber,
+        formattedRaceAndType,
+        formattedAttack,
+        formattedDefence,
+        formattedLevel,
+        attributeAssetName,
       ];
 
   @override

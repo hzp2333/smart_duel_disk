@@ -17,6 +17,8 @@ class AppColors {
   static final deckYugiBackgroundColor = Colors.red[700];
   static final deckKaibaBackgroundColor = Colors.blue[700];
 
+  static final cardDialogAccent = Colors.greenAccent;
+
   static final whiteOverlayGradient = LinearGradient(
     colors: [Colors.white.withOpacity(0.35), Colors.white.withOpacity(0)],
     begin: Alignment.topCenter,
