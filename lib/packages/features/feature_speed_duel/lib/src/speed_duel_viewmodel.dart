@@ -7,6 +7,7 @@ import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart
 import 'package:smart_duel_disk/packages/core/core_logger/core_logger_interface/lib/core_logger_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/speed_duel_dialog_provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_event.dart';
@@ -31,6 +32,8 @@ class SpeedDuelViewModel extends BaseViewModel {
   final GetCardsFromDeckUseCase _getCardsFromDeckUseCase;
   final EnumHelper _enumHelper;
   final CrashlyticsProvider _crashlyticsProvider;
+  final DialogService _dialogService;
+  final SpeedDuelDialogProvider _speedDuelDialogProvider;
 
   final _playerState = BehaviorSubject<PlayerState>.seeded(const PlayerState());
 
@@ -52,7 +55,9 @@ class SpeedDuelViewModel extends BaseViewModel {
     this._smartDuelServer,
     this._getCardsFromDeckUseCase,
     this._enumHelper,
+    this._dialogService,
     this._crashlyticsProvider,
+    this._speedDuelDialogProvider,
   ) : super(
           logger,
         ) {
@@ -107,7 +112,9 @@ class SpeedDuelViewModel extends BaseViewModel {
     final playCards = await _getCardsFromDeckUseCase(_preBuiltDeck);
 
     final mainDeck = playCards.where((card) => card.yugiohCard.type != CardType.fusionMonster);
-    final extraDeck = playCards.where((card) => card.yugiohCard.type == CardType.fusionMonster);
+    final extraDeck = playCards
+        .where((card) => card.yugiohCard.type == CardType.fusionMonster)
+        .map((card) => card.copyWith(zoneType: ZoneType.extraDeck));
 
     final currentState = _playerState.value;
     final updatedState = currentState.copyWith(
@@ -346,7 +353,12 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   //endregion
 
-  // Multi-card zone actions
+  // Card pressed events
+
+  void onCardPressed(PlayCard playCard) {
+    final dialog = _speedDuelDialogProvider.getCardDetailDialog(playCard);
+    _dialogService.showCustomDialog<void>(dialog);
+  }
 
   void onMultiCardZonePressed(Zone zone) {
     logger.info(_tag, 'onMultiCardZonePressed()');

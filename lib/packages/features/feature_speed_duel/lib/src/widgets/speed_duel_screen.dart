@@ -8,7 +8,6 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_event.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/widgets/body/draggable_card.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
 import '../speed_duel_viewmodel.dart';

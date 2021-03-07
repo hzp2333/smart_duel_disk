@@ -83,4 +83,14 @@ class DialogServiceImpl implements DialogService {
   void _popDialog<T>(T result) {
     _router.navigatorKey.currentState.pop(result);
   }
+
+  @override
+  Future<T> showCustomDialog<T>(Widget child) {
+    return showDialog<T>(
+      context: _router.navigatorKey.currentState.overlay.context,
+      barrierDismissible: true,
+      useRootNavigator: true,
+      builder: (_) => child,
+    );
+  }
 }

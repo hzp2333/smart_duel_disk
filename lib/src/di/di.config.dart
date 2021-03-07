@@ -21,9 +21,9 @@ import '../../packages/wrappers/wrapper_cloud_database/wrapper_cloud_database_in
 import '../../packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_interface/lib/wrapper_crashlytics_interface.dart';
 import '../../packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/data_manager.dart';
-import '../../packages/core/core_general/lib/src/formatters/date_formatter.dart';
 import '../../packages/core/core_general/lib/core_general.dart'
     as smart_duel_disk1;
+import '../../packages/core/core_general/lib/src/formatters/date_formatter.dart';
 import '../../packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/deck/deck_data_manager.dart';
 import '../../packages/features/feature_home/lib/src/deck/deck_viewmodel.dart';
@@ -54,6 +54,7 @@ import '../../packages/core/core_storage/core_storage_impl/lib/src/providers/sha
 import '../../packages/core/core_storage/core_storage_impl/lib/src/providers/shared_preferences/shared_preferences_impl/shared_preferences_provider.dart';
 import '../../packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import '../../packages/core/core_smart_duel_server/core_smart_duel_server_impl/lib/src/smart_duel_server.dart';
+import '../../packages/features/feature_speed_duel/lib/src/dialogs/speed_duel_dialog_provider.dart';
 import '../../packages/features/feature_speed_duel/lib/src/speed_duel_viewmodel.dart';
 import '../../packages/wrappers/wrapper_twitter/wrapper_twitter_interface/lib/wrapper_twitter_interface.dart';
 import '../../packages/wrappers/wrapper_twitter/wrapper_twitter_impl/lib/src/twitter_provider.dart';
@@ -99,6 +100,7 @@ Future<GetIt> $initGetIt(
   gh.lazySingleton<SharedPreferences>(() => resolvedSharedPreferences);
   gh.lazySingleton<SharedPreferencesProvider>(
       () => SharedPreferencesProviderImpl(get<SharedPreferences>()));
+  gh.lazySingleton<SpeedDuelDialogProvider>(() => SpeedDuelDialogProvider());
   gh.lazySingleton<TwitterApi>(
       () => twitterModule.provideTwitterApi(get<AppConfig>()));
   gh.lazySingleton<TwitterProvider>(
@@ -183,7 +185,9 @@ Future<GetIt> $initGetIt(
             get<SmartDuelServer>(),
             get<GetCardsFromDeckUseCase>(),
             get<EnumHelper>(),
+            get<DialogService>(),
             get<CrashlyticsProvider>(),
+            get<SpeedDuelDialogProvider>(),
           ));
   gh.factory<WebSocketProvider>(() => WebSocketProviderImpl(get<Socket>()));
   return get;
