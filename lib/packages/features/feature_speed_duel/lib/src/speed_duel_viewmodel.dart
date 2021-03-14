@@ -5,6 +5,7 @@ import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/core_logger_interface/lib/core_logger_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_messaging/core_messaging_interface/lib/src/snack_bar/snack_bar_service.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/speed_duel_dialog_provider.dart';
@@ -34,6 +35,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   final CrashlyticsProvider _crashlyticsProvider;
   final DialogService _dialogService;
   final SpeedDuelDialogProvider _speedDuelDialogProvider;
+  final SnackBarService _snackBarService;
 
   final _playerState = BehaviorSubject<PlayerState>.seeded(const PlayerState());
 
@@ -58,6 +60,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     this._dialogService,
     this._crashlyticsProvider,
     this._speedDuelDialogProvider,
+    this._snackBarService,
   ) : super(
           logger,
         ) {
@@ -66,10 +69,15 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   //region Lifecycle
 
-  bool onWillPop() {
-    logger.info(_tag, 'onWillPop()');
+  bool onBackPressed() {
+    logger.info(_tag, 'onBackPressed()');
 
-    return _surrendered || _speedDuelState.value is! SpeedDuelData;
+    final canPop = _surrendered || _speedDuelState.value is! SpeedDuelData;
+    if (!canPop) {
+      _snackBarService.showSnackBar('Currently, the back key cannot be used.');
+    }
+
+    return canPop;
   }
 
   //endregion

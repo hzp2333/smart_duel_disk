@@ -90,7 +90,7 @@ class _CardDragTarget extends StatelessWidget {
   Widget build(BuildContext context) {
     return DragTarget<String>(
       builder: (_, __, ___) => const SizedBox.expand(),
-      onLeave: (_) => onCardDrawn(),
+      onAccept: (_) => onCardDrawn(),
     );
   }
 }
@@ -104,12 +104,13 @@ class _CardDraggable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Draggable<Object>(
+    return Draggable<String>(
       axis: Axis.horizontal,
       maxSimultaneousDrags: 1,
       childWhenDragging: const SizedBox.shrink(),
       onDragStarted: HapticFeedback.heavyImpact,
       feedback: cardImage,
+      data: '',
       child: cardImage,
     );
   }

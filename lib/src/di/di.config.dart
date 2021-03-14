@@ -22,13 +22,13 @@ import '../../packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_interfac
 import '../../packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/data_manager.dart';
 import '../../packages/core/core_general/lib/core_general.dart'
-    as smart_duel_disk1;
+    as smart_duel_disk2;
 import '../../packages/core/core_general/lib/src/formatters/date_formatter.dart';
 import '../../packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/deck/deck_data_manager.dart';
 import '../../packages/features/feature_home/lib/src/deck/deck_viewmodel.dart';
 import '../../packages/core/core_navigation/lib/src/dialogs/dialog_service.dart'
-    as smart_duel_disk2;
+    as smart_duel_disk3;
 import '../navigation/dialogs/dialog_service.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/duel/duel_data_manager.dart';
 import '../../packages/features/feature_home/lib/src/duel/mixins/duel_form_validators.dart';
@@ -44,7 +44,7 @@ import '../../packages/features/feature_speed_duel/lib/src/usecases/get_cards_fr
 import '../../packages/features/feature_home/lib/src/home/home_viewmodel.dart';
 import '../../packages/core/core_logger/core_logger_interface/lib/core_logger_interface.dart';
 import '../../packages/core/core_logger/core_logger_interface/lib/src/logger.dart'
-    as smart_duel_disk;
+    as smart_duel_disk1;
 import '../../packages/core/core_logger/core_logger_impl/lib/src/logger.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/news/news_data_manager.dart';
 import '../../packages/features/feature_home/lib/src/news/news_viewmodel.dart';
@@ -54,6 +54,10 @@ import '../../packages/core/core_storage/core_storage_impl/lib/src/providers/sha
 import '../../packages/core/core_storage/core_storage_impl/lib/src/providers/shared_preferences/shared_preferences_impl/shared_preferences_provider.dart';
 import '../../packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import '../../packages/core/core_smart_duel_server/core_smart_duel_server_impl/lib/src/smart_duel_server.dart';
+import '../../packages/core/core_messaging/core_messaging_interface/lib/core_messaging_interface.dart';
+import '../../packages/core/core_messaging/core_messaging_interface/lib/src/snack_bar/snack_bar_service.dart'
+    as smart_duel_disk;
+import '../../packages/core/core_messaging/core_messaging_impl/lib/src/snack_bar/snack_bar_service_impl.dart';
 import '../../packages/features/feature_speed_duel/lib/src/dialogs/speed_duel_dialog_provider.dart';
 import '../../packages/features/feature_speed_duel/lib/src/speed_duel_viewmodel.dart';
 import '../../packages/wrappers/wrapper_twitter/wrapper_twitter_interface/lib/wrapper_twitter_interface.dart';
@@ -86,7 +90,7 @@ Future<GetIt> $initGetIt(
   final socketIoModule = _$SocketIoModule();
   gh.lazySingleton<AssetsProvider>(() => AssetsProviderImpl());
   gh.lazySingleton<DateFormatter>(() => DateFormatter());
-  gh.lazySingleton<smart_duel_disk2.DialogService>(
+  gh.lazySingleton<smart_duel_disk3.DialogService>(
       () => DialogServiceImpl(get<AppRouter>()));
   gh.lazySingleton<DuelFormValidators>(() => DuelFormValidators());
   gh.lazySingleton<EnumHelper>(() => EnumHelperImpl());
@@ -94,12 +98,14 @@ Future<GetIt> $initGetIt(
       () => firebaseModule.provideFirebaseCrashlytics());
   gh.lazySingleton<FirebaseFirestore>(
       () => firebaseModule.provideFirebaseFirestore());
-  gh.factory<HomeViewModel>(() => HomeViewModel(get<smart_duel_disk.Logger>()));
+  gh.factory<HomeViewModel>(
+      () => HomeViewModel(get<smart_duel_disk1.Logger>()));
   final resolvedSharedPreferences =
       await sharedPreferencesModule.provideSharedPreferences();
   gh.lazySingleton<SharedPreferences>(() => resolvedSharedPreferences);
   gh.lazySingleton<SharedPreferencesProvider>(
       () => SharedPreferencesProviderImpl(get<SharedPreferences>()));
+  gh.lazySingleton<SnackBarService>(() => SnackBarServiceImpl());
   gh.lazySingleton<SpeedDuelDialogProvider>(() => SpeedDuelDialogProvider());
   gh.lazySingleton<TwitterApi>(
       () => twitterModule.provideTwitterApi(get<AppConfig>()));
@@ -131,8 +137,11 @@ Future<GetIt> $initGetIt(
             _yugiohCard,
             _index,
           ));
-  gh.factory<DeckViewModel>(
-      () => DeckViewModel(get<Logger>(), get<RouterHelper>()));
+  gh.factory<DeckViewModel>(() => DeckViewModel(
+        get<Logger>(),
+        get<RouterHelper>(),
+        get<smart_duel_disk.SnackBarService>(),
+      ));
   gh.lazySingleton<Dio>(() =>
       ygoProDeckModule.provideYgoProDeckDio(get<AppConfig>(), get<Logger>()));
   gh.lazySingleton<DuelDataManager>(
@@ -171,7 +180,7 @@ Future<GetIt> $initGetIt(
         get<Logger>(),
         get<RouterHelper>(),
         get<DataManager>(),
-        get<smart_duel_disk1.DateFormatter>(),
+        get<smart_duel_disk2.DateFormatter>(),
         get<CrashlyticsProvider>(),
       ));
   gh.lazySingleton<SmartDuelServer>(
@@ -188,6 +197,7 @@ Future<GetIt> $initGetIt(
             get<DialogService>(),
             get<CrashlyticsProvider>(),
             get<SpeedDuelDialogProvider>(),
+            get<smart_duel_disk.SnackBarService>(),
           ));
   gh.factory<WebSocketProvider>(() => WebSocketProviderImpl(get<Socket>()));
   return get;

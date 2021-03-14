@@ -74,7 +74,10 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
 
   void _onInspectCardPileEventReceived(Zone zone) {
     _closeBottomSheet();
-    _bottomSheetController = _scaffoldKey.currentState.showBottomSheet((_) => CardListBottomSheet(zone: zone));
+    _bottomSheetController = _scaffoldKey.currentState.showBottomSheet(
+      (_) => CardListBottomSheet(zone: zone),
+      backgroundColor: AppColors.cardBackgroundColor,
+    );
   }
 
   void _closeBottomSheet() {
@@ -96,16 +99,7 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
     }
 
     final vm = Provider.of<SpeedDuelViewModel>(context, listen: false);
-    if (vm.onWillPop()) {
-      return Future.value(true);
-    }
-
-    _scaffoldKey.currentState.hideCurrentSnackBar();
-    _scaffoldKey.currentState.showSnackBar(const SnackBar(
-      content: Text('Currently, the back key cannot be used.'),
-    ));
-
-    return Future.value(false);
+    return Future.value(vm.onBackPressed());
   }
 
   @override
