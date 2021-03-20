@@ -58,10 +58,7 @@ class _DrawCardScreenState extends State<DrawCardScreen> {
       body: Stack(
         alignment: Alignment.center,
         children: [
-          const SizedBox.expand(),
-          Positioned.fill(
-            child: _CardDragTarget(onCardDrawn: _onCardDrawn),
-          ),
+          _CardDragTarget(onCardDrawn: _onCardDrawn),
           if (_isAnimating) ...{
             AnimatedPositioned(
               duration: _animationDuration,
@@ -91,6 +88,7 @@ class _CardDragTarget extends StatelessWidget {
     return DragTarget<String>(
       builder: (_, __, ___) => const SizedBox.expand(),
       onAccept: (_) => onCardDrawn(),
+      onLeave: (_) => onCardDrawn(),
     );
   }
 }

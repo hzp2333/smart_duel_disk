@@ -30,6 +30,7 @@ import '../../packages/features/feature_home/lib/src/deck/deck_viewmodel.dart';
 import '../../packages/core/core_navigation/lib/src/dialogs/dialog_service.dart'
     as smart_duel_disk3;
 import '../navigation/dialogs/dialog_service.dart';
+import '../../packages/features/feature_speed_duel/lib/src/usecases/does_card_fit_in_zone_use_case.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/duel/duel_data_manager.dart';
 import '../../packages/features/feature_home/lib/src/duel/mixins/duel_form_validators.dart';
 import '../../packages/core/core_storage/core_storage_interface/lib/core_storage_interface.dart';
@@ -54,9 +55,9 @@ import '../../packages/core/core_storage/core_storage_impl/lib/src/providers/sha
 import '../../packages/core/core_storage/core_storage_impl/lib/src/providers/shared_preferences/shared_preferences_impl/shared_preferences_provider.dart';
 import '../../packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import '../../packages/core/core_smart_duel_server/core_smart_duel_server_impl/lib/src/smart_duel_server.dart';
-import '../../packages/core/core_messaging/core_messaging_interface/lib/core_messaging_interface.dart';
 import '../../packages/core/core_messaging/core_messaging_interface/lib/src/snack_bar/snack_bar_service.dart'
     as smart_duel_disk;
+import '../../packages/core/core_messaging/core_messaging_interface/lib/core_messaging_interface.dart';
 import '../../packages/core/core_messaging/core_messaging_impl/lib/src/snack_bar/snack_bar_service_impl.dart';
 import '../../packages/features/feature_speed_duel/lib/src/dialogs/speed_duel_dialog_provider.dart';
 import '../../packages/features/feature_speed_duel/lib/src/speed_duel_viewmodel.dart';
@@ -92,6 +93,7 @@ Future<GetIt> $initGetIt(
   gh.lazySingleton<DateFormatter>(() => DateFormatter());
   gh.lazySingleton<smart_duel_disk3.DialogService>(
       () => DialogServiceImpl(get<AppRouter>()));
+  gh.lazySingleton<DoesCardFitInZoneUseCase>(() => DoesCardFitInZoneUseCase());
   gh.lazySingleton<DuelFormValidators>(() => DuelFormValidators());
   gh.lazySingleton<EnumHelper>(() => EnumHelperImpl());
   gh.lazySingleton<FirebaseCrashlytics>(
@@ -193,6 +195,7 @@ Future<GetIt> $initGetIt(
             get<RouterHelper>(),
             get<SmartDuelServer>(),
             get<GetCardsFromDeckUseCase>(),
+            get<DoesCardFitInZoneUseCase>(),
             get<EnumHelper>(),
             get<DialogService>(),
             get<CrashlyticsProvider>(),

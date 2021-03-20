@@ -19,6 +19,7 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_enum_helper/wrapper_en
 
 import 'models/deck_action.dart';
 import 'models/zone_type.dart';
+import 'usecases/does_card_fit_in_zone_use_case.dart';
 import 'usecases/get_cards_from_deck_use_case.dart';
 
 @Injectable()
@@ -31,6 +32,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   final RouterHelper _router;
   final SmartDuelServer _smartDuelServer;
   final GetCardsFromDeckUseCase _getCardsFromDeckUseCase;
+  final DoesCardFitInZoneUseCase _doesCardFitInZoneUseCase;
   final EnumHelper _enumHelper;
   final CrashlyticsProvider _crashlyticsProvider;
   final DialogService _dialogService;
@@ -56,6 +58,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     this._router,
     this._smartDuelServer,
     this._getCardsFromDeckUseCase,
+    this._doesCardFitInZoneUseCase,
     this._enumHelper,
     this._dialogService,
     this._crashlyticsProvider,
@@ -145,93 +148,18 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   //region Drag & drop
 
-  bool onWillAccept(PlayCard card, Zone zone) {
-    logger.info(_tag, 'onWillAccept($card, $zone)');
+  bool doesCardFitInZone(PlayCard card, Zone zone) {
+    logger.info(_tag, 'doesCardFitInZone($card, $zone)');
 
     _speedDuelScreenEvent.add(const SpeedDuelHideOverlaysEvent());
 
     final currentState = _playerState.value;
 
-    switch (zone.zoneType) {
-      case ZoneType.hand:
-        return card.yugiohCard.type != CardType.fusionMonster;
-
-      case ZoneType.field:
-        return card.yugiohCard.race == CardRace.field && currentState.fieldZone.cards.isEmpty;
-
-      case ZoneType.mainMonster1:
-        return (card.yugiohCard.type == CardType.effectMonster ||
-                card.yugiohCard.type == CardType.flipEffectMonster ||
-                card.yugiohCard.type == CardType.fusionMonster ||
-                card.yugiohCard.type == CardType.normalMonster ||
-                card.yugiohCard.type == CardType.ritualEffectMonster ||
-                card.yugiohCard.type == CardType.ritualMonster ||
-                card.yugiohCard.type == CardType.toonMonster ||
-                card.yugiohCard.type == CardType.unionEffectMonster) &&
-            currentState.mainMonsterZone1.cards.isEmpty;
-
-      case ZoneType.mainMonster2:
-        return (card.yugiohCard.type == CardType.effectMonster ||
-                card.yugiohCard.type == CardType.flipEffectMonster ||
-                card.yugiohCard.type == CardType.fusionMonster ||
-                card.yugiohCard.type == CardType.normalMonster ||
-                card.yugiohCard.type == CardType.ritualEffectMonster ||
-                card.yugiohCard.type == CardType.ritualMonster ||
-                card.yugiohCard.type == CardType.toonMonster ||
-                card.yugiohCard.type == CardType.unionEffectMonster) &&
-            currentState.mainMonsterZone2.cards.isEmpty;
-
-      case ZoneType.mainMonster3:
-        return (card.yugiohCard.type == CardType.effectMonster ||
-                card.yugiohCard.type == CardType.flipEffectMonster ||
-                card.yugiohCard.type == CardType.fusionMonster ||
-                card.yugiohCard.type == CardType.normalMonster ||
-                card.yugiohCard.type == CardType.ritualEffectMonster ||
-                card.yugiohCard.type == CardType.ritualMonster ||
-                card.yugiohCard.type == CardType.toonMonster ||
-                card.yugiohCard.type == CardType.unionEffectMonster) &&
-            currentState.mainMonsterZone3.cards.isEmpty;
-
-      case ZoneType.graveyard:
-        return true;
-
-      case ZoneType.banished:
-        return true;
-
-      case ZoneType.extraDeck:
-        return card.yugiohCard.type == CardType.fusionMonster;
-
-      case ZoneType.spellTrap1:
-        return (card.yugiohCard.type == CardType.trapCard ||
-                (card.yugiohCard.type == CardType.spellCard && card.yugiohCard.race != CardRace.field) ||
-                // For Y-Dragon Head and Z-Metal Tank
-                card.yugiohCard.type == CardType.unionEffectMonster) &&
-            currentState.spellTrapZone1.cards.isEmpty;
-
-      case ZoneType.spellTrap2:
-        return (card.yugiohCard.type == CardType.trapCard ||
-                (card.yugiohCard.type == CardType.spellCard && card.yugiohCard.race != CardRace.field) ||
-                // For Y-Dragon Head and Z-Metal Tank
-                card.yugiohCard.type == CardType.unionEffectMonster) &&
-            currentState.spellTrapZone2.cards.isEmpty;
-
-      case ZoneType.spellTrap3:
-        return (card.yugiohCard.type == CardType.trapCard ||
-                (card.yugiohCard.type == CardType.spellCard && card.yugiohCard.race != CardRace.field) ||
-                // For Y-Dragon Head and Z-Metal Tank
-                card.yugiohCard.type == CardType.unionEffectMonster) &&
-            currentState.spellTrapZone3.cards.isEmpty;
-
-      case ZoneType.deck:
-        return card.yugiohCard.type != CardType.fusionMonster;
-
-      default:
-        return false;
-    }
+    return _doesCardFitInZoneUseCase(card, zone, currentState);
   }
 
-  void onAccept(PlayCard card, Zone newZone) {
-    logger.info(_tag, 'onAccept($card, $newZone)');
+  void moveCardToNewZone(PlayCard card, Zone newZone) {
+    logger.info(_tag, 'moveCardToNewZone($card, $newZone)');
 
     _speedDuelScreenEvent.add(const SpeedDuelHideOverlaysEvent());
 
@@ -318,7 +246,8 @@ class SpeedDuelViewModel extends BaseViewModel {
     final currentState = _playerState.value;
     final deck = currentState.deckZone.cards.toList();
     if (deck.isEmpty) {
-      throw Exception('Deck is empty');
+      _snackBarService.showSnackBar('Deck is empty');
+      return;
     }
 
     final drawnCard = deck.removeLast().copyWith(zoneType: ZoneType.hand);
@@ -361,7 +290,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   //endregion
 
-  // Card pressed events
+  //region Card pressed events
 
   void onCardPressed(PlayCard playCard) {
     final dialog = _speedDuelDialogProvider.getCardDetailDialog(playCard);

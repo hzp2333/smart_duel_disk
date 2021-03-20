@@ -1,4 +1,3 @@
-import 'package:ant_icons/ant_icons.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/home/models/home_tab.dart';
@@ -9,8 +8,8 @@ import 'package:smart_duel_disk/src/navigation/router.gr.dart';
 class HomeScreen extends StatelessWidget {
   static final _tabs = List<HomeTab>.unmodifiable(<HomeTab>[
     HomeTab(title: Strings.homeTabNews.get(), icon: Icons.wysiwyg_outlined, page: const NewsTab()),
-    HomeTab(title: Strings.homeTabDeck.get(), icon: AntIcons.wallet_outline, page: const DeckTab()),
-    HomeTab(title: Strings.homeTabDuel.get(), icon: AntIcons.trophy_outline, page: const DuelTab()),
+    HomeTab(title: Strings.homeTabDeck.get(), icon: Icons.account_balance_wallet_outlined, page: const DeckTab()),
+    HomeTab(title: Strings.homeTabDuel.get(), icon: Icons.sports_esports, page: const DuelTab()),
   ]);
 
   const HomeScreen();
