@@ -44,12 +44,12 @@ class DialogServiceImpl implements DialogService {
       actions: [
         if (dialogConfig.negativeButton != null) ...{
           TextButton(
-            onPressed: () => _popDialog(false),
+            onPressed: () => popDialog(false),
             child: Text(dialogConfig.negativeButton),
           ),
         },
         TextButton(
-          onPressed: () => _popDialog(true),
+          onPressed: () => popDialog(true),
           child: Text(dialogConfig.positiveButton),
         ),
       ],
@@ -67,20 +67,21 @@ class DialogServiceImpl implements DialogService {
       actions: <Widget>[
         if (dialogConfig.negativeButton != null) ...{
           CupertinoDialogAction(
-            onPressed: () => _popDialog(false),
+            onPressed: () => popDialog(false),
             child: Text(dialogConfig.negativeButton),
           ),
         },
         CupertinoDialogAction(
           isDefaultAction: true,
-          onPressed: () => _popDialog(true),
+          onPressed: () => popDialog(true),
           child: Text(dialogConfig.positiveButton),
         ),
       ],
     );
   }
 
-  void _popDialog<T>(T result) {
+  @override
+  void popDialog<T>(T result) {
     _router.navigatorKey.currentState.pop(result);
   }
 

@@ -19,6 +19,7 @@ import '../../packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrap
 import '../../packages/wrappers/wrapper_assets/wrapper_assets_impl/lib/src/assets_provider.dart';
 import '../../packages/wrappers/wrapper_cloud_database/wrapper_cloud_database_interface/lib/wrapper_cloud_database_interface.dart';
 import '../../packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_interface/lib/wrapper_crashlytics_interface.dart';
+import '../../packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/use_cases/create_play_card_dialog_actions_use_case.dart';
 import '../../packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/data_manager.dart';
 import '../../packages/core/core_general/lib/core_general.dart'
@@ -49,15 +50,17 @@ import '../../packages/core/core_logger/core_logger_interface/lib/src/logger.dar
 import '../../packages/core/core_logger/core_logger_impl/lib/src/logger.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/news/news_data_manager.dart';
 import '../../packages/features/feature_home/lib/src/news/news_viewmodel.dart';
+import '../../packages/features/feature_speed_duel/lib/src/models/play_card.dart';
+import '../../packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/play_card_dialog_viewmodel.dart';
 import '../../packages/core/core_navigation/lib/core_navigation.dart';
 import '../navigation/router_helper.dart';
 import '../../packages/core/core_storage/core_storage_impl/lib/src/providers/shared_preferences/shared_preferences_interface/shared_preferences_provider.dart';
 import '../../packages/core/core_storage/core_storage_impl/lib/src/providers/shared_preferences/shared_preferences_impl/shared_preferences_provider.dart';
 import '../../packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import '../../packages/core/core_smart_duel_server/core_smart_duel_server_impl/lib/src/smart_duel_server.dart';
+import '../../packages/core/core_messaging/core_messaging_interface/lib/core_messaging_interface.dart';
 import '../../packages/core/core_messaging/core_messaging_interface/lib/src/snack_bar/snack_bar_service.dart'
     as smart_duel_disk;
-import '../../packages/core/core_messaging/core_messaging_interface/lib/core_messaging_interface.dart';
 import '../../packages/core/core_messaging/core_messaging_impl/lib/src/snack_bar/snack_bar_service_impl.dart';
 import '../../packages/features/feature_speed_duel/lib/src/dialogs/speed_duel_dialog_provider.dart';
 import '../../packages/features/feature_speed_duel/lib/src/speed_duel_viewmodel.dart';
@@ -74,6 +77,7 @@ import 'modules/core_modules.dart';
 import '../../packages/core/core_ygoprodeck/core_ygoprodeck_impl/lib/src/api/ygoprodeck_api.dart';
 import '../../packages/features/feature_yugioh_card_detail/lib/src/yugioh_card_detail_viewmodel.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/yugioh_cards/yugioh_cards_data_manager.dart';
+import '../../packages/features/feature_speed_duel/lib/src/models/zone.dart';
 
 /// adds generated dependencies
 /// to the provided [GetIt] instance
@@ -90,6 +94,8 @@ Future<GetIt> $initGetIt(
   final ygoProDeckModule = _$YgoProDeckModule();
   final socketIoModule = _$SocketIoModule();
   gh.lazySingleton<AssetsProvider>(() => AssetsProviderImpl());
+  gh.lazySingleton<CreatePlayCardDialogActionsUseCase>(
+      () => CreatePlayCardDialogActionsUseCase());
   gh.lazySingleton<DateFormatter>(() => DateFormatter());
   gh.lazySingleton<smart_duel_disk3.DialogService>(
       () => DialogServiceImpl(get<AppRouter>()));
@@ -102,6 +108,14 @@ Future<GetIt> $initGetIt(
       () => firebaseModule.provideFirebaseFirestore());
   gh.factory<HomeViewModel>(
       () => HomeViewModel(get<smart_duel_disk1.Logger>()));
+  gh.factoryParam<PlayCardDialogViewModel, PlayCard, Zone>(
+      (_playCard, _newZone) => PlayCardDialogViewModel(
+            _playCard,
+            _newZone,
+            get<CreatePlayCardDialogActionsUseCase>(),
+            get<DialogService>(),
+            get<smart_duel_disk1.Logger>(),
+          ));
   final resolvedSharedPreferences =
       await sharedPreferencesModule.provideSharedPreferences();
   gh.lazySingleton<SharedPreferences>(() => resolvedSharedPreferences);

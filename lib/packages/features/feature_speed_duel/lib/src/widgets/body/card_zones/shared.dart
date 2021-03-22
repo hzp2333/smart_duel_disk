@@ -35,8 +35,8 @@ class CardDragTarget extends StatelessWidget {
     final vm = Provider.of<SpeedDuelViewModel>(context);
 
     return DragTarget<PlayCard>(
-      onWillAccept: (card) => vm.doesCardFitInZone(card, zone),
-      onAccept: (card) => vm.moveCardToNewZone(card, zone),
+      onWillAccept: (card) => vm.onWillZoneAcceptCard(card, zone),
+      onAccept: (card) => vm.onZoneAcceptsCard(card, zone),
       builder: (_, __, ___) => child,
     );
   }

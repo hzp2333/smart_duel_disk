@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone_type.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
@@ -35,6 +36,7 @@ class GetCardsFromDeckUseCase {
       playCards.add(PlayCard(
         yugiohCard: card,
         zoneType: ZoneType.deck,
+        position: CardPosition.faceUp,
         copyNumber: copyNumber,
         formattedRaceAndType: raceAndType,
         formattedAttack: card.atk == null ? null : 'ATK/${card.atk}',

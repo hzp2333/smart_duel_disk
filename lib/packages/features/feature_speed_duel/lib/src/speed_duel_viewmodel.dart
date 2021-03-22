@@ -9,6 +9,7 @@ import 'package:smart_duel_disk/packages/core/core_messaging/core_messaging_inte
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/speed_duel_dialog_provider.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_event.dart';
@@ -148,8 +149,8 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   //region Drag & drop
 
-  bool doesCardFitInZone(PlayCard card, Zone zone) {
-    logger.info(_tag, 'doesCardFitInZone($card, $zone)');
+  bool onWillZoneAcceptCard(PlayCard card, Zone zone) {
+    logger.info(_tag, 'onWillZoneAcceptCard($card, $zone)');
 
     _speedDuelScreenEvent.add(const SpeedDuelHideOverlaysEvent());
 
@@ -158,26 +159,41 @@ class SpeedDuelViewModel extends BaseViewModel {
     return _doesCardFitInZoneUseCase(card, zone, currentState);
   }
 
-  void moveCardToNewZone(PlayCard card, Zone newZone) {
-    logger.info(_tag, 'moveCardToNewZone($card, $newZone)');
+  Future<void> onZoneAcceptsCard(PlayCard card, Zone newZone) async {
+    logger.info(_tag, 'onZoneAcceptsCard($card, $newZone)');
+
+    if (newZone.zoneType.isMultiCardZone) {
+      _moveCardToNewZone(card, newZone);
+      return;
+    }
+
+    final dialog = _speedDuelDialogProvider.getPlayCardDialog(card, newZone: newZone);
+    final position = await _dialogService.showCustomDialog<CardPosition>(dialog);
+    if (position != null) {
+      _moveCardToNewZone(card, newZone, position: position);
+    }
+  }
+
+  void _moveCardToNewZone(PlayCard card, Zone newZone, {CardPosition position}) {
+    logger.verbose(_tag, '_moveCardToNewZone(card: $card, newZone: $newZone, position: $position)');
 
     _speedDuelScreenEvent.add(const SpeedDuelHideOverlaysEvent());
 
     final currentState = _playerState.value;
     final currentZones = currentState.zones;
 
-    final cardOldZone = currentZones.singleWhere((zone) => zone.zoneType == card.zoneType);
-    if (cardOldZone.zoneType == newZone.zoneType) {
+    final oldZone = currentZones.singleWhere((zone) => zone.zoneType == card.zoneType);
+    if (oldZone.zoneType == newZone.zoneType) {
       return;
     }
 
     _sendSummonEvent(card.yugiohCard, newZone);
-    _sendRemoveCardEvent(cardOldZone);
+    _sendRemoveCardEvent(oldZone);
 
-    _updatePlayerState(card, newZone, cardOldZone);
+    _updatePlayerState(card, newZone, oldZone, position);
   }
 
-  void _updatePlayerState(PlayCard card, Zone newZone, Zone oldZone) {
+  void _updatePlayerState(PlayCard card, Zone newZone, Zone oldZone, CardPosition position) {
     logger.verbose(_tag, '_updatePlayerState($card, $newZone, $oldZone)');
 
     final currentState = _playerState.value;
@@ -185,7 +201,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     final updatedOldZone = oldZone.copyWith(cards: [...oldZone.cards]..remove(card));
 
-    final updatedCard = card.copyWith(zoneType: newZone.zoneType);
+    final updatedCard = card.copyWith(zoneType: newZone.zoneType, position: position);
     final updatedNewZone = newZone.copyWith(cards: [...newZone.cards, updatedCard]);
 
     final updatedZones = currentZones.toList()
@@ -292,9 +308,45 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   //region Card pressed events
 
-  void onCardPressed(PlayCard playCard) {
-    final dialog = _speedDuelDialogProvider.getCardDetailDialog(playCard);
-    _dialogService.showCustomDialog<void>(dialog);
+  Future<void> onCardPressed(PlayCard card) async {
+    final dialog = _speedDuelDialogProvider.getPlayCardDialog(card);
+    final position = await _dialogService.showCustomDialog<CardPosition>(dialog);
+    if (position != null) {
+      _updateCardPosition(card, position);
+    }
+  }
+
+  void _updateCardPosition(PlayCard card, CardPosition position) {
+    logger.verbose(_tag, '_updateCardPosition(card: $card, position: $position)');
+
+    final currentState = _playerState.value;
+    final currentZones = currentState.zones;
+
+    final cardZone = currentZones.firstWhere((zone) => zone.zoneType == card.zoneType);
+
+    final updatedCard = card.copyWith(position: position);
+    final updatedCardZone = cardZone.copyWith(cards: [...cardZone.cards, updatedCard]..remove(card));
+
+    final updatedZones = currentZones.toList()
+      ..remove(cardZone)
+      ..add(updatedCardZone);
+
+    final updatedState = currentState.copyWith(
+      hand: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.hand),
+      fieldZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.field),
+      mainMonsterZone1: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster1),
+      mainMonsterZone2: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster2),
+      mainMonsterZone3: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster3),
+      graveyardZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.graveyard),
+      banishedZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.banished),
+      extraDeckZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.extraDeck),
+      spellTrapZone1: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap1),
+      spellTrapZone2: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap2),
+      spellTrapZone3: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap3),
+      deckZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.deck),
+    );
+
+    _playerState.add(updatedState);
   }
 
   void onMultiCardZonePressed(Zone zone) {
