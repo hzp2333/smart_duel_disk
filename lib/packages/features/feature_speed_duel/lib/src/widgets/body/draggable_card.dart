@@ -8,6 +8,7 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/speed_duel_viewmodel.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/widgets/body/card_zones/shared.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
+import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 
@@ -64,6 +65,10 @@ class CardImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final quarterTurns = playCard.position.isAttack ? 0 : 3;
     final boxFit = playCard.position.isAttack ? BoxFit.fitHeight : BoxFit.fitWidth;
+    final cardHeight = (context.screenHeight - context.safeAreaPadding.top - context.safeAreaPadding.bottom - 48) / 3;
+    final height = playCard.position.isAttack ? cardHeight : null;
+    final width = playCard.position.isAttack ? null : cardHeight;
+
     final cardSleeve = ImagePlaceholder(
       imageAssetId: placeholderImage,
       boxFit: boxFit,
@@ -71,16 +76,20 @@ class CardImage extends StatelessWidget {
 
     return GestureDetector(
       onTap: onCardTapped,
-      child: RotatedBox(
-        quarterTurns: quarterTurns,
-        child: playCard.position.isFaceUp
-            ? CachedNetworkImage(
-                imageUrl: playCard.yugiohCard.imageSmallUrl,
-                fit: boxFit,
-                placeholder: (_, __) => cardSleeve,
-                errorWidget: (_, __, dynamic ___) => cardSleeve,
-              )
-            : cardSleeve,
+      child: SizedBox(
+        height: height,
+        width: width,
+        child: RotatedBox(
+          quarterTurns: quarterTurns,
+          child: playCard.position.isFaceUp
+              ? CachedNetworkImage(
+                  imageUrl: playCard.yugiohCard.imageSmallUrl,
+                  fit: boxFit,
+                  placeholder: (_, __) => cardSleeve,
+                  errorWidget: (_, __, dynamic ___) => cardSleeve,
+                )
+              : cardSleeve,
+        ),
       ),
     );
   }

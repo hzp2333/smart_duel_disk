@@ -37,6 +37,8 @@ class AppDimensions {
   static const deckBuilderSectionSeparator = 16.0;
 
   static const duelFieldCardSpacing = 8.0;
+  static const duelFieldFirstSecondRowSpacing = 16.0;
+  static const duelFieldSecondHandRowSpacing = 32.0;
 
   static const iconSize16 = 16.0;
   static const iconSize24 = 24.0;

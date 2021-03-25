@@ -20,6 +20,7 @@ class HandZone extends StatelessWidget {
         child: Center(
           child: ListView.separated(
             shrinkWrap: true,
+            padding: EdgeInsets.zero,
             scrollDirection: Axis.horizontal,
             itemCount: zone.cards.length,
             itemBuilder: (_, index) => DraggableCard(
