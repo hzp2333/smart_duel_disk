@@ -9,6 +9,7 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/spe
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/widgets/body/card_zones/shared.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 
 class DraggableCard extends StatelessWidget {
   final PlayCard card;
@@ -61,13 +62,25 @@ class CardImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final quarterTurns = playCard.position.isAttack ? 0 : 3;
+    final boxFit = playCard.position.isAttack ? BoxFit.fitHeight : BoxFit.fitWidth;
+    final cardSleeve = ImagePlaceholder(
+      imageAssetId: placeholderImage,
+      boxFit: boxFit,
+    );
+
     return GestureDetector(
       onTap: onCardTapped,
-      child: CachedNetworkImage(
-        imageUrl: playCard.yugiohCard.imageSmallUrl,
-        fit: BoxFit.fitHeight,
-        placeholder: (_, __) => ImagePlaceholder(imageAssetId: placeholderImage),
-        errorWidget: (_, __, dynamic ___) => ImagePlaceholder(imageAssetId: placeholderImage),
+      child: RotatedBox(
+        quarterTurns: quarterTurns,
+        child: playCard.position.isFaceUp
+            ? CachedNetworkImage(
+                imageUrl: playCard.yugiohCard.imageSmallUrl,
+                fit: boxFit,
+                placeholder: (_, __) => cardSleeve,
+                errorWidget: (_, __, dynamic ___) => cardSleeve,
+              )
+            : cardSleeve,
       ),
     );
   }

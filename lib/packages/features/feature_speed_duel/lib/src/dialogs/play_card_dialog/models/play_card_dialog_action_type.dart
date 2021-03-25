@@ -6,7 +6,7 @@ part 'play_card_dialog_action_type.freezed.dart';
 
 @freezed
 abstract class PlayCardDialogActionType with _$PlayCardDialogActionType {
-  const factory PlayCardDialogActionType.summon() = PlayCardDialogSummonAction;
+  const factory PlayCardDialogActionType.summon(PlayCard playCard) = PlayCardDialogSummonAction;
   const factory PlayCardDialogActionType.activate() = PlayCardDialogActivateAction;
   const factory PlayCardDialogActionType.toAttack(PlayCard playCard) = PlayCardDialogToAttackAction;
   const factory PlayCardDialogActionType.toDefense(PlayCard playCard) = PlayCardDialogToDefenseAction;

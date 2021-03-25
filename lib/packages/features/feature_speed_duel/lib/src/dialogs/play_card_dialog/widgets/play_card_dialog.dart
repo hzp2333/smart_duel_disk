@@ -247,7 +247,12 @@ class _ActionItem extends StatelessWidget {
 
     return TextButton(
       onPressed: () => vm.onPlayCardDialogActionPressed(action.type),
-      child: Text(action.name),
+      child: Text(
+        action.name,
+        style: const TextStyle(
+          color: Colors.white,
+        ),
+      ),
     );
   }
 }

@@ -18,7 +18,7 @@ class CreatePlayCardDialogActionsUseCase {
 
       if (newZone.zoneType.isMainMonsterZone) {
         return [
-          const PlayCardDialogAction(name: 'Summon', type: PlayCardDialogSummonAction(), icon: Icons.credit_card),
+          PlayCardDialogAction(name: 'Summon', type: PlayCardDialogSummonAction(playCard), icon: Icons.credit_card),
           PlayCardDialogAction(
               name: 'Set', type: PlayCardDialogSetAction(playCard, newZone: newZone), icon: Icons.credit_card),
         ];
@@ -47,12 +47,12 @@ class CreatePlayCardDialogActionsUseCase {
       } else if (playCard.position == CardPosition.faceDown) {
         return [
           PlayCardDialogAction(name: 'To DEF', type: PlayCardDialogToDefenseAction(playCard), icon: Icons.credit_card),
-          const PlayCardDialogAction(name: 'Summon', type: PlayCardDialogSummonAction(), icon: Icons.credit_card),
+          PlayCardDialogAction(name: 'Summon', type: PlayCardDialogSummonAction(playCard), icon: Icons.credit_card),
         ];
       } else {
         return [
           PlayCardDialogAction(name: 'To ATK', type: PlayCardDialogToAttackAction(playCard), icon: Icons.credit_card),
-          const PlayCardDialogAction(name: 'Summon', type: PlayCardDialogSummonAction(), icon: Icons.credit_card),
+          PlayCardDialogAction(name: 'Summon', type: PlayCardDialogSummonAction(playCard), icon: Icons.credit_card),
         ];
       }
     }

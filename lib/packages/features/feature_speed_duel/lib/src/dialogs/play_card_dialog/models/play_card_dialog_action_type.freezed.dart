@@ -14,8 +14,10 @@ class _$PlayCardDialogActionTypeTearOff {
   const _$PlayCardDialogActionTypeTearOff();
 
 // ignore: unused_element
-  PlayCardDialogSummonAction summon() {
-    return const PlayCardDialogSummonAction();
+  PlayCardDialogSummonAction summon(PlayCard playCard) {
+    return PlayCardDialogSummonAction(
+      playCard,
+    );
   }
 
 // ignore: unused_element
@@ -54,7 +56,7 @@ const $PlayCardDialogActionType = _$PlayCardDialogActionTypeTearOff();
 mixin _$PlayCardDialogActionType {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult summon(),
+    @required TResult summon(PlayCard playCard),
     @required TResult activate(),
     @required TResult toAttack(PlayCard playCard),
     @required TResult toDefense(PlayCard playCard),
@@ -62,7 +64,7 @@ mixin _$PlayCardDialogActionType {
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult summon(),
+    TResult summon(PlayCard playCard),
     TResult activate(),
     TResult toAttack(PlayCard playCard),
     TResult toDefense(PlayCard playCard),
@@ -110,6 +112,7 @@ abstract class $PlayCardDialogSummonActionCopyWith<$Res> {
   factory $PlayCardDialogSummonActionCopyWith(PlayCardDialogSummonAction value,
           $Res Function(PlayCardDialogSummonAction) then) =
       _$PlayCardDialogSummonActionCopyWithImpl<$Res>;
+  $Res call({PlayCard playCard});
 }
 
 /// @nodoc
@@ -123,29 +126,52 @@ class _$PlayCardDialogSummonActionCopyWithImpl<$Res>
   @override
   PlayCardDialogSummonAction get _value =>
       super._value as PlayCardDialogSummonAction;
+
+  @override
+  $Res call({
+    Object playCard = freezed,
+  }) {
+    return _then(PlayCardDialogSummonAction(
+      playCard == freezed ? _value.playCard : playCard as PlayCard,
+    ));
+  }
 }
 
 /// @nodoc
 class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
-  const _$PlayCardDialogSummonAction();
+  const _$PlayCardDialogSummonAction(this.playCard) : assert(playCard != null);
+
+  @override
+  final PlayCard playCard;
 
   @override
   String toString() {
-    return 'PlayCardDialogActionType.summon()';
+    return 'PlayCardDialogActionType.summon(playCard: $playCard)';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PlayCardDialogSummonAction);
+    return identical(this, other) ||
+        (other is PlayCardDialogSummonAction &&
+            (identical(other.playCard, playCard) ||
+                const DeepCollectionEquality()
+                    .equals(other.playCard, playCard)));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(playCard);
+
+  @override
+  $PlayCardDialogSummonActionCopyWith<PlayCardDialogSummonAction>
+      get copyWith =>
+          _$PlayCardDialogSummonActionCopyWithImpl<PlayCardDialogSummonAction>(
+              this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult summon(),
+    @required TResult summon(PlayCard playCard),
     @required TResult activate(),
     @required TResult toAttack(PlayCard playCard),
     @required TResult toDefense(PlayCard playCard),
@@ -156,13 +182,13 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
     assert(toAttack != null);
     assert(toDefense != null);
     assert(set != null);
-    return summon();
+    return summon(playCard);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult summon(),
+    TResult summon(PlayCard playCard),
     TResult activate(),
     TResult toAttack(PlayCard playCard),
     TResult toDefense(PlayCard playCard),
@@ -171,7 +197,7 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
   }) {
     assert(orElse != null);
     if (summon != null) {
-      return summon();
+      return summon(playCard);
     }
     return orElse();
   }
@@ -212,7 +238,11 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
 }
 
 abstract class PlayCardDialogSummonAction implements PlayCardDialogActionType {
-  const factory PlayCardDialogSummonAction() = _$PlayCardDialogSummonAction;
+  const factory PlayCardDialogSummonAction(PlayCard playCard) =
+      _$PlayCardDialogSummonAction;
+
+  PlayCard get playCard;
+  $PlayCardDialogSummonActionCopyWith<PlayCardDialogSummonAction> get copyWith;
 }
 
 /// @nodoc
@@ -257,7 +287,7 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult summon(),
+    @required TResult summon(PlayCard playCard),
     @required TResult activate(),
     @required TResult toAttack(PlayCard playCard),
     @required TResult toDefense(PlayCard playCard),
@@ -274,7 +304,7 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult summon(),
+    TResult summon(PlayCard playCard),
     TResult activate(),
     TResult toAttack(PlayCard playCard),
     TResult toDefense(PlayCard playCard),
@@ -394,7 +424,7 @@ class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult summon(),
+    @required TResult summon(PlayCard playCard),
     @required TResult activate(),
     @required TResult toAttack(PlayCard playCard),
     @required TResult toDefense(PlayCard playCard),
@@ -411,7 +441,7 @@ class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult summon(),
+    TResult summon(PlayCard playCard),
     TResult activate(),
     TResult toAttack(PlayCard playCard),
     TResult toDefense(PlayCard playCard),
@@ -536,7 +566,7 @@ class _$PlayCardDialogToDefenseAction implements PlayCardDialogToDefenseAction {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult summon(),
+    @required TResult summon(PlayCard playCard),
     @required TResult activate(),
     @required TResult toAttack(PlayCard playCard),
     @required TResult toDefense(PlayCard playCard),
@@ -553,7 +583,7 @@ class _$PlayCardDialogToDefenseAction implements PlayCardDialogToDefenseAction {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult summon(),
+    TResult summon(PlayCard playCard),
     TResult activate(),
     TResult toAttack(PlayCard playCard),
     TResult toDefense(PlayCard playCard),
@@ -683,7 +713,7 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult summon(),
+    @required TResult summon(PlayCard playCard),
     @required TResult activate(),
     @required TResult toAttack(PlayCard playCard),
     @required TResult toDefense(PlayCard playCard),
@@ -700,7 +730,7 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult summon(),
+    TResult summon(PlayCard playCard),
     TResult activate(),
     TResult toAttack(PlayCard playCard),
     TResult toDefense(PlayCard playCard),

@@ -163,18 +163,18 @@ class SpeedDuelViewModel extends BaseViewModel {
     logger.info(_tag, 'onZoneAcceptsCard($card, $newZone)');
 
     if (newZone.zoneType.isMultiCardZone) {
-      _moveCardToNewZone(card, newZone);
+      _moveCardToNewZone(card, newZone, CardPosition.faceUp);
       return;
     }
 
     final dialog = _speedDuelDialogProvider.getPlayCardDialog(card, newZone: newZone);
     final position = await _dialogService.showCustomDialog<CardPosition>(dialog);
     if (position != null) {
-      _moveCardToNewZone(card, newZone, position: position);
+      _moveCardToNewZone(card, newZone, position);
     }
   }
 
-  void _moveCardToNewZone(PlayCard card, Zone newZone, {CardPosition position}) {
+  void _moveCardToNewZone(PlayCard card, Zone newZone, CardPosition position) {
     logger.verbose(_tag, '_moveCardToNewZone(card: $card, newZone: $newZone, position: $position)');
 
     _speedDuelScreenEvent.add(const SpeedDuelHideOverlaysEvent());

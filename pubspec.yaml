@@ -64,7 +64,8 @@ flutter:
     - assets/icons/
 
 scripts:
-  go: flutter run
-  all: flutter run -d all
-  build: flutter pub run build_runner build --delete-conflicting-outputs
-  watch: flutter pub run build_runner watch --delete-conflicting-outputs
+  deps: fvm flutter pub get
+  go: fvm flutter run
+  all: fvm flutter run -d all
+  build: fvm flutter pub run build_runner build --delete-conflicting-outputs
+  watch: fvm flutter pub run build_runner watch --delete-conflicting-outputs

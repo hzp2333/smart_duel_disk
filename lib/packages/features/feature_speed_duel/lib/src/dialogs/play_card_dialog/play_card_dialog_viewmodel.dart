@@ -39,7 +39,7 @@ class PlayCardDialogViewModel extends BaseViewModel {
     logger.info(_tag, 'onPlayCardDialogActionPressed(actionType: $actionType)');
 
     actionType.when(
-      summon: _onSummonPressed,
+      summon: (card) => _onSummonPressed(card),
       activate: _onActivatePressed,
       toAttack: (card) => _onChangeToAttackPressed(playCard),
       toDefense: (card) => _onChangeToDefencePressed(playCard),
@@ -47,10 +47,14 @@ class PlayCardDialogViewModel extends BaseViewModel {
     );
   }
 
-  void _onSummonPressed() {
-    logger.verbose(_tag, '_onSummonPressed()');
+  void _onSummonPressed(PlayCard playCard) {
+    logger.verbose(_tag, '_onSummonPressed(playCard: $playCard)');
 
-    _dialogService.popDialog(CardPosition.faceUp);
+    if (playCard.position.isAttack) {
+      _dialogService.popDialog(CardPosition.faceUp);
+    } else {
+      _dialogService.popDialog(CardPosition.faceUpDefence);
+    }
   }
 
   void _onChangeToAttackPressed(PlayCard playCard) {
