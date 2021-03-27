@@ -7,7 +7,7 @@ abstract class PlayCardDialogActionType with _$PlayCardDialogActionType {
   const factory PlayCardDialogActionType.summon() = PlayCardDialogSummonAction;
   const factory PlayCardDialogActionType.activate() = PlayCardDialogActivateAction;
   const factory PlayCardDialogActionType.toAttack() = PlayCardDialogToAttackAction;
-  const factory PlayCardDialogActionType.toDefense() = PlayCardDialogToDefenseAction;
+  const factory PlayCardDialogActionType.toDefence() = PlayCardDialogToDefenceAction;
   const factory PlayCardDialogActionType.flip() = PlayCardDialogFlipAction;
   const factory PlayCardDialogActionType.set() = PlayCardDialogSetAction;
 }

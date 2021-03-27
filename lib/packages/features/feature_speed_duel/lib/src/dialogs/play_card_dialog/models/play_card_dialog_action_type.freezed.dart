@@ -29,8 +29,8 @@ class _$PlayCardDialogActionTypeTearOff {
   }
 
 // ignore: unused_element
-  PlayCardDialogToDefenseAction toDefense() {
-    return const PlayCardDialogToDefenseAction();
+  PlayCardDialogToDefenceAction toDefence() {
+    return const PlayCardDialogToDefenceAction();
   }
 
 // ignore: unused_element
@@ -55,7 +55,7 @@ mixin _$PlayCardDialogActionType {
     @required TResult summon(),
     @required TResult activate(),
     @required TResult toAttack(),
-    @required TResult toDefense(),
+    @required TResult toDefence(),
     @required TResult flip(),
     @required TResult set(),
   });
@@ -64,7 +64,7 @@ mixin _$PlayCardDialogActionType {
     TResult summon(),
     TResult activate(),
     TResult toAttack(),
-    TResult toDefense(),
+    TResult toDefence(),
     TResult flip(),
     TResult set(),
     @required TResult orElse(),
@@ -74,7 +74,7 @@ mixin _$PlayCardDialogActionType {
     @required TResult summon(PlayCardDialogSummonAction value),
     @required TResult activate(PlayCardDialogActivateAction value),
     @required TResult toAttack(PlayCardDialogToAttackAction value),
-    @required TResult toDefense(PlayCardDialogToDefenseAction value),
+    @required TResult toDefence(PlayCardDialogToDefenceAction value),
     @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
   });
@@ -83,7 +83,7 @@ mixin _$PlayCardDialogActionType {
     TResult summon(PlayCardDialogSummonAction value),
     TResult activate(PlayCardDialogActivateAction value),
     TResult toAttack(PlayCardDialogToAttackAction value),
-    TResult toDefense(PlayCardDialogToDefenseAction value),
+    TResult toDefence(PlayCardDialogToDefenceAction value),
     TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
     @required TResult orElse(),
@@ -150,14 +150,14 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
     @required TResult summon(),
     @required TResult activate(),
     @required TResult toAttack(),
-    @required TResult toDefense(),
+    @required TResult toDefence(),
     @required TResult flip(),
     @required TResult set(),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
-    assert(toDefense != null);
+    assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
     return summon();
@@ -169,7 +169,7 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
     TResult summon(),
     TResult activate(),
     TResult toAttack(),
-    TResult toDefense(),
+    TResult toDefence(),
     TResult flip(),
     TResult set(),
     @required TResult orElse(),
@@ -187,14 +187,14 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
     @required TResult summon(PlayCardDialogSummonAction value),
     @required TResult activate(PlayCardDialogActivateAction value),
     @required TResult toAttack(PlayCardDialogToAttackAction value),
-    @required TResult toDefense(PlayCardDialogToDefenseAction value),
+    @required TResult toDefence(PlayCardDialogToDefenceAction value),
     @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
-    assert(toDefense != null);
+    assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
     return summon(this);
@@ -206,7 +206,7 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
     TResult summon(PlayCardDialogSummonAction value),
     TResult activate(PlayCardDialogActivateAction value),
     TResult toAttack(PlayCardDialogToAttackAction value),
-    TResult toDefense(PlayCardDialogToDefenseAction value),
+    TResult toDefence(PlayCardDialogToDefenceAction value),
     TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
     @required TResult orElse(),
@@ -268,14 +268,14 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
     @required TResult summon(),
     @required TResult activate(),
     @required TResult toAttack(),
-    @required TResult toDefense(),
+    @required TResult toDefence(),
     @required TResult flip(),
     @required TResult set(),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
-    assert(toDefense != null);
+    assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
     return activate();
@@ -287,7 +287,7 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
     TResult summon(),
     TResult activate(),
     TResult toAttack(),
-    TResult toDefense(),
+    TResult toDefence(),
     TResult flip(),
     TResult set(),
     @required TResult orElse(),
@@ -305,14 +305,14 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
     @required TResult summon(PlayCardDialogSummonAction value),
     @required TResult activate(PlayCardDialogActivateAction value),
     @required TResult toAttack(PlayCardDialogToAttackAction value),
-    @required TResult toDefense(PlayCardDialogToDefenseAction value),
+    @required TResult toDefence(PlayCardDialogToDefenceAction value),
     @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
-    assert(toDefense != null);
+    assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
     return activate(this);
@@ -324,7 +324,7 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
     TResult summon(PlayCardDialogSummonAction value),
     TResult activate(PlayCardDialogActivateAction value),
     TResult toAttack(PlayCardDialogToAttackAction value),
-    TResult toDefense(PlayCardDialogToDefenseAction value),
+    TResult toDefence(PlayCardDialogToDefenceAction value),
     TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
     @required TResult orElse(),
@@ -387,14 +387,14 @@ class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
     @required TResult summon(),
     @required TResult activate(),
     @required TResult toAttack(),
-    @required TResult toDefense(),
+    @required TResult toDefence(),
     @required TResult flip(),
     @required TResult set(),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
-    assert(toDefense != null);
+    assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
     return toAttack();
@@ -406,7 +406,7 @@ class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
     TResult summon(),
     TResult activate(),
     TResult toAttack(),
-    TResult toDefense(),
+    TResult toDefence(),
     TResult flip(),
     TResult set(),
     @required TResult orElse(),
@@ -424,14 +424,14 @@ class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
     @required TResult summon(PlayCardDialogSummonAction value),
     @required TResult activate(PlayCardDialogActivateAction value),
     @required TResult toAttack(PlayCardDialogToAttackAction value),
-    @required TResult toDefense(PlayCardDialogToDefenseAction value),
+    @required TResult toDefence(PlayCardDialogToDefenceAction value),
     @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
-    assert(toDefense != null);
+    assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
     return toAttack(this);
@@ -443,7 +443,7 @@ class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
     TResult summon(PlayCardDialogSummonAction value),
     TResult activate(PlayCardDialogActivateAction value),
     TResult toAttack(PlayCardDialogToAttackAction value),
-    TResult toDefense(PlayCardDialogToDefenseAction value),
+    TResult toDefence(PlayCardDialogToDefenceAction value),
     TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
     @required TResult orElse(),
@@ -462,39 +462,39 @@ abstract class PlayCardDialogToAttackAction
 }
 
 /// @nodoc
-abstract class $PlayCardDialogToDefenseActionCopyWith<$Res> {
-  factory $PlayCardDialogToDefenseActionCopyWith(
-          PlayCardDialogToDefenseAction value,
-          $Res Function(PlayCardDialogToDefenseAction) then) =
-      _$PlayCardDialogToDefenseActionCopyWithImpl<$Res>;
+abstract class $PlayCardDialogToDefenceActionCopyWith<$Res> {
+  factory $PlayCardDialogToDefenceActionCopyWith(
+          PlayCardDialogToDefenceAction value,
+          $Res Function(PlayCardDialogToDefenceAction) then) =
+      _$PlayCardDialogToDefenceActionCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$PlayCardDialogToDefenseActionCopyWithImpl<$Res>
+class _$PlayCardDialogToDefenceActionCopyWithImpl<$Res>
     extends _$PlayCardDialogActionTypeCopyWithImpl<$Res>
-    implements $PlayCardDialogToDefenseActionCopyWith<$Res> {
-  _$PlayCardDialogToDefenseActionCopyWithImpl(
-      PlayCardDialogToDefenseAction _value,
-      $Res Function(PlayCardDialogToDefenseAction) _then)
-      : super(_value, (v) => _then(v as PlayCardDialogToDefenseAction));
+    implements $PlayCardDialogToDefenceActionCopyWith<$Res> {
+  _$PlayCardDialogToDefenceActionCopyWithImpl(
+      PlayCardDialogToDefenceAction _value,
+      $Res Function(PlayCardDialogToDefenceAction) _then)
+      : super(_value, (v) => _then(v as PlayCardDialogToDefenceAction));
 
   @override
-  PlayCardDialogToDefenseAction get _value =>
-      super._value as PlayCardDialogToDefenseAction;
+  PlayCardDialogToDefenceAction get _value =>
+      super._value as PlayCardDialogToDefenceAction;
 }
 
 /// @nodoc
-class _$PlayCardDialogToDefenseAction implements PlayCardDialogToDefenseAction {
-  const _$PlayCardDialogToDefenseAction();
+class _$PlayCardDialogToDefenceAction implements PlayCardDialogToDefenceAction {
+  const _$PlayCardDialogToDefenceAction();
 
   @override
   String toString() {
-    return 'PlayCardDialogActionType.toDefense()';
+    return 'PlayCardDialogActionType.toDefence()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is PlayCardDialogToDefenseAction);
+    return identical(this, other) || (other is PlayCardDialogToDefenceAction);
   }
 
   @override
@@ -506,17 +506,17 @@ class _$PlayCardDialogToDefenseAction implements PlayCardDialogToDefenseAction {
     @required TResult summon(),
     @required TResult activate(),
     @required TResult toAttack(),
-    @required TResult toDefense(),
+    @required TResult toDefence(),
     @required TResult flip(),
     @required TResult set(),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
-    assert(toDefense != null);
+    assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
-    return toDefense();
+    return toDefence();
   }
 
   @override
@@ -525,14 +525,14 @@ class _$PlayCardDialogToDefenseAction implements PlayCardDialogToDefenseAction {
     TResult summon(),
     TResult activate(),
     TResult toAttack(),
-    TResult toDefense(),
+    TResult toDefence(),
     TResult flip(),
     TResult set(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
-    if (toDefense != null) {
-      return toDefense();
+    if (toDefence != null) {
+      return toDefence();
     }
     return orElse();
   }
@@ -543,17 +543,17 @@ class _$PlayCardDialogToDefenseAction implements PlayCardDialogToDefenseAction {
     @required TResult summon(PlayCardDialogSummonAction value),
     @required TResult activate(PlayCardDialogActivateAction value),
     @required TResult toAttack(PlayCardDialogToAttackAction value),
-    @required TResult toDefense(PlayCardDialogToDefenseAction value),
+    @required TResult toDefence(PlayCardDialogToDefenceAction value),
     @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
-    assert(toDefense != null);
+    assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
-    return toDefense(this);
+    return toDefence(this);
   }
 
   @override
@@ -562,23 +562,23 @@ class _$PlayCardDialogToDefenseAction implements PlayCardDialogToDefenseAction {
     TResult summon(PlayCardDialogSummonAction value),
     TResult activate(PlayCardDialogActivateAction value),
     TResult toAttack(PlayCardDialogToAttackAction value),
-    TResult toDefense(PlayCardDialogToDefenseAction value),
+    TResult toDefence(PlayCardDialogToDefenceAction value),
     TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
-    if (toDefense != null) {
-      return toDefense(this);
+    if (toDefence != null) {
+      return toDefence(this);
     }
     return orElse();
   }
 }
 
-abstract class PlayCardDialogToDefenseAction
+abstract class PlayCardDialogToDefenceAction
     implements PlayCardDialogActionType {
-  const factory PlayCardDialogToDefenseAction() =
-      _$PlayCardDialogToDefenseAction;
+  const factory PlayCardDialogToDefenceAction() =
+      _$PlayCardDialogToDefenceAction;
 }
 
 /// @nodoc
@@ -624,14 +624,14 @@ class _$PlayCardDialogFlipAction implements PlayCardDialogFlipAction {
     @required TResult summon(),
     @required TResult activate(),
     @required TResult toAttack(),
-    @required TResult toDefense(),
+    @required TResult toDefence(),
     @required TResult flip(),
     @required TResult set(),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
-    assert(toDefense != null);
+    assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
     return flip();
@@ -643,7 +643,7 @@ class _$PlayCardDialogFlipAction implements PlayCardDialogFlipAction {
     TResult summon(),
     TResult activate(),
     TResult toAttack(),
-    TResult toDefense(),
+    TResult toDefence(),
     TResult flip(),
     TResult set(),
     @required TResult orElse(),
@@ -661,14 +661,14 @@ class _$PlayCardDialogFlipAction implements PlayCardDialogFlipAction {
     @required TResult summon(PlayCardDialogSummonAction value),
     @required TResult activate(PlayCardDialogActivateAction value),
     @required TResult toAttack(PlayCardDialogToAttackAction value),
-    @required TResult toDefense(PlayCardDialogToDefenseAction value),
+    @required TResult toDefence(PlayCardDialogToDefenceAction value),
     @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
-    assert(toDefense != null);
+    assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
     return flip(this);
@@ -680,7 +680,7 @@ class _$PlayCardDialogFlipAction implements PlayCardDialogFlipAction {
     TResult summon(PlayCardDialogSummonAction value),
     TResult activate(PlayCardDialogActivateAction value),
     TResult toAttack(PlayCardDialogToAttackAction value),
-    TResult toDefense(PlayCardDialogToDefenseAction value),
+    TResult toDefence(PlayCardDialogToDefenceAction value),
     TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
     @required TResult orElse(),
@@ -739,14 +739,14 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
     @required TResult summon(),
     @required TResult activate(),
     @required TResult toAttack(),
-    @required TResult toDefense(),
+    @required TResult toDefence(),
     @required TResult flip(),
     @required TResult set(),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
-    assert(toDefense != null);
+    assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
     return set();
@@ -758,7 +758,7 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
     TResult summon(),
     TResult activate(),
     TResult toAttack(),
-    TResult toDefense(),
+    TResult toDefence(),
     TResult flip(),
     TResult set(),
     @required TResult orElse(),
@@ -776,14 +776,14 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
     @required TResult summon(PlayCardDialogSummonAction value),
     @required TResult activate(PlayCardDialogActivateAction value),
     @required TResult toAttack(PlayCardDialogToAttackAction value),
-    @required TResult toDefense(PlayCardDialogToDefenseAction value),
+    @required TResult toDefence(PlayCardDialogToDefenceAction value),
     @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
-    assert(toDefense != null);
+    assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
     return set(this);
@@ -795,7 +795,7 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
     TResult summon(PlayCardDialogSummonAction value),
     TResult activate(PlayCardDialogActivateAction value),
     TResult toAttack(PlayCardDialogToAttackAction value),
-    TResult toDefense(PlayCardDialogToDefenseAction value),
+    TResult toDefence(PlayCardDialogToDefenceAction value),
     TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
     @required TResult orElse(),

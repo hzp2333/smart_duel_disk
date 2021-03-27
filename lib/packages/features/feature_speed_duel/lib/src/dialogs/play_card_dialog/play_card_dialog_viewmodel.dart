@@ -42,7 +42,7 @@ class PlayCardDialogViewModel extends BaseViewModel {
       summon: _onSummonPressed,
       activate: _onActivatePressed,
       toAttack: _onChangeToAttackPressed,
-      toDefense: _onChangeToDefencePressed,
+      toDefence: _onChangeToDefencePressed,
       flip: _onFlipPressed,
       set: _onSetPressed,
     );
