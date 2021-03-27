@@ -39,14 +39,14 @@ class CreatePlayCardDialogActionsUseCase {
 
     if (newZone.zoneType.isMainMonsterZone) {
       return [
-        PlayCardDialogAction.summon,
-        PlayCardDialogAction.set,
+        PlayCardDialogAction.summon(),
+        PlayCardDialogAction.set(),
       ];
     }
 
     return [
-      PlayCardDialogAction.activate,
-      PlayCardDialogAction.set,
+      PlayCardDialogAction.activate(),
+      PlayCardDialogAction.set(),
     ];
   }
 
@@ -55,27 +55,27 @@ class CreatePlayCardDialogActionsUseCase {
 
     if (playCard.position == CardPosition.faceUp) {
       return [
-        PlayCardDialogAction.toDefence,
-        PlayCardDialogAction.set,
+        PlayCardDialogAction.toDefence(),
+        PlayCardDialogAction.set(),
       ];
     }
 
     if (playCard.position == CardPosition.faceUpDefence) {
       return [
-        PlayCardDialogAction.toAttack,
-        PlayCardDialogAction.set,
+        PlayCardDialogAction.toAttack(),
+        PlayCardDialogAction.set(),
       ];
     }
 
     return [
-      PlayCardDialogAction.flip,
-      PlayCardDialogAction.summon,
+      PlayCardDialogAction.flip(),
+      PlayCardDialogAction.summon(),
     ];
   }
 
   Iterable<PlayCardDialogAction> _getSpellTrapFieldZoneActions(PlayCard playCard, Zone newZone) {
     _logger.verbose(_tag, '_getSpellTrapFieldZoneActions(playCard: $playCard, newZone: $newZone');
 
-    return playCard.position == CardPosition.faceUp ? [PlayCardDialogAction.set] : [PlayCardDialogAction.activate];
+    return playCard.position == CardPosition.faceUp ? [PlayCardDialogAction.set()] : [PlayCardDialogAction.activate()];
   }
 }

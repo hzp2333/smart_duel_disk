@@ -183,7 +183,7 @@ class Strings {
   static const speedDuelCardActionToDefence = PlainLocalizedString(
     key: 'speed_duel_card_action_to_defence',
     values: {
-      'en': '''To Defence''',
+      'en': '''To DEF''',
     },
   );
 

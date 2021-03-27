@@ -245,14 +245,53 @@ class _ActionItem extends StatelessWidget {
   Widget build(BuildContext context) {
     final vm = Provider.of<PlayCardDialogViewModel>(context);
 
-    return TextButton(
-      onPressed: () => vm.onPlayCardDialogActionPressed(action.type),
-      child: Text(
-        action.name,
-        style: const TextStyle(
-          color: Colors.white,
+    return InkWell(
+      onTap: () => vm.onPlayCardDialogActionPressed(action.type),
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 24,
+          vertical: 8,
+        ),
+        decoration: BoxDecoration(
+          color: Colors.black.withOpacity(0.4),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(action.icon),
+            const SizedBox(height: 8),
+            Text(
+              action.name,
+              style: const TextStyle(
+                color: Colors.white,
+              ),
+            ),
+          ],
         ),
       ),
     );
   }
 }
+
+// class _ActionItem extends StatelessWidget {
+//   final PlayCardDialogAction action;
+
+//   const _ActionItem({
+//     @required this.action,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     final vm = Provider.of<PlayCardDialogViewModel>(context);
+
+//     return TextButton(
+//       onPressed: () => vm.onPlayCardDialogActionPressed(action.type),
+//       child: Text(
+//         action.name,
+//         style: const TextStyle(
+//           color: Colors.white,
+//         ),
+//       ),
+//     );
+//   }
+// }
