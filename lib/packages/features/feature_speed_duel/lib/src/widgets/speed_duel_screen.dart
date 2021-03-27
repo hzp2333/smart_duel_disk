@@ -12,10 +12,7 @@ import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
 import '../speed_duel_viewmodel.dart';
 import 'body/card_list_bottom_sheet.dart';
-import 'body/card_zones/deck_zone.dart';
-import 'body/card_zones/hand_zone.dart';
-import 'body/card_zones/multi_card_field_zone.dart';
-import 'body/card_zones/single_card_field_zone.dart';
+import 'body/speed_duel_field_rows.dart';
 
 class SpeedDuelScreen extends StatefulWidget {
   const SpeedDuelScreen();
@@ -127,15 +124,15 @@ class _Body extends StatelessWidget {
       child: Center(
         child: Padding(
           padding: EdgeInsets.all(AppDimensions.screenMargin),
-          child: _SpeedDuelStateBuilder(),
+          child: _SpeedDuelFieldBuilder(),
         ),
       ),
     );
   }
 }
 
-class _SpeedDuelStateBuilder extends HookWidget {
-  const _SpeedDuelStateBuilder();
+class _SpeedDuelFieldBuilder extends HookWidget {
+  const _SpeedDuelFieldBuilder();
 
   @override
   Widget build(BuildContext context) {
@@ -143,17 +140,17 @@ class _SpeedDuelStateBuilder extends HookWidget {
     final speedDuelState = useStream(vm.speedDuelState, initialData: const SpeedDuelLoading());
 
     return speedDuelState.data.when(
-      (playerState) => _PlayerField(playerState: playerState),
+      (playerState) => _SpeedDuelField(playerState: playerState),
       loading: () => const GeneralLoadingState(),
       error: () => const GeneralErrorState(description: 'An error occurred while starting the speed duel'),
     );
   }
 }
 
-class _PlayerField extends StatelessWidget {
+class _SpeedDuelField extends StatelessWidget {
   final PlayerState playerState;
 
-  const _PlayerField({
+  const _SpeedDuelField({
     @required this.playerState,
   });
 
@@ -163,130 +160,17 @@ class _PlayerField extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Expanded(
-          child: _FirstPlayerFieldRow(playerState: playerState),
+          child: MainMonsterRow(playerState: playerState),
         ),
         const SizedBox(height: AppDimensions.duelFieldFirstSecondRowSpacing),
         Expanded(
-          child: _SecondPlayerFieldRow(playerState: playerState),
+          child: SpellTrapRow(playerState: playerState),
         ),
         const SizedBox(height: AppDimensions.duelFieldSecondHandRowSpacing),
         Expanded(
-          child: HandZone(zone: playerState.hand),
+          child: HandRow(zone: playerState.hand),
         ),
       ],
-    );
-  }
-}
-
-class _FirstPlayerFieldRow extends StatelessWidget {
-  final PlayerState playerState;
-
-  const _FirstPlayerFieldRow({
-    @required this.playerState,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const _ZoneFiller(),
-            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
-            SingleCardFieldZone(zone: playerState.fieldZone),
-          ],
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SingleCardFieldZone(zone: playerState.mainMonsterZone1),
-            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
-            SingleCardFieldZone(zone: playerState.mainMonsterZone2),
-            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
-            SingleCardFieldZone(zone: playerState.mainMonsterZone3),
-          ],
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            MultiCardFieldZone(
-              zone: playerState.graveyardZone,
-              showCardBack: false,
-            ),
-            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
-            MultiCardFieldZone(
-              zone: playerState.banishedZone,
-              showCardBack: false,
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class _SecondPlayerFieldRow extends StatelessWidget {
-  final PlayerState playerState;
-
-  const _SecondPlayerFieldRow({
-    @required this.playerState,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const _ZoneFiller(),
-            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
-            MultiCardFieldZone(
-              zone: playerState.extraDeckZone,
-              showCardBack: true,
-            ),
-          ],
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            SingleCardFieldZone(zone: playerState.spellTrapZone1),
-            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
-            SingleCardFieldZone(zone: playerState.spellTrapZone2),
-            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
-            SingleCardFieldZone(zone: playerState.spellTrapZone3),
-          ],
-        ),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            DeckZone(
-              zone: playerState.deckZone,
-              showCardBack: true,
-            ),
-            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
-            const AspectRatio(
-              aspectRatio: AppDimensions.yugiohCardAspectRatio,
-              child: SizedBox.expand(),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-}
-
-class _ZoneFiller extends StatelessWidget {
-  const _ZoneFiller();
-
-  @override
-  Widget build(BuildContext context) {
-    return const AspectRatio(
-      aspectRatio: AppDimensions.yugiohCardAspectRatio,
-      child: SizedBox.expand(),
     );
   }
 }

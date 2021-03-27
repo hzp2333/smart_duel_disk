@@ -6,7 +6,7 @@ class ImagePlaceholder extends StatelessWidget {
 
   const ImagePlaceholder({
     @required this.imageAssetId,
-    this.boxFit = BoxFit.fitHeight,
+    this.boxFit = BoxFit.contain,
   });
 
   @override
