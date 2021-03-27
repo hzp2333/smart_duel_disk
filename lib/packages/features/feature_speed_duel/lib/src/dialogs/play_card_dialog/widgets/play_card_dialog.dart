@@ -19,7 +19,7 @@ class PlayCardDialog extends StatelessWidget {
         children: [
           Card(
             margin: EdgeInsets.zero,
-            color: Colors.black.withOpacity(0.4),
+            color: AppColors.cardDialogBackgroundColor,
             child: SizedBox(
               width: MediaQuery.of(context).size.width / 2,
               child: Container(
@@ -249,22 +249,20 @@ class _ActionItem extends StatelessWidget {
       onTap: () => vm.onPlayCardDialogActionPressed(action.type),
       child: Container(
         padding: const EdgeInsets.symmetric(
-          horizontal: 24,
-          vertical: 8,
+          horizontal: AppDimensions.screenMarginLarge,
+          vertical: AppDimensions.screenMarginSmall,
         ),
         decoration: BoxDecoration(
-          color: Colors.black.withOpacity(0.4),
+          color: AppColors.cardDialogBackgroundColor,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(action.icon),
-            const SizedBox(height: 8),
+            const SizedBox(height: AppDimensions.iconTitleTileSeparator),
             Text(
               action.name,
-              style: const TextStyle(
-                color: Colors.white,
-              ),
+              style: const TextStyle(color: Colors.white),
             ),
           ],
         ),

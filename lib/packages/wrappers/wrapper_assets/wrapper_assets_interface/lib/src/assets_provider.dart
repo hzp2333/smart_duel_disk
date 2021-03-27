@@ -1,6 +1,8 @@
 abstract class AssetsProvider {
   String get cardBack;
 
+  String get speedDuelFieldBackground;
+
   String get iconAttributeDark;
   String get iconAttributeDivine;
   String get iconAttributeEarth;

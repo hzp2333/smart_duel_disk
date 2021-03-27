@@ -9,6 +9,7 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
+import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
 
 import '../speed_duel_viewmodel.dart';
 import 'body/card_list_bottom_sheet.dart';
@@ -120,13 +121,31 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const SafeArea(
-      child: Center(
-        child: Padding(
-          padding: EdgeInsets.all(AppDimensions.screenMargin),
-          child: _SpeedDuelFieldBuilder(),
+    final assetsProvider = Provider.of<AssetsProvider>(context);
+
+    return Stack(
+      children: [
+        // TODO: add playmat support
+        // Positioned.fill(
+        //   child: ImageAssetProvider(
+        //     assetName: assetsProvider.speedDuelFieldBackground,
+        //     fit: BoxFit.fill,
+        //   ),
+        // ),
+        // Positioned.fill(
+        //   child: Container(
+        //     color: Colors.black.withOpacity(0.79),
+        //   ),
+        // ),
+        const SafeArea(
+          child: Center(
+            child: Padding(
+              padding: EdgeInsets.all(AppDimensions.screenMargin),
+              child: _SpeedDuelFieldBuilder(),
+            ),
+          ),
         ),
-      ),
+      ],
     );
   }
 }

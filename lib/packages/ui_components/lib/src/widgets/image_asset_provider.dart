@@ -4,11 +4,13 @@ class ImageAssetProvider extends StatelessWidget {
   final String assetName;
   final Color color;
   final double size;
+  final BoxFit fit;
 
   const ImageAssetProvider({
     @required this.assetName,
     this.color,
     this.size,
+    this.fit,
   });
 
   @override
@@ -18,6 +20,7 @@ class ImageAssetProvider extends StatelessWidget {
       color: color,
       width: size,
       height: size,
+      fit: fit,
     );
   }
 }

@@ -7,6 +7,9 @@ class AssetsProviderImpl implements AssetsProvider {
   String get cardBack => 'assets/illustrations/card_back.jpeg';
 
   @override
+  String get speedDuelFieldBackground => 'assets/illustrations/speed_duel_field_background.png';
+
+  @override
   String get iconAttributeDark => 'assets/icons/ic_attribute_dark.png';
 
   @override

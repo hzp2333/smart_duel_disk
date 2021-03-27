@@ -32,7 +32,7 @@ class DraggableCard extends StatelessWidget {
     final cardBack = assetsProvider.cardBack;
     final childWhenDragging = zone.zoneType == ZoneType.hand
         ? const ZoneFiller()
-        : EmptyZone(
+        : ZoneBackground(
             zoneType: card.zoneType,
           );
 

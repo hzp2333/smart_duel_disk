@@ -22,14 +22,15 @@ class SingleCardFieldZone extends StatelessWidget {
   Widget build(BuildContext context) {
     return CardDragTarget(
       zone: zone,
-      child: zone.cards.isEmpty
-          ? EmptyZone(
-              zoneType: zone.zoneType,
-            )
-          : DraggableCard(
-              card: zone.cards.first,
-              zone: zone,
-            ),
+      child: ZoneBackground(
+        zoneType: zone.zoneType,
+        card: zone.cards.isEmpty
+            ? null
+            : DraggableCard(
+                card: zone.cards.first,
+                zone: zone,
+              ),
+      ),
     );
   }
 }
@@ -61,7 +62,7 @@ class MultiCardFieldZone extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             if (zone.cards.isEmpty) ...{
-              const EmptyZone(),
+              ZoneBackground(zoneType: zone.zoneType),
             } else if (showCardBack) ...{
               ImagePlaceholder(imageAssetId: cardBack),
             } else ...{
@@ -155,11 +156,13 @@ class _DeckZoneMenuItem extends StatelessWidget {
   }
 }
 
-class EmptyZone extends StatelessWidget {
+class ZoneBackground extends StatelessWidget {
   final ZoneType zoneType;
+  final Widget card;
 
-  const EmptyZone({
-    this.zoneType,
+  const ZoneBackground({
+    @required this.zoneType,
+    this.card,
   });
 
   @override
@@ -180,7 +183,7 @@ class EmptyZone extends StatelessWidget {
             width: cardHeight,
             height: cardWidth,
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
+              border: Border.all(color: Colors.white70),
             ),
           ),
         },
@@ -189,10 +192,13 @@ class EmptyZone extends StatelessWidget {
           child: Container(
             height: cardHeight,
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.grey),
+              border: Border.all(color: Colors.white),
             ),
           ),
         ),
+        if (card != null) ...{
+          card,
+        },
       ],
     );
   }

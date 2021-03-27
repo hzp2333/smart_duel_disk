@@ -1,6 +1,7 @@
 class AppDimensions {
   static const screenMargin = 16.0;
   static const screenMarginSmall = 8.0;
+  static const screenMarginLarge = 24.0;
 
   static const yugiohCardAspectRatio = 168 / 246;
 
