@@ -14,10 +14,8 @@ class _$PlayCardDialogActionTypeTearOff {
   const _$PlayCardDialogActionTypeTearOff();
 
 // ignore: unused_element
-  PlayCardDialogSummonAction summon(PlayCard playCard) {
-    return PlayCardDialogSummonAction(
-      playCard,
-    );
+  PlayCardDialogSummonAction summon() {
+    return const PlayCardDialogSummonAction();
   }
 
 // ignore: unused_element
@@ -26,25 +24,23 @@ class _$PlayCardDialogActionTypeTearOff {
   }
 
 // ignore: unused_element
-  PlayCardDialogToAttackAction toAttack(PlayCard playCard) {
-    return PlayCardDialogToAttackAction(
-      playCard,
-    );
+  PlayCardDialogToAttackAction toAttack() {
+    return const PlayCardDialogToAttackAction();
   }
 
 // ignore: unused_element
-  PlayCardDialogToDefenseAction toDefense(PlayCard playCard) {
-    return PlayCardDialogToDefenseAction(
-      playCard,
-    );
+  PlayCardDialogToDefenseAction toDefense() {
+    return const PlayCardDialogToDefenseAction();
   }
 
 // ignore: unused_element
-  PlayCardDialogSetAction set(PlayCard playCard, {Zone newZone}) {
-    return PlayCardDialogSetAction(
-      playCard,
-      newZone: newZone,
-    );
+  PlayCardDialogFlipAction flip() {
+    return const PlayCardDialogFlipAction();
+  }
+
+// ignore: unused_element
+  PlayCardDialogSetAction set() {
+    return const PlayCardDialogSetAction();
   }
 }
 
@@ -56,19 +52,21 @@ const $PlayCardDialogActionType = _$PlayCardDialogActionTypeTearOff();
 mixin _$PlayCardDialogActionType {
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult summon(PlayCard playCard),
+    @required TResult summon(),
     @required TResult activate(),
-    @required TResult toAttack(PlayCard playCard),
-    @required TResult toDefense(PlayCard playCard),
-    @required TResult set(PlayCard playCard, Zone newZone),
+    @required TResult toAttack(),
+    @required TResult toDefense(),
+    @required TResult flip(),
+    @required TResult set(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult summon(PlayCard playCard),
+    TResult summon(),
     TResult activate(),
-    TResult toAttack(PlayCard playCard),
-    TResult toDefense(PlayCard playCard),
-    TResult set(PlayCard playCard, Zone newZone),
+    TResult toAttack(),
+    TResult toDefense(),
+    TResult flip(),
+    TResult set(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -77,6 +75,7 @@ mixin _$PlayCardDialogActionType {
     @required TResult activate(PlayCardDialogActivateAction value),
     @required TResult toAttack(PlayCardDialogToAttackAction value),
     @required TResult toDefense(PlayCardDialogToDefenseAction value),
+    @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
   });
   @optionalTypeArgs
@@ -85,6 +84,7 @@ mixin _$PlayCardDialogActionType {
     TResult activate(PlayCardDialogActivateAction value),
     TResult toAttack(PlayCardDialogToAttackAction value),
     TResult toDefense(PlayCardDialogToDefenseAction value),
+    TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
     @required TResult orElse(),
   });
@@ -112,7 +112,6 @@ abstract class $PlayCardDialogSummonActionCopyWith<$Res> {
   factory $PlayCardDialogSummonActionCopyWith(PlayCardDialogSummonAction value,
           $Res Function(PlayCardDialogSummonAction) then) =
       _$PlayCardDialogSummonActionCopyWithImpl<$Res>;
-  $Res call({PlayCard playCard});
 }
 
 /// @nodoc
@@ -126,78 +125,58 @@ class _$PlayCardDialogSummonActionCopyWithImpl<$Res>
   @override
   PlayCardDialogSummonAction get _value =>
       super._value as PlayCardDialogSummonAction;
-
-  @override
-  $Res call({
-    Object playCard = freezed,
-  }) {
-    return _then(PlayCardDialogSummonAction(
-      playCard == freezed ? _value.playCard : playCard as PlayCard,
-    ));
-  }
 }
 
 /// @nodoc
 class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
-  const _$PlayCardDialogSummonAction(this.playCard) : assert(playCard != null);
-
-  @override
-  final PlayCard playCard;
+  const _$PlayCardDialogSummonAction();
 
   @override
   String toString() {
-    return 'PlayCardDialogActionType.summon(playCard: $playCard)';
+    return 'PlayCardDialogActionType.summon()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is PlayCardDialogSummonAction &&
-            (identical(other.playCard, playCard) ||
-                const DeepCollectionEquality()
-                    .equals(other.playCard, playCard)));
+    return identical(this, other) || (other is PlayCardDialogSummonAction);
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(playCard);
-
-  @override
-  $PlayCardDialogSummonActionCopyWith<PlayCardDialogSummonAction>
-      get copyWith =>
-          _$PlayCardDialogSummonActionCopyWithImpl<PlayCardDialogSummonAction>(
-              this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult summon(PlayCard playCard),
+    @required TResult summon(),
     @required TResult activate(),
-    @required TResult toAttack(PlayCard playCard),
-    @required TResult toDefense(PlayCard playCard),
-    @required TResult set(PlayCard playCard, Zone newZone),
+    @required TResult toAttack(),
+    @required TResult toDefense(),
+    @required TResult flip(),
+    @required TResult set(),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
     assert(toDefense != null);
+    assert(flip != null);
     assert(set != null);
-    return summon(playCard);
+    return summon();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult summon(PlayCard playCard),
+    TResult summon(),
     TResult activate(),
-    TResult toAttack(PlayCard playCard),
-    TResult toDefense(PlayCard playCard),
-    TResult set(PlayCard playCard, Zone newZone),
+    TResult toAttack(),
+    TResult toDefense(),
+    TResult flip(),
+    TResult set(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (summon != null) {
-      return summon(playCard);
+      return summon();
     }
     return orElse();
   }
@@ -209,12 +188,14 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
     @required TResult activate(PlayCardDialogActivateAction value),
     @required TResult toAttack(PlayCardDialogToAttackAction value),
     @required TResult toDefense(PlayCardDialogToDefenseAction value),
+    @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
     assert(toDefense != null);
+    assert(flip != null);
     assert(set != null);
     return summon(this);
   }
@@ -226,6 +207,7 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
     TResult activate(PlayCardDialogActivateAction value),
     TResult toAttack(PlayCardDialogToAttackAction value),
     TResult toDefense(PlayCardDialogToDefenseAction value),
+    TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
     @required TResult orElse(),
   }) {
@@ -238,11 +220,7 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
 }
 
 abstract class PlayCardDialogSummonAction implements PlayCardDialogActionType {
-  const factory PlayCardDialogSummonAction(PlayCard playCard) =
-      _$PlayCardDialogSummonAction;
-
-  PlayCard get playCard;
-  $PlayCardDialogSummonActionCopyWith<PlayCardDialogSummonAction> get copyWith;
+  const factory PlayCardDialogSummonAction() = _$PlayCardDialogSummonAction;
 }
 
 /// @nodoc
@@ -287,16 +265,18 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult summon(PlayCard playCard),
+    @required TResult summon(),
     @required TResult activate(),
-    @required TResult toAttack(PlayCard playCard),
-    @required TResult toDefense(PlayCard playCard),
-    @required TResult set(PlayCard playCard, Zone newZone),
+    @required TResult toAttack(),
+    @required TResult toDefense(),
+    @required TResult flip(),
+    @required TResult set(),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
     assert(toDefense != null);
+    assert(flip != null);
     assert(set != null);
     return activate();
   }
@@ -304,11 +284,12 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult summon(PlayCard playCard),
+    TResult summon(),
     TResult activate(),
-    TResult toAttack(PlayCard playCard),
-    TResult toDefense(PlayCard playCard),
-    TResult set(PlayCard playCard, Zone newZone),
+    TResult toAttack(),
+    TResult toDefense(),
+    TResult flip(),
+    TResult set(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -325,12 +306,14 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
     @required TResult activate(PlayCardDialogActivateAction value),
     @required TResult toAttack(PlayCardDialogToAttackAction value),
     @required TResult toDefense(PlayCardDialogToDefenseAction value),
+    @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
     assert(toDefense != null);
+    assert(flip != null);
     assert(set != null);
     return activate(this);
   }
@@ -342,6 +325,7 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
     TResult activate(PlayCardDialogActivateAction value),
     TResult toAttack(PlayCardDialogToAttackAction value),
     TResult toDefense(PlayCardDialogToDefenseAction value),
+    TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
     @required TResult orElse(),
   }) {
@@ -364,7 +348,6 @@ abstract class $PlayCardDialogToAttackActionCopyWith<$Res> {
           PlayCardDialogToAttackAction value,
           $Res Function(PlayCardDialogToAttackAction) then) =
       _$PlayCardDialogToAttackActionCopyWithImpl<$Res>;
-  $Res call({PlayCard playCard});
 }
 
 /// @nodoc
@@ -379,78 +362,58 @@ class _$PlayCardDialogToAttackActionCopyWithImpl<$Res>
   @override
   PlayCardDialogToAttackAction get _value =>
       super._value as PlayCardDialogToAttackAction;
-
-  @override
-  $Res call({
-    Object playCard = freezed,
-  }) {
-    return _then(PlayCardDialogToAttackAction(
-      playCard == freezed ? _value.playCard : playCard as PlayCard,
-    ));
-  }
 }
 
 /// @nodoc
 class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
-  const _$PlayCardDialogToAttackAction(this.playCard)
-      : assert(playCard != null);
-
-  @override
-  final PlayCard playCard;
+  const _$PlayCardDialogToAttackAction();
 
   @override
   String toString() {
-    return 'PlayCardDialogActionType.toAttack(playCard: $playCard)';
+    return 'PlayCardDialogActionType.toAttack()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is PlayCardDialogToAttackAction &&
-            (identical(other.playCard, playCard) ||
-                const DeepCollectionEquality()
-                    .equals(other.playCard, playCard)));
+    return identical(this, other) || (other is PlayCardDialogToAttackAction);
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(playCard);
-
-  @override
-  $PlayCardDialogToAttackActionCopyWith<PlayCardDialogToAttackAction>
-      get copyWith => _$PlayCardDialogToAttackActionCopyWithImpl<
-          PlayCardDialogToAttackAction>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult summon(PlayCard playCard),
+    @required TResult summon(),
     @required TResult activate(),
-    @required TResult toAttack(PlayCard playCard),
-    @required TResult toDefense(PlayCard playCard),
-    @required TResult set(PlayCard playCard, Zone newZone),
+    @required TResult toAttack(),
+    @required TResult toDefense(),
+    @required TResult flip(),
+    @required TResult set(),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
     assert(toDefense != null);
+    assert(flip != null);
     assert(set != null);
-    return toAttack(playCard);
+    return toAttack();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult summon(PlayCard playCard),
+    TResult summon(),
     TResult activate(),
-    TResult toAttack(PlayCard playCard),
-    TResult toDefense(PlayCard playCard),
-    TResult set(PlayCard playCard, Zone newZone),
+    TResult toAttack(),
+    TResult toDefense(),
+    TResult flip(),
+    TResult set(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (toAttack != null) {
-      return toAttack(playCard);
+      return toAttack();
     }
     return orElse();
   }
@@ -462,12 +425,14 @@ class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
     @required TResult activate(PlayCardDialogActivateAction value),
     @required TResult toAttack(PlayCardDialogToAttackAction value),
     @required TResult toDefense(PlayCardDialogToDefenseAction value),
+    @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
     assert(toDefense != null);
+    assert(flip != null);
     assert(set != null);
     return toAttack(this);
   }
@@ -479,6 +444,7 @@ class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
     TResult activate(PlayCardDialogActivateAction value),
     TResult toAttack(PlayCardDialogToAttackAction value),
     TResult toDefense(PlayCardDialogToDefenseAction value),
+    TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
     @required TResult orElse(),
   }) {
@@ -492,12 +458,7 @@ class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
 
 abstract class PlayCardDialogToAttackAction
     implements PlayCardDialogActionType {
-  const factory PlayCardDialogToAttackAction(PlayCard playCard) =
-      _$PlayCardDialogToAttackAction;
-
-  PlayCard get playCard;
-  $PlayCardDialogToAttackActionCopyWith<PlayCardDialogToAttackAction>
-      get copyWith;
+  const factory PlayCardDialogToAttackAction() = _$PlayCardDialogToAttackAction;
 }
 
 /// @nodoc
@@ -506,7 +467,6 @@ abstract class $PlayCardDialogToDefenseActionCopyWith<$Res> {
           PlayCardDialogToDefenseAction value,
           $Res Function(PlayCardDialogToDefenseAction) then) =
       _$PlayCardDialogToDefenseActionCopyWithImpl<$Res>;
-  $Res call({PlayCard playCard});
 }
 
 /// @nodoc
@@ -521,78 +481,58 @@ class _$PlayCardDialogToDefenseActionCopyWithImpl<$Res>
   @override
   PlayCardDialogToDefenseAction get _value =>
       super._value as PlayCardDialogToDefenseAction;
-
-  @override
-  $Res call({
-    Object playCard = freezed,
-  }) {
-    return _then(PlayCardDialogToDefenseAction(
-      playCard == freezed ? _value.playCard : playCard as PlayCard,
-    ));
-  }
 }
 
 /// @nodoc
 class _$PlayCardDialogToDefenseAction implements PlayCardDialogToDefenseAction {
-  const _$PlayCardDialogToDefenseAction(this.playCard)
-      : assert(playCard != null);
-
-  @override
-  final PlayCard playCard;
+  const _$PlayCardDialogToDefenseAction();
 
   @override
   String toString() {
-    return 'PlayCardDialogActionType.toDefense(playCard: $playCard)';
+    return 'PlayCardDialogActionType.toDefense()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is PlayCardDialogToDefenseAction &&
-            (identical(other.playCard, playCard) ||
-                const DeepCollectionEquality()
-                    .equals(other.playCard, playCard)));
+    return identical(this, other) || (other is PlayCardDialogToDefenseAction);
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(playCard);
-
-  @override
-  $PlayCardDialogToDefenseActionCopyWith<PlayCardDialogToDefenseAction>
-      get copyWith => _$PlayCardDialogToDefenseActionCopyWithImpl<
-          PlayCardDialogToDefenseAction>(this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult summon(PlayCard playCard),
+    @required TResult summon(),
     @required TResult activate(),
-    @required TResult toAttack(PlayCard playCard),
-    @required TResult toDefense(PlayCard playCard),
-    @required TResult set(PlayCard playCard, Zone newZone),
+    @required TResult toAttack(),
+    @required TResult toDefense(),
+    @required TResult flip(),
+    @required TResult set(),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
     assert(toDefense != null);
+    assert(flip != null);
     assert(set != null);
-    return toDefense(playCard);
+    return toDefense();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult summon(PlayCard playCard),
+    TResult summon(),
     TResult activate(),
-    TResult toAttack(PlayCard playCard),
-    TResult toDefense(PlayCard playCard),
-    TResult set(PlayCard playCard, Zone newZone),
+    TResult toAttack(),
+    TResult toDefense(),
+    TResult flip(),
+    TResult set(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (toDefense != null) {
-      return toDefense(playCard);
+      return toDefense();
     }
     return orElse();
   }
@@ -604,12 +544,14 @@ class _$PlayCardDialogToDefenseAction implements PlayCardDialogToDefenseAction {
     @required TResult activate(PlayCardDialogActivateAction value),
     @required TResult toAttack(PlayCardDialogToAttackAction value),
     @required TResult toDefense(PlayCardDialogToDefenseAction value),
+    @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
     assert(toDefense != null);
+    assert(flip != null);
     assert(set != null);
     return toDefense(this);
   }
@@ -621,6 +563,7 @@ class _$PlayCardDialogToDefenseAction implements PlayCardDialogToDefenseAction {
     TResult activate(PlayCardDialogActivateAction value),
     TResult toAttack(PlayCardDialogToAttackAction value),
     TResult toDefense(PlayCardDialogToDefenseAction value),
+    TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
     @required TResult orElse(),
   }) {
@@ -634,12 +577,124 @@ class _$PlayCardDialogToDefenseAction implements PlayCardDialogToDefenseAction {
 
 abstract class PlayCardDialogToDefenseAction
     implements PlayCardDialogActionType {
-  const factory PlayCardDialogToDefenseAction(PlayCard playCard) =
+  const factory PlayCardDialogToDefenseAction() =
       _$PlayCardDialogToDefenseAction;
+}
 
-  PlayCard get playCard;
-  $PlayCardDialogToDefenseActionCopyWith<PlayCardDialogToDefenseAction>
-      get copyWith;
+/// @nodoc
+abstract class $PlayCardDialogFlipActionCopyWith<$Res> {
+  factory $PlayCardDialogFlipActionCopyWith(PlayCardDialogFlipAction value,
+          $Res Function(PlayCardDialogFlipAction) then) =
+      _$PlayCardDialogFlipActionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$PlayCardDialogFlipActionCopyWithImpl<$Res>
+    extends _$PlayCardDialogActionTypeCopyWithImpl<$Res>
+    implements $PlayCardDialogFlipActionCopyWith<$Res> {
+  _$PlayCardDialogFlipActionCopyWithImpl(PlayCardDialogFlipAction _value,
+      $Res Function(PlayCardDialogFlipAction) _then)
+      : super(_value, (v) => _then(v as PlayCardDialogFlipAction));
+
+  @override
+  PlayCardDialogFlipAction get _value =>
+      super._value as PlayCardDialogFlipAction;
+}
+
+/// @nodoc
+class _$PlayCardDialogFlipAction implements PlayCardDialogFlipAction {
+  const _$PlayCardDialogFlipAction();
+
+  @override
+  String toString() {
+    return 'PlayCardDialogActionType.flip()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is PlayCardDialogFlipAction);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult summon(),
+    @required TResult activate(),
+    @required TResult toAttack(),
+    @required TResult toDefense(),
+    @required TResult flip(),
+    @required TResult set(),
+  }) {
+    assert(summon != null);
+    assert(activate != null);
+    assert(toAttack != null);
+    assert(toDefense != null);
+    assert(flip != null);
+    assert(set != null);
+    return flip();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult summon(),
+    TResult activate(),
+    TResult toAttack(),
+    TResult toDefense(),
+    TResult flip(),
+    TResult set(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (flip != null) {
+      return flip();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult summon(PlayCardDialogSummonAction value),
+    @required TResult activate(PlayCardDialogActivateAction value),
+    @required TResult toAttack(PlayCardDialogToAttackAction value),
+    @required TResult toDefense(PlayCardDialogToDefenseAction value),
+    @required TResult flip(PlayCardDialogFlipAction value),
+    @required TResult set(PlayCardDialogSetAction value),
+  }) {
+    assert(summon != null);
+    assert(activate != null);
+    assert(toAttack != null);
+    assert(toDefense != null);
+    assert(flip != null);
+    assert(set != null);
+    return flip(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult summon(PlayCardDialogSummonAction value),
+    TResult activate(PlayCardDialogActivateAction value),
+    TResult toAttack(PlayCardDialogToAttackAction value),
+    TResult toDefense(PlayCardDialogToDefenseAction value),
+    TResult flip(PlayCardDialogFlipAction value),
+    TResult set(PlayCardDialogSetAction value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (flip != null) {
+      return flip(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PlayCardDialogFlipAction implements PlayCardDialogActionType {
+  const factory PlayCardDialogFlipAction() = _$PlayCardDialogFlipAction;
 }
 
 /// @nodoc
@@ -647,7 +702,6 @@ abstract class $PlayCardDialogSetActionCopyWith<$Res> {
   factory $PlayCardDialogSetActionCopyWith(PlayCardDialogSetAction value,
           $Res Function(PlayCardDialogSetAction) then) =
       _$PlayCardDialogSetActionCopyWithImpl<$Res>;
-  $Res call({PlayCard playCard, Zone newZone});
 }
 
 /// @nodoc
@@ -660,86 +714,58 @@ class _$PlayCardDialogSetActionCopyWithImpl<$Res>
 
   @override
   PlayCardDialogSetAction get _value => super._value as PlayCardDialogSetAction;
-
-  @override
-  $Res call({
-    Object playCard = freezed,
-    Object newZone = freezed,
-  }) {
-    return _then(PlayCardDialogSetAction(
-      playCard == freezed ? _value.playCard : playCard as PlayCard,
-      newZone: newZone == freezed ? _value.newZone : newZone as Zone,
-    ));
-  }
 }
 
 /// @nodoc
 class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
-  const _$PlayCardDialogSetAction(this.playCard, {this.newZone})
-      : assert(playCard != null);
-
-  @override
-  final PlayCard playCard;
-  @override
-  final Zone newZone;
+  const _$PlayCardDialogSetAction();
 
   @override
   String toString() {
-    return 'PlayCardDialogActionType.set(playCard: $playCard, newZone: $newZone)';
+    return 'PlayCardDialogActionType.set()';
   }
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other is PlayCardDialogSetAction &&
-            (identical(other.playCard, playCard) ||
-                const DeepCollectionEquality()
-                    .equals(other.playCard, playCard)) &&
-            (identical(other.newZone, newZone) ||
-                const DeepCollectionEquality().equals(other.newZone, newZone)));
+    return identical(this, other) || (other is PlayCardDialogSetAction);
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(playCard) ^
-      const DeepCollectionEquality().hash(newZone);
-
-  @override
-  $PlayCardDialogSetActionCopyWith<PlayCardDialogSetAction> get copyWith =>
-      _$PlayCardDialogSetActionCopyWithImpl<PlayCardDialogSetAction>(
-          this, _$identity);
+  int get hashCode => runtimeType.hashCode;
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>({
-    @required TResult summon(PlayCard playCard),
+    @required TResult summon(),
     @required TResult activate(),
-    @required TResult toAttack(PlayCard playCard),
-    @required TResult toDefense(PlayCard playCard),
-    @required TResult set(PlayCard playCard, Zone newZone),
+    @required TResult toAttack(),
+    @required TResult toDefense(),
+    @required TResult flip(),
+    @required TResult set(),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
     assert(toDefense != null);
+    assert(flip != null);
     assert(set != null);
-    return set(playCard, newZone);
+    return set();
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
-    TResult summon(PlayCard playCard),
+    TResult summon(),
     TResult activate(),
-    TResult toAttack(PlayCard playCard),
-    TResult toDefense(PlayCard playCard),
-    TResult set(PlayCard playCard, Zone newZone),
+    TResult toAttack(),
+    TResult toDefense(),
+    TResult flip(),
+    TResult set(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (set != null) {
-      return set(playCard, newZone);
+      return set();
     }
     return orElse();
   }
@@ -751,12 +777,14 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
     @required TResult activate(PlayCardDialogActivateAction value),
     @required TResult toAttack(PlayCardDialogToAttackAction value),
     @required TResult toDefense(PlayCardDialogToDefenseAction value),
+    @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
   }) {
     assert(summon != null);
     assert(activate != null);
     assert(toAttack != null);
     assert(toDefense != null);
+    assert(flip != null);
     assert(set != null);
     return set(this);
   }
@@ -768,6 +796,7 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
     TResult activate(PlayCardDialogActivateAction value),
     TResult toAttack(PlayCardDialogToAttackAction value),
     TResult toDefense(PlayCardDialogToDefenseAction value),
+    TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
     @required TResult orElse(),
   }) {
@@ -780,10 +809,5 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
 }
 
 abstract class PlayCardDialogSetAction implements PlayCardDialogActionType {
-  const factory PlayCardDialogSetAction(PlayCard playCard, {Zone newZone}) =
-      _$PlayCardDialogSetAction;
-
-  PlayCard get playCard;
-  Zone get newZone;
-  $PlayCardDialogSetActionCopyWith<PlayCardDialogSetAction> get copyWith;
+  const factory PlayCardDialogSetAction() = _$PlayCardDialogSetAction;
 }

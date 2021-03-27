@@ -39,42 +39,31 @@ class PlayCardDialogViewModel extends BaseViewModel {
     logger.info(_tag, 'onPlayCardDialogActionPressed(actionType: $actionType)');
 
     actionType.when(
-      summon: (card) => _onSummonPressed(card),
+      summon: _onSummonPressed,
       activate: _onActivatePressed,
-      toAttack: (card) => _onChangeToAttackPressed(playCard),
-      toDefense: (card) => _onChangeToDefencePressed(playCard),
-      set: (card, zone) => _onSetPressed(card, zone),
+      toAttack: _onChangeToAttackPressed,
+      toDefense: _onChangeToDefencePressed,
+      flip: _onFlipPressed,
+      set: _onSetPressed,
     );
   }
 
-  void _onSummonPressed(PlayCard playCard) {
-    logger.verbose(_tag, '_onSummonPressed(playCard: $playCard)');
+  void _onSummonPressed() {
+    logger.verbose(_tag, '_onSummonPressed()');
 
-    if (playCard.position.isAttack) {
-      _dialogService.popDialog(CardPosition.faceUp);
-    } else {
-      _dialogService.popDialog(CardPosition.faceUpDefence);
-    }
+    _dialogService.popDialog(CardPosition.faceUp);
   }
 
-  void _onChangeToAttackPressed(PlayCard playCard) {
-    logger.verbose(_tag, '_onChangeToAttackPressed(playCard: $playCard)');
+  void _onChangeToAttackPressed() {
+    logger.verbose(_tag, '_onChangeToAttackPressed()');
 
-    if (playCard.position == CardPosition.faceUpDefence) {
-      _dialogService.popDialog(CardPosition.faceUp);
-    } else {
-      _dialogService.popDialog(CardPosition.faceDown);
-    }
+    _dialogService.popDialog(CardPosition.faceUp);
   }
 
-  void _onChangeToDefencePressed(PlayCard playCard) {
-    logger.verbose(_tag, '_onChangeToDefencePressed(playCard: $playCard)');
+  void _onChangeToDefencePressed() {
+    logger.verbose(_tag, '_onChangeToDefencePressed()');
 
-    if (playCard.position == CardPosition.faceUp) {
-      _dialogService.popDialog(CardPosition.faceUpDefence);
-    } else {
-      _dialogService.popDialog(CardPosition.faceDownDefence);
-    }
+    _dialogService.popDialog(CardPosition.faceUpDefence);
   }
 
   void _onActivatePressed() {
@@ -83,40 +72,42 @@ class PlayCardDialogViewModel extends BaseViewModel {
     _dialogService.popDialog(CardPosition.faceUp);
   }
 
-  void _onSetPressed(PlayCard playCard, Zone newZone) {
-    logger.verbose(_tag, '_onSetPressed(playCard: $playCard, newZone: $newZone)');
+  void _onFlipPressed() {
+    logger.verbose(_tag, '_onActivatePressed()');
 
-    if (playCard.zoneType.isMultiCardZone && newZone != null) {
-      _setCardFromMultiCardZone(newZone);
+    _dialogService.popDialog(CardPosition.faceUpDefence);
+  }
+
+  void _onSetPressed() {
+    logger.verbose(_tag, '_onSetPressed()');
+
+    if (playCard.zoneType.isMultiCardZone && _newZone != null) {
+      _setCardFromMultiCardZone();
       return;
     }
 
     if (playCard.zoneType.isMainMonsterZone) {
-      _setMonsterCard(playCard);
+      _setMonsterCard();
       return;
     }
 
     _setSpellTrapCard();
   }
 
-  void _setCardFromMultiCardZone(Zone newZone) {
-    logger.verbose(_tag, '_setCardFromMultiCardZone(newZone: $newZone)');
+  void _setCardFromMultiCardZone() {
+    logger.verbose(_tag, '_setCardFromMultiCardZone(');
 
-    if (newZone.zoneType.isMainMonsterZone) {
-      _dialogService.popDialog(CardPosition.faceDownDefence);
+    if (_newZone.zoneType.isMainMonsterZone) {
+      _setMonsterCard();
     } else {
-      _dialogService.popDialog(CardPosition.faceDown);
+      _setSpellTrapCard();
     }
   }
 
-  void _setMonsterCard(PlayCard playCard) {
-    logger.verbose(_tag, '_setMonsterCard(playCard: $playCard)');
+  void _setMonsterCard() {
+    logger.verbose(_tag, '_setMonsterCard()');
 
-    if (playCard.position.isAttack) {
-      _dialogService.popDialog(CardPosition.faceDown);
-    } else {
-      _dialogService.popDialog(CardPosition.faceDownDefence);
-    }
+    _dialogService.popDialog(CardPosition.faceDownDefence);
   }
 
   void _setSpellTrapCard() {

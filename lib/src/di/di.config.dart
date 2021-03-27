@@ -94,8 +94,6 @@ Future<GetIt> $initGetIt(
   final ygoProDeckModule = _$YgoProDeckModule();
   final socketIoModule = _$SocketIoModule();
   gh.lazySingleton<AssetsProvider>(() => AssetsProviderImpl());
-  gh.lazySingleton<CreatePlayCardDialogActionsUseCase>(
-      () => CreatePlayCardDialogActionsUseCase());
   gh.lazySingleton<DateFormatter>(() => DateFormatter());
   gh.lazySingleton<smart_duel_disk3.DialogService>(
       () => DialogServiceImpl(get<AppRouter>()));
@@ -108,14 +106,6 @@ Future<GetIt> $initGetIt(
       () => firebaseModule.provideFirebaseFirestore());
   gh.factory<HomeViewModel>(
       () => HomeViewModel(get<smart_duel_disk1.Logger>()));
-  gh.factoryParam<PlayCardDialogViewModel, PlayCard, Zone>(
-      (_playCard, _newZone) => PlayCardDialogViewModel(
-            _playCard,
-            _newZone,
-            get<CreatePlayCardDialogActionsUseCase>(),
-            get<DialogService>(),
-            get<smart_duel_disk1.Logger>(),
-          ));
   final resolvedSharedPreferences =
       await sharedPreferencesModule.provideSharedPreferences();
   gh.lazySingleton<SharedPreferences>(() => resolvedSharedPreferences);
@@ -153,6 +143,8 @@ Future<GetIt> $initGetIt(
             _yugiohCard,
             _index,
           ));
+  gh.lazySingleton<CreatePlayCardDialogActionsUseCase>(
+      () => CreatePlayCardDialogActionsUseCase(get<Logger>()));
   gh.factory<DeckViewModel>(() => DeckViewModel(
         get<Logger>(),
         get<RouterHelper>(),
@@ -162,6 +154,14 @@ Future<GetIt> $initGetIt(
       ygoProDeckModule.provideYgoProDeckDio(get<AppConfig>(), get<Logger>()));
   gh.lazySingleton<DuelDataManager>(
       () => DuelDataManagerImpl(get<DuelStorageProvider>()));
+  gh.factoryParam<PlayCardDialogViewModel, PlayCard, Zone>(
+      (_playCard, _newZone) => PlayCardDialogViewModel(
+            _playCard,
+            _newZone,
+            get<CreatePlayCardDialogActionsUseCase>(),
+            get<DialogService>(),
+            get<smart_duel_disk1.Logger>(),
+          ));
   gh.lazySingleton<YgoProDeckRestClient>(
       () => YgoProDeckRestClient(get<Dio>()));
   gh.lazySingleton<YgoProDeckApiProvider>(
