@@ -187,8 +187,8 @@ class SpeedDuelViewModel extends BaseViewModel {
       return;
     }
 
-    _sendSummonEvent(card.yugiohCard, newZone);
-    _sendRemoveCardEvent(oldZone);
+    _sendPlayCardEvent(card, newZone);
+    _sendRemoveCardEvent(card, oldZone);
 
     _updatePlayerState(card, newZone, oldZone, position);
   }
@@ -363,26 +363,28 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   //region Server events
 
-  void _sendSummonEvent(YugiohCard yugiohCard, Zone newZone) {
-    logger.verbose(_tag, '_sendSummonEvent($yugiohCard, $newZone)');
+  void _sendPlayCardEvent(PlayCard card, Zone zone) {
+    logger.verbose(_tag, '_sendPlayCardEvent(card: $card, zone: $zone)');
 
     _smartDuelServer.emitSpeedDuelEvent(
-      SummonDuelEvent(
-        SummonEvent(
-          yugiohCardId: yugiohCard.id.toString(),
-          zoneName: _enumHelper.convertToString(newZone.zoneType),
+      SpeedDuelEvent.playCard(
+        CardEventData(
+          cardId: card.yugiohCard.id.toString(),
+          cardPosition: _enumHelper.convertToString(card.position),
+          zoneName: _enumHelper.convertToString(zone.zoneType),
         ),
       ),
     );
   }
 
-  void _sendRemoveCardEvent(Zone oldZone) {
-    logger.verbose(_tag, '_sendRemoveCardEvent($oldZone)');
+  void _sendRemoveCardEvent(PlayCard card, Zone zone) {
+    logger.verbose(_tag, '_sendRemoveCardEvent(card: $card, zone: $zone)');
 
     _smartDuelServer.emitSpeedDuelEvent(
-      RemoveCardDuelEvent(
-        RemoveCardEvent(
-          zoneName: _enumHelper.convertToString(oldZone.zoneType),
+      SpeedDuelEvent.removeCard(
+        CardEventData(
+          cardId: card.yugiohCard.id.toString(),
+          zoneName: _enumHelper.convertToString(zone.zoneType),
         ),
       ),
     );

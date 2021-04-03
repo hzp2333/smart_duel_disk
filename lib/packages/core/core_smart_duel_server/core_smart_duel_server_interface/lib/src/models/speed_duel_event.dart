@@ -1,12 +1,40 @@
+import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'remove_card_event.dart';
-import 'summon_event.dart';
+import '../../core_smart_duel_server_interface.dart';
 
-part 'speed_duel_event.freezed.dart';
+@immutable
+class SpeedDuelEvent extends Equatable {
+  final String scope;
+  final String action;
+  final SpeedDuelEventData data;
 
-@freezed
-abstract class SpeedDuelEvent with _$SpeedDuelEvent {
-  const factory SpeedDuelEvent.summon(SummonEvent data) = SummonDuelEvent;
-  const factory SpeedDuelEvent.removeCard(RemoveCardEvent data) = RemoveCardDuelEvent;
+  const SpeedDuelEvent._({
+    @required this.scope,
+    @required this.action,
+    @required this.data,
+  });
+
+  factory SpeedDuelEvent.playCard(CardEventData data) {
+    return SpeedDuelEvent._(
+      scope: 'card',
+      action: 'play',
+      data: data,
+    );
+  }
+
+  factory SpeedDuelEvent.removeCard(CardEventData data) {
+    return SpeedDuelEvent._(
+      scope: 'card',
+      action: 'remove',
+      data: data,
+    );
+  }
+
+  @override
+  List<Object> get props => [
+        scope,
+        action,
+        data,
+      ];
 }
