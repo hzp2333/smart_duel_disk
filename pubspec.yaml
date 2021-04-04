@@ -64,6 +64,7 @@ flutter:
     - assets/icons/
 
 scripts:
+  clean: fvm flutter clean
   deps: fvm flutter pub get
   go: fvm flutter run
   all: fvm flutter run -d all

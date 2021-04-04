@@ -216,7 +216,8 @@ Future<GetIt> $initGetIt(
             get<SpeedDuelDialogProvider>(),
             get<smart_duel_disk.SnackBarService>(),
           ));
-  gh.factory<WebSocketProvider>(() => WebSocketProviderImpl(get<Socket>()));
+  gh.factory<WebSocketProvider>(
+      () => WebSocketProviderImpl(get<Socket>(), get<Logger>()));
   return get;
 }
 
