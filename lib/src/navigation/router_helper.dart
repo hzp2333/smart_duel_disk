@@ -4,21 +4,24 @@ import 'package:smart_duel_disk/packages/core/core_config/core_config_interface/
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/src/yugioh_cards/entities/yugioh_card.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
+import 'package:smart_duel_disk/packages/features/feature_home/lib/feature_home.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_url_launcher/wrapper_url_launcher_interface/lib/wrapper_url_launcher_interface.dart';
 import 'package:smart_duel_disk/src/navigation/router.gr.dart';
 
 @LazySingleton(as: RouterHelper)
 class RouterHelperImpl implements RouterHelper {
+  final AppConfig _appConfig;
   final AppRouter _router;
   final DialogService _dialogService;
-  final AppConfig _appConfig;
   final UrlLauncherProvider _urlLauncherProvider;
+  final DuelDialogProvider _duelDialogProvider;
 
   RouterHelperImpl(
+    this._appConfig,
     this._router,
     this._dialogService,
-    this._appConfig,
     this._urlLauncherProvider,
+    this._duelDialogProvider,
   );
 
   @override
@@ -84,13 +87,14 @@ class RouterHelperImpl implements RouterHelper {
   //region Duel
 
   @override
-  Future<void> showDrawCard(VoidCallback cardDrawnCallback) {
-    return _router.navigate(DrawCardRoute(cardDrawnCallback: cardDrawnCallback));
+  Future<void> showSpeedDuel(PreBuiltDeck preBuiltDeck) {
+    return _router.navigate(SpeedDuelRoute(preBuiltDeck: preBuiltDeck));
   }
 
   @override
-  Future<void> showSpeedDuel(PreBuiltDeck preBuiltDeck) {
-    return _router.navigate(SpeedDuelRoute(preBuiltDeck: preBuiltDeck));
+  Future<PreBuiltDeck> showSelectDeckDialog() {
+    final selectDeckDialog = _duelDialogProvider.createSelectDeckDialog();
+    return _dialogService.showCustomDialog(selectDeckDialog);
   }
 
   //endregion
@@ -100,6 +104,15 @@ class RouterHelperImpl implements RouterHelper {
   @override
   Future<void> showYugiohCardDetail(YugiohCard yugiohCard, int index) {
     return _router.navigate(YugiohCardDetailRoute(yugiohCard: yugiohCard, index: index));
+  }
+
+  //endregion
+
+  //region Speed Duel
+
+  @override
+  Future<void> showDrawCard(VoidCallback cardDrawnCallback) {
+    return _router.navigate(DrawCardRoute(cardDrawnCallback: cardDrawnCallback));
   }
 
   //endregion

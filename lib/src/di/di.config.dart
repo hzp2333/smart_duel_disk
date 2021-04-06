@@ -22,9 +22,9 @@ import '../../packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_interfac
 import '../../packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/use_cases/create_play_card_dialog_actions_use_case.dart';
 import '../../packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/data_manager.dart';
+import '../../packages/core/core_general/lib/src/formatters/date_formatter.dart';
 import '../../packages/core/core_general/lib/core_general.dart'
     as smart_duel_disk2;
-import '../../packages/core/core_general/lib/src/formatters/date_formatter.dart';
 import '../../packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/deck/deck_data_manager.dart';
 import '../../packages/features/feature_home/lib/src/deck/deck_viewmodel.dart';
@@ -33,6 +33,9 @@ import '../../packages/core/core_navigation/lib/src/dialogs/dialog_service.dart'
 import '../navigation/dialogs/dialog_service.dart';
 import '../../packages/features/feature_speed_duel/lib/src/usecases/does_card_fit_in_zone_use_case.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/duel/duel_data_manager.dart';
+import '../../packages/features/feature_home/lib/src/duel/dialogs/duel_dialog_provider.dart'
+    as smart_duel_disk4;
+import '../../packages/features/feature_home/lib/feature_home.dart';
 import '../../packages/features/feature_home/lib/src/duel/mixins/duel_form_validators.dart';
 import '../../packages/core/core_storage/core_storage_interface/lib/core_storage_interface.dart';
 import '../../packages/core/core_storage/core_storage_impl/lib/src/duel/duel_storage_provider.dart';
@@ -54,6 +57,7 @@ import '../../packages/features/feature_speed_duel/lib/src/models/play_card.dart
 import '../../packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/play_card_dialog_viewmodel.dart';
 import '../../packages/core/core_navigation/lib/core_navigation.dart';
 import '../navigation/router_helper.dart';
+import '../../packages/features/feature_home/lib/src/duel/dialogs/select_deck/select_deck_dialog_viewmodel.dart';
 import '../../packages/core/core_storage/core_storage_impl/lib/src/providers/shared_preferences/shared_preferences_interface/shared_preferences_provider.dart';
 import '../../packages/core/core_storage/core_storage_impl/lib/src/providers/shared_preferences/shared_preferences_impl/shared_preferences_provider.dart';
 import '../../packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
@@ -98,6 +102,8 @@ Future<GetIt> $initGetIt(
   gh.lazySingleton<smart_duel_disk3.DialogService>(
       () => DialogServiceImpl(get<AppRouter>()));
   gh.lazySingleton<DoesCardFitInZoneUseCase>(() => DoesCardFitInZoneUseCase());
+  gh.lazySingleton<smart_duel_disk4.DuelDialogProvider>(
+      () => smart_duel_disk4.DuelDialogProvider());
   gh.lazySingleton<DuelFormValidators>(() => DuelFormValidators());
   gh.lazySingleton<EnumHelper>(() => EnumHelperImpl());
   gh.lazySingleton<FirebaseCrashlytics>(
@@ -132,10 +138,16 @@ Future<GetIt> $initGetIt(
   gh.lazySingleton<NewsDataManager>(
       () => NewsDataManagerImpl(get<AppConfig>(), get<TwitterProvider>()));
   gh.lazySingleton<RouterHelper>(() => RouterHelperImpl(
+        get<AppConfig>(),
         get<AppRouter>(),
         get<DialogService>(),
-        get<AppConfig>(),
         get<UrlLauncherProvider>(),
+        get<DuelDialogProvider>(),
+      ));
+  gh.factory<SelectDeckDialogViewModel>(() => SelectDeckDialogViewModel(
+        get<RouterHelper>(),
+        get<DialogService>(),
+        get<smart_duel_disk1.Logger>(),
       ));
   gh.factoryParam<YugiohCardDetailViewModel, YugiohCard, int>(
       (_yugiohCard, _index) => YugiohCardDetailViewModel(

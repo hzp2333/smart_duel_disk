@@ -24,14 +24,20 @@ abstract class RouterHelper {
 
   //region Duel
 
-  Future<void> showDrawCard(VoidCallback cardDrawnCallback);
   Future<void> showSpeedDuel(PreBuiltDeck preBuiltDeck);
+  Future<PreBuiltDeck> showSelectDeckDialog();
 
   //endregion
 
   //region Deck builder
 
   Future<void> showYugiohCardDetail(YugiohCard yugiohCard, int index);
+
+  //endregion
+
+  //region Speed duel
+
+  Future<void> showDrawCard(VoidCallback cardDrawnCallback);
 
   //endregion
 }
