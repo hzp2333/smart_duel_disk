@@ -8,7 +8,6 @@ import 'package:smart_duel_disk/packages/core/core_logger/core_logger_interface/
 import 'package:smart_duel_disk/packages/core/core_messaging/core_messaging_interface/lib/src/snack_bar/snack_bar_service.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/speed_duel_dialog_provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
@@ -36,8 +35,6 @@ class SpeedDuelViewModel extends BaseViewModel {
   final DoesCardFitInZoneUseCase _doesCardFitInZoneUseCase;
   final EnumHelper _enumHelper;
   final CrashlyticsProvider _crashlyticsProvider;
-  final DialogService _dialogService;
-  final SpeedDuelDialogProvider _speedDuelDialogProvider;
   final SnackBarService _snackBarService;
 
   final _playerState = BehaviorSubject<PlayerState>.seeded(const PlayerState());
@@ -61,9 +58,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     this._getCardsFromDeckUseCase,
     this._doesCardFitInZoneUseCase,
     this._enumHelper,
-    this._dialogService,
     this._crashlyticsProvider,
-    this._speedDuelDialogProvider,
     this._snackBarService,
   ) : super(
           logger,
@@ -167,8 +162,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       return;
     }
 
-    final dialog = _speedDuelDialogProvider.getPlayCardDialog(card, newZone: newZone);
-    final position = await _dialogService.showCustomDialog<CardPosition>(dialog);
+    final position = await _router.showPlayCardDialog(card, newZone: newZone);
     if (position != null) {
       _moveCardToNewZone(card, newZone, position);
     }
@@ -309,8 +303,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   //region Card pressed events
 
   Future<void> onCardPressed(PlayCard card) async {
-    final dialog = _speedDuelDialogProvider.getPlayCardDialog(card);
-    final position = await _dialogService.showCustomDialog<CardPosition>(dialog);
+    final position = await _router.showPlayCardDialog(card);
     if (position != null) {
       _updateCardPosition(card, position);
     }

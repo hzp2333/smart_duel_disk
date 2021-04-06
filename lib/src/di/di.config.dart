@@ -29,13 +29,13 @@ import '../../packages/features/feature_deck_builder/lib/src/deck_builder/deck_b
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/deck/deck_data_manager.dart';
 import '../../packages/features/feature_home/lib/src/deck/deck_viewmodel.dart';
 import '../../packages/core/core_navigation/lib/src/dialogs/dialog_service.dart'
-    as smart_duel_disk3;
+    as smart_duel_disk5;
 import '../navigation/dialogs/dialog_service.dart';
 import '../../packages/features/feature_speed_duel/lib/src/usecases/does_card_fit_in_zone_use_case.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/duel/duel_data_manager.dart';
-import '../../packages/features/feature_home/lib/src/duel/dialogs/duel_dialog_provider.dart'
-    as smart_duel_disk4;
-import '../../packages/features/feature_home/lib/feature_home.dart';
+import '../../packages/features/feature_home/lib/src/duel/dialogs/duel_dialog_provider.dart';
+import '../../packages/features/feature_home/lib/feature_home.dart'
+    as smart_duel_disk3;
 import '../../packages/features/feature_home/lib/src/duel/mixins/duel_form_validators.dart';
 import '../../packages/core/core_storage/core_storage_interface/lib/core_storage_interface.dart';
 import '../../packages/core/core_storage/core_storage_impl/lib/src/duel/duel_storage_provider.dart';
@@ -47,9 +47,9 @@ import '../../packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_impl/lib
 import 'modules/third_party_modules.dart';
 import '../../packages/features/feature_speed_duel/lib/src/usecases/get_cards_from_deck_use_case.dart';
 import '../../packages/features/feature_home/lib/src/home/home_viewmodel.dart';
-import '../../packages/core/core_logger/core_logger_interface/lib/core_logger_interface.dart';
 import '../../packages/core/core_logger/core_logger_interface/lib/src/logger.dart'
     as smart_duel_disk1;
+import '../../packages/core/core_logger/core_logger_interface/lib/core_logger_interface.dart';
 import '../../packages/core/core_logger/core_logger_impl/lib/src/logger.dart';
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/news/news_data_manager.dart';
 import '../../packages/features/feature_home/lib/src/news/news_viewmodel.dart';
@@ -67,6 +67,8 @@ import '../../packages/core/core_messaging/core_messaging_interface/lib/src/snac
     as smart_duel_disk;
 import '../../packages/core/core_messaging/core_messaging_impl/lib/src/snack_bar/snack_bar_service_impl.dart';
 import '../../packages/features/feature_speed_duel/lib/src/dialogs/speed_duel_dialog_provider.dart';
+import '../../packages/features/feature_speed_duel/lib/feature_speed_duel.dart'
+    as smart_duel_disk4;
 import '../../packages/features/feature_speed_duel/lib/src/speed_duel_viewmodel.dart';
 import '../../packages/wrappers/wrapper_twitter/wrapper_twitter_interface/lib/wrapper_twitter_interface.dart';
 import '../../packages/wrappers/wrapper_twitter/wrapper_twitter_impl/lib/src/twitter_provider.dart';
@@ -99,11 +101,10 @@ Future<GetIt> $initGetIt(
   final socketIoModule = _$SocketIoModule();
   gh.lazySingleton<AssetsProvider>(() => AssetsProviderImpl());
   gh.lazySingleton<DateFormatter>(() => DateFormatter());
-  gh.lazySingleton<smart_duel_disk3.DialogService>(
+  gh.lazySingleton<smart_duel_disk5.DialogService>(
       () => DialogServiceImpl(get<AppRouter>()));
   gh.lazySingleton<DoesCardFitInZoneUseCase>(() => DoesCardFitInZoneUseCase());
-  gh.lazySingleton<smart_duel_disk4.DuelDialogProvider>(
-      () => smart_duel_disk4.DuelDialogProvider());
+  gh.lazySingleton<DuelDialogProvider>(() => DuelDialogProvider());
   gh.lazySingleton<DuelFormValidators>(() => DuelFormValidators());
   gh.lazySingleton<EnumHelper>(() => EnumHelperImpl());
   gh.lazySingleton<FirebaseCrashlytics>(
@@ -142,7 +143,8 @@ Future<GetIt> $initGetIt(
         get<AppRouter>(),
         get<DialogService>(),
         get<UrlLauncherProvider>(),
-        get<DuelDialogProvider>(),
+        get<smart_duel_disk3.DuelDialogProvider>(),
+        get<smart_duel_disk4.SpeedDuelDialogProvider>(),
       ));
   gh.factory<SelectDeckDialogViewModel>(() => SelectDeckDialogViewModel(
         get<RouterHelper>(),
@@ -223,9 +225,7 @@ Future<GetIt> $initGetIt(
             get<GetCardsFromDeckUseCase>(),
             get<DoesCardFitInZoneUseCase>(),
             get<EnumHelper>(),
-            get<DialogService>(),
             get<CrashlyticsProvider>(),
-            get<SpeedDuelDialogProvider>(),
             get<smart_duel_disk.SnackBarService>(),
           ));
   gh.factory<WebSocketProvider>(

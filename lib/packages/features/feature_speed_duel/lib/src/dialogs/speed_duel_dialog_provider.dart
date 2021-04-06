@@ -7,6 +7,6 @@ import 'play_card_dialog/widgets/play_card_dialog_provider.dart';
 
 @LazySingleton()
 class SpeedDuelDialogProvider {
-  Widget getPlayCardDialog(PlayCard playCard, {Zone newZone}) =>
+  Widget createPlayCardDialog(PlayCard playCard, {Zone newZone}) =>
       PlayCardDialogProvider(playCard: playCard, newZone: newZone);
 }

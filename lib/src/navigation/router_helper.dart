@@ -5,6 +5,10 @@ import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manage
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/src/yugioh_cards/entities/yugioh_card.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/feature_home.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature_speed_duel.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_url_launcher/wrapper_url_launcher_interface/lib/wrapper_url_launcher_interface.dart';
 import 'package:smart_duel_disk/src/navigation/router.gr.dart';
 
@@ -15,6 +19,7 @@ class RouterHelperImpl implements RouterHelper {
   final DialogService _dialogService;
   final UrlLauncherProvider _urlLauncherProvider;
   final DuelDialogProvider _duelDialogProvider;
+  final SpeedDuelDialogProvider _speedDuelDialogProvider;
 
   RouterHelperImpl(
     this._appConfig,
@@ -22,6 +27,7 @@ class RouterHelperImpl implements RouterHelper {
     this._dialogService,
     this._urlLauncherProvider,
     this._duelDialogProvider,
+    this._speedDuelDialogProvider,
   );
 
   @override
@@ -113,6 +119,12 @@ class RouterHelperImpl implements RouterHelper {
   @override
   Future<void> showDrawCard(VoidCallback cardDrawnCallback) {
     return _router.navigate(DrawCardRoute(cardDrawnCallback: cardDrawnCallback));
+  }
+
+  @override
+  Future<CardPosition> showPlayCardDialog(PlayCard playCard, {Zone newZone}) {
+    final playCardDialog = _speedDuelDialogProvider.createPlayCardDialog(playCard, newZone: newZone);
+    return _dialogService.showCustomDialog(playCardDialog);
   }
 
   //endregion
