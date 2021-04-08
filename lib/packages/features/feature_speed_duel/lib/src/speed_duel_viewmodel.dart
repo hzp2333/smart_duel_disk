@@ -60,11 +60,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     this._enumHelper,
     this._crashlyticsProvider,
     this._snackBarService,
-  ) : super(
-          logger,
-        ) {
-    _init();
-  }
+  ) : super(logger);
 
   //region Lifecycle
 
@@ -83,12 +79,11 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   //region Initialization
 
-  Future<void> _init() async {
-    logger.verbose(_tag, '_init()');
+  Future<void> init() async {
+    logger.info(_tag, '_init()');
 
     try {
       _smartDuelServer.connect();
-
       _initPlayerStateSubscription();
 
       await _setDeck();
@@ -184,11 +179,11 @@ class SpeedDuelViewModel extends BaseViewModel {
     _sendPlayCardEvent(card, newZone);
     _sendRemoveCardEvent(card, oldZone);
 
-    _updatePlayerState(card, newZone, oldZone, position);
+    _updateCardZoneAndPosition(card, newZone, oldZone, position);
   }
 
-  void _updatePlayerState(PlayCard card, Zone newZone, Zone oldZone, CardPosition position) {
-    logger.verbose(_tag, '_updatePlayerState($card, $newZone, $oldZone)');
+  void _updateCardZoneAndPosition(PlayCard card, Zone newZone, Zone oldZone, CardPosition position) {
+    logger.verbose(_tag, '_updateCardZoneAndPosition($card, $newZone, $oldZone, $position)');
 
     final currentState = _playerState.value;
     final currentZones = currentState.zones;
@@ -203,6 +198,14 @@ class SpeedDuelViewModel extends BaseViewModel {
       ..removeWhere((zone) => zone.zoneType == updatedNewZone.zoneType)
       ..add(updatedOldZone)
       ..add(updatedNewZone);
+
+    _updatePlayerState(updatedZones);
+  }
+
+  void _updatePlayerState(List<Zone> updatedZones) {
+    logger.verbose(_tag, '_updatePlayerState(updatedZones: $updatedZones)');
+
+    final currentState = _playerState.value;
 
     final updatedState = currentState.copyWith(
       hand: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.hand),
@@ -324,22 +327,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       ..remove(cardZone)
       ..add(updatedCardZone);
 
-    final updatedState = currentState.copyWith(
-      hand: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.hand),
-      fieldZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.field),
-      mainMonsterZone1: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster1),
-      mainMonsterZone2: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster2),
-      mainMonsterZone3: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster3),
-      graveyardZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.graveyard),
-      banishedZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.banished),
-      extraDeckZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.extraDeck),
-      spellTrapZone1: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap1),
-      spellTrapZone2: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap2),
-      spellTrapZone3: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap3),
-      deckZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.deck),
-    );
-
-    _playerState.add(updatedState);
+    _updatePlayerState(updatedZones);
   }
 
   void onMultiCardZonePressed(Zone zone) {
@@ -387,13 +375,6 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   //region Clean-up
 
-  void _cancelPlayerStateSubscription() {
-    logger.verbose(_tag, '_cancelPlayerStateSubscription()');
-
-    _playerStateSubscription?.cancel();
-    _playerStateSubscription = null;
-  }
-
   @override
   void dispose() {
     logger.info(_tag, 'dispose()');
@@ -407,6 +388,13 @@ class SpeedDuelViewModel extends BaseViewModel {
     _speedDuelScreenEvent?.close();
 
     super.dispose();
+  }
+
+  void _cancelPlayerStateSubscription() {
+    logger.verbose(_tag, '_cancelPlayerStateSubscription()');
+
+    _playerStateSubscription?.cancel();
+    _playerStateSubscription = null;
   }
 
   //endregion

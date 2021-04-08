@@ -40,6 +40,8 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
     SystemChrome.setEnabledSystemUIOverlays([]);
 
     final vm = Provider.of<SpeedDuelViewModel>(context, listen: false);
+    vm.init();
+
     _speedDuelEventSubscription = vm.speedDuelScreenEvent.listen((speedDuelEvent) {
       speedDuelEvent.when(
         hideOverlays: () => _hideOverlays(),
