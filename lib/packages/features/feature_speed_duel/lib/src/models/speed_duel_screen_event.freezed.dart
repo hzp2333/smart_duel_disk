@@ -221,6 +221,7 @@ class _$SpeedDuelInspectCardPileEvent implements SpeedDuelInspectCardPileEvent {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(zone);
 
+  @JsonKey(ignore: true)
   @override
   $SpeedDuelInspectCardPileEventCopyWith<SpeedDuelInspectCardPileEvent>
       get copyWith => _$SpeedDuelInspectCardPileEventCopyWithImpl<
@@ -282,6 +283,7 @@ abstract class SpeedDuelInspectCardPileEvent implements SpeedDuelScreenEvent {
       _$SpeedDuelInspectCardPileEvent;
 
   Zone get zone;
+  @JsonKey(ignore: true)
   $SpeedDuelInspectCardPileEventCopyWith<SpeedDuelInspectCardPileEvent>
       get copyWith;
 }

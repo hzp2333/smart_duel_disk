@@ -44,6 +44,7 @@ mixin _$GetSpeedDuelCardsResponseModel {
   List<SpeedDuelCardModel> get speedDuelCards;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $GetSpeedDuelCardsResponseModelCopyWith<GetSpeedDuelCardsResponseModel>
       get copyWith;
 }
@@ -150,6 +151,7 @@ class _$_GetSpeedDuelCardsResponseModel
       runtimeType.hashCode ^
       const DeepCollectionEquality().hash(speedDuelCards);
 
+  @JsonKey(ignore: true)
   @override
   _$GetSpeedDuelCardsResponseModelCopyWith<_GetSpeedDuelCardsResponseModel>
       get copyWith => __$GetSpeedDuelCardsResponseModelCopyWithImpl<
@@ -176,6 +178,7 @@ abstract class _GetSpeedDuelCardsResponseModel
   @JsonKey(name: 'data')
   List<SpeedDuelCardModel> get speedDuelCards;
   @override
+  @JsonKey(ignore: true)
   _$GetSpeedDuelCardsResponseModelCopyWith<_GetSpeedDuelCardsResponseModel>
       get copyWith;
 }

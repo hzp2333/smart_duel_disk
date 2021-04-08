@@ -130,6 +130,7 @@ class _$Data implements Data {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(news);
 
+  @JsonKey(ignore: true)
   @override
   $DataCopyWith<Data> get copyWith =>
       _$DataCopyWithImpl<Data>(this, _$identity);
@@ -195,6 +196,7 @@ abstract class Data implements NewsState {
   const factory Data(Iterable<NewsListItem> news) = _$Data;
 
   Iterable<NewsListItem> get news;
+  @JsonKey(ignore: true)
   $DataCopyWith<Data> get copyWith;
 }
 

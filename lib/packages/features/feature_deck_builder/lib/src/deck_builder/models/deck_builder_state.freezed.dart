@@ -157,6 +157,7 @@ class _$Data implements Data {
       const DeepCollectionEquality().hash(speedDuelCards) ^
       const DeepCollectionEquality().hash(isPreBuilt);
 
+  @JsonKey(ignore: true)
   @override
   $DataCopyWith<Data> get copyWith =>
       _$DataCopyWithImpl<Data>(this, _$identity);
@@ -230,6 +231,7 @@ abstract class Data implements DeckBuilderState {
 
   Iterable<YugiohCard> get speedDuelCards;
   bool get isPreBuilt;
+  @JsonKey(ignore: true)
   $DataCopyWith<Data> get copyWith;
 }
 

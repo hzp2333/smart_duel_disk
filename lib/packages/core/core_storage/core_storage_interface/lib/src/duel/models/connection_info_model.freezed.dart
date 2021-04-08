@@ -41,6 +41,7 @@ mixin _$ConnectionInfoModel {
   String get port;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $ConnectionInfoModelCopyWith<ConnectionInfoModel> get copyWith;
 }
 
@@ -144,6 +145,7 @@ class _$_ConnectionInfoModel implements _ConnectionInfoModel {
       const DeepCollectionEquality().hash(ipAddress) ^
       const DeepCollectionEquality().hash(port);
 
+  @JsonKey(ignore: true)
   @override
   _$ConnectionInfoModelCopyWith<_ConnectionInfoModel> get copyWith =>
       __$ConnectionInfoModelCopyWithImpl<_ConnectionInfoModel>(
@@ -168,5 +170,6 @@ abstract class _ConnectionInfoModel implements ConnectionInfoModel {
   @override
   String get port;
   @override
+  @JsonKey(ignore: true)
   _$ConnectionInfoModelCopyWith<_ConnectionInfoModel> get copyWith;
 }
