@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/core_logger_interface/lib/core_logger_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/models/play_card_dialog_action.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
@@ -56,14 +57,22 @@ class CreatePlayCardDialogActionsUseCase {
     if (playCard.position == CardPosition.faceUp) {
       return [
         PlayCardDialogAction.toDefence(),
-        PlayCardDialogAction.set(),
+        if (playCard.yugiohCard.type == CardType.token) ...{
+          PlayCardDialogAction.destroy(),
+        } else ...{
+          PlayCardDialogAction.set(),
+        },
       ];
     }
 
     if (playCard.position == CardPosition.faceUpDefence) {
       return [
         PlayCardDialogAction.toAttack(),
-        PlayCardDialogAction.set(),
+        if (playCard.yugiohCard.type == CardType.token) ...{
+          PlayCardDialogAction.destroy(),
+        } else ...{
+          PlayCardDialogAction.set(),
+        },
       ];
     }
 

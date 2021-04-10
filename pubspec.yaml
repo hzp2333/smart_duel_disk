@@ -68,5 +68,6 @@ scripts:
   deps: fvm flutter pub get
   go: fvm flutter run
   all: fvm flutter run -d all
+  loco: sh scripts/translate.sh
   build: fvm flutter pub run build_runner build --delete-conflicting-outputs
   watch: fvm flutter pub run build_runner watch --delete-conflicting-outputs

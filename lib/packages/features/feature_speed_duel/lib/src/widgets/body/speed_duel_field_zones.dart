@@ -107,9 +107,9 @@ class DeckZone extends StatelessWidget {
             ),
           ),
           const PopupMenuItem<DeckAction>(
-            value: DeckAction.createToken,
+            value: DeckAction.spawnToken,
             child: _DeckZoneMenuItem(
-              title: 'Create token',
+              title: 'Summon token',
               icon: Icons.adb,
             ),
           ),

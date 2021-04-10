@@ -19,6 +19,7 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_enum_helper/wrapper_en
 
 import 'models/deck_action.dart';
 import 'models/zone_type.dart';
+import 'usecases/create_play_card_use_case.dart';
 import 'usecases/does_card_fit_in_zone_use_case.dart';
 import 'usecases/get_cards_from_deck_use_case.dart';
 
@@ -32,7 +33,9 @@ class SpeedDuelViewModel extends BaseViewModel {
   final RouterHelper _router;
   final SmartDuelServer _smartDuelServer;
   final GetCardsFromDeckUseCase _getCardsFromDeckUseCase;
+  final CreatePlayCardUseCase _createPlayCardUseCase;
   final DoesCardFitInZoneUseCase _doesCardFitInZoneUseCase;
+  final DataManager _dataManager;
   final EnumHelper _enumHelper;
   final CrashlyticsProvider _crashlyticsProvider;
   final SnackBarService _snackBarService;
@@ -56,7 +59,9 @@ class SpeedDuelViewModel extends BaseViewModel {
     this._router,
     this._smartDuelServer,
     this._getCardsFromDeckUseCase,
+    this._createPlayCardUseCase,
     this._doesCardFitInZoneUseCase,
+    this._dataManager,
     this._enumHelper,
     this._crashlyticsProvider,
     this._snackBarService,
@@ -241,6 +246,8 @@ class SpeedDuelViewModel extends BaseViewModel {
         return Future.sync(_shuffleDeck);
       case DeckAction.surrender:
         return _surrender();
+      case DeckAction.spawnToken:
+        return _spawnToken();
       default:
         return Future.value();
     }
@@ -301,13 +308,35 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
   }
 
+  Future<void> _spawnToken() async {
+    logger.verbose(_tag, '_spawnToken()');
+
+    final currentState = _playerState.value;
+    final tokenZone = currentState.mainMonsterZones.firstWhere((zone) => zone.isEmpty, orElse: () => null);
+    if (tokenZone == null) {
+      _snackBarService.showSnackBar('You need an empty monster zone to summon a token.');
+      return;
+    }
+
+    final token = await _dataManager.getToken();
+    final tokenCard = _createPlayCardUseCase(token, 1);
+    return onZoneAcceptsCard(tokenCard, tokenZone);
+  }
+
   //endregion
 
   //region Card pressed events
 
   Future<void> onCardPressed(PlayCard card) async {
     final position = await _router.showPlayCardDialog(card);
-    if (position != null) {
+    if (position == null) {
+      return;
+    }
+
+    if (position == CardPosition.destroy) {
+      // TODO: this is used to destroy tokens, but it isn't really a card position
+      _destroyCard(card);
+    } else {
       _updateCardPosition(card, position);
     }
   }
@@ -325,6 +354,23 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     final updatedZones = currentZones.toList()
       ..remove(cardZone)
+      ..add(updatedCardZone);
+
+    _updatePlayerState(updatedZones);
+  }
+
+  void _destroyCard(PlayCard card) {
+    logger.verbose(_tag, '_destroyCard(card: $card)');
+
+    final currentState = _playerState.value;
+    final currentZones = currentState.zones;
+    final cardZone = currentZones.firstWhere((zone) => zone.zoneType == card.zoneType);
+
+    _sendRemoveCardEvent(card, cardZone);
+
+    final updatedCardZone = cardZone.copyWith(cards: [...cardZone.cards]..remove(card));
+    final updatedZones = currentZones.toList()
+      ..removeWhere((zone) => zone.zoneType == updatedCardZone.zoneType)
       ..add(updatedCardZone);
 
     _updatePlayerState(updatedZones);

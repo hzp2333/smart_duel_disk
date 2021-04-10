@@ -1,6 +1,6 @@
 enum DeckAction {
   drawCard,
-  createToken,
+  spawnToken,
   showDeckList,
   shuffleDeck,
   surrender,

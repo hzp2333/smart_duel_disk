@@ -1,4 +1,5 @@
 import 'package:injectable/injectable.dart';
+import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/core_logger_interface/lib/src/logger.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
@@ -44,6 +45,7 @@ class PlayCardDialogViewModel extends BaseViewModel {
       toAttack: _onChangeToAttackPressed,
       toDefence: _onChangeToDefencePressed,
       flip: _onFlipPressed,
+      destroy: _onDestroyPressed,
       set: _onSetPressed,
     );
   }
@@ -78,6 +80,12 @@ class PlayCardDialogViewModel extends BaseViewModel {
     _dialogService.popDialog(CardPosition.faceUpDefence);
   }
 
+  void _onDestroyPressed() {
+    logger.verbose(_tag, '_onDestroyPressed()');
+
+    _dialogService.popDialog(CardPosition.destroy);
+  }
+
   void _onSetPressed() {
     logger.verbose(_tag, '_onSetPressed()');
 
@@ -107,7 +115,11 @@ class PlayCardDialogViewModel extends BaseViewModel {
   void _setMonsterCard() {
     logger.verbose(_tag, '_setMonsterCard()');
 
-    _dialogService.popDialog(CardPosition.faceDownDefence);
+    if (_playCard.yugiohCard.type == CardType.token) {
+      _dialogService.popDialog(CardPosition.faceUpDefence);
+    } else {
+      _dialogService.popDialog(CardPosition.faceDownDefence);
+    }
   }
 
   void _setSpellTrapCard() {

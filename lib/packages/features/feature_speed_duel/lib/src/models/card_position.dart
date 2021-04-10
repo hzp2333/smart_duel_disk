@@ -3,6 +3,7 @@ enum CardPosition {
   faceDown,
   faceUpDefence,
   faceDownDefence,
+  destroy,
 }
 
 extension CardPositionExtensions on CardPosition {

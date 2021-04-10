@@ -200,4 +200,11 @@ class Strings {
       'en': '''Set''',
     },
   );
+
+  static const speedDuelCardActionDestroy = PlainLocalizedString(
+    key: 'speed_duel_card_action_destroy',
+    values: {
+      'en': '''Destroy''',
+    },
+  );
 }

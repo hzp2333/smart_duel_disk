@@ -3,7 +3,7 @@
 # Release: Working copy
 # Locale: en-US, English (USA)
 # Exported by: Bram De Coninck
-# Exported at: Sat, 27 Mar 2021 16:34:44 +0100
+# Exported at: Sat, 10 Apr 2021 16:53:06 +0200
 ---
 home_tab_news: News
 home_tab_duel: Duel
@@ -26,4 +26,5 @@ speed_duel_card_action_to_attack: To ATK
 speed_duel_card_action_to_defence: To DEF
 speed_duel_card_action_flip: Flip
 speed_duel_card_action_set: Set
+speed_duel_card_action_destroy: Destroy
 ...

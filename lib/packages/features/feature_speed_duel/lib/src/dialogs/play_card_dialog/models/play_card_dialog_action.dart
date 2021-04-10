@@ -65,6 +65,14 @@ class PlayCardDialogAction extends Equatable {
     );
   }
 
+  factory PlayCardDialogAction.destroy() {
+    return PlayCardDialogAction._(
+      name: Strings.speedDuelCardActionDestroy.get(),
+      type: const PlayCardDialogDestroyAction(),
+      icon: FontAwesomeIcons.bomb,
+    );
+  }
+
   @override
   List<Object> get props => [
         name,

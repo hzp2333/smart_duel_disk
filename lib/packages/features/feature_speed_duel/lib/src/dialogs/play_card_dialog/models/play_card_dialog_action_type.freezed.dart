@@ -42,6 +42,11 @@ class _$PlayCardDialogActionTypeTearOff {
   PlayCardDialogSetAction set() {
     return const PlayCardDialogSetAction();
   }
+
+// ignore: unused_element
+  PlayCardDialogDestroyAction destroy() {
+    return const PlayCardDialogDestroyAction();
+  }
 }
 
 /// @nodoc
@@ -58,6 +63,7 @@ mixin _$PlayCardDialogActionType {
     @required TResult toDefence(),
     @required TResult flip(),
     @required TResult set(),
+    @required TResult destroy(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
@@ -67,6 +73,7 @@ mixin _$PlayCardDialogActionType {
     TResult toDefence(),
     TResult flip(),
     TResult set(),
+    TResult destroy(),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -77,6 +84,7 @@ mixin _$PlayCardDialogActionType {
     @required TResult toDefence(PlayCardDialogToDefenceAction value),
     @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
+    @required TResult destroy(PlayCardDialogDestroyAction value),
   });
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object>({
@@ -86,6 +94,7 @@ mixin _$PlayCardDialogActionType {
     TResult toDefence(PlayCardDialogToDefenceAction value),
     TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
+    TResult destroy(PlayCardDialogDestroyAction value),
     @required TResult orElse(),
   });
 }
@@ -153,6 +162,7 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
     @required TResult toDefence(),
     @required TResult flip(),
     @required TResult set(),
+    @required TResult destroy(),
   }) {
     assert(summon != null);
     assert(activate != null);
@@ -160,6 +170,7 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
     assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
+    assert(destroy != null);
     return summon();
   }
 
@@ -172,6 +183,7 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
     TResult toDefence(),
     TResult flip(),
     TResult set(),
+    TResult destroy(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -190,6 +202,7 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
     @required TResult toDefence(PlayCardDialogToDefenceAction value),
     @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
+    @required TResult destroy(PlayCardDialogDestroyAction value),
   }) {
     assert(summon != null);
     assert(activate != null);
@@ -197,6 +210,7 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
     assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
+    assert(destroy != null);
     return summon(this);
   }
 
@@ -209,6 +223,7 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
     TResult toDefence(PlayCardDialogToDefenceAction value),
     TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
+    TResult destroy(PlayCardDialogDestroyAction value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -271,6 +286,7 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
     @required TResult toDefence(),
     @required TResult flip(),
     @required TResult set(),
+    @required TResult destroy(),
   }) {
     assert(summon != null);
     assert(activate != null);
@@ -278,6 +294,7 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
     assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
+    assert(destroy != null);
     return activate();
   }
 
@@ -290,6 +307,7 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
     TResult toDefence(),
     TResult flip(),
     TResult set(),
+    TResult destroy(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -308,6 +326,7 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
     @required TResult toDefence(PlayCardDialogToDefenceAction value),
     @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
+    @required TResult destroy(PlayCardDialogDestroyAction value),
   }) {
     assert(summon != null);
     assert(activate != null);
@@ -315,6 +334,7 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
     assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
+    assert(destroy != null);
     return activate(this);
   }
 
@@ -327,6 +347,7 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
     TResult toDefence(PlayCardDialogToDefenceAction value),
     TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
+    TResult destroy(PlayCardDialogDestroyAction value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -390,6 +411,7 @@ class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
     @required TResult toDefence(),
     @required TResult flip(),
     @required TResult set(),
+    @required TResult destroy(),
   }) {
     assert(summon != null);
     assert(activate != null);
@@ -397,6 +419,7 @@ class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
     assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
+    assert(destroy != null);
     return toAttack();
   }
 
@@ -409,6 +432,7 @@ class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
     TResult toDefence(),
     TResult flip(),
     TResult set(),
+    TResult destroy(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -427,6 +451,7 @@ class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
     @required TResult toDefence(PlayCardDialogToDefenceAction value),
     @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
+    @required TResult destroy(PlayCardDialogDestroyAction value),
   }) {
     assert(summon != null);
     assert(activate != null);
@@ -434,6 +459,7 @@ class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
     assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
+    assert(destroy != null);
     return toAttack(this);
   }
 
@@ -446,6 +472,7 @@ class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
     TResult toDefence(PlayCardDialogToDefenceAction value),
     TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
+    TResult destroy(PlayCardDialogDestroyAction value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -509,6 +536,7 @@ class _$PlayCardDialogToDefenceAction implements PlayCardDialogToDefenceAction {
     @required TResult toDefence(),
     @required TResult flip(),
     @required TResult set(),
+    @required TResult destroy(),
   }) {
     assert(summon != null);
     assert(activate != null);
@@ -516,6 +544,7 @@ class _$PlayCardDialogToDefenceAction implements PlayCardDialogToDefenceAction {
     assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
+    assert(destroy != null);
     return toDefence();
   }
 
@@ -528,6 +557,7 @@ class _$PlayCardDialogToDefenceAction implements PlayCardDialogToDefenceAction {
     TResult toDefence(),
     TResult flip(),
     TResult set(),
+    TResult destroy(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -546,6 +576,7 @@ class _$PlayCardDialogToDefenceAction implements PlayCardDialogToDefenceAction {
     @required TResult toDefence(PlayCardDialogToDefenceAction value),
     @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
+    @required TResult destroy(PlayCardDialogDestroyAction value),
   }) {
     assert(summon != null);
     assert(activate != null);
@@ -553,6 +584,7 @@ class _$PlayCardDialogToDefenceAction implements PlayCardDialogToDefenceAction {
     assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
+    assert(destroy != null);
     return toDefence(this);
   }
 
@@ -565,6 +597,7 @@ class _$PlayCardDialogToDefenceAction implements PlayCardDialogToDefenceAction {
     TResult toDefence(PlayCardDialogToDefenceAction value),
     TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
+    TResult destroy(PlayCardDialogDestroyAction value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -627,6 +660,7 @@ class _$PlayCardDialogFlipAction implements PlayCardDialogFlipAction {
     @required TResult toDefence(),
     @required TResult flip(),
     @required TResult set(),
+    @required TResult destroy(),
   }) {
     assert(summon != null);
     assert(activate != null);
@@ -634,6 +668,7 @@ class _$PlayCardDialogFlipAction implements PlayCardDialogFlipAction {
     assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
+    assert(destroy != null);
     return flip();
   }
 
@@ -646,6 +681,7 @@ class _$PlayCardDialogFlipAction implements PlayCardDialogFlipAction {
     TResult toDefence(),
     TResult flip(),
     TResult set(),
+    TResult destroy(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -664,6 +700,7 @@ class _$PlayCardDialogFlipAction implements PlayCardDialogFlipAction {
     @required TResult toDefence(PlayCardDialogToDefenceAction value),
     @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
+    @required TResult destroy(PlayCardDialogDestroyAction value),
   }) {
     assert(summon != null);
     assert(activate != null);
@@ -671,6 +708,7 @@ class _$PlayCardDialogFlipAction implements PlayCardDialogFlipAction {
     assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
+    assert(destroy != null);
     return flip(this);
   }
 
@@ -683,6 +721,7 @@ class _$PlayCardDialogFlipAction implements PlayCardDialogFlipAction {
     TResult toDefence(PlayCardDialogToDefenceAction value),
     TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
+    TResult destroy(PlayCardDialogDestroyAction value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -742,6 +781,7 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
     @required TResult toDefence(),
     @required TResult flip(),
     @required TResult set(),
+    @required TResult destroy(),
   }) {
     assert(summon != null);
     assert(activate != null);
@@ -749,6 +789,7 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
     assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
+    assert(destroy != null);
     return set();
   }
 
@@ -761,6 +802,7 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
     TResult toDefence(),
     TResult flip(),
     TResult set(),
+    TResult destroy(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -779,6 +821,7 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
     @required TResult toDefence(PlayCardDialogToDefenceAction value),
     @required TResult flip(PlayCardDialogFlipAction value),
     @required TResult set(PlayCardDialogSetAction value),
+    @required TResult destroy(PlayCardDialogDestroyAction value),
   }) {
     assert(summon != null);
     assert(activate != null);
@@ -786,6 +829,7 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
     assert(toDefence != null);
     assert(flip != null);
     assert(set != null);
+    assert(destroy != null);
     return set(this);
   }
 
@@ -798,6 +842,7 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
     TResult toDefence(PlayCardDialogToDefenceAction value),
     TResult flip(PlayCardDialogFlipAction value),
     TResult set(PlayCardDialogSetAction value),
+    TResult destroy(PlayCardDialogDestroyAction value),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -810,4 +855,127 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
 
 abstract class PlayCardDialogSetAction implements PlayCardDialogActionType {
   const factory PlayCardDialogSetAction() = _$PlayCardDialogSetAction;
+}
+
+/// @nodoc
+abstract class $PlayCardDialogDestroyActionCopyWith<$Res> {
+  factory $PlayCardDialogDestroyActionCopyWith(
+          PlayCardDialogDestroyAction value,
+          $Res Function(PlayCardDialogDestroyAction) then) =
+      _$PlayCardDialogDestroyActionCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$PlayCardDialogDestroyActionCopyWithImpl<$Res>
+    extends _$PlayCardDialogActionTypeCopyWithImpl<$Res>
+    implements $PlayCardDialogDestroyActionCopyWith<$Res> {
+  _$PlayCardDialogDestroyActionCopyWithImpl(PlayCardDialogDestroyAction _value,
+      $Res Function(PlayCardDialogDestroyAction) _then)
+      : super(_value, (v) => _then(v as PlayCardDialogDestroyAction));
+
+  @override
+  PlayCardDialogDestroyAction get _value =>
+      super._value as PlayCardDialogDestroyAction;
+}
+
+/// @nodoc
+class _$PlayCardDialogDestroyAction implements PlayCardDialogDestroyAction {
+  const _$PlayCardDialogDestroyAction();
+
+  @override
+  String toString() {
+    return 'PlayCardDialogActionType.destroy()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is PlayCardDialogDestroyAction);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object>({
+    @required TResult summon(),
+    @required TResult activate(),
+    @required TResult toAttack(),
+    @required TResult toDefence(),
+    @required TResult flip(),
+    @required TResult set(),
+    @required TResult destroy(),
+  }) {
+    assert(summon != null);
+    assert(activate != null);
+    assert(toAttack != null);
+    assert(toDefence != null);
+    assert(flip != null);
+    assert(set != null);
+    assert(destroy != null);
+    return destroy();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object>({
+    TResult summon(),
+    TResult activate(),
+    TResult toAttack(),
+    TResult toDefence(),
+    TResult flip(),
+    TResult set(),
+    TResult destroy(),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (destroy != null) {
+      return destroy();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object>({
+    @required TResult summon(PlayCardDialogSummonAction value),
+    @required TResult activate(PlayCardDialogActivateAction value),
+    @required TResult toAttack(PlayCardDialogToAttackAction value),
+    @required TResult toDefence(PlayCardDialogToDefenceAction value),
+    @required TResult flip(PlayCardDialogFlipAction value),
+    @required TResult set(PlayCardDialogSetAction value),
+    @required TResult destroy(PlayCardDialogDestroyAction value),
+  }) {
+    assert(summon != null);
+    assert(activate != null);
+    assert(toAttack != null);
+    assert(toDefence != null);
+    assert(flip != null);
+    assert(set != null);
+    assert(destroy != null);
+    return destroy(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object>({
+    TResult summon(PlayCardDialogSummonAction value),
+    TResult activate(PlayCardDialogActivateAction value),
+    TResult toAttack(PlayCardDialogToAttackAction value),
+    TResult toDefence(PlayCardDialogToDefenceAction value),
+    TResult flip(PlayCardDialogFlipAction value),
+    TResult set(PlayCardDialogSetAction value),
+    TResult destroy(PlayCardDialogDestroyAction value),
+    @required TResult orElse(),
+  }) {
+    assert(orElse != null);
+    if (destroy != null) {
+      return destroy(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class PlayCardDialogDestroyAction implements PlayCardDialogActionType {
+  const factory PlayCardDialogDestroyAction() = _$PlayCardDialogDestroyAction;
 }

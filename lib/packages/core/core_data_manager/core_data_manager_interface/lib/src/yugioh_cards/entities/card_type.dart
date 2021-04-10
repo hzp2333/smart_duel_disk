@@ -10,6 +10,7 @@ enum CardType {
   unionEffectMonster,
   toonMonster,
   ritualEffectMonster,
+  token,
   unknown,
 }
 
@@ -37,6 +38,8 @@ CardType parseCardType(String value) {
       return CardType.toonMonster;
     case 'ritual effect monster':
       return CardType.ritualEffectMonster;
+    case 'token':
+      return CardType.token;
     default:
       return CardType.unknown;
   }
