@@ -20,6 +20,8 @@ class GetCardsFromDeckUseCase {
 
   Future<Iterable<PlayCard>> call(PreBuiltDeck deck) async {
     final allCards = await _dataManager.getSpeedDuelCards();
+    // TODO: we do this here to cache the token, can be improved
+    await _dataManager.getToken();
     final deckCardIds = await _dataManager.getPreBuiltDeckCardIds(deck);
 
     // TODO: as this is a heavy computation we should probably spawn an isolate.

@@ -31,6 +31,11 @@ class DataManagerImpl implements DataManager {
     return _yugiohCardsDataManager.getSpeedDuelCards(includeSkillCards: includeSkillCards);
   }
 
+  @override
+  Future<YugiohCard> getToken() {
+    return _yugiohCardsDataManager.getToken();
+  }
+
   //endregion
 
   //region Decks
