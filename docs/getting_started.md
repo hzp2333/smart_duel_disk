@@ -8,11 +8,14 @@
 
 ## Building the app
 
+1. Configure your Android Studio to use the `Flutter` and `Dart` SDKs
 1. Getting a valid `google-services.json` file
     1. Create a [Firebase](https://console.firebase.google.com) account.
     1. Create an application with any name you desire. Ensure that the package name `com.crowncorp.smartdueldisk` so that it can be used to build the application.
     1. Download the `google-services.json` for the application you created
     1. Copy the file over into `android/app`
+1. Install all of the dependencies of the application using the command `flutter pub get`
+1. Run the file watcher to ensure that all the route files and di files get generated before compiling the app, using the command `flutter packages pub run build_runner watch`
 1. Firebase Database and collections. The app uses firebase collection for getting pre built deck data. There are 2 options: stubbing out the response or configuring a firebase collection for you app from earlier. (I am not sure how to work with Firebase yet, so I will explain where I mocked it out)
 
     1. Find the class `FirebaseCloudDatabaseProvider`
@@ -29,6 +32,4 @@
                      return completer.future;
                  }
              ```
-
-1. Install all of the dependencies of the application using the command `flutter pub get`
-1. Run the file watcher to ensure that all the route files and di files get generated before compiling the app, using the command `flutter packages pub run build_runner watch`
+1. Building the application using Android Studio should now be possible
