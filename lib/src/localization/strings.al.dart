@@ -207,4 +207,18 @@ class Strings {
       'en': '''Destroy''',
     },
   );
+
+  static const speedDuelCardActionSummonAttack = PlainLocalizedString(
+    key: 'speed_duel_card_action_summon_attack',
+    values: {
+      'en': '''Summon ATK''',
+    },
+  );
+
+  static const speedDuelCardActionSummonDefence = PlainLocalizedString(
+    key: 'speed_duel_card_action_summon_defence',
+    values: {
+      'en': '''Summon DEF''',
+    },
+  );
 }

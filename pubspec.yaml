@@ -1,6 +1,6 @@
 name: smart_duel_disk
 description: A Smart Duel Disk app for playing Yu-Gi-Oh!.
-version: 0.6.0+60000
+version: 0.6.0+60001
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -67,6 +67,7 @@ scripts:
   clean: fvm flutter clean
   deps: fvm flutter pub get
   go: fvm flutter run
+  gorel: fvm flutter run --release
   all: fvm flutter run -d all
   loco: sh scripts/translate.sh
   build: fvm flutter pub run build_runner build --delete-conflicting-outputs

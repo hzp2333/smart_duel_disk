@@ -181,9 +181,6 @@ class SpeedDuelViewModel extends BaseViewModel {
       return;
     }
 
-    _sendPlayCardEvent(card, newZone);
-    _sendRemoveCardEvent(card, oldZone);
-
     _updateCardZoneAndPosition(card, newZone, oldZone, position);
   }
 
@@ -197,6 +194,9 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     final updatedCard = card.copyWith(zoneType: newZone.zoneType, position: position);
     final updatedNewZone = newZone.copyWith(cards: [...newZone.cards, updatedCard]);
+
+    _sendPlayCardEvent(updatedCard, newZone);
+    _sendRemoveCardEvent(updatedCard, oldZone);
 
     final updatedZones = currentZones.toList()
       ..removeWhere((zone) => zone.zoneType == updatedOldZone.zoneType)
@@ -351,6 +351,8 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     final updatedCard = card.copyWith(position: position);
     final updatedCardZone = cardZone.copyWith(cards: [...cardZone.cards, updatedCard]..remove(card));
+
+    _sendPlayCardEvent(updatedCard, cardZone);
 
     final updatedZones = currentZones.toList()
       ..remove(cardZone)
