@@ -41,10 +41,26 @@ class PlayCardDialogAction extends Equatable {
     );
   }
 
+  factory PlayCardDialogAction.summonAttack() {
+    return PlayCardDialogAction._(
+      name: Strings.speedDuelCardActionSummonAttack.get(),
+      type: const PlayCardDialogSummonAttackAction(),
+      icon: FontAwesomeIcons.gavel,
+    );
+  }
+
   factory PlayCardDialogAction.toDefence() {
     return PlayCardDialogAction._(
       name: Strings.speedDuelCardActionToDefence.get(),
       type: const PlayCardDialogToDefenceAction(),
+      icon: FontAwesomeIcons.shieldAlt,
+    );
+  }
+
+  factory PlayCardDialogAction.summonDefence() {
+    return PlayCardDialogAction._(
+      name: Strings.speedDuelCardActionSummonDefence.get(),
+      type: const PlayCardDialogSummonDefenceAction(),
       icon: FontAwesomeIcons.shieldAlt,
     );
   }

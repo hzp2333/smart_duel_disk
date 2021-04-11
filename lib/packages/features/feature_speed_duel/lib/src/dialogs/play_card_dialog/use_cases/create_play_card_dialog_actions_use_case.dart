@@ -39,6 +39,13 @@ class CreatePlayCardDialogActionsUseCase {
     _logger.verbose(_tag, '_getMultiCardZoneActions(playCard: $playCard, newZone: $newZone');
 
     if (newZone.zoneType.isMainMonsterZone) {
+      if (playCard.yugiohCard.type == CardType.token) {
+        return [
+          PlayCardDialogAction.summonAttack(),
+          PlayCardDialogAction.summonDefence(),
+        ];
+      }
+
       return [
         PlayCardDialogAction.summon(),
         PlayCardDialogAction.set(),
