@@ -3,7 +3,7 @@
 # Release: Working copy
 # Locale: en-US, English (USA)
 # Exported by: Bram De Coninck
-# Exported at: Sat, 16 Jan 2021 19:10:34 +0100
+# Exported at: Sat, 10 Apr 2021 16:53:06 +0200
 ---
 home_tab_news: News
 home_tab_duel: Duel
@@ -20,4 +20,11 @@ deck_pre_built_kaiba_title: Kaiba's Deck
 feature_not_available_yet_description: '{1} is not available yet'
 deck_personal_create_deck: Create a deck
 deck_personal_search_card: Search a card
+speed_duel_card_action_summon: Summon
+speed_duel_card_action_activate: Activate
+speed_duel_card_action_to_attack: To ATK
+speed_duel_card_action_to_defence: To DEF
+speed_duel_card_action_flip: Flip
+speed_duel_card_action_set: Set
+speed_duel_card_action_destroy: Destroy
 ...

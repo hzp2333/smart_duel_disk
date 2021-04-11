@@ -38,6 +38,7 @@ mixin _$GetDeckResponse {
   List<int> get cardIds;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $GetDeckResponseCopyWith<GetDeckResponse> get copyWith;
 }
 
@@ -128,6 +129,7 @@ class _$_GetDeckResponse implements _GetDeckResponse {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(cardIds);
 
+  @JsonKey(ignore: true)
   @override
   _$GetDeckResponseCopyWith<_GetDeckResponse> get copyWith =>
       __$GetDeckResponseCopyWithImpl<_GetDeckResponse>(this, _$identity);
@@ -148,5 +150,6 @@ abstract class _GetDeckResponse implements GetDeckResponse {
   @override
   List<int> get cardIds;
   @override
+  @JsonKey(ignore: true)
   _$GetDeckResponseCopyWith<_GetDeckResponse> get copyWith;
 }

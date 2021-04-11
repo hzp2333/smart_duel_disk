@@ -48,6 +48,7 @@ mixin _$BanListInfoModel {
   String get banTcg;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $BanListInfoModelCopyWith<BanListInfoModel> get copyWith;
 }
 
@@ -170,6 +171,7 @@ class _$_BanListInfoModel implements _BanListInfoModel {
       const DeepCollectionEquality().hash(banGoat) ^
       const DeepCollectionEquality().hash(banTcg);
 
+  @JsonKey(ignore: true)
   @override
   _$BanListInfoModelCopyWith<_BanListInfoModel> get copyWith =>
       __$BanListInfoModelCopyWithImpl<_BanListInfoModel>(this, _$identity);
@@ -199,5 +201,6 @@ abstract class _BanListInfoModel implements BanListInfoModel {
   @JsonKey(name: 'ban_tcg')
   String get banTcg;
   @override
+  @JsonKey(ignore: true)
   _$BanListInfoModelCopyWith<_BanListInfoModel> get copyWith;
 }

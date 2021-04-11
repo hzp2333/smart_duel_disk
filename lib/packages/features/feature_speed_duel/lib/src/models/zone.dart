@@ -14,6 +14,8 @@ class Zone extends Equatable {
     this.cards = const [],
   });
 
+  bool get isEmpty => cards.isEmpty;
+
   Zone copyWith({Iterable<PlayCard> cards}) {
     return Zone(
       zoneType: zoneType,

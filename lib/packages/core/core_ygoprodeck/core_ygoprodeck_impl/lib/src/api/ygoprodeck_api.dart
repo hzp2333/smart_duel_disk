@@ -13,4 +13,7 @@ abstract class YgoProDeckRestClient {
 
   @GET('/cardinfo.php?format=Speed%20Duel')
   Future<GetSpeedDuelCardsResponseModel> getSpeedDuelCards();
+
+  @GET('/cardinfo.php?name=Sheep%20Token')
+  Future<GetSpeedDuelCardsResponseModel> getToken();
 }

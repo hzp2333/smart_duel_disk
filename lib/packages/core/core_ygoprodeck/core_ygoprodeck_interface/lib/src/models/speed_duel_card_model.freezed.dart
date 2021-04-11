@@ -92,6 +92,7 @@ mixin _$SpeedDuelCardModel {
   BanListInfoModel get banListInfo;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $SpeedDuelCardModelCopyWith<SpeedDuelCardModel> get copyWith;
 }
 
@@ -401,6 +402,7 @@ class _$_SpeedDuelCardModel implements _SpeedDuelCardModel {
       const DeepCollectionEquality().hash(archetype) ^
       const DeepCollectionEquality().hash(banListInfo);
 
+  @JsonKey(ignore: true)
   @override
   _$SpeedDuelCardModelCopyWith<_SpeedDuelCardModel> get copyWith =>
       __$SpeedDuelCardModelCopyWithImpl<_SpeedDuelCardModel>(this, _$identity);
@@ -496,5 +498,6 @@ abstract class _SpeedDuelCardModel implements SpeedDuelCardModel {
   @JsonKey(name: 'banlist_info')
   BanListInfoModel get banListInfo;
   @override
+  @JsonKey(ignore: true)
   _$SpeedDuelCardModelCopyWith<_SpeedDuelCardModel> get copyWith;
 }

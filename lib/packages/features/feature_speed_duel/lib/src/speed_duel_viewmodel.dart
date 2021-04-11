@@ -5,8 +5,10 @@ import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/core_logger_interface/lib/core_logger_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_messaging/core_messaging_interface/lib/src/snack_bar/snack_bar_service.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_event.dart';
@@ -17,6 +19,8 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_enum_helper/wrapper_en
 
 import 'models/deck_action.dart';
 import 'models/zone_type.dart';
+import 'usecases/create_play_card_use_case.dart';
+import 'usecases/does_card_fit_in_zone_use_case.dart';
 import 'usecases/get_cards_from_deck_use_case.dart';
 
 @Injectable()
@@ -29,8 +33,12 @@ class SpeedDuelViewModel extends BaseViewModel {
   final RouterHelper _router;
   final SmartDuelServer _smartDuelServer;
   final GetCardsFromDeckUseCase _getCardsFromDeckUseCase;
+  final CreatePlayCardUseCase _createPlayCardUseCase;
+  final DoesCardFitInZoneUseCase _doesCardFitInZoneUseCase;
+  final DataManager _dataManager;
   final EnumHelper _enumHelper;
   final CrashlyticsProvider _crashlyticsProvider;
+  final SnackBarService _snackBarService;
 
   final _playerState = BehaviorSubject<PlayerState>.seeded(const PlayerState());
 
@@ -51,32 +59,36 @@ class SpeedDuelViewModel extends BaseViewModel {
     this._router,
     this._smartDuelServer,
     this._getCardsFromDeckUseCase,
+    this._createPlayCardUseCase,
+    this._doesCardFitInZoneUseCase,
+    this._dataManager,
     this._enumHelper,
     this._crashlyticsProvider,
-  ) : super(
-          logger,
-        ) {
-    _init();
-  }
+    this._snackBarService,
+  ) : super(logger);
 
   //region Lifecycle
 
-  bool onWillPop() {
-    logger.info(_tag, 'onWillPop()');
+  bool onBackPressed() {
+    logger.info(_tag, 'onBackPressed()');
 
-    return _surrendered || _speedDuelState.value is! SpeedDuelData;
+    final canPop = _surrendered || _speedDuelState.value is! SpeedDuelData;
+    if (!canPop) {
+      _snackBarService.showSnackBar('Currently, the back key cannot be used.');
+    }
+
+    return canPop;
   }
 
   //endregion
 
   //region Initialization
 
-  Future<void> _init() async {
-    logger.verbose(_tag, '_init()');
+  Future<void> init() async {
+    logger.info(_tag, '_init()');
 
     try {
       _smartDuelServer.connect();
-
       _initPlayerStateSubscription();
 
       await _setDeck();
@@ -104,20 +116,12 @@ class SpeedDuelViewModel extends BaseViewModel {
   Future<void> _setDeck() async {
     logger.verbose(_tag, '_setDeck()');
 
-    final allCards = await _getCardsFromDeckUseCase(_preBuiltDeck);
+    final playCards = await _getCardsFromDeckUseCase(_preBuiltDeck);
 
-    final mainDeck = <PlayCard>[];
-    final extraDeck = <PlayCard>[];
-
-    for (final card in allCards) {
-      if (card.type == CardType.fusionMonster) {
-        final copyNumber = extraDeck.where((playCard) => playCard.yugiohCard == card).length + 1;
-        extraDeck.add(PlayCard(yugiohCard: card, zoneType: ZoneType.extraDeck, copyNumber: copyNumber));
-      } else {
-        final copyNumber = mainDeck.where((playCard) => playCard.yugiohCard == card).length + 1;
-        mainDeck.add(PlayCard(yugiohCard: card, zoneType: ZoneType.deck, copyNumber: copyNumber));
-      }
-    }
+    final mainDeck = playCards.where((card) => card.yugiohCard.type != CardType.fusionMonster);
+    final extraDeck = playCards
+        .where((card) => card.yugiohCard.type == CardType.fusionMonster)
+        .map((card) => card.copyWith(zoneType: ZoneType.extraDeck));
 
     final currentState = _playerState.value;
     final updatedState = currentState.copyWith(
@@ -140,119 +144,58 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   //region Drag & drop
 
-  bool onWillAccept(PlayCard card, Zone zone) {
-    logger.info(_tag, 'onWillAccept($card, $zone)');
+  bool onWillZoneAcceptCard(PlayCard card, Zone zone) {
+    logger.info(_tag, 'onWillZoneAcceptCard($card, $zone)');
 
     _speedDuelScreenEvent.add(const SpeedDuelHideOverlaysEvent());
 
     final currentState = _playerState.value;
 
-    switch (zone.zoneType) {
-      case ZoneType.hand:
-        return card.yugiohCard.type != CardType.fusionMonster;
+    return _doesCardFitInZoneUseCase(card, zone, currentState);
+  }
 
-      case ZoneType.field:
-        return card.yugiohCard.race == CardRace.field && currentState.fieldZone.cards.isEmpty;
+  Future<void> onZoneAcceptsCard(PlayCard card, Zone newZone) async {
+    logger.info(_tag, 'onZoneAcceptsCard($card, $newZone)');
 
-      case ZoneType.mainMonster1:
-        return (card.yugiohCard.type == CardType.effectMonster ||
-                card.yugiohCard.type == CardType.flipEffectMonster ||
-                card.yugiohCard.type == CardType.fusionMonster ||
-                card.yugiohCard.type == CardType.normalMonster ||
-                card.yugiohCard.type == CardType.ritualEffectMonster ||
-                card.yugiohCard.type == CardType.ritualMonster ||
-                card.yugiohCard.type == CardType.toonMonster ||
-                card.yugiohCard.type == CardType.unionEffectMonster) &&
-            currentState.mainMonsterZone1.cards.isEmpty;
+    if (newZone.zoneType.isMultiCardZone) {
+      _moveCardToNewZone(card, newZone, CardPosition.faceUp);
+      return;
+    }
 
-      case ZoneType.mainMonster2:
-        return (card.yugiohCard.type == CardType.effectMonster ||
-                card.yugiohCard.type == CardType.flipEffectMonster ||
-                card.yugiohCard.type == CardType.fusionMonster ||
-                card.yugiohCard.type == CardType.normalMonster ||
-                card.yugiohCard.type == CardType.ritualEffectMonster ||
-                card.yugiohCard.type == CardType.ritualMonster ||
-                card.yugiohCard.type == CardType.toonMonster ||
-                card.yugiohCard.type == CardType.unionEffectMonster) &&
-            currentState.mainMonsterZone2.cards.isEmpty;
-
-      case ZoneType.mainMonster3:
-        return (card.yugiohCard.type == CardType.effectMonster ||
-                card.yugiohCard.type == CardType.flipEffectMonster ||
-                card.yugiohCard.type == CardType.fusionMonster ||
-                card.yugiohCard.type == CardType.normalMonster ||
-                card.yugiohCard.type == CardType.ritualEffectMonster ||
-                card.yugiohCard.type == CardType.ritualMonster ||
-                card.yugiohCard.type == CardType.toonMonster ||
-                card.yugiohCard.type == CardType.unionEffectMonster) &&
-            currentState.mainMonsterZone3.cards.isEmpty;
-
-      case ZoneType.graveyard:
-        return true;
-
-      case ZoneType.banished:
-        return true;
-
-      case ZoneType.extraDeck:
-        return card.yugiohCard.type == CardType.fusionMonster;
-
-      case ZoneType.spellTrap1:
-        return (card.yugiohCard.type == CardType.trapCard ||
-                (card.yugiohCard.type == CardType.spellCard && card.yugiohCard.race != CardRace.field) ||
-                // For Y-Dragon Head and Z-Metal Tank
-                card.yugiohCard.type == CardType.unionEffectMonster) &&
-            currentState.spellTrapZone1.cards.isEmpty;
-
-      case ZoneType.spellTrap2:
-        return (card.yugiohCard.type == CardType.trapCard ||
-                (card.yugiohCard.type == CardType.spellCard && card.yugiohCard.race != CardRace.field) ||
-                // For Y-Dragon Head and Z-Metal Tank
-                card.yugiohCard.type == CardType.unionEffectMonster) &&
-            currentState.spellTrapZone2.cards.isEmpty;
-
-      case ZoneType.spellTrap3:
-        return (card.yugiohCard.type == CardType.trapCard ||
-                (card.yugiohCard.type == CardType.spellCard && card.yugiohCard.race != CardRace.field) ||
-                // For Y-Dragon Head and Z-Metal Tank
-                card.yugiohCard.type == CardType.unionEffectMonster) &&
-            currentState.spellTrapZone3.cards.isEmpty;
-
-      case ZoneType.deck:
-        return card.yugiohCard.type != CardType.fusionMonster;
-
-      default:
-        return false;
+    final position = await _router.showPlayCardDialog(card, newZone: newZone);
+    if (position != null) {
+      _moveCardToNewZone(card, newZone, position);
     }
   }
 
-  void onAccept(PlayCard card, Zone newZone) {
-    logger.info(_tag, 'onAccept($card, $newZone)');
+  void _moveCardToNewZone(PlayCard card, Zone newZone, CardPosition position) {
+    logger.verbose(_tag, '_moveCardToNewZone(card: $card, newZone: $newZone, position: $position)');
 
     _speedDuelScreenEvent.add(const SpeedDuelHideOverlaysEvent());
 
     final currentState = _playerState.value;
     final currentZones = currentState.zones;
 
-    final cardOldZone = currentZones.singleWhere((zone) => zone.zoneType == card.zoneType);
-    if (cardOldZone.zoneType == newZone.zoneType) {
+    final oldZone = currentZones.singleWhere((zone) => zone.zoneType == card.zoneType);
+    if (oldZone.zoneType == newZone.zoneType) {
       return;
     }
 
-    _sendSummonEvent(card.yugiohCard, newZone);
-    _sendRemoveCardEvent(cardOldZone);
+    _sendPlayCardEvent(card, newZone);
+    _sendRemoveCardEvent(card, oldZone);
 
-    _updatePlayerState(card, newZone, cardOldZone);
+    _updateCardZoneAndPosition(card, newZone, oldZone, position);
   }
 
-  void _updatePlayerState(PlayCard card, Zone newZone, Zone oldZone) {
-    logger.verbose(_tag, '_updatePlayerState($card, $newZone, $oldZone)');
+  void _updateCardZoneAndPosition(PlayCard card, Zone newZone, Zone oldZone, CardPosition position) {
+    logger.verbose(_tag, '_updateCardZoneAndPosition($card, $newZone, $oldZone, $position)');
 
     final currentState = _playerState.value;
     final currentZones = currentState.zones;
 
     final updatedOldZone = oldZone.copyWith(cards: [...oldZone.cards]..remove(card));
 
-    final updatedCard = card.copyWith(zoneType: newZone.zoneType);
+    final updatedCard = card.copyWith(zoneType: newZone.zoneType, position: position);
     final updatedNewZone = newZone.copyWith(cards: [...newZone.cards, updatedCard]);
 
     final updatedZones = currentZones.toList()
@@ -260,6 +203,14 @@ class SpeedDuelViewModel extends BaseViewModel {
       ..removeWhere((zone) => zone.zoneType == updatedNewZone.zoneType)
       ..add(updatedOldZone)
       ..add(updatedNewZone);
+
+    _updatePlayerState(updatedZones);
+  }
+
+  void _updatePlayerState(List<Zone> updatedZones) {
+    logger.verbose(_tag, '_updatePlayerState(updatedZones: $updatedZones)');
+
+    final currentState = _playerState.value;
 
     final updatedState = currentState.copyWith(
       hand: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.hand),
@@ -295,6 +246,8 @@ class SpeedDuelViewModel extends BaseViewModel {
         return Future.sync(_shuffleDeck);
       case DeckAction.surrender:
         return _surrender();
+      case DeckAction.spawnToken:
+        return _spawnToken();
       default:
         return Future.value();
     }
@@ -313,7 +266,8 @@ class SpeedDuelViewModel extends BaseViewModel {
     final currentState = _playerState.value;
     final deck = currentState.deckZone.cards.toList();
     if (deck.isEmpty) {
-      throw Exception('Deck is empty');
+      _snackBarService.showSnackBar('Deck is empty');
+      return;
     }
 
     final drawnCard = deck.removeLast().copyWith(zoneType: ZoneType.hand);
@@ -354,9 +308,73 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
   }
 
+  Future<void> _spawnToken() async {
+    logger.verbose(_tag, '_spawnToken()');
+
+    final currentState = _playerState.value;
+    final tokenZone = currentState.mainMonsterZones.firstWhere((zone) => zone.isEmpty, orElse: () => null);
+    if (tokenZone == null) {
+      _snackBarService.showSnackBar('You need an empty monster zone to summon a token.');
+      return;
+    }
+
+    final token = await _dataManager.getToken();
+    final tokenCard = _createPlayCardUseCase(token, 1);
+    return onZoneAcceptsCard(tokenCard, tokenZone);
+  }
+
   //endregion
 
-  // Multi-card zone actions
+  //region Card pressed events
+
+  Future<void> onCardPressed(PlayCard card) async {
+    final position = await _router.showPlayCardDialog(card);
+    if (position == null) {
+      return;
+    }
+
+    if (position == CardPosition.destroy) {
+      // TODO: this is used to destroy tokens, but it isn't really a card position
+      _destroyCard(card);
+    } else {
+      _updateCardPosition(card, position);
+    }
+  }
+
+  void _updateCardPosition(PlayCard card, CardPosition position) {
+    logger.verbose(_tag, '_updateCardPosition(card: $card, position: $position)');
+
+    final currentState = _playerState.value;
+    final currentZones = currentState.zones;
+
+    final cardZone = currentZones.firstWhere((zone) => zone.zoneType == card.zoneType);
+
+    final updatedCard = card.copyWith(position: position);
+    final updatedCardZone = cardZone.copyWith(cards: [...cardZone.cards, updatedCard]..remove(card));
+
+    final updatedZones = currentZones.toList()
+      ..remove(cardZone)
+      ..add(updatedCardZone);
+
+    _updatePlayerState(updatedZones);
+  }
+
+  void _destroyCard(PlayCard card) {
+    logger.verbose(_tag, '_destroyCard(card: $card)');
+
+    final currentState = _playerState.value;
+    final currentZones = currentState.zones;
+    final cardZone = currentZones.firstWhere((zone) => zone.zoneType == card.zoneType);
+
+    _sendRemoveCardEvent(card, cardZone);
+
+    final updatedCardZone = cardZone.copyWith(cards: [...cardZone.cards]..remove(card));
+    final updatedZones = currentZones.toList()
+      ..removeWhere((zone) => zone.zoneType == updatedCardZone.zoneType)
+      ..add(updatedCardZone);
+
+    _updatePlayerState(updatedZones);
+  }
 
   void onMultiCardZonePressed(Zone zone) {
     logger.info(_tag, 'onMultiCardZonePressed()');
@@ -372,26 +390,28 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   //region Server events
 
-  void _sendSummonEvent(YugiohCard yugiohCard, Zone newZone) {
-    logger.verbose(_tag, '_sendSummonEvent($yugiohCard, $newZone)');
+  void _sendPlayCardEvent(PlayCard card, Zone zone) {
+    logger.verbose(_tag, '_sendPlayCardEvent(card: $card, zone: $zone)');
 
     _smartDuelServer.emitSpeedDuelEvent(
-      SummonDuelEvent(
-        SummonEvent(
-          yugiohCardId: yugiohCard.id.toString(),
-          zoneName: _enumHelper.convertToString(newZone.zoneType),
+      SpeedDuelEvent.playCard(
+        CardEventData(
+          cardId: card.yugiohCard.id.toString(),
+          cardPosition: _enumHelper.convertToString(card.position),
+          zoneName: _enumHelper.convertToString(zone.zoneType),
         ),
       ),
     );
   }
 
-  void _sendRemoveCardEvent(Zone oldZone) {
-    logger.verbose(_tag, '_sendRemoveCardEvent($oldZone)');
+  void _sendRemoveCardEvent(PlayCard card, Zone zone) {
+    logger.verbose(_tag, '_sendRemoveCardEvent(card: $card, zone: $zone)');
 
     _smartDuelServer.emitSpeedDuelEvent(
-      RemoveCardDuelEvent(
-        RemoveCardEvent(
-          zoneName: _enumHelper.convertToString(oldZone.zoneType),
+      SpeedDuelEvent.removeCard(
+        CardEventData(
+          cardId: card.yugiohCard.id.toString(),
+          zoneName: _enumHelper.convertToString(zone.zoneType),
         ),
       ),
     );
@@ -400,13 +420,6 @@ class SpeedDuelViewModel extends BaseViewModel {
   //endregion
 
   //region Clean-up
-
-  void _cancelPlayerStateSubscription() {
-    logger.verbose(_tag, '_cancelPlayerStateSubscription()');
-
-    _playerStateSubscription?.cancel();
-    _playerStateSubscription = null;
-  }
 
   @override
   void dispose() {
@@ -421,6 +434,13 @@ class SpeedDuelViewModel extends BaseViewModel {
     _speedDuelScreenEvent?.close();
 
     super.dispose();
+  }
+
+  void _cancelPlayerStateSubscription() {
+    logger.verbose(_tag, '_cancelPlayerStateSubscription()');
+
+    _playerStateSubscription?.cancel();
+    _playerStateSubscription = null;
   }
 
   //endregion

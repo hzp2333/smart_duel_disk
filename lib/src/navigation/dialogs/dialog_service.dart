@@ -43,13 +43,13 @@ class DialogServiceImpl implements DialogService {
       ),
       actions: [
         if (dialogConfig.negativeButton != null) ...{
-          FlatButton(
-            onPressed: () => _popDialog(false),
+          TextButton(
+            onPressed: () => popDialog(false),
             child: Text(dialogConfig.negativeButton),
           ),
         },
-        FlatButton(
-          onPressed: () => _popDialog(true),
+        TextButton(
+          onPressed: () => popDialog(true),
           child: Text(dialogConfig.positiveButton),
         ),
       ],
@@ -67,20 +67,31 @@ class DialogServiceImpl implements DialogService {
       actions: <Widget>[
         if (dialogConfig.negativeButton != null) ...{
           CupertinoDialogAction(
-            onPressed: () => _popDialog(false),
+            onPressed: () => popDialog(false),
             child: Text(dialogConfig.negativeButton),
           ),
         },
         CupertinoDialogAction(
           isDefaultAction: true,
-          onPressed: () => _popDialog(true),
+          onPressed: () => popDialog(true),
           child: Text(dialogConfig.positiveButton),
         ),
       ],
     );
   }
 
-  void _popDialog<T>(T result) {
+  @override
+  void popDialog<T>(T result) {
     _router.navigatorKey.currentState.pop(result);
+  }
+
+  @override
+  Future<T> showCustomDialog<T>(Widget child) {
+    return showDialog<T>(
+      context: _router.navigatorKey.currentState.overlay.context,
+      barrierDismissible: true,
+      useRootNavigator: true,
+      builder: (_) => child,
+    );
   }
 }

@@ -16,4 +16,10 @@ class YgoProDeckApiProviderImpl implements YgoProDeckApiProvider {
     final response = await _restClient.getSpeedDuelCards();
     return response.speedDuelCards.map((card) => card.toEntity());
   }
+
+  @override
+  Future<YugiohCard> getToken() async {
+    final response = await _restClient.getToken();
+    return response.speedDuelCards.first.toEntity();
+  }
 }

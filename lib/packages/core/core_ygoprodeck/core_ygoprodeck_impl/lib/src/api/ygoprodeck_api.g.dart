@@ -32,4 +32,22 @@ class _YgoProDeckRestClient implements YgoProDeckRestClient {
     final value = GetSpeedDuelCardsResponseModel.fromJson(_result.data);
     return value;
   }
+
+  @override
+  Future<GetSpeedDuelCardsResponseModel> getToken() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.request<Map<String, dynamic>>(
+        '/cardinfo.php?name=Sheep%20Token',
+        queryParameters: queryParameters,
+        options: RequestOptions(
+            method: 'GET',
+            headers: <String, dynamic>{},
+            extra: _extra,
+            baseUrl: baseUrl),
+        data: _data);
+    final value = GetSpeedDuelCardsResponseModel.fromJson(_result.data);
+    return value;
+  }
 }

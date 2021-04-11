@@ -66,6 +66,7 @@ mixin _$CardPriceModel {
   String get coolstuffincPrice;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $CardPriceModelCopyWith<CardPriceModel> get copyWith;
 }
 
@@ -237,6 +238,7 @@ class _$_CardPriceModel implements _CardPriceModel {
       const DeepCollectionEquality().hash(amazonPrice) ^
       const DeepCollectionEquality().hash(coolstuffincPrice);
 
+  @JsonKey(ignore: true)
   @override
   _$CardPriceModelCopyWith<_CardPriceModel> get copyWith =>
       __$CardPriceModelCopyWithImpl<_CardPriceModel>(this, _$identity);
@@ -284,5 +286,6 @@ abstract class _CardPriceModel implements CardPriceModel {
   @JsonKey(name: 'coolstuffinc_price')
   String get coolstuffincPrice;
   @override
+  @JsonKey(ignore: true)
   _$CardPriceModelCopyWith<_CardPriceModel> get copyWith;
 }

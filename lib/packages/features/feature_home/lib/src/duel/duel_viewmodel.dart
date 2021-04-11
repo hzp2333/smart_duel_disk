@@ -30,9 +30,7 @@ class DuelViewModel extends BaseViewModel {
     this._duelFormValidators,
     this._router,
     this._dataManager,
-  ) : super(
-          logger,
-        ) {
+  ) : super(logger) {
     _init();
   }
 
@@ -87,7 +85,12 @@ class DuelViewModel extends BaseViewModel {
       port: _port.value,
     ));
 
-    await _router.showSpeedDuel(PreBuiltDeck.yugi);
+    final deck = await _router.showSelectDeckDialog();
+    if (deck == null) {
+      return;
+    }
+
+    await _router.showSpeedDuel(deck);
   }
 
   @override

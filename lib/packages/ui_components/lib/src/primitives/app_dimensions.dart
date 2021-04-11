@@ -1,6 +1,7 @@
 class AppDimensions {
   static const screenMargin = 16.0;
   static const screenMarginSmall = 8.0;
+  static const screenMarginLarge = 24.0;
 
   static const yugiohCardAspectRatio = 168 / 246;
 
@@ -37,4 +38,9 @@ class AppDimensions {
   static const deckBuilderSectionSeparator = 16.0;
 
   static const duelFieldCardSpacing = 8.0;
+  static const duelFieldFirstSecondRowSpacing = 16.0;
+  static const duelFieldSecondHandRowSpacing = 32.0;
+
+  static const iconSize16 = 16.0;
+  static const iconSize24 = 24.0;
 }

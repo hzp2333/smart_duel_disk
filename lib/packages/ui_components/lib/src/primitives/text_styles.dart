@@ -21,4 +21,8 @@ class TextStyles {
     color: AppColors.primaryIconColor,
     fontWeight: FontWeight.w500,
   );
+
+  static const cardDialogBigText = TextStyle(
+    fontSize: TextSizes.cardDialogBigText,
+  );
 }

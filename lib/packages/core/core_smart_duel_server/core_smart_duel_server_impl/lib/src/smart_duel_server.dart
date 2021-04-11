@@ -5,9 +5,6 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_web_socket/wrapper_web
 
 @LazySingleton(as: SmartDuelServer)
 class SmartDuelServerImpl implements SmartDuelServer {
-  static const _summonEventName = 'summonEvent';
-  static const _removeCardEventName = 'removeCardEvent';
-
   final WebSocketFactory _webSocketFactory;
   final DataManager _dataManager;
 
@@ -29,11 +26,8 @@ class SmartDuelServerImpl implements SmartDuelServer {
   }
 
   @override
-  void emitSpeedDuelEvent(SpeedDuelEvent duelEvent) {
-    duelEvent.when(
-      summon: (data) => _socket.emitEvent(_summonEventName, data.toJson()),
-      removeCard: (data) => _socket.emitEvent(_removeCardEventName, data.toJson()),
-    );
+  void emitSpeedDuelEvent(SpeedDuelEvent event) {
+    _socket.emitEvent('${event.scope}:${event.action}', event.data.toJson());
   }
 
   @override

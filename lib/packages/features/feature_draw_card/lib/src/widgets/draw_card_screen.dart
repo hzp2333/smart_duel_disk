@@ -58,10 +58,7 @@ class _DrawCardScreenState extends State<DrawCardScreen> {
       body: Stack(
         alignment: Alignment.center,
         children: [
-          const SizedBox.expand(),
-          Positioned.fill(
-            child: _CardDragTarget(onCardDrawn: _onCardDrawn),
-          ),
+          _CardDragTarget(onCardDrawn: _onCardDrawn),
           if (_isAnimating) ...{
             AnimatedPositioned(
               duration: _animationDuration,
@@ -90,6 +87,7 @@ class _CardDragTarget extends StatelessWidget {
   Widget build(BuildContext context) {
     return DragTarget<String>(
       builder: (_, __, ___) => const SizedBox.expand(),
+      onAccept: (_) => onCardDrawn(),
       onLeave: (_) => onCardDrawn(),
     );
   }
@@ -104,12 +102,13 @@ class _CardDraggable extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Draggable<Object>(
+    return Draggable<String>(
       axis: Axis.horizontal,
       maxSimultaneousDrags: 1,
       childWhenDragging: const SizedBox.shrink(),
       onDragStarted: HapticFeedback.heavyImpact,
       feedback: cardImage,
+      data: '',
       child: cardImage,
     );
   }

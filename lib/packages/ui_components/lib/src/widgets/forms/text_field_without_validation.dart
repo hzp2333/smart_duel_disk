@@ -20,33 +20,21 @@ class TextFieldWithoutValidation extends HookWidget {
   Widget build(BuildContext context) {
     final controller = useTextEditingController();
 
-    return Theme(
-      data: Theme.of(context).copyWith(
-        cursorColor: AppColors.primaryAccentColor,
-        textSelectionColor: AppColors.primaryAccentColor,
-        textSelectionHandleColor: AppColors.primaryAccentColor,
-        textSelectionTheme: TextSelectionTheme.of(context).copyWith(
-          cursorColor: AppColors.primaryAccentColor,
-          selectionColor: AppColors.primaryAccentColor,
-          selectionHandleColor: AppColors.primaryAccentColor,
-        ),
+    return TextField(
+      controller: controller,
+      onChanged: onChanged,
+      style: const TextStyle(
+        color: AppColors.primaryIconColor,
       ),
-      child: TextField(
-        controller: controller,
-        onChanged: onChanged,
-        style: const TextStyle(
-          color: AppColors.primaryIconColor,
+      decoration: InputDecoration(
+        hintText: hintText,
+        suffixIcon: _ClearButton(
+          controller: controller,
+          onClearPressed: onClearPressed,
         ),
-        decoration: InputDecoration(
-          hintText: hintText,
-          suffixIcon: _ClearButton(
-            controller: controller,
-            onClearPressed: onClearPressed,
-          ),
-          focusedBorder: const UnderlineInputBorder(
-            borderSide: BorderSide(
-              color: AppColors.primaryAccentColor,
-            ),
+        focusedBorder: const UnderlineInputBorder(
+          borderSide: BorderSide(
+            color: AppColors.primaryAccentColor,
           ),
         ),
       ),

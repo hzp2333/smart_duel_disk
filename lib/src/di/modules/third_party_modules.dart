@@ -42,10 +42,7 @@ abstract class SocketIoModule {
     final connectionInfo = dataManager.getConnectionInfo();
     final uri = 'http://${connectionInfo.ipAddress}:${connectionInfo.port}';
 
-    return io(uri, <String, dynamic>{
-      'transports': ['websocket'],
-      'autoConnect': false,
-    });
+    return io(uri, OptionBuilder().setTransports(['websocket']).disableAutoConnect().build());
   }
 }
 

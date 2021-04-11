@@ -56,6 +56,7 @@ mixin _$CardSetModel {
   String get setPrice;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $CardSetModelCopyWith<CardSetModel> get copyWith;
 }
 
@@ -215,6 +216,7 @@ class _$_CardSetModel implements _CardSetModel {
       const DeepCollectionEquality().hash(setRarityCode) ^
       const DeepCollectionEquality().hash(setPrice);
 
+  @JsonKey(ignore: true)
   @override
   _$CardSetModelCopyWith<_CardSetModel> get copyWith =>
       __$CardSetModelCopyWithImpl<_CardSetModel>(this, _$identity);
@@ -252,5 +254,6 @@ abstract class _CardSetModel implements CardSetModel {
   @JsonKey(name: 'set_price')
   String get setPrice;
   @override
+  @JsonKey(ignore: true)
   _$CardSetModelCopyWith<_CardSetModel> get copyWith;
 }

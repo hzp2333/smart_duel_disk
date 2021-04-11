@@ -34,6 +34,12 @@ class PlayerState extends Equatable {
         deckZone,
       ];
 
+  Iterable<Zone> get mainMonsterZones => [
+        mainMonsterZone1,
+        mainMonsterZone2,
+        mainMonsterZone3,
+      ];
+
   const PlayerState({
     this.hand = const Zone(zoneType: ZoneType.hand),
     this.fieldZone = const Zone(zoneType: ZoneType.field),

@@ -10,7 +10,7 @@ class EnumHelperImpl implements EnumHelper {
   }
 
   @override
-  String convertToString(dynamic enumItem) {
-    return EnumToString.convertToString(enumItem);
+  String convertToString(dynamic enumItem, {bool camelCase = false}) {
+    return EnumToString.convertToString(enumItem, camelCase: camelCase);
   }
 }

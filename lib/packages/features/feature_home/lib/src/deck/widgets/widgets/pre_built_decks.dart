@@ -3,7 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
-import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/deck/deck_viewmodel.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 import 'package:smart_duel_disk/src/localization/strings.al.dart';
@@ -133,7 +132,7 @@ class _PreBuiltDeckCardRipple extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: onPressed ?? () => context.snackbar(Strings.featureNotAvailableYetDescription.get(deckName)),
+        onTap: onPressed,
         highlightColor: Colors.transparent,
         splashColor: backgroundColor.withOpacity(0.15),
         borderRadius: BorderRadius.circular(AppDimensions.newsCardBorderRadius),

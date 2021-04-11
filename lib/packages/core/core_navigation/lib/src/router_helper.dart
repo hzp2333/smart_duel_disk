@@ -1,5 +1,8 @@
 import 'package:flutter/foundation.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 
 import '../core_navigation.dart';
 
@@ -24,14 +27,21 @@ abstract class RouterHelper {
 
   //region Duel
 
-  Future<void> showDrawCard(VoidCallback cardDrawnCallback);
   Future<void> showSpeedDuel(PreBuiltDeck preBuiltDeck);
+  Future<PreBuiltDeck> showSelectDeckDialog();
 
   //endregion
 
   //region Deck builder
 
   Future<void> showYugiohCardDetail(YugiohCard yugiohCard, int index);
+
+  //endregion
+
+  //region Speed duel
+
+  Future<void> showDrawCard(VoidCallback cardDrawnCallback);
+  Future<CardPosition> showPlayCardDialog(PlayCard playCard, {Zone newZone});
 
   //endregion
 }

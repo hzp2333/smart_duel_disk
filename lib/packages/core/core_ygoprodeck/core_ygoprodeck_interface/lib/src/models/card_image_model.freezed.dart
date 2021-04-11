@@ -48,6 +48,7 @@ mixin _$CardImageModel {
   String get imageUrlSmall;
 
   Map<String, dynamic> toJson();
+  @JsonKey(ignore: true)
   $CardImageModelCopyWith<CardImageModel> get copyWith;
 }
 
@@ -178,6 +179,7 @@ class _$_CardImageModel implements _CardImageModel {
       const DeepCollectionEquality().hash(imageUrl) ^
       const DeepCollectionEquality().hash(imageUrlSmall);
 
+  @JsonKey(ignore: true)
   @override
   _$CardImageModelCopyWith<_CardImageModel> get copyWith =>
       __$CardImageModelCopyWithImpl<_CardImageModel>(this, _$identity);
@@ -208,5 +210,6 @@ abstract class _CardImageModel implements CardImageModel {
   @JsonKey(name: 'image_url_small')
   String get imageUrlSmall;
   @override
+  @JsonKey(ignore: true)
   _$CardImageModelCopyWith<_CardImageModel> get copyWith;
 }

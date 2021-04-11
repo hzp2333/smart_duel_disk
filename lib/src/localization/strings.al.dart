@@ -158,4 +158,53 @@ class Strings {
       'en': '''Search a card''',
     },
   );
+
+  static const speedDuelCardActionSummon = PlainLocalizedString(
+    key: 'speed_duel_card_action_summon',
+    values: {
+      'en': '''Summon''',
+    },
+  );
+
+  static const speedDuelCardActionActivate = PlainLocalizedString(
+    key: 'speed_duel_card_action_activate',
+    values: {
+      'en': '''Activate''',
+    },
+  );
+
+  static const speedDuelCardActionToAttack = PlainLocalizedString(
+    key: 'speed_duel_card_action_to_attack',
+    values: {
+      'en': '''To ATK''',
+    },
+  );
+
+  static const speedDuelCardActionToDefence = PlainLocalizedString(
+    key: 'speed_duel_card_action_to_defence',
+    values: {
+      'en': '''To DEF''',
+    },
+  );
+
+  static const speedDuelCardActionFlip = PlainLocalizedString(
+    key: 'speed_duel_card_action_flip',
+    values: {
+      'en': '''Flip''',
+    },
+  );
+
+  static const speedDuelCardActionSet = PlainLocalizedString(
+    key: 'speed_duel_card_action_set',
+    values: {
+      'en': '''Set''',
+    },
+  );
+
+  static const speedDuelCardActionDestroy = PlainLocalizedString(
+    key: 'speed_duel_card_action_destroy',
+    values: {
+      'en': '''Destroy''',
+    },
+  );
 }

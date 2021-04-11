@@ -4,11 +4,13 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/android.iml" filepath="$PROJECT_DIR$/.idea/android.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/android.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/android.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1232919742/android.firebase_core.iml" filepath="$PROJECT_DIR$/.idea/modules/-1232919742/android.firebase_core.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/451541586/android.firebase_crashlytics.iml" filepath="$PROJECT_DIR$/.idea/modules/451541586/android.firebase_crashlytics.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-583801248/android.path_provider.iml" filepath="$PROJECT_DIR$/.idea/modules/-583801248/android.path_provider.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-306259131/android.sqflite.iml" filepath="$PROJECT_DIR$/.idea/modules/-306259131/android.sqflite.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/157585160/android.url_launcher.iml" filepath="$PROJECT_DIR$/.idea/modules/157585160/android.url_launcher.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/243218050/android.cloud_firestore.iml" filepath="$PROJECT_DIR$/.idea/modules/243218050/android.cloud_firestore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1063395397/android.shared_preferences.iml" filepath="$PROJECT_DIR$/.idea/modules/1063395397/android.shared_preferences.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1425166628/com.tekartik.sqflite.android.sqflite.iml" filepath="$PROJECT_DIR$/.idea/modules/-1425166628/com.tekartik.sqflite.android.sqflite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/713059226/io.flutter.plugins.firebase.core.android.firebase_core.iml" filepath="$PROJECT_DIR$/.idea/modules/713059226/io.flutter.plugins.firebase.core.android.firebase_core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/-1788142723/io.flutter.plugins.firebase.crashlytics.android.firebase_crashlytics.iml" filepath="$PROJECT_DIR$/.idea/modules/-1788142723/io.flutter.plugins.firebase.crashlytics.android.firebase_crashlytics.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/1251811496/io.flutter.plugins.pathprovider.android.path_provider.iml" filepath="$PROJECT_DIR$/.idea/modules/1251811496/io.flutter.plugins.pathprovider.android.path_provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/275103457/io.flutter.plugins.urllauncher.android.url_launcher.iml" filepath="$PROJECT_DIR$/.idea/modules/275103457/io.flutter.plugins.urllauncher.android.url_launcher.iml" />
     </modules>
   </component>
 </project>

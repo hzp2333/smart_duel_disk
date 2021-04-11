@@ -136,6 +136,7 @@ class _$SpeedDuelData implements SpeedDuelData {
   int get hashCode =>
       runtimeType.hashCode ^ const DeepCollectionEquality().hash(playerState);
 
+  @JsonKey(ignore: true)
   @override
   $SpeedDuelDataCopyWith<SpeedDuelData> get copyWith =>
       _$SpeedDuelDataCopyWithImpl<SpeedDuelData>(this, _$identity);
@@ -201,6 +202,7 @@ abstract class SpeedDuelData implements SpeedDuelState {
   const factory SpeedDuelData(PlayerState playerState) = _$SpeedDuelData;
 
   PlayerState get playerState;
+  @JsonKey(ignore: true)
   $SpeedDuelDataCopyWith<SpeedDuelData> get copyWith;
 }
 

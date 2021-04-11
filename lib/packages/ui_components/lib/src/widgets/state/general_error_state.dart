@@ -28,11 +28,13 @@ class GeneralErrorState extends StatelessWidget {
             ),
             if (canRetry && retryAction != null) ...{
               const SizedBox(height: AppDimensions.descriptionButtonSpacing),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: retryAction,
-                color: AppColors.primaryAccentColor,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(AppDimensions.buttonBorderRadius),
+                style: ElevatedButton.styleFrom(
+                  primary: AppColors.primaryAccentColor,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(AppDimensions.buttonBorderRadius),
+                  ),
                 ),
                 child: Text(Strings.generalErrorTryAgain.get()),
               ),

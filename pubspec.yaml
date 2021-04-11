@@ -1,6 +1,6 @@
 name: smart_duel_disk
 description: A Smart Duel Disk app for playing Yu-Gi-Oh!.
-version: 0.5.0+50000
+version: 0.6.0+60000
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -8,42 +8,41 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  ant_icons: ^1.0.0
   auto_localized: ^0.7.0
-  auto_route: ^1.0.0-beta.7
+  auto_route: 1.0.0-beta.7
   auto_size_text: ^2.1.0
   cached_network_image: ^2.5.0
-  cloud_firestore: ^0.16.0
+  cloud_firestore: ^1.0.4
   cupertino_icons: ^1.0.0
   dart_twitter_api: ^0.3.5
   dio: ^3.0.10
-  dio_flutter_transformer: ^3.0.2
   enum_to_string: ^1.0.14
   equatable: ^1.2.5
-  firebase_core: ^0.7.0
-  firebase_crashlytics: ^0.4.0+1
+  firebase_core: ^1.0.3
+  firebase_crashlytics: ^2.0.0
   flutter_dotenv: ^2.1.0
   flutter_hooks: ^0.15.0
+  flutter_svg: ^0.19.3
   font_awesome_flutter: ^8.11.0
   freezed_annotation: ^0.12.0
   get_it: ^5.0.6
   injectable: ^1.0.7
-  intl: ^0.16.1
+  intl: ^0.17.0
   json_annotation: ^3.1.1
   logger: ^0.9.4
   pretty_dio_logger: ^1.1.1
   provider: ^4.3.2+3
   retrofit: ^1.3.4+1
   rxdart: ^0.25.0
-  shared_preferences: ^0.5.12+4
+  shared_preferences: ^2.0.5
   socket_io_client: ^0.9.12
-  url_launcher: ^5.7.10
+  url_launcher: ^6.0.3
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   auto_localized_generator: ^0.7.1
-  auto_route_generator: ^1.0.0-beta.7
+  auto_route_generator: 1.0.0-beta.7
   build_runner: ^1.10.11
   freezed: ^0.12.6
   injectable_generator: ^1.0.7
@@ -52,15 +51,23 @@ dev_dependencies:
   mockito: ^4.1.3
   retrofit_generator: ^1.4.1+1
 
+dependency_overrides:
+  # dart_twitter_api relies on intl ^0.16.1
+  intl: ^0.17.0
+
 flutter:
   uses-material-design: true
 
   assets:
     - secrets.env
     - assets/illustrations/
+    - assets/icons/
 
 scripts:
-  go: flutter run
-  all: flutter run -d all
-  build: flutter pub run build_runner build --delete-conflicting-outputs
-  watch: flutter pub run build_runner watch --delete-conflicting-outputs
+  clean: fvm flutter clean
+  deps: fvm flutter pub get
+  go: fvm flutter run
+  all: fvm flutter run -d all
+  loco: sh scripts/translate.sh
+  build: fvm flutter pub run build_runner build --delete-conflicting-outputs
+  watch: fvm flutter pub run build_runner watch --delete-conflicting-outputs
