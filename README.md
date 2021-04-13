@@ -33,8 +33,8 @@ Because this project is too big for one person, I'll definitely need the help of
   
 If you're interested in helping out, send me a message on [our Discord server][Discord link].
 
-If you need some assistance getting your dev environment set-up, see our [Getting Started guide](./docs/getting_started.md).
-Feel free to add to the document if you struggle with something and want to share how you overcame it.
+If you need some assistance getting your dev environment set up, see our [Getting Started guide](./docs/getting_started.md).
+Feel free to help improve the document if you struggle with something and want to share how you overcame it.
 
 ## Reporting bugs
 
