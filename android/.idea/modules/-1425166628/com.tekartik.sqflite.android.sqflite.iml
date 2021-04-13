@@ -33,21 +33,33 @@
     <content url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/sqflite-2.0.0+3">
       <sourceFolder url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/sqflite-2.0.0+3/android/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/sqflite-2.0.0+3/android/src/test/java" isTestSource="true" />
+      <excludeFolder url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/sqflite-2.0.0+3/.dart_tool" />
+      <excludeFolder url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/sqflite-2.0.0+3/.pub" />
       <excludeFolder url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/sqflite-2.0.0+3/android/.gradle" />
+      <excludeFolder url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/sqflite-2.0.0+3/build" />
+      <excludeFolder url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/sqflite-2.0.0+3/example/.dart_tool" />
+      <excludeFolder url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/sqflite-2.0.0+3/example/.pub" />
+      <excludeFolder url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/sqflite-2.0.0+3/example/build" />
     </content>
     <content url="file://$MODULE_DIR$/../../../../build/sqflite/generated/aidl_source_output_dir/debug/compileDebugAidl/out" />
     <content url="file://$MODULE_DIR$/../../../../build/sqflite/generated/aidl_source_output_dir/debugAndroidTest/compileDebugAndroidTestAidl/out" />
-    <content url="file://$MODULE_DIR$/../../../../build/sqflite/generated/ap_generated_sources/debug/out" />
+    <content url="file://$MODULE_DIR$/../../../../build/sqflite/generated/ap_generated_sources/debug/out">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../build/sqflite/generated/ap_generated_sources/debug/out" isTestSource="false" generated="true" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../build/sqflite/generated/ap_generated_sources/debugAndroidTest/out" />
     <content url="file://$MODULE_DIR$/../../../../build/sqflite/generated/ap_generated_sources/debugUnitTest/out" />
     <content url="file://$MODULE_DIR$/../../../../build/sqflite/generated/renderscript_source_output_dir/debug/compileDebugRenderscript/out" />
     <content url="file://$MODULE_DIR$/../../../../build/sqflite/generated/renderscript_source_output_dir/debugAndroidTest/compileDebugAndroidTestRenderscript/out" />
     <content url="file://$MODULE_DIR$/../../../../build/sqflite/generated/res/resValues/androidTest/debug" />
-    <content url="file://$MODULE_DIR$/../../../../build/sqflite/generated/res/resValues/debug" />
+    <content url="file://$MODULE_DIR$/../../../../build/sqflite/generated/res/resValues/debug">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../build/sqflite/generated/res/resValues/debug" type="java-resource" />
+    </content>
     <content url="file://$MODULE_DIR$/../../../../build/sqflite/generated/res/rs/androidTest/debug" />
     <content url="file://$MODULE_DIR$/../../../../build/sqflite/generated/res/rs/debug" />
     <content url="file://$MODULE_DIR$/../../../../build/sqflite/generated/source/buildConfig/androidTest/debug" />
-    <content url="file://$MODULE_DIR$/../../../../build/sqflite/generated/source/buildConfig/debug" />
+    <content url="file://$MODULE_DIR$/../../../../build/sqflite/generated/source/buildConfig/debug">
+      <sourceFolder url="file://$MODULE_DIR$/../../../../build/sqflite/generated/source/buildConfig/debug" isTestSource="false" generated="true" />
+    </content>
     <orderEntry type="jdk" jdkName="Android API 29 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.13.1" level="project" />

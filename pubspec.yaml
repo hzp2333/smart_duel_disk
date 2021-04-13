@@ -64,11 +64,11 @@ flutter:
     - assets/icons/
 
 scripts:
-  clean: fvm flutter clean
-  deps: fvm flutter pub get
-  go: fvm flutter run
-  gorel: fvm flutter run --release
-  all: fvm flutter run -d all
+  clean: flutter clean
+  deps: flutter pub get
+  go: flutter run
+  gorel: flutter run --release
+  all: flutter run -d all
   loco: sh scripts/translate.sh
-  build: fvm flutter pub run build_runner build --delete-conflicting-outputs
-  watch: fvm flutter pub run build_runner watch --delete-conflicting-outputs
+  build: flutter pub run build_runner build --delete-conflicting-outputs
+  watch: flutter pub run build_runner watch --delete-conflicting-outputs
