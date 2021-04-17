@@ -6,7 +6,7 @@ set -e # Exit on first failed command
 LOCO_READ_KEY="PT4Az8sqJ_VF22jimP21_fh5gGHFlckZ"
 
 # Get packages
-fvm flutter packages get
+flutter packages get
 
 # Export translations from Loco
 curl -s -o "lang/en.yaml" "https://localise.biz/api/export/locale/en-US.yml?format=simple&key=$LOCO_READ_KEY"
