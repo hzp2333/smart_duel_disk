@@ -10,7 +10,8 @@ class DeckScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return SingleChildScrollView(
+      physics: const ClampingScrollPhysics(),
       padding: const EdgeInsets.all(AppDimensions.screenMargin),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
