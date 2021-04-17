@@ -68,6 +68,7 @@ scripts:
   deps: flutter pub get
   go: flutter run
   gorel: flutter run --release
+  mac: flutter run -d macos
   all: flutter run -d all
   loco: sh scripts/translate.sh
   build: flutter pub run build_runner build --delete-conflicting-outputs
