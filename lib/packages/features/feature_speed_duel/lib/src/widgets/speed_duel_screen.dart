@@ -108,10 +108,13 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
       onWillPop: _onWillPop,
       child: GestureDetector(
         onTap: () => _closeBottomSheet(),
-        child: Scaffold(
-          key: _scaffoldKey,
-          backgroundColor: AppColors.primaryBackgroundColor,
-          body: const _Body(),
+        child: ScrollConfiguration(
+          behavior: const NoScrollGlowBehavior(),
+          child: Scaffold(
+            key: _scaffoldKey,
+            backgroundColor: AppColors.primaryBackgroundColor,
+            body: const _Body(),
+          ),
         ),
       ),
     );

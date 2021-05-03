@@ -67,7 +67,7 @@ class _Body extends StatelessWidget {
     final vm = Provider.of<DeckBuilderViewModel>(context);
 
     return ScrollConfiguration(
-      behavior: NoScrollGlowBehavior(),
+      behavior: const NoScrollGlowBehavior(),
       child: StreamBuilder<DeckBuilderState>(
         stream: vm.deckBuilderState,
         initialData: const DeckBuilderState.loading(),

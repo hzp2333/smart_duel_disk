@@ -57,7 +57,7 @@ class _DataBody extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: AppDimensions.screenMargin),
       child: ScrollConfiguration(
-        behavior: NoScrollGlowBehavior(),
+        behavior: const NoScrollGlowBehavior(),
         child: RefreshIndicator(
           onRefresh: vm.onRefresh,
           color: AppColors.primaryAccentColor,
