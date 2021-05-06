@@ -25,10 +25,18 @@ class CreatePlayCardDialogActionsUseCase {
     }
 
     if (playCard.zoneType.isMainMonsterZone) {
+      if (newZone?.zoneType?.isSpellTrapCardZone ?? false) {
+        return _getSpellTrapFieldZoneActions(playCard, newZone);
+      }
+
       return _getMainMonsterZoneActions(playCard, newZone);
     }
 
     if (playCard.zoneType.isSpellTrapCardZone || playCard.zoneType == ZoneType.field) {
+      if (newZone?.zoneType?.isMainMonsterZone ?? false) {
+        return _getSpecialSummonActions();
+      }
+
       return _getSpellTrapFieldZoneActions(playCard, newZone);
     }
 
@@ -40,22 +48,13 @@ class CreatePlayCardDialogActionsUseCase {
 
     if (newZone.zoneType.isMainMonsterZone) {
       if (playCard.yugiohCard.type == CardType.token) {
-        return [
-          PlayCardDialogAction.summonAttack(),
-          PlayCardDialogAction.summonDefence(),
-        ];
+        return _getSpecialSummonActions();
       }
 
-      return [
-        PlayCardDialogAction.summon(),
-        PlayCardDialogAction.set(),
-      ];
+      return _getNormalSummonActions();
     }
 
-    return [
-      PlayCardDialogAction.activate(),
-      PlayCardDialogAction.set(),
-    ];
+    return _getPlaySpellTrapActions();
   }
 
   Iterable<PlayCardDialogAction> _getMainMonsterZoneActions(PlayCard playCard, Zone newZone) {
@@ -92,6 +91,41 @@ class CreatePlayCardDialogActionsUseCase {
   Iterable<PlayCardDialogAction> _getSpellTrapFieldZoneActions(PlayCard playCard, Zone newZone) {
     _logger.verbose(_tag, '_getSpellTrapFieldZoneActions(playCard: $playCard, newZone: $newZone');
 
+    if (playCard.zoneType.isMainMonsterZone) {
+      return _getPlaySpellTrapActions();
+    }
+
     return playCard.position == CardPosition.faceUp ? [PlayCardDialogAction.set()] : [PlayCardDialogAction.activate()];
   }
+
+  //region Action sets
+
+  Iterable<PlayCardDialogAction> _getNormalSummonActions() {
+    _logger.verbose(_tag, '_getNormalSummonActions()');
+
+    return [
+      PlayCardDialogAction.summon(),
+      PlayCardDialogAction.set(),
+    ];
+  }
+
+  Iterable<PlayCardDialogAction> _getSpecialSummonActions() {
+    _logger.verbose(_tag, '_getSpecialSummonActions()');
+
+    return [
+      PlayCardDialogAction.summonAttack(),
+      PlayCardDialogAction.summonDefence(),
+    ];
+  }
+
+  Iterable<PlayCardDialogAction> _getPlaySpellTrapActions() {
+    _logger.verbose(_tag, '_getPlaySpellTrapActions()');
+
+    return [
+      PlayCardDialogAction.activate(),
+      PlayCardDialogAction.set(),
+    ];
+  }
+
+  //endregion
 }
