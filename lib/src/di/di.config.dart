@@ -5,141 +5,145 @@
 // **************************************************************************
 
 import 'package:cloud_firestore/cloud_firestore.dart' as _i15;
-import 'package:dart_twitter_api/twitter_api.dart' as _i24;
-import 'package:dio/dio.dart' as _i54;
+import 'package:dart_twitter_api/twitter_api.dart' as _i26;
+import 'package:dio/dio.dart' as _i56;
 import 'package:firebase_crashlytics/firebase_crashlytics.dart' as _i14;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:shared_preferences/shared_preferences.dart' as _i18;
-import 'package:socket_io_client/socket_io_client.dart' as _i71;
+import 'package:shared_preferences/shared_preferences.dart' as _i20;
+import 'package:socket_io_client/socket_io_client.dart' as _i73;
 
 import '../../packages/core/core_config/core_config_interface/lib/core_config_interface.dart'
-    as _i25;
+    as _i27;
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/data_manager.dart'
-    as _i63;
+    as _i65;
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/deck/deck_data_manager.dart'
-    as _i40;
+    as _i42;
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/duel/duel_data_manager.dart'
-    as _i55;
+    as _i57;
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/news/news_data_manager.dart'
-    as _i44;
+    as _i46;
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/yugioh_cards/yugioh_cards_data_manager.dart'
-    as _i62;
+    as _i64;
 import '../../packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart'
-    as _i39;
-import '../../packages/core/core_general/lib/core_general.dart' as _i68;
+    as _i41;
+import '../../packages/core/core_general/lib/core_general.dart' as _i70;
 import '../../packages/core/core_general/lib/src/formatters/date_formatter.dart'
     as _i5;
 import '../../packages/core/core_logger/core_logger_impl/lib/src/logger.dart'
-    as _i43;
+    as _i45;
 import '../../packages/core/core_logger/core_logger_interface/lib/core_logger_interface.dart'
-    as _i42;
+    as _i44;
 import '../../packages/core/core_logger/core_logger_interface/lib/src/logger.dart'
     as _i17;
 import '../../packages/core/core_messaging/core_messaging_impl/lib/src/snack_bar/snack_bar_service_impl.dart'
-    as _i22;
+    as _i24;
 import '../../packages/core/core_messaging/core_messaging_interface/lib/core_messaging_interface.dart'
-    as _i21;
+    as _i23;
 import '../../packages/core/core_messaging/core_messaging_interface/lib/src/snack_bar/snack_bar_service.dart'
-    as _i53;
-import '../../packages/core/core_navigation/lib/core_navigation.dart' as _i45;
+    as _i55;
+import '../../packages/core/core_navigation/lib/core_navigation.dart' as _i47;
 import '../../packages/core/core_navigation/lib/src/dialogs/dialog_service.dart'
     as _i6;
 import '../../packages/core/core_smart_duel_server/core_smart_duel_server_impl/lib/src/smart_duel_server.dart'
-    as _i70;
+    as _i72;
 import '../../packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart'
-    as _i69;
+    as _i71;
 import '../../packages/core/core_storage/core_storage_impl/lib/src/duel/duel_storage_provider.dart'
-    as _i41;
+    as _i43;
 import '../../packages/core/core_storage/core_storage_impl/lib/src/providers/shared_preferences/shared_preferences_impl/shared_preferences_provider.dart'
-    as _i20;
+    as _i22;
 import '../../packages/core/core_storage/core_storage_impl/lib/src/providers/shared_preferences/shared_preferences_interface/shared_preferences_provider.dart'
-    as _i19;
+    as _i21;
 import '../../packages/core/core_storage/core_storage_impl/lib/src/yugioh_cards/yugioh_cards_storage_provider.dart'
-    as _i33;
+    as _i35;
 import '../../packages/core/core_storage/core_storage_interface/lib/core_storage_interface.dart'
-    as _i32;
+    as _i34;
 import '../../packages/core/core_ygoprodeck/core_ygoprodeck_impl/lib/src/api/ygoprodeck_api.dart'
-    as _i59;
-import '../../packages/core/core_ygoprodeck/core_ygoprodeck_impl/lib/src/ygoprodeck_api_provider.dart'
     as _i61;
+import '../../packages/core/core_ygoprodeck/core_ygoprodeck_impl/lib/src/ygoprodeck_api_provider.dart'
+    as _i63;
 import '../../packages/core/core_ygoprodeck/core_ygoprodeck_interface/lib/core_ygoprodeck_interface.dart'
-    as _i60;
+    as _i62;
 import '../../packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart'
-    as _i64;
-import '../../packages/features/feature_home/lib/feature_home.dart' as _i47;
+    as _i66;
+import '../../packages/features/feature_home/lib/feature_home.dart' as _i49;
 import '../../packages/features/feature_home/lib/src/deck/deck_viewmodel.dart'
-    as _i52;
+    as _i54;
 import '../../packages/features/feature_home/lib/src/duel/dialogs/duel_dialog_provider.dart'
     as _i10;
 import '../../packages/features/feature_home/lib/src/duel/dialogs/select_deck/select_deck_dialog_viewmodel.dart'
-    as _i49;
+    as _i51;
 import '../../packages/features/feature_home/lib/src/duel/duel_viewmodel.dart'
-    as _i65;
+    as _i67;
 import '../../packages/features/feature_home/lib/src/duel/mixins/duel_form_validators.dart'
     as _i11;
 import '../../packages/features/feature_home/lib/src/home/home_viewmodel.dart'
     as _i16;
 import '../../packages/features/feature_home/lib/src/news/news_viewmodel.dart'
-    as _i67;
+    as _i69;
 import '../../packages/features/feature_speed_duel/lib/feature_speed_duel.dart'
-    as _i48;
+    as _i50;
 import '../../packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/play_card_dialog_viewmodel.dart'
-    as _i56;
-import '../../packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/use_cases/create_play_card_dialog_actions_use_case.dart'
-    as _i51;
-import '../../packages/features/feature_speed_duel/lib/src/dialogs/speed_duel_dialog_provider.dart'
-    as _i23;
-import '../../packages/features/feature_speed_duel/lib/src/models/play_card.dart'
-    as _i57;
-import '../../packages/features/feature_speed_duel/lib/src/models/zone.dart'
     as _i58;
+import '../../packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/use_cases/create_play_card_dialog_actions_use_case.dart'
+    as _i53;
+import '../../packages/features/feature_speed_duel/lib/src/dialogs/speed_duel_dialog_provider.dart'
+    as _i25;
+import '../../packages/features/feature_speed_duel/lib/src/models/play_card.dart'
+    as _i59;
+import '../../packages/features/feature_speed_duel/lib/src/models/zone.dart'
+    as _i60;
 import '../../packages/features/feature_speed_duel/lib/src/speed_duel_viewmodel.dart'
-    as _i72;
+    as _i74;
 import '../../packages/features/feature_speed_duel/lib/src/usecases/create_play_card_use_case.dart'
-    as _i38;
+    as _i40;
 import '../../packages/features/feature_speed_duel/lib/src/usecases/does_card_fit_in_zone_use_case.dart'
     as _i9;
 import '../../packages/features/feature_speed_duel/lib/src/usecases/get_cards_from_deck_use_case.dart'
-    as _i66;
+    as _i68;
 import '../../packages/features/feature_yugioh_card_detail/lib/src/yugioh_card_detail_viewmodel.dart'
-    as _i50;
+    as _i52;
 import '../../packages/wrappers/wrapper_assets/wrapper_assets_impl/lib/src/assets_provider.dart'
     as _i4;
 import '../../packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart'
     as _i3;
 import '../../packages/wrappers/wrapper_cloud_database/wrapper_cloud_database_impl/lib/src/firebase/firebase_cloud_database_provider.dart'
-    as _i35;
-import '../../packages/wrappers/wrapper_cloud_database/wrapper_cloud_database_interface/lib/wrapper_cloud_database_interface.dart'
-    as _i34;
-import '../../packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_impl/lib/src/firebase/firebase_crashlytics_provider.dart'
     as _i37;
-import '../../packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_interface/lib/wrapper_crashlytics_interface.dart'
+import '../../packages/wrappers/wrapper_cloud_database/wrapper_cloud_database_interface/lib/wrapper_cloud_database_interface.dart'
     as _i36;
+import '../../packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_impl/lib/src/firebase/firebase_crashlytics_provider.dart'
+    as _i39;
+import '../../packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_interface/lib/wrapper_crashlytics_interface.dart'
+    as _i38;
 import '../../packages/wrappers/wrapper_enum_helper/wrapper_enum_helper_impl/lib/src/enum_helper.dart'
     as _i13;
 import '../../packages/wrappers/wrapper_enum_helper/wrapper_enum_helper_interface/lib/wrapper_enum_helper_interface.dart'
     as _i12;
+import '../../packages/wrappers/wrapper_html_unescape/wrapper_html_unescape_impl/lib/src/html_unescape_provider.dart'
+    as _i19;
+import '../../packages/wrappers/wrapper_html_unescape/wrapper_html_unescape_interface/lib/wrapper_html_unescape_interface.dart'
+    as _i18;
 import '../../packages/wrappers/wrapper_twitter/wrapper_twitter_impl/lib/src/twitter_provider.dart'
-    as _i27;
-import '../../packages/wrappers/wrapper_twitter/wrapper_twitter_interface/lib/wrapper_twitter_interface.dart'
-    as _i26;
-import '../../packages/wrappers/wrapper_url_launcher/wrapper_url_launcher_impl/lib/src/url_launcher_provider.dart'
     as _i29;
-import '../../packages/wrappers/wrapper_url_launcher/wrapper_url_launcher_interface/lib/wrapper_url_launcher_interface.dart'
+import '../../packages/wrappers/wrapper_twitter/wrapper_twitter_interface/lib/wrapper_twitter_interface.dart'
     as _i28;
-import '../../packages/wrappers/wrapper_web_socket/wrapper_web_socket_impl/lib/src/web_socket_factory.dart'
+import '../../packages/wrappers/wrapper_url_launcher/wrapper_url_launcher_impl/lib/src/url_launcher_provider.dart'
     as _i31;
-import '../../packages/wrappers/wrapper_web_socket/wrapper_web_socket_impl/lib/src/web_socket_provider.dart'
-    as _i73;
-import '../../packages/wrappers/wrapper_web_socket/wrapper_web_socket_interface/lib/wrapper_web_socket_interface.dart'
+import '../../packages/wrappers/wrapper_url_launcher/wrapper_url_launcher_interface/lib/wrapper_url_launcher_interface.dart'
     as _i30;
+import '../../packages/wrappers/wrapper_web_socket/wrapper_web_socket_impl/lib/src/web_socket_factory.dart'
+    as _i33;
+import '../../packages/wrappers/wrapper_web_socket/wrapper_web_socket_impl/lib/src/web_socket_provider.dart'
+    as _i75;
+import '../../packages/wrappers/wrapper_web_socket/wrapper_web_socket_interface/lib/wrapper_web_socket_interface.dart'
+    as _i32;
 import '../navigation/dialogs/dialog_service.dart' as _i7;
 import '../navigation/router.gr.dart' as _i8;
-import '../navigation/router_helper.dart' as _i46;
-import 'modules/core_modules.dart' as _i75;
+import '../navigation/router_helper.dart' as _i48;
+import 'modules/core_modules.dart' as _i77;
 import 'modules/third_party_modules.dart'
-    as _i74; // ignore_for_file: unnecessary_lambdas
+    as _i76; // ignore_for_file: unnecessary_lambdas
 
 // ignore_for_file: lines_longer_than_80_chars
 /// initializes the registration of provided dependencies inside of [GetIt]
@@ -165,123 +169,127 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i15.FirebaseFirestore>(
       () => firebaseModule.provideFirebaseFirestore());
   gh.factory<_i16.HomeViewModel>(() => _i16.HomeViewModel(get<_i17.Logger>()));
-  await gh.lazySingletonAsync<_i18.SharedPreferences>(
+  gh.lazySingleton<_i18.HtmlUnescapeProvider>(
+      () => _i19.HtmlUnescapeProviderImpl());
+  await gh.lazySingletonAsync<_i20.SharedPreferences>(
       () => sharedPreferencesModule.provideSharedPreferences(),
       preResolve: true);
-  gh.lazySingleton<_i19.SharedPreferencesProvider>(
-      () => _i20.SharedPreferencesProviderImpl(get<_i18.SharedPreferences>()));
-  gh.lazySingleton<_i21.SnackBarService>(() => _i22.SnackBarServiceImpl());
-  gh.lazySingleton<_i23.SpeedDuelDialogProvider>(
-      () => _i23.SpeedDuelDialogProvider());
-  gh.lazySingleton<_i24.TwitterApi>(
-      () => twitterModule.provideTwitterApi(get<_i25.AppConfig>()));
-  gh.lazySingleton<_i26.TwitterProvider>(
-      () => _i27.TwitterProviderImpl(get<_i24.TwitterApi>()));
-  gh.lazySingleton<_i28.UrlLauncherProvider>(
-      () => _i29.UrlLauncherProviderImpl());
-  gh.lazySingleton<_i30.WebSocketFactory>(() => _i31.WebSocketFactoryImpl());
-  gh.lazySingleton<_i32.YugiohCardsStorageProvider>(
-      () => _i33.YugiohCardsStorageProviderImpl());
-  gh.lazySingleton<_i34.CloudDatabaseProvider>(() =>
-      _i35.FirebaseCloudDatabaseProvider(
+  gh.lazySingleton<_i21.SharedPreferencesProvider>(
+      () => _i22.SharedPreferencesProviderImpl(get<_i20.SharedPreferences>()));
+  gh.lazySingleton<_i23.SnackBarService>(() => _i24.SnackBarServiceImpl());
+  gh.lazySingleton<_i25.SpeedDuelDialogProvider>(
+      () => _i25.SpeedDuelDialogProvider());
+  gh.lazySingleton<_i26.TwitterApi>(
+      () => twitterModule.provideTwitterApi(get<_i27.AppConfig>()));
+  gh.lazySingleton<_i28.TwitterProvider>(
+      () => _i29.TwitterProviderImpl(get<_i26.TwitterApi>()));
+  gh.lazySingleton<_i30.UrlLauncherProvider>(
+      () => _i31.UrlLauncherProviderImpl());
+  gh.lazySingleton<_i32.WebSocketFactory>(() => _i33.WebSocketFactoryImpl());
+  gh.lazySingleton<_i34.YugiohCardsStorageProvider>(
+      () => _i35.YugiohCardsStorageProviderImpl());
+  gh.lazySingleton<_i36.CloudDatabaseProvider>(() =>
+      _i37.FirebaseCloudDatabaseProvider(
           get<_i15.FirebaseFirestore>(), get<_i12.EnumHelper>()));
-  gh.lazySingleton<_i36.CrashlyticsProvider>(
-      () => _i37.FirebaseCrashlyticsProvider(get<_i14.FirebaseCrashlytics>()));
-  gh.lazySingleton<_i38.CreatePlayCardUseCase>(() => _i38.CreatePlayCardUseCase(
+  gh.lazySingleton<_i38.CrashlyticsProvider>(
+      () => _i39.FirebaseCrashlyticsProvider(get<_i14.FirebaseCrashlytics>()));
+  gh.lazySingleton<_i40.CreatePlayCardUseCase>(() => _i40.CreatePlayCardUseCase(
       get<_i3.AssetsProvider>(), get<_i12.EnumHelper>()));
-  gh.lazySingleton<_i39.DeckDataManager>(
-      () => _i40.DeckDataManagerImpl(get<_i34.CloudDatabaseProvider>()));
-  gh.lazySingleton<_i32.DuelStorageProvider>(() =>
-      _i41.DuelStorageProviderImpl(get<_i19.SharedPreferencesProvider>()));
-  gh.lazySingleton<_i42.Logger>(() =>
-      _i43.LoggerImpl(get<_i36.CrashlyticsProvider>(), get<_i25.AppConfig>()));
-  gh.lazySingleton<_i39.NewsDataManager>(() => _i44.NewsDataManagerImpl(
-      get<_i25.AppConfig>(), get<_i26.TwitterProvider>()));
-  gh.lazySingleton<_i45.RouterHelper>(() => _i46.RouterHelperImpl(
-      get<_i25.AppConfig>(),
+  gh.lazySingleton<_i41.DeckDataManager>(
+      () => _i42.DeckDataManagerImpl(get<_i36.CloudDatabaseProvider>()));
+  gh.lazySingleton<_i34.DuelStorageProvider>(() =>
+      _i43.DuelStorageProviderImpl(get<_i21.SharedPreferencesProvider>()));
+  gh.lazySingleton<_i44.Logger>(() =>
+      _i45.LoggerImpl(get<_i38.CrashlyticsProvider>(), get<_i27.AppConfig>()));
+  gh.lazySingleton<_i41.NewsDataManager>(() => _i46.NewsDataManagerImpl(
+      get<_i27.AppConfig>(),
+      get<_i28.TwitterProvider>(),
+      get<_i18.HtmlUnescapeProvider>()));
+  gh.lazySingleton<_i47.RouterHelper>(() => _i48.RouterHelperImpl(
+      get<_i27.AppConfig>(),
       get<_i8.AppRouter>(),
-      get<_i45.DialogService>(),
-      get<_i28.UrlLauncherProvider>(),
-      get<_i47.DuelDialogProvider>(),
-      get<_i48.SpeedDuelDialogProvider>()));
-  gh.factory<_i49.SelectDeckDialogViewModel>(() =>
-      _i49.SelectDeckDialogViewModel(get<_i45.RouterHelper>(),
-          get<_i45.DialogService>(), get<_i17.Logger>()));
-  gh.factoryParam<_i50.YugiohCardDetailViewModel, _i39.YugiohCard, int>(
-      (_yugiohCard, _index) => _i50.YugiohCardDetailViewModel(
-          get<_i42.Logger>(), _yugiohCard, _index));
-  gh.lazySingleton<_i51.CreatePlayCardDialogActionsUseCase>(
-      () => _i51.CreatePlayCardDialogActionsUseCase(get<_i42.Logger>()));
-  gh.factory<_i52.DeckViewModel>(() => _i52.DeckViewModel(get<_i42.Logger>(),
-      get<_i45.RouterHelper>(), get<_i53.SnackBarService>()));
-  gh.lazySingleton<_i54.Dio>(() => ygoProDeckModule.provideYgoProDeckDio(
-      get<_i25.AppConfig>(), get<_i42.Logger>()));
-  gh.lazySingleton<_i39.DuelDataManager>(
-      () => _i55.DuelDataManagerImpl(get<_i32.DuelStorageProvider>()));
-  gh.factoryParam<_i56.PlayCardDialogViewModel, _i57.PlayCard, _i58.Zone>(
-      (_playCard, _newZone) => _i56.PlayCardDialogViewModel(
+      get<_i47.DialogService>(),
+      get<_i30.UrlLauncherProvider>(),
+      get<_i49.DuelDialogProvider>(),
+      get<_i50.SpeedDuelDialogProvider>()));
+  gh.factory<_i51.SelectDeckDialogViewModel>(() =>
+      _i51.SelectDeckDialogViewModel(get<_i47.RouterHelper>(),
+          get<_i47.DialogService>(), get<_i17.Logger>()));
+  gh.factoryParam<_i52.YugiohCardDetailViewModel, _i41.YugiohCard, int>(
+      (_yugiohCard, _index) => _i52.YugiohCardDetailViewModel(
+          get<_i44.Logger>(), _yugiohCard, _index));
+  gh.lazySingleton<_i53.CreatePlayCardDialogActionsUseCase>(
+      () => _i53.CreatePlayCardDialogActionsUseCase(get<_i44.Logger>()));
+  gh.factory<_i54.DeckViewModel>(() => _i54.DeckViewModel(get<_i44.Logger>(),
+      get<_i47.RouterHelper>(), get<_i55.SnackBarService>()));
+  gh.lazySingleton<_i56.Dio>(() => ygoProDeckModule.provideYgoProDeckDio(
+      get<_i27.AppConfig>(), get<_i44.Logger>()));
+  gh.lazySingleton<_i41.DuelDataManager>(
+      () => _i57.DuelDataManagerImpl(get<_i34.DuelStorageProvider>()));
+  gh.factoryParam<_i58.PlayCardDialogViewModel, _i59.PlayCard, _i60.Zone>(
+      (_playCard, _newZone) => _i58.PlayCardDialogViewModel(
           _playCard,
           _newZone,
-          get<_i51.CreatePlayCardDialogActionsUseCase>(),
-          get<_i45.DialogService>(),
+          get<_i53.CreatePlayCardDialogActionsUseCase>(),
+          get<_i47.DialogService>(),
           get<_i17.Logger>()));
-  gh.lazySingleton<_i59.YgoProDeckRestClient>(
-      () => _i59.YgoProDeckRestClient(get<_i54.Dio>()));
-  gh.lazySingleton<_i60.YgoProDeckApiProvider>(
-      () => _i61.YgoProDeckApiProviderImpl(get<_i59.YgoProDeckRestClient>()));
-  gh.lazySingleton<_i39.YugiohCardsDataManager>(() =>
-      _i62.YugiohCardsDataManagerImpl(get<_i60.YgoProDeckApiProvider>(),
-          get<_i32.YugiohCardsStorageProvider>()));
-  gh.lazySingleton<_i39.DataManager>(() => _i63.DataManagerImpl(
-      get<_i39.NewsDataManager>(),
-      get<_i39.YugiohCardsDataManager>(),
-      get<_i39.DeckDataManager>(),
-      get<_i39.DuelDataManager>()));
-  gh.factoryParam<_i64.DeckBuilderViewModel, _i39.PreBuiltDeck, dynamic>(
-      (_preBuiltDeck, _) => _i64.DeckBuilderViewModel(get<_i42.Logger>(),
-          _preBuiltDeck, get<_i45.RouterHelper>(), get<_i39.DataManager>()));
-  gh.factory<_i65.DuelViewModel>(() => _i65.DuelViewModel(
-      get<_i42.Logger>(),
+  gh.lazySingleton<_i61.YgoProDeckRestClient>(
+      () => _i61.YgoProDeckRestClient(get<_i56.Dio>()));
+  gh.lazySingleton<_i62.YgoProDeckApiProvider>(
+      () => _i63.YgoProDeckApiProviderImpl(get<_i61.YgoProDeckRestClient>()));
+  gh.lazySingleton<_i41.YugiohCardsDataManager>(() =>
+      _i64.YugiohCardsDataManagerImpl(get<_i62.YgoProDeckApiProvider>(),
+          get<_i34.YugiohCardsStorageProvider>()));
+  gh.lazySingleton<_i41.DataManager>(() => _i65.DataManagerImpl(
+      get<_i41.NewsDataManager>(),
+      get<_i41.YugiohCardsDataManager>(),
+      get<_i41.DeckDataManager>(),
+      get<_i41.DuelDataManager>()));
+  gh.factoryParam<_i66.DeckBuilderViewModel, _i41.PreBuiltDeck, dynamic>(
+      (_preBuiltDeck, _) => _i66.DeckBuilderViewModel(get<_i44.Logger>(),
+          _preBuiltDeck, get<_i47.RouterHelper>(), get<_i41.DataManager>()));
+  gh.factory<_i67.DuelViewModel>(() => _i67.DuelViewModel(
+      get<_i44.Logger>(),
       get<_i11.DuelFormValidators>(),
-      get<_i45.RouterHelper>(),
-      get<_i39.DataManager>()));
-  gh.lazySingleton<_i66.GetCardsFromDeckUseCase>(() =>
-      _i66.GetCardsFromDeckUseCase(
-          get<_i39.DataManager>(), get<_i38.CreatePlayCardUseCase>()));
-  gh.factory<_i67.NewsViewModel>(() => _i67.NewsViewModel(
-      get<_i42.Logger>(),
-      get<_i45.RouterHelper>(),
-      get<_i39.DataManager>(),
-      get<_i68.DateFormatter>(),
-      get<_i36.CrashlyticsProvider>()));
-  gh.lazySingleton<_i69.SmartDuelServer>(() => _i70.SmartDuelServerImpl(
-      get<_i30.WebSocketFactory>(), get<_i39.DataManager>()));
-  gh.factory<_i71.Socket>(
-      () => socketIoModule.provideSocket(get<_i39.DataManager>()));
-  gh.factoryParam<_i72.SpeedDuelViewModel, _i39.PreBuiltDeck, dynamic>(
-      (_preBuiltDeck, _) => _i72.SpeedDuelViewModel(
-          get<_i42.Logger>(),
+      get<_i47.RouterHelper>(),
+      get<_i41.DataManager>()));
+  gh.lazySingleton<_i68.GetCardsFromDeckUseCase>(() =>
+      _i68.GetCardsFromDeckUseCase(
+          get<_i41.DataManager>(), get<_i40.CreatePlayCardUseCase>()));
+  gh.factory<_i69.NewsViewModel>(() => _i69.NewsViewModel(
+      get<_i44.Logger>(),
+      get<_i47.RouterHelper>(),
+      get<_i41.DataManager>(),
+      get<_i70.DateFormatter>(),
+      get<_i38.CrashlyticsProvider>()));
+  gh.lazySingleton<_i71.SmartDuelServer>(() => _i72.SmartDuelServerImpl(
+      get<_i32.WebSocketFactory>(), get<_i41.DataManager>()));
+  gh.factory<_i73.Socket>(
+      () => socketIoModule.provideSocket(get<_i41.DataManager>()));
+  gh.factoryParam<_i74.SpeedDuelViewModel, _i41.PreBuiltDeck, dynamic>(
+      (_preBuiltDeck, _) => _i74.SpeedDuelViewModel(
+          get<_i44.Logger>(),
           _preBuiltDeck,
-          get<_i45.RouterHelper>(),
-          get<_i69.SmartDuelServer>(),
-          get<_i66.GetCardsFromDeckUseCase>(),
-          get<_i38.CreatePlayCardUseCase>(),
+          get<_i47.RouterHelper>(),
+          get<_i71.SmartDuelServer>(),
+          get<_i68.GetCardsFromDeckUseCase>(),
+          get<_i40.CreatePlayCardUseCase>(),
           get<_i9.DoesCardFitInZoneUseCase>(),
-          get<_i39.DataManager>(),
+          get<_i41.DataManager>(),
           get<_i12.EnumHelper>(),
-          get<_i36.CrashlyticsProvider>(),
-          get<_i53.SnackBarService>()));
-  gh.factory<_i30.WebSocketProvider>(
-      () => _i73.WebSocketProviderImpl(get<_i71.Socket>(), get<_i42.Logger>()));
+          get<_i38.CrashlyticsProvider>(),
+          get<_i55.SnackBarService>()));
+  gh.factory<_i32.WebSocketProvider>(
+      () => _i75.WebSocketProviderImpl(get<_i73.Socket>(), get<_i44.Logger>()));
   return get;
 }
 
-class _$FirebaseModule extends _i74.FirebaseModule {}
+class _$FirebaseModule extends _i76.FirebaseModule {}
 
-class _$SharedPreferencesModule extends _i74.SharedPreferencesModule {}
+class _$SharedPreferencesModule extends _i76.SharedPreferencesModule {}
 
-class _$TwitterModule extends _i74.TwitterModule {}
+class _$TwitterModule extends _i76.TwitterModule {}
 
-class _$YgoProDeckModule extends _i75.YgoProDeckModule {}
+class _$YgoProDeckModule extends _i77.YgoProDeckModule {}
 
-class _$SocketIoModule extends _i74.SocketIoModule {}
+class _$SocketIoModule extends _i76.SocketIoModule {}

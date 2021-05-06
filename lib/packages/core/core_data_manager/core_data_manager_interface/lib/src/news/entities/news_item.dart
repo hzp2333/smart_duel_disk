@@ -21,6 +21,18 @@ class NewsItem extends Equatable {
     @required this.imageUrl,
   });
 
+  NewsItem copyWith({String text}) {
+    return NewsItem(
+      id: id,
+      text: text ?? this.text,
+      authorId: authorId,
+      authorName: authorName,
+      authorImageUrl: authorImageUrl,
+      createdAt: createdAt,
+      imageUrl: imageUrl,
+    );
+  }
+
   @override
   List<Object> get props => [
         id,
