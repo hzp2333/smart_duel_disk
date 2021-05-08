@@ -23,7 +23,7 @@ class IconTitleTile extends StatelessWidget {
           onTap: onPressed,
           highlightColor: Colors.transparent,
           splashColor: AppColors.cardSplashColor,
-          borderRadius: BorderRadius.circular(AppDimensions.newsCardBorderRadius),
+          borderRadius: BorderRadius.circular(AppDimensions.generalBorderRadius),
           child: Padding(
             padding: const EdgeInsets.all(AppDimensions.deckPersonalCardPadding),
             child: Row(

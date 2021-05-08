@@ -33,7 +33,7 @@ class GeneralErrorState extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   primary: AppColors.primaryAccentColor,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppDimensions.buttonBorderRadius),
+                    borderRadius: BorderRadius.circular(AppDimensions.generalBorderRadius),
                   ),
                 ),
                 child: Text(Strings.generalErrorTryAgain.get()),

@@ -221,4 +221,26 @@ class Strings {
       'en': '''Summon DEF''',
     },
   );
+
+  static const onboardingAppTitle = PlainLocalizedString(
+    key: 'onboarding_app_title',
+    values: {
+      'en': '''Smart\Duel Disk''',
+    },
+  );
+
+  static const onboardingInitiateLink = PlainLocalizedString(
+    key: 'onboarding_initiate_link',
+    values: {
+      'en': '''Initiate link!''',
+    },
+  );
+
+  static const onboardingFineprint = PlainLocalizedString(
+    key: 'onboarding_fineprint',
+    values: {
+      'en':
+          '''Smart Duel Disk is an unofficial Fan Project and is not approved or endorsed by Konami. Portions of the materials used are property of Konami Digital Entertainment.''',
+    },
+  );
 }

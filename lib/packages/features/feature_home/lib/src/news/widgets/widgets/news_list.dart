@@ -62,7 +62,7 @@ class _NewsListItem extends StatelessWidget {
       color: AppColors.cardBackgroundColor,
       margin: const EdgeInsets.all(AppDimensions.newsCardMargin),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppDimensions.newsCardBorderRadius),
+        borderRadius: BorderRadius.circular(AppDimensions.generalBorderRadius),
       ),
       child: Column(
         children: <Widget>[
@@ -95,8 +95,8 @@ class _NewsListItemImage extends StatelessWidget {
       aspectRatio: AppDimensions.newsCardImageAspectRatio,
       child: ClipRRect(
         borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(AppDimensions.newsCardBorderRadius),
-          topRight: Radius.circular(AppDimensions.newsCardBorderRadius),
+          topLeft: Radius.circular(AppDimensions.generalBorderRadius),
+          topRight: Radius.circular(AppDimensions.generalBorderRadius),
         ),
         child: CachedNetworkImage(
           imageUrl: imageUrl,
@@ -121,8 +121,8 @@ class _NewsListItemHeader extends StatelessWidget {
         color: AppColors.cardHeaderBackgroundColor,
         borderRadius: !newsItem.hasImage
             ? const BorderRadius.only(
-                topLeft: Radius.circular(AppDimensions.newsCardBorderRadius),
-                topRight: Radius.circular(AppDimensions.newsCardBorderRadius),
+                topLeft: Radius.circular(AppDimensions.generalBorderRadius),
+                topRight: Radius.circular(AppDimensions.generalBorderRadius),
               )
             : null,
       ),
@@ -228,7 +228,7 @@ class _NewsListItemRipple extends StatelessWidget {
           onTap: () => vm.onNewsItemTapped(newsItem),
           highlightColor: Colors.transparent,
           splashColor: AppColors.cardSplashColor,
-          borderRadius: BorderRadius.circular(AppDimensions.newsCardBorderRadius),
+          borderRadius: BorderRadius.circular(AppDimensions.generalBorderRadius),
         ),
       ),
     );

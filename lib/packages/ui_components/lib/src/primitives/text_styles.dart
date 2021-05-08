@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../ui_components.dart';
 
+// ignore: avoid_classes_with_only_static_members
 class TextStyles {
   static const subtitle = TextStyle(
     fontSize: TextSizes.subtitleSize,
@@ -24,5 +26,19 @@ class TextStyles {
 
   static const cardDialogBigText = TextStyle(
     fontSize: TextSizes.cardDialogBigText,
+  );
+
+  static final onboardingAppTile = GoogleFonts.audiowide(
+    fontSize: TextSizes.onboardingAppTitle,
+    height: 1.15,
+  );
+
+  static const button = TextStyle(
+    fontSize: TextSizes.button,
+  );
+
+  static final onboardingFineprint = TextStyle(
+    color: AppColors.fineprintTextColor,
+    fontSize: TextSizes.onboardingFineprint,
   );
 }

@@ -1,4 +1,6 @@
 abstract class AssetsProvider {
+  String get iconCrownCorp;
+
   String get cardBack;
 
   String get speedDuelFieldBackground;

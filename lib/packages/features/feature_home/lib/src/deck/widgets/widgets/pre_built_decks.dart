@@ -90,7 +90,7 @@ class _PreBuiltDeckCard extends StatelessWidget {
             width: double.infinity,
             padding: const EdgeInsets.all(AppDimensions.deckPrebuiltTextPadding),
             decoration: BoxDecoration(
-              boxShadow: [AppColors.blackShadow],
+              boxShadow: [AppElevations.blackShadow],
               borderRadius: const BorderRadius.only(
                 bottomLeft: Radius.circular(AppDimensions.generalBorderRadius),
                 bottomRight: Radius.circular(AppDimensions.generalBorderRadius),
@@ -135,7 +135,7 @@ class _PreBuiltDeckCardRipple extends StatelessWidget {
         onTap: onPressed,
         highlightColor: Colors.transparent,
         splashColor: backgroundColor.withOpacity(0.15),
-        borderRadius: BorderRadius.circular(AppDimensions.newsCardBorderRadius),
+        borderRadius: BorderRadius.circular(AppDimensions.generalBorderRadius),
       ),
     );
   }

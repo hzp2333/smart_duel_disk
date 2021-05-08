@@ -12,4 +12,4 @@ flutter packages get
 curl -s -o "lang/en.yaml" "https://localise.biz/api/export/locale/en-US.yml?format=simple&key=$LOCO_READ_KEY"
 
 # Run build runner
-fvm flutter pub run build_runner build --delete-conflicting-outputs
+flutter pub run build_runner build --delete-conflicting-outputs

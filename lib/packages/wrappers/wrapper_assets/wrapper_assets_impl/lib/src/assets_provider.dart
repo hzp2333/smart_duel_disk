@@ -4,6 +4,9 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_
 @LazySingleton(as: AssetsProvider)
 class AssetsProviderImpl implements AssetsProvider {
   @override
+  String get iconCrownCorp => 'assets/illustrations/crowncorp_logo.png';
+
+  @override
   String get cardBack => 'assets/illustrations/card_back.jpeg';
 
   @override

@@ -18,4 +18,8 @@ class OnboardingViewModel extends BaseViewModel {
   ) : super(
           logger,
         );
+
+  Future<void> onInitiateLinkPressed() async {
+    logger.info(_tag, 'onInitiateLinkPressed()');
+  }
 }
