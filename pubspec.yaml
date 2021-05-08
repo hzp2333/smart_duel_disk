@@ -69,6 +69,7 @@ scripts:
   clean: flutter clean
   deps: flutter pub get
   go: flutter run
+  gopro: flutter run --profile
   gorel: flutter run --release
   mac: flutter run -d macos
   all: flutter run -d all

@@ -40,6 +40,15 @@ class RouterHelperImpl implements RouterHelper {
     return _dialogService.showAlertDialog(dialogConfig);
   }
 
+  //region Home
+
+  @override
+  Future<void> showHome() {
+    return _router.replace(const HomeRoute());
+  }
+
+  //endregion
+
   //region News
 
   @override

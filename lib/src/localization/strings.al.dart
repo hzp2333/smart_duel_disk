@@ -225,7 +225,7 @@ class Strings {
   static const onboardingAppTitle = PlainLocalizedString(
     key: 'onboarding_app_title',
     values: {
-      'en': '''Smart\Duel Disk''',
+      'en': '''Smart\nDuel Disk''',
     },
   );
 

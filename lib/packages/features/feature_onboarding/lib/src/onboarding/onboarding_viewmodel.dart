@@ -21,5 +21,7 @@ class OnboardingViewModel extends BaseViewModel {
 
   Future<void> onInitiateLinkPressed() async {
     logger.info(_tag, 'onInitiateLinkPressed()');
+
+    await _router.showHome();
   }
 }

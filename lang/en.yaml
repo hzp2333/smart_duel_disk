@@ -3,7 +3,7 @@
 # Release: Working copy
 # Locale: en-US, English (USA)
 # Exported by: Bram De Coninck
-# Exported at: Sat, 08 May 2021 16:09:34 +0200
+# Exported at: Sat, 08 May 2021 16:32:40 +0200
 ---
 home_tab_news: News
 home_tab_duel: Duel
@@ -29,7 +29,7 @@ speed_duel_card_action_set: Set
 speed_duel_card_action_destroy: Destroy
 speed_duel_card_action_summon_attack: Summon ATK
 speed_duel_card_action_summon_defence: Summon DEF
-onboarding_app_title: Smart\Duel Disk
+onboarding_app_title: Smart\nDuel Disk
 onboarding_initiate_link: Initiate link!
 onboarding_fineprint: Smart Duel Disk is an unofficial Fan Project and is not approved or endorsed by Konami. Portions of the materials used are property of Konami Digital Entertainment.
 ...

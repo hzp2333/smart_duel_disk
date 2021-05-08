@@ -13,7 +13,7 @@ class PrimaryButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {},
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         primary: AppColors.primaryAccentColor,
         minimumSize: const Size(double.infinity, AppDimensions.buttonHeight),

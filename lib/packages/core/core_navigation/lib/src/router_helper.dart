@@ -10,6 +10,12 @@ abstract class RouterHelper {
   Future<void> closeScreen();
   Future<bool> showDialog(DialogConfig dialogConfig);
 
+  //region Home
+
+  Future<void> showHome();
+
+  //endregion
+
   //region News
 
   Future<void> showNewsDetails(String newsItemId, String newsItemAuthorId);
