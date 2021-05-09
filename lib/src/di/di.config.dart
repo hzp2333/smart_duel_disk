@@ -267,7 +267,9 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.factory<_i71.OnboardingViewModel>(() => _i71.OnboardingViewModel(
       get<_i17.Logger>(), get<_i47.RouterHelper>(), get<_i41.DataManager>()));
   gh.lazySingleton<_i72.SmartDuelServer>(() => _i73.SmartDuelServerImpl(
-      get<_i32.WebSocketFactory>(), get<_i41.DataManager>()));
+      get<_i32.WebSocketFactory>(),
+      get<_i41.DataManager>(),
+      get<_i44.Logger>()));
   gh.factory<_i74.Socket>(
       () => socketIoModule.provideSocket(get<_i41.DataManager>()));
   gh.factoryParam<_i75.SpeedDuelViewModel, _i41.PreBuiltDeck, dynamic>(

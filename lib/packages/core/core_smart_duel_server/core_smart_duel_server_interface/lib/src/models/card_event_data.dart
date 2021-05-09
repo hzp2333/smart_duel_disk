@@ -8,7 +8,7 @@ part 'card_event_data.g.dart';
 
 @immutable
 @JsonSerializable()
-class CardEventData extends Equatable implements SpeedDuelEventData {
+class CardEventData extends Equatable implements SmartDuelEventData {
   final String cardId;
   final String zoneName;
   final String cardPosition;

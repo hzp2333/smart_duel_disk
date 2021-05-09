@@ -16,7 +16,9 @@ class WebSocketProviderImpl implements WebSocketProvider {
   );
 
   @override
-  void connect() {
+  void init() {
+    _logger.info(_tag, 'init()');
+
     try {
       _socket.on('connect', (dynamic _) => _logger.debug(_tag, 'connect: ${_socket.id}'));
       _socket.on('connect_error', (dynamic _) => _logger.debug(_tag, 'connect_error: ${_socket.id}'));
@@ -28,22 +30,21 @@ class WebSocketProviderImpl implements WebSocketProvider {
 
       _socket.connect();
     } catch (ex, stackTrace) {
-      _logger.error(_tag, 'An error occurred while opening the socket: $ex', ex, stackTrace);
+      _logger.error(_tag, 'An error occurred while initializing the socket: $ex', ex, stackTrace);
     }
   }
 
   @override
-  bool isConnected() {
-    return _socket.connected;
-  }
-
-  @override
   void emitEvent(String eventName, Map<String, dynamic> data) {
+    _logger.info(_tag, 'emitEvent(eventName: $eventName, data: $data)');
+
     _socket.emit(eventName, data);
   }
 
   @override
   void dispose() {
+    _logger.info(_tag, 'dispose()');
+
     _socket.dispose();
   }
 }

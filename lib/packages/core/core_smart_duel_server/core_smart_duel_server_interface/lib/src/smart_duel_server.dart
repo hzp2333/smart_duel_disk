@@ -1,7 +1,7 @@
-import 'models/speed_duel_event.dart';
+import 'models/smart_duel_event.dart';
 
 abstract class SmartDuelServer {
-  void connect();
-  void emitSpeedDuelEvent(SpeedDuelEvent duelEvent);
+  void init();
+  void emitSpeedDuelEvent(SmartDuelEvent duelEvent);
   void dispose();
 }
