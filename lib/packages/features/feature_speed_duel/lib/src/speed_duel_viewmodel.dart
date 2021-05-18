@@ -88,7 +88,6 @@ class SpeedDuelViewModel extends BaseViewModel {
     logger.info(_tag, '_init()');
 
     try {
-      _smartDuelServer.init();
       _initPlayerStateSubscription();
 
       await _setDeck();
@@ -395,7 +394,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   void _sendPlayCardEvent(PlayCard card, Zone zone) {
     logger.verbose(_tag, '_sendPlayCardEvent(card: $card, zone: $zone)');
 
-    _smartDuelServer.emitSpeedDuelEvent(
+    _smartDuelServer.emitEvent(
       SmartDuelEvent.playCard(
         CardEventData(
           cardId: card.yugiohCard.id.toString(),
@@ -409,7 +408,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   void _sendRemoveCardEvent(PlayCard card, Zone zone) {
     logger.verbose(_tag, '_sendRemoveCardEvent(card: $card, zone: $zone)');
 
-    _smartDuelServer.emitSpeedDuelEvent(
+    _smartDuelServer.emitEvent(
       SmartDuelEvent.removeCard(
         CardEventData(
           cardId: card.yugiohCard.id.toString(),

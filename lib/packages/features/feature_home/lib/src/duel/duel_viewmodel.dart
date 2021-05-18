@@ -5,6 +5,7 @@ import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manage
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/core_logger_interface/lib/core_logger_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
+import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/duel/mixins/duel_form_validators.dart';
 
 @Injectable()
@@ -14,6 +15,7 @@ class DuelViewModel extends BaseViewModel {
   final DuelFormValidators _duelFormValidators;
   final RouterHelper _router;
   final DataManager _dataManager;
+  final SmartDuelServer _smartDuelServer;
 
   final _ipAddress = BehaviorSubject<String>();
   Stream<String> get ipAddress => _ipAddress.stream.transform(_duelFormValidators.ipAddressValidator);
@@ -30,6 +32,7 @@ class DuelViewModel extends BaseViewModel {
     this._duelFormValidators,
     this._router,
     this._dataManager,
+    this._smartDuelServer,
   ) : super(logger) {
     _init();
   }
@@ -77,20 +80,24 @@ class DuelViewModel extends BaseViewModel {
     _port.add(port);
   }
 
-  Future<void> onSpeedDuelDemoPressed() async {
-    logger.info(_tag, 'onSpeedDuelDemoPressed()');
+  Future<void> onCreateRoomPressed() async {
+    logger.info(_tag, 'onCreateRoomPressed()');
 
     await _dataManager.saveConnectionInfo(ConnectionInfo(
       ipAddress: _ipAddress.value,
       port: _port.value,
     ));
 
-    final deck = await _router.showSelectDeckDialog();
-    if (deck == null) {
-      return;
-    }
+    _smartDuelServer.dispose();
+    _smartDuelServer.init();
+    _smartDuelServer.emitEvent(SmartDuelEvent.createRoom());
 
-    await _router.showSpeedDuel(deck);
+    // final deck = await _router.showSelectDeckDialog();
+    // if (deck == null) {
+    //   return;
+    // }
+
+    // await _router.showSpeedDuel(deck);
   }
 
   @override

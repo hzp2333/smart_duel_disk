@@ -12,7 +12,7 @@ class SmartDuelEvent extends Equatable {
   const SmartDuelEvent._({
     @required this.scope,
     @required this.action,
-    @required this.data,
+    this.data,
   });
 
   factory SmartDuelEvent.playCard(CardEventData data) {
@@ -28,6 +28,13 @@ class SmartDuelEvent extends Equatable {
       scope: 'card',
       action: 'remove',
       data: data,
+    );
+  }
+
+  factory SmartDuelEvent.createRoom() {
+    return const SmartDuelEvent._(
+      scope: 'room',
+      action: 'create',
     );
   }
 

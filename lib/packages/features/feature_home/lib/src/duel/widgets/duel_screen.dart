@@ -18,7 +18,7 @@ class DuelScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           Section(
-            title: 'Duel demo',
+            title: 'Speed Duel',
             child: _DuelDemoSection(),
           ),
         ],
@@ -73,7 +73,7 @@ class _PortTextField extends StatelessWidget {
 
     return DuelFormTextField(
       label: 'Port',
-      hint: '52300',
+      hint: '8080',
       textStream: vm.port,
       onChanged: vm.onPortChanged,
       onSubmitted: vm.onPortSubmitted,
@@ -90,9 +90,9 @@ class _DuelFormSubmitButton extends HookWidget {
     final snapshot = useStream(vm.isFormValid, initialData: false);
 
     return IconTitleTile(
-      icon: Icons.speed,
-      title: 'Speed Duel demo',
-      onPressed: snapshot.data ? vm.onSpeedDuelDemoPressed : null,
+      icon: Icons.meeting_room,
+      title: 'Create room',
+      onPressed: snapshot.data ? vm.onCreateRoomPressed : null,
     );
   }
 }

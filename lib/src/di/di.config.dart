@@ -11,7 +11,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart' as _i14;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i20;
-import 'package:socket_io_client/socket_io_client.dart' as _i74;
+import 'package:socket_io_client/socket_io_client.dart' as _i73;
 
 import '../../packages/core/core_config/core_config_interface/lib/core_config_interface.dart'
     as _i27;
@@ -27,7 +27,7 @@ import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/yug
     as _i64;
 import '../../packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart'
     as _i41;
-import '../../packages/core/core_general/lib/core_general.dart' as _i70;
+import '../../packages/core/core_general/lib/core_general.dart' as _i69;
 import '../../packages/core/core_general/lib/src/formatters/date_formatter.dart'
     as _i5;
 import '../../packages/core/core_logger/core_logger_impl/lib/src/logger.dart'
@@ -46,9 +46,9 @@ import '../../packages/core/core_navigation/lib/core_navigation.dart' as _i47;
 import '../../packages/core/core_navigation/lib/src/dialogs/dialog_service.dart'
     as _i6;
 import '../../packages/core/core_smart_duel_server/core_smart_duel_server_impl/lib/src/smart_duel_server.dart'
-    as _i73;
-import '../../packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart'
     as _i72;
+import '../../packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart'
+    as _i71;
 import '../../packages/core/core_storage/core_storage_impl/lib/src/duel/duel_storage_provider.dart'
     as _i43;
 import '../../packages/core/core_storage/core_storage_impl/lib/src/providers/shared_preferences/shared_preferences_impl/shared_preferences_provider.dart'
@@ -75,15 +75,15 @@ import '../../packages/features/feature_home/lib/src/duel/dialogs/duel_dialog_pr
 import '../../packages/features/feature_home/lib/src/duel/dialogs/select_deck/select_deck_dialog_viewmodel.dart'
     as _i51;
 import '../../packages/features/feature_home/lib/src/duel/duel_viewmodel.dart'
-    as _i67;
+    as _i76;
 import '../../packages/features/feature_home/lib/src/duel/mixins/duel_form_validators.dart'
     as _i11;
 import '../../packages/features/feature_home/lib/src/home/home_viewmodel.dart'
     as _i16;
 import '../../packages/features/feature_home/lib/src/news/news_viewmodel.dart'
-    as _i69;
+    as _i68;
 import '../../packages/features/feature_onboarding/lib/src/onboarding/onboarding_viewmodel.dart'
-    as _i71;
+    as _i70;
 import '../../packages/features/feature_speed_duel/lib/feature_speed_duel.dart'
     as _i50;
 import '../../packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/play_card_dialog_viewmodel.dart'
@@ -97,13 +97,13 @@ import '../../packages/features/feature_speed_duel/lib/src/models/play_card.dart
 import '../../packages/features/feature_speed_duel/lib/src/models/zone.dart'
     as _i60;
 import '../../packages/features/feature_speed_duel/lib/src/speed_duel_viewmodel.dart'
-    as _i75;
+    as _i74;
 import '../../packages/features/feature_speed_duel/lib/src/usecases/create_play_card_use_case.dart'
     as _i40;
 import '../../packages/features/feature_speed_duel/lib/src/usecases/does_card_fit_in_zone_use_case.dart'
     as _i9;
 import '../../packages/features/feature_speed_duel/lib/src/usecases/get_cards_from_deck_use_case.dart'
-    as _i68;
+    as _i67;
 import '../../packages/features/feature_yugioh_card_detail/lib/src/yugioh_card_detail_viewmodel.dart'
     as _i52;
 import '../../packages/wrappers/wrapper_assets/wrapper_assets_impl/lib/src/assets_provider.dart'
@@ -137,7 +137,7 @@ import '../../packages/wrappers/wrapper_url_launcher/wrapper_url_launcher_interf
 import '../../packages/wrappers/wrapper_web_socket/wrapper_web_socket_impl/lib/src/web_socket_factory.dart'
     as _i33;
 import '../../packages/wrappers/wrapper_web_socket/wrapper_web_socket_impl/lib/src/web_socket_provider.dart'
-    as _i76;
+    as _i75;
 import '../../packages/wrappers/wrapper_web_socket/wrapper_web_socket_interface/lib/wrapper_web_socket_interface.dart'
     as _i32;
 import '../navigation/dialogs/dialog_service.dart' as _i7;
@@ -250,35 +250,30 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.factoryParam<_i66.DeckBuilderViewModel, _i41.PreBuiltDeck, dynamic>(
       (_preBuiltDeck, _) => _i66.DeckBuilderViewModel(get<_i44.Logger>(),
           _preBuiltDeck, get<_i47.RouterHelper>(), get<_i41.DataManager>()));
-  gh.factory<_i67.DuelViewModel>(() => _i67.DuelViewModel(
-      get<_i44.Logger>(),
-      get<_i11.DuelFormValidators>(),
-      get<_i47.RouterHelper>(),
-      get<_i41.DataManager>()));
-  gh.lazySingleton<_i68.GetCardsFromDeckUseCase>(() =>
-      _i68.GetCardsFromDeckUseCase(
+  gh.lazySingleton<_i67.GetCardsFromDeckUseCase>(() =>
+      _i67.GetCardsFromDeckUseCase(
           get<_i41.DataManager>(), get<_i40.CreatePlayCardUseCase>()));
-  gh.factory<_i69.NewsViewModel>(() => _i69.NewsViewModel(
+  gh.factory<_i68.NewsViewModel>(() => _i68.NewsViewModel(
       get<_i44.Logger>(),
       get<_i47.RouterHelper>(),
       get<_i41.DataManager>(),
-      get<_i70.DateFormatter>(),
+      get<_i69.DateFormatter>(),
       get<_i38.CrashlyticsProvider>()));
-  gh.factory<_i71.OnboardingViewModel>(() => _i71.OnboardingViewModel(
+  gh.factory<_i70.OnboardingViewModel>(() => _i70.OnboardingViewModel(
       get<_i17.Logger>(), get<_i47.RouterHelper>(), get<_i41.DataManager>()));
-  gh.lazySingleton<_i72.SmartDuelServer>(() => _i73.SmartDuelServerImpl(
+  gh.lazySingleton<_i71.SmartDuelServer>(() => _i72.SmartDuelServerImpl(
       get<_i32.WebSocketFactory>(),
       get<_i41.DataManager>(),
       get<_i44.Logger>()));
-  gh.factory<_i74.Socket>(
+  gh.factory<_i73.Socket>(
       () => socketIoModule.provideSocket(get<_i41.DataManager>()));
-  gh.factoryParam<_i75.SpeedDuelViewModel, _i41.PreBuiltDeck, dynamic>(
-      (_preBuiltDeck, _) => _i75.SpeedDuelViewModel(
+  gh.factoryParam<_i74.SpeedDuelViewModel, _i41.PreBuiltDeck, dynamic>(
+      (_preBuiltDeck, _) => _i74.SpeedDuelViewModel(
           get<_i44.Logger>(),
           _preBuiltDeck,
           get<_i47.RouterHelper>(),
-          get<_i72.SmartDuelServer>(),
-          get<_i68.GetCardsFromDeckUseCase>(),
+          get<_i71.SmartDuelServer>(),
+          get<_i67.GetCardsFromDeckUseCase>(),
           get<_i40.CreatePlayCardUseCase>(),
           get<_i9.DoesCardFitInZoneUseCase>(),
           get<_i41.DataManager>(),
@@ -286,7 +281,13 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
           get<_i38.CrashlyticsProvider>(),
           get<_i55.SnackBarService>()));
   gh.factory<_i32.WebSocketProvider>(
-      () => _i76.WebSocketProviderImpl(get<_i74.Socket>(), get<_i44.Logger>()));
+      () => _i75.WebSocketProviderImpl(get<_i73.Socket>(), get<_i44.Logger>()));
+  gh.factory<_i76.DuelViewModel>(() => _i76.DuelViewModel(
+      get<_i44.Logger>(),
+      get<_i11.DuelFormValidators>(),
+      get<_i47.RouterHelper>(),
+      get<_i41.DataManager>(),
+      get<_i71.SmartDuelServer>()));
   return get;
 }
 

@@ -32,7 +32,7 @@ void main() {
 
   group('When onSpeedDuelDemoPressed is called', () {
     test('then the select deck dialog is shown', () async {
-      await _viewModel.onSpeedDuelDemoPressed();
+      await _viewModel.onCreateRoomPressed();
 
       verify(_router.showSelectDeckDialog()).called(1);
     });
@@ -41,7 +41,7 @@ void main() {
       test('then the speed duel screen is not opened', () async {
         when(_router.showSelectDeckDialog()).thenAnswer((_) => Future.value());
 
-        await _viewModel.onSpeedDuelDemoPressed();
+        await _viewModel.onCreateRoomPressed();
 
         verifyNever(_router.showSpeedDuel(any));
       });
@@ -52,7 +52,7 @@ void main() {
         const deck = PreBuiltDeck.kaiba;
         when(_router.showSelectDeckDialog()).thenAnswer((_) => Future.value(deck));
 
-        await _viewModel.onSpeedDuelDemoPressed();
+        await _viewModel.onCreateRoomPressed();
 
         verify(_router.showSpeedDuel(deck)).called(1);
       });

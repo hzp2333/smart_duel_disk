@@ -33,10 +33,10 @@ class SmartDuelServerImpl implements SmartDuelServer {
   }
 
   @override
-  void emitSpeedDuelEvent(SmartDuelEvent event) {
-    _logger.info(_tag, 'emitSpeedDuelEvent(event: $event)');
+  void emitEvent(SmartDuelEvent event) {
+    _logger.info(_tag, 'emitEvent(event: $event)');
 
-    _socket.emitEvent('${event.scope}:${event.action}', event.data.toJson());
+    _socket.emitEvent('${event.scope}:${event.action}', event.data?.toJson());
   }
 
   @override
