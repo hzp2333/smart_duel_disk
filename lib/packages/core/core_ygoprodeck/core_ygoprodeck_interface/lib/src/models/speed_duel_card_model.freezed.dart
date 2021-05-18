@@ -23,9 +23,9 @@ class _$SpeedDuelCardModelTearOff {
       @required @JsonKey(name: 'type') String type,
       @required @JsonKey(name: 'desc') String desc,
       @required @JsonKey(name: 'race') String race,
-      @required @JsonKey(name: 'card_sets') List<CardSetModel> cardSets,
       @required @JsonKey(name: 'card_images') List<CardImageModel> cardImages,
-      @required @JsonKey(name: 'card_prices') List<CardPriceModel> cardPrices,
+      @JsonKey(name: 'card_sets') List<CardSetModel> cardSets,
+      @JsonKey(name: 'card_prices') List<CardPriceModel> cardPrices,
       @JsonKey(name: 'atk') int atk,
       @JsonKey(name: 'def') int def,
       @JsonKey(name: 'level') int level,
@@ -38,8 +38,8 @@ class _$SpeedDuelCardModelTearOff {
       type: type,
       desc: desc,
       race: race,
-      cardSets: cardSets,
       cardImages: cardImages,
+      cardSets: cardSets,
       cardPrices: cardPrices,
       atk: atk,
       def: def,
@@ -72,10 +72,10 @@ mixin _$SpeedDuelCardModel {
   String get desc;
   @JsonKey(name: 'race')
   String get race;
-  @JsonKey(name: 'card_sets')
-  List<CardSetModel> get cardSets;
   @JsonKey(name: 'card_images')
   List<CardImageModel> get cardImages;
+  @JsonKey(name: 'card_sets')
+  List<CardSetModel> get cardSets;
   @JsonKey(name: 'card_prices')
   List<CardPriceModel> get cardPrices;
   @JsonKey(name: 'atk')
@@ -107,8 +107,8 @@ abstract class $SpeedDuelCardModelCopyWith<$Res> {
       @JsonKey(name: 'type') String type,
       @JsonKey(name: 'desc') String desc,
       @JsonKey(name: 'race') String race,
-      @JsonKey(name: 'card_sets') List<CardSetModel> cardSets,
       @JsonKey(name: 'card_images') List<CardImageModel> cardImages,
+      @JsonKey(name: 'card_sets') List<CardSetModel> cardSets,
       @JsonKey(name: 'card_prices') List<CardPriceModel> cardPrices,
       @JsonKey(name: 'atk') int atk,
       @JsonKey(name: 'def') int def,
@@ -136,8 +136,8 @@ class _$SpeedDuelCardModelCopyWithImpl<$Res>
     Object type = freezed,
     Object desc = freezed,
     Object race = freezed,
-    Object cardSets = freezed,
     Object cardImages = freezed,
+    Object cardSets = freezed,
     Object cardPrices = freezed,
     Object atk = freezed,
     Object def = freezed,
@@ -152,12 +152,12 @@ class _$SpeedDuelCardModelCopyWithImpl<$Res>
       type: type == freezed ? _value.type : type as String,
       desc: desc == freezed ? _value.desc : desc as String,
       race: race == freezed ? _value.race : race as String,
-      cardSets: cardSets == freezed
-          ? _value.cardSets
-          : cardSets as List<CardSetModel>,
       cardImages: cardImages == freezed
           ? _value.cardImages
           : cardImages as List<CardImageModel>,
+      cardSets: cardSets == freezed
+          ? _value.cardSets
+          : cardSets as List<CardSetModel>,
       cardPrices: cardPrices == freezed
           ? _value.cardPrices
           : cardPrices as List<CardPriceModel>,
@@ -196,8 +196,8 @@ abstract class _$SpeedDuelCardModelCopyWith<$Res>
       @JsonKey(name: 'type') String type,
       @JsonKey(name: 'desc') String desc,
       @JsonKey(name: 'race') String race,
-      @JsonKey(name: 'card_sets') List<CardSetModel> cardSets,
       @JsonKey(name: 'card_images') List<CardImageModel> cardImages,
+      @JsonKey(name: 'card_sets') List<CardSetModel> cardSets,
       @JsonKey(name: 'card_prices') List<CardPriceModel> cardPrices,
       @JsonKey(name: 'atk') int atk,
       @JsonKey(name: 'def') int def,
@@ -228,8 +228,8 @@ class __$SpeedDuelCardModelCopyWithImpl<$Res>
     Object type = freezed,
     Object desc = freezed,
     Object race = freezed,
-    Object cardSets = freezed,
     Object cardImages = freezed,
+    Object cardSets = freezed,
     Object cardPrices = freezed,
     Object atk = freezed,
     Object def = freezed,
@@ -244,12 +244,12 @@ class __$SpeedDuelCardModelCopyWithImpl<$Res>
       type: type == freezed ? _value.type : type as String,
       desc: desc == freezed ? _value.desc : desc as String,
       race: race == freezed ? _value.race : race as String,
-      cardSets: cardSets == freezed
-          ? _value.cardSets
-          : cardSets as List<CardSetModel>,
       cardImages: cardImages == freezed
           ? _value.cardImages
           : cardImages as List<CardImageModel>,
+      cardSets: cardSets == freezed
+          ? _value.cardSets
+          : cardSets as List<CardSetModel>,
       cardPrices: cardPrices == freezed
           ? _value.cardPrices
           : cardPrices as List<CardPriceModel>,
@@ -275,9 +275,9 @@ class _$_SpeedDuelCardModel implements _SpeedDuelCardModel {
       @required @JsonKey(name: 'type') this.type,
       @required @JsonKey(name: 'desc') this.desc,
       @required @JsonKey(name: 'race') this.race,
-      @required @JsonKey(name: 'card_sets') this.cardSets,
       @required @JsonKey(name: 'card_images') this.cardImages,
-      @required @JsonKey(name: 'card_prices') this.cardPrices,
+      @JsonKey(name: 'card_sets') this.cardSets,
+      @JsonKey(name: 'card_prices') this.cardPrices,
       @JsonKey(name: 'atk') this.atk,
       @JsonKey(name: 'def') this.def,
       @JsonKey(name: 'level') this.level,
@@ -289,9 +289,7 @@ class _$_SpeedDuelCardModel implements _SpeedDuelCardModel {
         assert(type != null),
         assert(desc != null),
         assert(race != null),
-        assert(cardSets != null),
-        assert(cardImages != null),
-        assert(cardPrices != null);
+        assert(cardImages != null);
 
   factory _$_SpeedDuelCardModel.fromJson(Map<String, dynamic> json) =>
       _$_$_SpeedDuelCardModelFromJson(json);
@@ -312,11 +310,11 @@ class _$_SpeedDuelCardModel implements _SpeedDuelCardModel {
   @JsonKey(name: 'race')
   final String race;
   @override
-  @JsonKey(name: 'card_sets')
-  final List<CardSetModel> cardSets;
-  @override
   @JsonKey(name: 'card_images')
   final List<CardImageModel> cardImages;
+  @override
+  @JsonKey(name: 'card_sets')
+  final List<CardSetModel> cardSets;
   @override
   @JsonKey(name: 'card_prices')
   final List<CardPriceModel> cardPrices;
@@ -341,7 +339,7 @@ class _$_SpeedDuelCardModel implements _SpeedDuelCardModel {
 
   @override
   String toString() {
-    return 'SpeedDuelCardModel(id: $id, name: $name, type: $type, desc: $desc, race: $race, cardSets: $cardSets, cardImages: $cardImages, cardPrices: $cardPrices, atk: $atk, def: $def, level: $level, attribute: $attribute, archetype: $archetype, banListInfo: $banListInfo)';
+    return 'SpeedDuelCardModel(id: $id, name: $name, type: $type, desc: $desc, race: $race, cardImages: $cardImages, cardSets: $cardSets, cardPrices: $cardPrices, atk: $atk, def: $def, level: $level, attribute: $attribute, archetype: $archetype, banListInfo: $banListInfo)';
   }
 
   @override
@@ -358,12 +356,12 @@ class _$_SpeedDuelCardModel implements _SpeedDuelCardModel {
                 const DeepCollectionEquality().equals(other.desc, desc)) &&
             (identical(other.race, race) ||
                 const DeepCollectionEquality().equals(other.race, race)) &&
-            (identical(other.cardSets, cardSets) ||
-                const DeepCollectionEquality()
-                    .equals(other.cardSets, cardSets)) &&
             (identical(other.cardImages, cardImages) ||
                 const DeepCollectionEquality()
                     .equals(other.cardImages, cardImages)) &&
+            (identical(other.cardSets, cardSets) ||
+                const DeepCollectionEquality()
+                    .equals(other.cardSets, cardSets)) &&
             (identical(other.cardPrices, cardPrices) ||
                 const DeepCollectionEquality()
                     .equals(other.cardPrices, cardPrices)) &&
@@ -392,8 +390,8 @@ class _$_SpeedDuelCardModel implements _SpeedDuelCardModel {
       const DeepCollectionEquality().hash(type) ^
       const DeepCollectionEquality().hash(desc) ^
       const DeepCollectionEquality().hash(race) ^
-      const DeepCollectionEquality().hash(cardSets) ^
       const DeepCollectionEquality().hash(cardImages) ^
+      const DeepCollectionEquality().hash(cardSets) ^
       const DeepCollectionEquality().hash(cardPrices) ^
       const DeepCollectionEquality().hash(atk) ^
       const DeepCollectionEquality().hash(def) ^
@@ -431,12 +429,10 @@ abstract class _SpeedDuelCardModel implements SpeedDuelCardModel {
       @JsonKey(name: 'race')
           String race,
       @required
-      @JsonKey(name: 'card_sets')
-          List<CardSetModel> cardSets,
-      @required
       @JsonKey(name: 'card_images')
           List<CardImageModel> cardImages,
-      @required
+      @JsonKey(name: 'card_sets')
+          List<CardSetModel> cardSets,
       @JsonKey(name: 'card_prices')
           List<CardPriceModel> cardPrices,
       @JsonKey(name: 'atk')
@@ -471,11 +467,11 @@ abstract class _SpeedDuelCardModel implements SpeedDuelCardModel {
   @JsonKey(name: 'race')
   String get race;
   @override
-  @JsonKey(name: 'card_sets')
-  List<CardSetModel> get cardSets;
-  @override
   @JsonKey(name: 'card_images')
   List<CardImageModel> get cardImages;
+  @override
+  @JsonKey(name: 'card_sets')
+  List<CardSetModel> get cardSets;
   @override
   @JsonKey(name: 'card_prices')
   List<CardPriceModel> get cardPrices;
