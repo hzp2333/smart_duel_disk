@@ -14,14 +14,14 @@ _$_SpeedDuelCardModel _$_$_SpeedDuelCardModelFromJson(
     type: json['type'] as String,
     desc: json['desc'] as String,
     race: json['race'] as String,
-    cardSets: (json['card_sets'] as List)
-        ?.map((e) =>
-            e == null ? null : CardSetModel.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
     cardImages: (json['card_images'] as List)
         ?.map((e) => e == null
             ? null
             : CardImageModel.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
+    cardSets: (json['card_sets'] as List)
+        ?.map((e) =>
+            e == null ? null : CardSetModel.fromJson(e as Map<String, dynamic>))
         ?.toList(),
     cardPrices: (json['card_prices'] as List)
         ?.map((e) => e == null
@@ -48,8 +48,8 @@ Map<String, dynamic> _$_$_SpeedDuelCardModelToJson(
       'type': instance.type,
       'desc': instance.desc,
       'race': instance.race,
-      'card_sets': instance.cardSets,
       'card_images': instance.cardImages,
+      'card_sets': instance.cardSets,
       'card_prices': instance.cardPrices,
       'atk': instance.atk,
       'def': instance.def,
