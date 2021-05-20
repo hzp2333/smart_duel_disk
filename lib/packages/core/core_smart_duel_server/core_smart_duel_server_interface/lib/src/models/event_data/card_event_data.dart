@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../core_smart_duel_server_interface.dart';
+import '../../../core_smart_duel_server_interface.dart';
 
 part 'card_event_data.g.dart';
 

@@ -15,26 +15,43 @@ class SmartDuelEvent extends Equatable {
     this.data,
   });
 
-  factory SmartDuelEvent.playCard(CardEventData data) {
+  factory SmartDuelEvent.playCard(SmartDuelEventData data) {
     return SmartDuelEvent._(
-      scope: 'card',
-      action: 'play',
+      scope: SmartDuelEventConstants.cardScope,
+      action: SmartDuelEventConstants.cardPlayAction,
       data: data,
     );
   }
 
-  factory SmartDuelEvent.removeCard(CardEventData data) {
+  factory SmartDuelEvent.removeCard(SmartDuelEventData data) {
     return SmartDuelEvent._(
-      scope: 'card',
-      action: 'remove',
+      scope: SmartDuelEventConstants.cardScope,
+      action: SmartDuelEventConstants.cardRemoveAction,
       data: data,
     );
   }
 
-  factory SmartDuelEvent.createRoom() {
-    return const SmartDuelEvent._(
-      scope: 'room',
-      action: 'create',
+  factory SmartDuelEvent.createRoom([SmartDuelEventData data]) {
+    return SmartDuelEvent._(
+      scope: SmartDuelEventConstants.roomScope,
+      action: SmartDuelEventConstants.roomCreateAction,
+      data: data,
+    );
+  }
+
+  factory SmartDuelEvent.closeRoom(SmartDuelEventData data) {
+    return SmartDuelEvent._(
+      scope: SmartDuelEventConstants.roomScope,
+      action: SmartDuelEventConstants.roomCloseAction,
+      data: data,
+    );
+  }
+
+  factory SmartDuelEvent.joinRoom(SmartDuelEventData data) {
+    return SmartDuelEvent._(
+      scope: SmartDuelEventConstants.roomScope,
+      action: SmartDuelEventConstants.roomJoinAction,
+      data: data,
     );
   }
 
