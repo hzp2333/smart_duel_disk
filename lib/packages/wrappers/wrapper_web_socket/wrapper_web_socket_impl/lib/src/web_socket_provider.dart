@@ -45,19 +45,49 @@ class WebSocketProviderImpl implements WebSocketProvider {
   void dispose() {
     _logger.info(_tag, 'dispose()');
 
+    _receiver = null;
+
     _socket.dispose();
+  }
+
+  void _onEventReceived(String scope, String action, dynamic json) {
+    _logger.verbose(_tag, '_onEventReceived(scope: $scope, action: $action, json: $json)');
+
+    _receiver?.onEventReceived(scope, SmartDuelEventConstants.globalConnectAction, json);
   }
 
   void _registerGlobalHandlers() {
     _logger.verbose(_tag, '_registerGlobalHandlers()');
 
-    _socket.on('connect', (dynamic _) => _logger.debug(_tag, 'connect: ${_socket.id}'));
-    _socket.on('connect_error', (dynamic _) => _logger.debug(_tag, 'connect_error: ${_socket.id}'));
-    _socket.on('connect_timeout', (dynamic _) => _logger.debug(_tag, 'connect_timeout: ${_socket.id}'));
-    _socket.on('connecting', (dynamic _) => _logger.debug(_tag, 'connecting: ${_socket.id}'));
-    _socket.on('disconnect', (dynamic _) => _logger.debug(_tag, 'disconnect: ${_socket.id}'));
-    _socket.on('error', (dynamic _) => _logger.debug(_tag, 'error: ${_socket.id}'));
-    _socket.on('reconnect', (dynamic _) => _logger.debug(_tag, 'reconnect: ${_socket.id}'));
+    const scope = SmartDuelEventConstants.globalScope;
+
+    _socket.on(SmartDuelEventConstants.globalConnectAction, (dynamic json) {
+      _onEventReceived(scope, SmartDuelEventConstants.globalConnectAction, json);
+    });
+
+    _socket.on(SmartDuelEventConstants.globalConnectErrorAction, (dynamic json) {
+      _onEventReceived(scope, SmartDuelEventConstants.globalConnectErrorAction, json);
+    });
+
+    _socket.on(SmartDuelEventConstants.globalConnectTimeoutAction, (dynamic json) {
+      _onEventReceived(scope, SmartDuelEventConstants.globalConnectTimeoutAction, json);
+    });
+
+    _socket.on(SmartDuelEventConstants.globalConnectingAction, (dynamic json) {
+      _onEventReceived(scope, SmartDuelEventConstants.globalConnectingAction, json);
+    });
+
+    _socket.on(SmartDuelEventConstants.globalDisconnectAction, (dynamic json) {
+      _onEventReceived(scope, SmartDuelEventConstants.globalDisconnectAction, json);
+    });
+
+    _socket.on(SmartDuelEventConstants.globalErrorAction, (dynamic json) {
+      _onEventReceived(scope, SmartDuelEventConstants.globalErrorAction, json);
+    });
+
+    _socket.on(SmartDuelEventConstants.globalReconnectAction, (dynamic json) {
+      _onEventReceived(scope, SmartDuelEventConstants.globalReconnectAction, json);
+    });
   }
 
   void _registerRoomHandlers() {
@@ -66,15 +96,15 @@ class WebSocketProviderImpl implements WebSocketProvider {
     const scope = SmartDuelEventConstants.roomScope;
 
     _socket.on('$scope:${SmartDuelEventConstants.roomCreateAction}', (dynamic json) {
-      _receiver.onEventReceived(scope, SmartDuelEventConstants.roomCreateAction, json);
+      _onEventReceived(scope, SmartDuelEventConstants.roomCreateAction, json);
     });
 
     _socket.on('$scope:${SmartDuelEventConstants.roomCloseAction}', (dynamic json) {
-      _receiver.onEventReceived(scope, SmartDuelEventConstants.roomCloseAction, json);
+      _onEventReceived(scope, SmartDuelEventConstants.roomCloseAction, json);
     });
 
     _socket.on('$scope:${SmartDuelEventConstants.roomJoinAction}', (dynamic json) {
-      _receiver.onEventReceived(scope, SmartDuelEventConstants.roomJoinAction, json);
+      _onEventReceived(scope, SmartDuelEventConstants.roomJoinAction, json);
     });
   }
 }

@@ -14,6 +14,7 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
   final Logger _logger;
 
   final _smartDuelEvents = PublishSubject<SmartDuelEvent>();
+  @override
   Stream<SmartDuelEvent> get smartDuelEvents => _smartDuelEvents.stream;
 
   WebSocketProvider _socket;
@@ -29,7 +30,7 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
     _logger.info(_tag, 'init()');
 
     if (_socket != null) {
-      throw Exception('There is already a socket that has not been closed yet!');
+      return;
     }
 
     final connectionInfo = _dataManager.getConnectionInfo();
@@ -46,17 +47,26 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
 
   @override
   void onEventReceived(String scope, String action, dynamic json) {
-    _logger.info(_tag, 'onEventReceived(scope: $scope, action: $action)');
+    _logger.info(_tag, 'onEventReceived(scope: $scope, action: $action, json: $json)');
 
     switch (scope) {
+      case SmartDuelEventConstants.globalScope:
+        _handleGlobalEvent(action);
+        break;
       case SmartDuelEventConstants.roomScope:
         _handleRoomEvent(action, json);
         break;
     }
   }
 
+  void _handleGlobalEvent(String status) {
+    _logger.verbose(_tag, '_handleGlobalEvent(status: $status)');
+
+    _smartDuelEvents.add(SmartDuelEvent.global(status));
+  }
+
   void _handleRoomEvent(String action, dynamic json) {
-    _logger.verbose(_tag, '_handleRoomEvent(action: $action');
+    _logger.verbose(_tag, '_handleRoomEvent(action: $action), json: $json');
 
     SmartDuelEventData data;
     if (json is Map<String, dynamic>) {
@@ -83,7 +93,7 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
 
   @override
   void dispose() {
-    _smartDuelEvents.close();
+    _logger.info(_tag, 'dispose()');
 
     _socket?.dispose();
     _socket = null;

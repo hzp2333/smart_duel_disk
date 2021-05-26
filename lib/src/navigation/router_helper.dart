@@ -137,4 +137,13 @@ class RouterHelperImpl implements RouterHelper {
   }
 
   //endregion
+
+  //region Duel Room
+
+  @override
+  Future<void> showDuelRoom(PreBuiltDeck preBuiltDeck) {
+    return _router.navigate(DuelRoomRoute(preBuiltDeck: preBuiltDeck));
+  }
+
+  //endregion
 }

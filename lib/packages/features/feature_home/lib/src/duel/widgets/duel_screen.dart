@@ -18,7 +18,7 @@ class DuelScreen extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
           Section(
-            title: 'Speed Duel',
+            title: 'Speed Duel (Local)',
             child: _DuelDemoSection(),
           ),
         ],
@@ -33,14 +33,15 @@ class _DuelDemoSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      padding: const EdgeInsets.only(top: 12),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: const [
           _IpAddressTextField(),
           SizedBox(height: 12),
           _PortTextField(),
-          SizedBox(height: 18),
-          _DuelFormSubmitButton(),
+          SizedBox(height: 24),
+          _DuelRoomButton(),
         ],
       ),
     );
@@ -81,18 +82,19 @@ class _PortTextField extends StatelessWidget {
   }
 }
 
-class _DuelFormSubmitButton extends HookWidget {
-  const _DuelFormSubmitButton();
+class _DuelRoomButton extends HookWidget {
+  const _DuelRoomButton();
 
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<DuelViewModel>(context);
     final snapshot = useStream(vm.isFormValid, initialData: false);
 
-    return IconTitleTile(
-      icon: Icons.meeting_room,
-      title: 'Create room',
-      onPressed: snapshot.data ? vm.onCreateRoomPressed : null,
+    return IconTitleTileButton(
+      icon: Icons.business,
+      title: 'Enter Duel Room',
+      onPressed: snapshot.data ? vm.onDuelRoomPressed : null,
+      trailingIcon: Icons.arrow_forward_ios_outlined,
     );
   }
 }

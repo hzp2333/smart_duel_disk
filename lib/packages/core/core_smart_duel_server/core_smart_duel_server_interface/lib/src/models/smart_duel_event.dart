@@ -15,6 +15,13 @@ class SmartDuelEvent extends Equatable {
     this.data,
   });
 
+  factory SmartDuelEvent.global(String status) {
+    return SmartDuelEvent._(
+      scope: SmartDuelEventConstants.globalScope,
+      action: status,
+    );
+  }
+
   factory SmartDuelEvent.playCard(SmartDuelEventData data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.cardScope,

@@ -30,31 +30,31 @@ void main() {
     );
   });
 
-  group('When onSpeedDuelDemoPressed is called', () {
+  group('When onDuelRoomPressed is called', () {
     test('then the select deck dialog is shown', () async {
-      await _viewModel.onCreateRoomPressed();
+      await _viewModel.onDuelRoomPressed();
 
       verify(_router.showSelectDeckDialog()).called(1);
     });
 
     group('and the selected deck is null', () {
-      test('then the speed duel screen is not opened', () async {
+      test('then the duel room screen is not opened', () async {
         when(_router.showSelectDeckDialog()).thenAnswer((_) => Future.value());
 
-        await _viewModel.onCreateRoomPressed();
+        await _viewModel.onDuelRoomPressed();
 
-        verifyNever(_router.showSpeedDuel(any));
+        verifyNever(_router.showDuelRoom(any));
       });
     });
 
     group('and the selected deck is not null', () {
-      test('then the speed duel screen is opened with the selected deck', () async {
+      test('then the duel room screen is opened with the selected deck', () async {
         const deck = PreBuiltDeck.kaiba;
         when(_router.showSelectDeckDialog()).thenAnswer((_) => Future.value(deck));
 
-        await _viewModel.onCreateRoomPressed();
+        await _viewModel.onDuelRoomPressed();
 
-        verify(_router.showSpeedDuel(deck)).called(1);
+        verify(_router.showDuelRoom(deck)).called(1);
       });
     });
   });

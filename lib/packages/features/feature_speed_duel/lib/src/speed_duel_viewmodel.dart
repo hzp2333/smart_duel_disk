@@ -426,13 +426,11 @@ class SpeedDuelViewModel extends BaseViewModel {
   void dispose() {
     logger.info(_tag, 'dispose()');
 
-    _smartDuelServer?.dispose();
-
     _cancelPlayerStateSubscription();
 
-    _playerState?.close();
-    _speedDuelState?.close();
-    _speedDuelScreenEvent?.close();
+    _playerState.close();
+    _speedDuelState.close();
+    _speedDuelScreenEvent.close();
 
     super.dispose();
   }

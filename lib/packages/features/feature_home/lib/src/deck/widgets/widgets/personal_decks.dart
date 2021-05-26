@@ -15,13 +15,13 @@ class PersonalDecks extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        IconTitleTile(
+        IconTitleTileButton(
           icon: Icons.add,
           title: Strings.deckPersonalCreateDeck.get(),
           onPressed: vm.onBuildDeckPressed,
         ),
         const SizedBox(height: AppDimensions.iconTitleTileSeparator),
-        IconTitleTile(
+        IconTitleTileButton(
           icon: Icons.search,
           title: Strings.deckPersonalSearchCard.get(),
           onPressed: vm.onSearchCardPressed,

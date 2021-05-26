@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:rxdart/subjects.dart';
@@ -5,7 +7,6 @@ import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manage
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/core_logger_interface/lib/core_logger_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
-import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/duel/mixins/duel_form_validators.dart';
 
 @Injectable()
@@ -15,7 +16,6 @@ class DuelViewModel extends BaseViewModel {
   final DuelFormValidators _duelFormValidators;
   final RouterHelper _router;
   final DataManager _dataManager;
-  final SmartDuelServer _smartDuelServer;
 
   final _ipAddress = BehaviorSubject<String>();
   Stream<String> get ipAddress => _ipAddress.stream.transform(_duelFormValidators.ipAddressValidator);
@@ -23,22 +23,28 @@ class DuelViewModel extends BaseViewModel {
   final _port = BehaviorSubject<String>();
   Stream<String> get port => _port.stream.transform(_duelFormValidators.portValidator);
 
-  Stream<bool> get isFormValid => Rx.combineLatest2(_ipAddress, _port, (String ipAddress, String port) {
-        return !ipAddress.isNullOrEmpty && !port.isNullOrEmpty;
-      });
+  Stream<bool> get isFormValid => Rx.combineLatest2(
+      _ipAddress, _port, (String ipAddress, String port) => !ipAddress.isNullOrEmpty && !port.isNullOrEmpty);
 
   DuelViewModel(
     Logger logger,
     this._duelFormValidators,
     this._router,
     this._dataManager,
-    this._smartDuelServer,
   ) : super(logger) {
     _init();
   }
 
+  //region Initialization
+
   void _init() {
     logger.verbose(_tag, '_init()');
+
+    _initForm();
+  }
+
+  void _initForm() {
+    logger.verbose(_tag, '_initForm()');
 
     final connectionInfo = _dataManager.getConnectionInfo();
     if (connectionInfo == null) {
@@ -46,15 +52,17 @@ class DuelViewModel extends BaseViewModel {
     }
 
     if (!connectionInfo.ipAddress.isNullOrEmpty) {
-      logger.debug(_tag, 'IP address: ${connectionInfo.ipAddress}');
       _ipAddress.add(connectionInfo.ipAddress);
     }
 
     if (!connectionInfo.port.isNullOrEmpty) {
-      logger.debug(_tag, 'Port: ${connectionInfo.port}');
       _port.add(connectionInfo.port);
     }
   }
+
+  //endregion
+
+  //region Form fields
 
   void onIpAddressChanged(String ipAddress) {
     logger.info(_tag, 'onIpAddressChanged($ipAddress)');
@@ -80,33 +88,39 @@ class DuelViewModel extends BaseViewModel {
     _port.add(port);
   }
 
-  Future<void> onCreateRoomPressed() async {
-    logger.info(_tag, 'onCreateRoomPressed()');
+  //endregion
+
+  //region Actions
+
+  Future<void> onDuelRoomPressed() async {
+    logger.info(_tag, 'onDuelRoomPressed()');
 
     await _dataManager.saveConnectionInfo(ConnectionInfo(
       ipAddress: _ipAddress.value,
       port: _port.value,
     ));
 
-    _smartDuelServer.dispose();
-    _smartDuelServer.init();
-    _smartDuelServer.emitEvent(SmartDuelEvent.createRoom());
+    final deck = await _router.showSelectDeckDialog();
+    if (deck == null) {
+      return;
+    }
 
-    // final deck = await _router.showSelectDeckDialog();
-    // if (deck == null) {
-    //   return;
-    // }
-
-    // await _router.showSpeedDuel(deck);
+    await _router.showDuelRoom(deck);
   }
+
+  //endregion
+
+  //region Clean-up
 
   @override
   void dispose() {
     logger.info(_tag, 'dispose()');
 
-    _ipAddress?.close();
-    _port?.close();
+    _ipAddress.close();
+    _port.close();
 
     super.dispose();
   }
+
+  //endregion
 }

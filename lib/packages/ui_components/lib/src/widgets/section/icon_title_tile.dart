@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
-class IconTitleTile extends StatelessWidget {
+class IconTitleTileButton extends StatelessWidget {
   final String title;
   final IconData icon;
   final VoidCallback onPressed;
+  final IconData trailingIcon;
 
-  const IconTitleTile({
+  const IconTitleTileButton({
     @required this.title,
     @required this.icon,
     @required this.onPressed,
+    this.trailingIcon,
   });
 
   @override
@@ -39,6 +41,12 @@ class IconTitleTile extends StatelessWidget {
                     style: TextStyles.deckSectionCardTitle,
                   ),
                 ),
+                if (trailingIcon != null) ...{
+                  Icon(
+                    trailingIcon,
+                    color: AppColors.primaryIconColor,
+                  ),
+                },
               ],
             ),
           ),

@@ -1,6 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/feature_deck_builder.dart';
 import 'package:smart_duel_disk/packages/features/feature_draw_card/lib/feature_draw_card.dart';
+import 'package:smart_duel_disk/packages/features/feature_duel_room/lib/src/widgets/duel_room_screen_provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/feature_home.dart';
 import 'package:smart_duel_disk/packages/features/feature_onboarding/lib/feature_onboarding.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature_speed_duel.dart';
@@ -30,6 +31,7 @@ import 'package:smart_duel_disk/packages/features/feature_yugioh_card_detail/lib
       reverseDurationInMilliseconds: 0,
     ),
     AutoRoute<void>(page: SpeedDuelScreenProvider),
+    AutoRoute<void>(page: DuelRoomScreenProvider),
   ],
 )
 class $AppRouter {}

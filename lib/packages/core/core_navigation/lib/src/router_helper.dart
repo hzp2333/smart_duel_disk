@@ -50,4 +50,10 @@ abstract class RouterHelper {
   Future<CardPosition> showPlayCardDialog(PlayCard playCard, {Zone newZone});
 
   //endregion
+
+  //region Duel Room
+
+  Future<void> showDuelRoom(PreBuiltDeck preBuiltDeck);
+
+  //endregion
 }
