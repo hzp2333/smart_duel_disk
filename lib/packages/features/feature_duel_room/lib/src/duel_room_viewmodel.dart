@@ -141,7 +141,7 @@ class DuelRoomViewModel extends BaseViewModel {
   void _handleErrorEvent(String error) {
     logger.verbose(_tag, '_handleErrorEvent(error: $error)');
 
-    final errorMessage = 'Could not connect to Smart Duel Server.\nReason: $error';
+    final errorMessage = 'Could not connect to Smart Duel Server\n\nReason: $error';
 
     _duelRoomState.add(DuelRoomError(errorMessage));
   }

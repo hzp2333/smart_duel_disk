@@ -53,7 +53,7 @@ class WebSocketProviderImpl implements WebSocketProvider {
   void _onEventReceived(String scope, String action, dynamic json) {
     _logger.verbose(_tag, '_onEventReceived(scope: $scope, action: $action, json: $json)');
 
-    _receiver?.onEventReceived(scope, SmartDuelEventConstants.globalConnectAction, json);
+    _receiver?.onEventReceived(scope, action, json);
   }
 
   void _registerGlobalHandlers() {

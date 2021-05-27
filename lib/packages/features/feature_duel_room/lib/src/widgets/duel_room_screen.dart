@@ -5,6 +5,7 @@ import 'package:smart_duel_disk/packages/features/feature_duel_room/lib/src/mode
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
 import '../duel_room_viewmodel.dart';
+import 'body/connected_state.dart';
 
 class DuelRoomScreen extends StatelessWidget {
   const DuelRoomScreen();
@@ -50,13 +51,17 @@ class _Body extends HookWidget {
     final vm = Provider.of<DuelRoomViewModel>(context);
     final duelRoomState = useStream(vm.roomState, initialData: const DuelRoomConnecting());
 
-    return duelRoomState.data.when(
-      connecting: () => const GeneralLoadingState(),
-      connected: () => const SizedBox.shrink(),
-      createRoom: (roomName) => const SizedBox.shrink(),
-      joinRoom: (roomName) => const SizedBox.shrink(),
-      ready: () => const SizedBox.shrink(),
-      error: (errorMessage) => GeneralErrorState(description: errorMessage),
+    return Padding(
+      padding: const EdgeInsets.all(AppDimensions.screenMargin),
+      child: duelRoomState.data.when(
+        connecting: () => const GeneralLoadingState(),
+        connected: () => const ConnectedState(),
+        createRoom: (roomName) => const SizedBox.shrink(),
+        joinRoom: (roomName) => const SizedBox.shrink(),
+        ready: () => const SizedBox.shrink(),
+        // TODO: retry action
+        error: (errorMessage) => GeneralErrorState(description: errorMessage),
+      ),
     );
   }
 }
