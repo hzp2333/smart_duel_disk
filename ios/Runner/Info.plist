@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Smart Duel Disk</string>
+	<string>Smart&#x2007;Duel&#x2007;Disk</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -17,7 +17,7 @@
 		<string>en</string>
 	</array>
 	<key>CFBundleName</key>
-	<string>smart_duel_disk</string>
+	<string>Smart Duel Disk</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -49,4 +49,3 @@
 	<false/>
 </dict>
 </plist>
-^
