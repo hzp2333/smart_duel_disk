@@ -7,10 +7,13 @@ import 'di.config.dart';
 
 final di = GetIt.instance;
 
+const mobile = Environment('mobile');
+const web = Environment('web');
+
 @InjectableInit()
-Future<void> initDependencies(AppConfig appConfig) async {
+Future<void> initDependencies(AppConfig appConfig, Environment environment) async {
   di.registerSingleton(appConfig);
   di.registerSingleton(AppRouter());
 
-  await $initGetIt(di);
+  await $initGetIt(di, environment: environment.name);
 }

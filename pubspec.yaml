@@ -1,6 +1,6 @@
 name: smart_duel_disk
 description: A Smart Duel Disk app for playing Yu-Gi-Oh!.
-version: 0.6.2+60200
+version: 0.6.3+60300
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
@@ -38,7 +38,9 @@ dependencies:
   rxdart: ^0.25.0
   shared_preferences: ^2.0.5
   socket_io_client: ^0.9.12
+  universal_io: ^1.0.2
   url_launcher: ^6.0.3
+  url_strategy: ^0.1.1
 
 dev_dependencies:
   flutter_test:
@@ -74,6 +76,7 @@ scripts:
   gopro: flutter run --profile
   gorel: flutter run --release
   mac: flutter run -d macos
+  web: flutter run -d chrome -t lib/main_web.dart
   all: flutter run -d all
   loco: sh scripts/translate.sh
   build: flutter pub run build_runner build --delete-conflicting-outputs

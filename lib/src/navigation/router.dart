@@ -9,27 +9,25 @@ import 'package:smart_duel_disk/packages/features/feature_yugioh_card_detail/lib
 @AdaptiveAutoRouter(
   replaceInRouteName: 'ScreenProvider,Route',
   routes: <AutoRoute>[
-    AutoRoute<void>(
-      page: OnboardingScreenProvider,
-      initial: true,
-    ),
+    AutoRoute<void>(page: OnboardingScreenProvider, initial: true),
     AutoRoute<void>(
       page: HomeScreenProvider,
       usesTabsRouter: true,
+      path: '/home',
       children: [
-        AutoRoute<void>(name: 'DuelTab', page: DuelScreenProvider),
-        AutoRoute<void>(name: 'NewsTab', page: NewsScreenProvider),
-        AutoRoute<void>(name: 'DeckTab', page: DeckScreenProvider),
+        AutoRoute<void>(name: 'DuelTab', page: DuelScreenProvider, path: 'duel'),
+        AutoRoute<void>(name: 'NewsTab', page: NewsScreenProvider, path: 'news'),
+        AutoRoute<void>(name: 'DeckTab', page: DeckScreenProvider, path: 'deck'),
       ],
     ),
-    AutoRoute<void>(page: DeckBuilderScreenProvider),
-    AutoRoute<void>(page: YugiohCardDetailScreenProvider),
+    AutoRoute<void>(page: DeckBuilderScreenProvider, path: '/deck-builder'),
+    AutoRoute<void>(page: YugiohCardDetailScreenProvider, path: '/card-detail'),
     CustomRoute<void>(
       page: DrawCardScreenProvider,
       durationInMilliseconds: 0,
       reverseDurationInMilliseconds: 0,
     ),
-    AutoRoute<void>(page: SpeedDuelScreenProvider),
+    AutoRoute<void>(page: SpeedDuelScreenProvider, path: '/speed-duel'),
   ],
 )
 class $AppRouter {}
