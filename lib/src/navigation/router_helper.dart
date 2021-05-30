@@ -103,7 +103,7 @@ class RouterHelperImpl implements RouterHelper {
 
   @override
   Future<void> showSpeedDuel(PreBuiltDeck preBuiltDeck) {
-    return _router.navigate(SpeedDuelRoute(preBuiltDeck: preBuiltDeck));
+    return _router.replace(SpeedDuelRoute(preBuiltDeck: preBuiltDeck));
   }
 
   @override

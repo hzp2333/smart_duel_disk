@@ -10,18 +10,20 @@ class ConnectedState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: const [
-          _CreateRoomButton(),
-          SizedBox(height: 24),
-          _CreateEnterRoomSeparator(),
-          SizedBox(height: 24),
-          _EnterRoomTextField(),
-          SizedBox(height: 12),
-          _EnterRoomButton(),
-        ],
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: const [
+            _CreateRoomButton(),
+            SizedBox(height: 24),
+            _CreateEnterRoomSeparator(),
+            SizedBox(height: 24),
+            _EnterRoomTextField(),
+            SizedBox(height: 12),
+            _EnterRoomButton(),
+          ],
+        ),
       ),
     );
   }

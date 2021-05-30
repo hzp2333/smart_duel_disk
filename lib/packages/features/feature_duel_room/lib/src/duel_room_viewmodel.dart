@@ -25,6 +25,7 @@ class DuelRoomViewModel extends BaseViewModel {
   Stream<DuelRoomState> get roomState => _duelRoomState.stream;
 
   StreamSubscription<SmartDuelEvent> _smartDuelEventSubscription;
+  bool _joinedRoomSuccessfully = false;
 
   DuelRoomViewModel(
     Logger logger,
@@ -80,11 +81,22 @@ class DuelRoomViewModel extends BaseViewModel {
 
   //region Send smart duel events
 
-  Future<void> onCreateRoomPressed() async {
+  void onCreateRoomPressed() {
     logger.info(_tag, 'onCreateRoomPressed()');
 
     _smartDuelServer.init();
     _smartDuelServer.emitEvent(SmartDuelEvent.createRoom());
+  }
+
+  void onCloseRoomPressed() {
+    logger.info(_tag, 'onCreateRoomPressed()');
+
+    final state = _duelRoomState.value;
+    if (state is DuelRoomCreate) {
+      _smartDuelServer.emitEvent(SmartDuelEvent.closeRoom(RoomEventData(
+        roomName: state.roomName,
+      )));
+    }
   }
 
   void onJoinRoomPressed() {
@@ -100,7 +112,7 @@ class DuelRoomViewModel extends BaseViewModel {
 
   //region Receive smart duel events
 
-  void _onSmartDuelEventReceived(SmartDuelEvent event) {
+  Future<void> _onSmartDuelEventReceived(SmartDuelEvent event) async {
     logger.verbose(_tag, '_onSmartDuelEventReceived(event: $event)');
 
     if (event.scope == SmartDuelEventConstants.globalScope) {
@@ -109,7 +121,7 @@ class DuelRoomViewModel extends BaseViewModel {
     }
 
     if (event.scope == SmartDuelEventConstants.roomScope) {
-      _handleRoomEvent(event);
+      await _handleRoomEvent(event);
       return;
     }
   }
@@ -141,8 +153,8 @@ class DuelRoomViewModel extends BaseViewModel {
   void _handleErrorEvent(String error) {
     logger.verbose(_tag, '_handleErrorEvent(error: $error)');
 
+    // TODO: add retry
     final errorMessage = 'Could not connect to Smart Duel Server\n\nReason: $error';
-
     _duelRoomState.add(DuelRoomError(errorMessage));
   }
 
@@ -150,7 +162,7 @@ class DuelRoomViewModel extends BaseViewModel {
 
   //region Room events
 
-  void _handleRoomEvent(SmartDuelEvent event) {
+  Future<void> _handleRoomEvent(SmartDuelEvent event) async {
     logger.verbose(_tag, '_handleRoomEvent(event: $event)');
 
     final eventData = event.data;
@@ -162,16 +174,43 @@ class DuelRoomViewModel extends BaseViewModel {
         case SmartDuelEventConstants.roomCloseAction:
           _handleCloseRoomEvent(eventData);
           break;
+        case SmartDuelEventConstants.roomJoinAction:
+          await _handleJoinRoomEvent(eventData);
+          break;
       }
     }
   }
 
   void _handleCreateRoomEvent(RoomEventData data) {
     logger.verbose(_tag, '_handleCreateRoomEvent(data: $data)');
+
+    final roomName = data?.roomName;
+    if (roomName == null) {
+      _duelRoomState.add(const DuelRoomError('room name not found'));
+      return;
+    }
+
+    _duelRoomState.add(DuelRoomCreate(data.roomName));
   }
 
   void _handleCloseRoomEvent(RoomEventData data) {
     logger.verbose(_tag, '_handleCloseRoomEvent(data: $data)');
+
+    _duelRoomState.add(const DuelRoomConnected());
+  }
+
+  Future<void> _handleJoinRoomEvent(RoomEventData data) async {
+    logger.verbose(_tag, '_handleJoinRoomEvent(data: $data)');
+
+    if (data.ready) {
+      _joinedRoomSuccessfully = true;
+      await _router.showSpeedDuel(_preBuiltDeck);
+      return;
+    }
+
+    // TODO: add retry
+    final errorMessage = 'Could not connect to room ${data.roomName}\n\nReason: ${data.error.stringValue}';
+    _duelRoomState.add(DuelRoomError(errorMessage));
   }
 
   //endregion
@@ -185,7 +224,10 @@ class DuelRoomViewModel extends BaseViewModel {
     logger.info(_tag, 'dispose()');
 
     _cancelSmartDuelEventSubscription();
-    _smartDuelServer.dispose();
+
+    if (!_joinedRoomSuccessfully) {
+      _smartDuelServer.dispose();
+    }
 
     _roomName.close();
     _duelRoomState.close();

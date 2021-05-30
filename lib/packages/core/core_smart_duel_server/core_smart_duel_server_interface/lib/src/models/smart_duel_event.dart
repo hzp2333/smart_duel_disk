@@ -68,4 +68,7 @@ class SmartDuelEvent extends Equatable {
         action,
         data,
       ];
+
+  @override
+  bool get stringify => true;
 }

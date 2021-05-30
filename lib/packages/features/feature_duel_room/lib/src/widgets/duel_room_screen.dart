@@ -6,6 +6,7 @@ import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
 import '../duel_room_viewmodel.dart';
 import 'body/connected_state.dart';
+import 'body/create_room_state.dart';
 
 class DuelRoomScreen extends StatelessWidget {
   const DuelRoomScreen();
@@ -56,7 +57,7 @@ class _Body extends HookWidget {
       child: duelRoomState.data.when(
         connecting: () => const GeneralLoadingState(),
         connected: () => const ConnectedState(),
-        createRoom: (roomName) => const SizedBox.shrink(),
+        createRoom: (roomName) => CreateRoomState(roomName: roomName),
         joinRoom: (roomName) => const SizedBox.shrink(),
         ready: () => const SizedBox.shrink(),
         // TODO: retry action

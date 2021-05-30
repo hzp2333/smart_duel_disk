@@ -6,16 +6,6 @@ import '../../../core_smart_duel_server_interface.dart';
 
 part 'room_event_data.g.dart';
 
-enum RoomError {
-  @JsonValue('roomNotFound')
-  roomNotFound,
-
-  @JsonValue('tooManyPlayers')
-  tooManyPlayers,
-
-  unknown,
-}
-
 @immutable
 @JsonSerializable()
 class RoomEventData extends Equatable implements SmartDuelEventData {
@@ -44,4 +34,25 @@ class RoomEventData extends Equatable implements SmartDuelEventData {
   Map<String, dynamic> toJson() => _$RoomEventDataToJson(this);
 
   factory RoomEventData.fromJson(Map<String, dynamic> json) => _$RoomEventDataFromJson(json);
+}
+
+enum RoomError {
+  @JsonValue('roomNotFound')
+  roomNotFound,
+  @JsonValue('tooManyPlayers')
+  tooManyPlayers,
+  unknown,
+}
+
+extension RoomErrorExtensions on RoomError {
+  String get stringValue {
+    switch (this) {
+      case RoomError.roomNotFound:
+        return 'room not found';
+      case RoomError.tooManyPlayers:
+        return 'too many players';
+      default:
+        return 'unknown reason';
+    }
+  }
 }

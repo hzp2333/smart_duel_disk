@@ -94,7 +94,6 @@ class _DuelRoomButton extends HookWidget {
       icon: Icons.business,
       title: 'Enter Duel Room',
       onPressed: snapshot.data ? vm.onDuelRoomPressed : null,
-      trailingIcon: Icons.arrow_forward_ios_outlined,
     );
   }
 }
