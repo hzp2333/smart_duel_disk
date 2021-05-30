@@ -84,7 +84,6 @@ class DuelRoomViewModel extends BaseViewModel {
   void onCreateRoomPressed() {
     logger.info(_tag, 'onCreateRoomPressed()');
 
-    _smartDuelServer.init();
     _smartDuelServer.emitEvent(SmartDuelEvent.createRoom());
   }
 
@@ -102,7 +101,6 @@ class DuelRoomViewModel extends BaseViewModel {
   void onJoinRoomPressed() {
     logger.info(_tag, 'onJoinRoomPressed()');
 
-    _smartDuelServer.init();
     _smartDuelServer.emitEvent(SmartDuelEvent.joinRoom(RoomEventData(
       roomName: _roomName.value,
     )));

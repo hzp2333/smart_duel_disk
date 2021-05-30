@@ -1,7 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
 
-part of 'speed_duel_state.dart';
+part of 'speed_duel_screen_state.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -10,13 +10,13 @@ part of 'speed_duel_state.dart';
 T _$identity<T>(T value) => value;
 
 /// @nodoc
-class _$SpeedDuelStateTearOff {
-  const _$SpeedDuelStateTearOff();
+class _$SpeedDuelScreenStateTearOff {
+  const _$SpeedDuelScreenStateTearOff();
 
 // ignore: unused_element
-  SpeedDuelData call(PlayerState playerState) {
+  SpeedDuelData call(SpeedDuelState state) {
     return SpeedDuelData(
-      playerState,
+      state,
     );
   }
 
@@ -33,19 +33,19 @@ class _$SpeedDuelStateTearOff {
 
 /// @nodoc
 // ignore: unused_element
-const $SpeedDuelState = _$SpeedDuelStateTearOff();
+const $SpeedDuelScreenState = _$SpeedDuelScreenStateTearOff();
 
 /// @nodoc
-mixin _$SpeedDuelState {
+mixin _$SpeedDuelScreenState {
   @optionalTypeArgs
   TResult when<TResult extends Object>(
-    TResult $default(PlayerState playerState), {
+    TResult $default(SpeedDuelState state), {
     @required TResult loading(),
     @required TResult error(),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>(
-    TResult $default(PlayerState playerState), {
+    TResult $default(SpeedDuelState state), {
     TResult loading(),
     TResult error(),
     @required TResult orElse(),
@@ -66,20 +66,20 @@ mixin _$SpeedDuelState {
 }
 
 /// @nodoc
-abstract class $SpeedDuelStateCopyWith<$Res> {
-  factory $SpeedDuelStateCopyWith(
-          SpeedDuelState value, $Res Function(SpeedDuelState) then) =
-      _$SpeedDuelStateCopyWithImpl<$Res>;
+abstract class $SpeedDuelScreenStateCopyWith<$Res> {
+  factory $SpeedDuelScreenStateCopyWith(SpeedDuelScreenState value,
+          $Res Function(SpeedDuelScreenState) then) =
+      _$SpeedDuelScreenStateCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$SpeedDuelStateCopyWithImpl<$Res>
-    implements $SpeedDuelStateCopyWith<$Res> {
-  _$SpeedDuelStateCopyWithImpl(this._value, this._then);
+class _$SpeedDuelScreenStateCopyWithImpl<$Res>
+    implements $SpeedDuelScreenStateCopyWith<$Res> {
+  _$SpeedDuelScreenStateCopyWithImpl(this._value, this._then);
 
-  final SpeedDuelState _value;
+  final SpeedDuelScreenState _value;
   // ignore: unused_field
-  final $Res Function(SpeedDuelState) _then;
+  final $Res Function(SpeedDuelScreenState) _then;
 }
 
 /// @nodoc
@@ -87,12 +87,12 @@ abstract class $SpeedDuelDataCopyWith<$Res> {
   factory $SpeedDuelDataCopyWith(
           SpeedDuelData value, $Res Function(SpeedDuelData) then) =
       _$SpeedDuelDataCopyWithImpl<$Res>;
-  $Res call({PlayerState playerState});
+  $Res call({SpeedDuelState state});
 }
 
 /// @nodoc
 class _$SpeedDuelDataCopyWithImpl<$Res>
-    extends _$SpeedDuelStateCopyWithImpl<$Res>
+    extends _$SpeedDuelScreenStateCopyWithImpl<$Res>
     implements $SpeedDuelDataCopyWith<$Res> {
   _$SpeedDuelDataCopyWithImpl(
       SpeedDuelData _value, $Res Function(SpeedDuelData) _then)
@@ -103,38 +103,37 @@ class _$SpeedDuelDataCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object playerState = freezed,
+    Object state = freezed,
   }) {
     return _then(SpeedDuelData(
-      playerState == freezed ? _value.playerState : playerState as PlayerState,
+      state == freezed ? _value.state : state as SpeedDuelState,
     ));
   }
 }
 
 /// @nodoc
 class _$SpeedDuelData implements SpeedDuelData {
-  const _$SpeedDuelData(this.playerState) : assert(playerState != null);
+  const _$SpeedDuelData(this.state) : assert(state != null);
 
   @override
-  final PlayerState playerState;
+  final SpeedDuelState state;
 
   @override
   String toString() {
-    return 'SpeedDuelState(playerState: $playerState)';
+    return 'SpeedDuelScreenState(state: $state)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is SpeedDuelData &&
-            (identical(other.playerState, playerState) ||
-                const DeepCollectionEquality()
-                    .equals(other.playerState, playerState)));
+            (identical(other.state, state) ||
+                const DeepCollectionEquality().equals(other.state, state)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(playerState);
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(state);
 
   @JsonKey(ignore: true)
   @override
@@ -144,27 +143,27 @@ class _$SpeedDuelData implements SpeedDuelData {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>(
-    TResult $default(PlayerState playerState), {
+    TResult $default(SpeedDuelState state), {
     @required TResult loading(),
     @required TResult error(),
   }) {
     assert($default != null);
     assert(loading != null);
     assert(error != null);
-    return $default(playerState);
+    return $default(state);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>(
-    TResult $default(PlayerState playerState), {
+    TResult $default(SpeedDuelState state), {
     TResult loading(),
     TResult error(),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if ($default != null) {
-      return $default(playerState);
+      return $default(state);
     }
     return orElse();
   }
@@ -198,10 +197,10 @@ class _$SpeedDuelData implements SpeedDuelData {
   }
 }
 
-abstract class SpeedDuelData implements SpeedDuelState {
-  const factory SpeedDuelData(PlayerState playerState) = _$SpeedDuelData;
+abstract class SpeedDuelData implements SpeedDuelScreenState {
+  const factory SpeedDuelData(SpeedDuelState state) = _$SpeedDuelData;
 
-  PlayerState get playerState;
+  SpeedDuelState get state;
   @JsonKey(ignore: true)
   $SpeedDuelDataCopyWith<SpeedDuelData> get copyWith;
 }
@@ -215,7 +214,7 @@ abstract class $SpeedDuelLoadingCopyWith<$Res> {
 
 /// @nodoc
 class _$SpeedDuelLoadingCopyWithImpl<$Res>
-    extends _$SpeedDuelStateCopyWithImpl<$Res>
+    extends _$SpeedDuelScreenStateCopyWithImpl<$Res>
     implements $SpeedDuelLoadingCopyWith<$Res> {
   _$SpeedDuelLoadingCopyWithImpl(
       SpeedDuelLoading _value, $Res Function(SpeedDuelLoading) _then)
@@ -231,7 +230,7 @@ class _$SpeedDuelLoading implements SpeedDuelLoading {
 
   @override
   String toString() {
-    return 'SpeedDuelState.loading()';
+    return 'SpeedDuelScreenState.loading()';
   }
 
   @override
@@ -245,7 +244,7 @@ class _$SpeedDuelLoading implements SpeedDuelLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>(
-    TResult $default(PlayerState playerState), {
+    TResult $default(SpeedDuelState state), {
     @required TResult loading(),
     @required TResult error(),
   }) {
@@ -258,7 +257,7 @@ class _$SpeedDuelLoading implements SpeedDuelLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>(
-    TResult $default(PlayerState playerState), {
+    TResult $default(SpeedDuelState state), {
     TResult loading(),
     TResult error(),
     @required TResult orElse(),
@@ -299,7 +298,7 @@ class _$SpeedDuelLoading implements SpeedDuelLoading {
   }
 }
 
-abstract class SpeedDuelLoading implements SpeedDuelState {
+abstract class SpeedDuelLoading implements SpeedDuelScreenState {
   const factory SpeedDuelLoading() = _$SpeedDuelLoading;
 }
 
@@ -312,7 +311,7 @@ abstract class $SpeedDuelErrorCopyWith<$Res> {
 
 /// @nodoc
 class _$SpeedDuelErrorCopyWithImpl<$Res>
-    extends _$SpeedDuelStateCopyWithImpl<$Res>
+    extends _$SpeedDuelScreenStateCopyWithImpl<$Res>
     implements $SpeedDuelErrorCopyWith<$Res> {
   _$SpeedDuelErrorCopyWithImpl(
       SpeedDuelError _value, $Res Function(SpeedDuelError) _then)
@@ -328,7 +327,7 @@ class _$SpeedDuelError implements SpeedDuelError {
 
   @override
   String toString() {
-    return 'SpeedDuelState.error()';
+    return 'SpeedDuelScreenState.error()';
   }
 
   @override
@@ -342,7 +341,7 @@ class _$SpeedDuelError implements SpeedDuelError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object>(
-    TResult $default(PlayerState playerState), {
+    TResult $default(SpeedDuelState state), {
     @required TResult loading(),
     @required TResult error(),
   }) {
@@ -355,7 +354,7 @@ class _$SpeedDuelError implements SpeedDuelError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>(
-    TResult $default(PlayerState playerState), {
+    TResult $default(SpeedDuelState state), {
     TResult loading(),
     TResult error(),
     @required TResult orElse(),
@@ -396,6 +395,6 @@ class _$SpeedDuelError implements SpeedDuelError {
   }
 }
 
-abstract class SpeedDuelError implements SpeedDuelState {
+abstract class SpeedDuelError implements SpeedDuelScreenState {
   const factory SpeedDuelError() = _$SpeedDuelError;
 }

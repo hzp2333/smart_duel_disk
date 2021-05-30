@@ -6,10 +6,11 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_event.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 
 import '../speed_duel_viewmodel.dart';
 import 'body/card_list_bottom_sheet.dart';
@@ -42,8 +43,8 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
     final vm = Provider.of<SpeedDuelViewModel>(context, listen: false);
     vm.init();
 
-    _speedDuelEventSubscription = vm.speedDuelScreenEvent.listen((speedDuelEvent) {
-      speedDuelEvent.when(
+    _speedDuelEventSubscription = vm.screenEvent.listen((event) {
+      event.when(
         hideOverlays: () => _hideOverlays(),
         inspectCardPile: (zone) => _onInspectCardPileEventReceived(zone),
       );
@@ -113,7 +114,7 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
           child: Scaffold(
             key: _scaffoldKey,
             backgroundColor: AppColors.primaryBackgroundColor,
-            body: const _Body(),
+            body: const _BodyBuilder(),
           ),
         ),
       ),
@@ -121,80 +122,86 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
   }
 }
 
-class _Body extends StatelessWidget {
-  const _Body();
-
-  @override
-  Widget build(BuildContext context) {
-    final assetsProvider = Provider.of<AssetsProvider>(context);
-
-    return Stack(
-      children: [
-        // TODO: add playmat support
-        // Positioned.fill(
-        //   child: ImageAssetProvider(
-        //     assetName: assetsProvider.speedDuelFieldBackground,
-        //     fit: BoxFit.fill,
-        //   ),
-        // ),
-        // Positioned.fill(
-        //   child: Container(
-        //     color: Colors.black.withOpacity(0.79),
-        //   ),
-        // ),
-        const SafeArea(
-          child: Center(
-            child: Padding(
-              padding: EdgeInsets.all(AppDimensions.screenMargin),
-              child: _SpeedDuelFieldBuilder(),
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _SpeedDuelFieldBuilder extends HookWidget {
-  const _SpeedDuelFieldBuilder();
+class _BodyBuilder extends HookWidget {
+  const _BodyBuilder();
 
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<SpeedDuelViewModel>(context);
-    final speedDuelState = useStream(vm.speedDuelState, initialData: const SpeedDuelLoading());
+    final speedDuelState = useStream(vm.screenState, initialData: const SpeedDuelLoading());
 
-    return speedDuelState.data.when(
-      (playerState) => _SpeedDuelField(playerState: playerState),
-      loading: () => const GeneralLoadingState(),
-      error: () => const GeneralErrorState(description: 'An error occurred while starting the speed duel'),
+    return SafeArea(
+      child: speedDuelState.data.when(
+        (state) => _SpeedDuelField(state: state),
+        loading: () => const GeneralLoadingState(),
+        error: () => const GeneralErrorState(description: 'An error occurred while starting the speed duel'),
+      ),
     );
   }
 }
 
 class _SpeedDuelField extends StatelessWidget {
-  final PlayerState playerState;
+  final SpeedDuelState state;
 
   const _SpeedDuelField({
-    @required this.playerState,
+    @required this.state,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Expanded(
-          child: MainMonsterRow(playerState: playerState),
+    return SingleChildScrollView(
+      reverse: true,
+      physics: const ClampingScrollPhysics(),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _PlayerField(
+            playerState: state.opponentState,
+            isOpponent: true,
+          ),
+          _PlayerField(playerState: state.userState),
+        ],
+      ),
+    );
+  }
+}
+
+class _PlayerField extends StatelessWidget {
+  final PlayerState playerState;
+  final bool isOpponent;
+
+  const _PlayerField({
+    @required this.playerState,
+    this.isOpponent = false,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: context.screenHeight,
+      width: context.screenWidth,
+      child: Padding(
+        padding: const EdgeInsets.all(AppDimensions.screenMargin),
+        child: RotatedBox(
+          quarterTurns: isOpponent ? 2 : 0,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(
+                child: HandRow(zone: playerState.hand),
+              ),
+              const SizedBox(height: AppDimensions.duelFieldFirstSecondRowSpacing),
+              Expanded(
+                child: SpellTrapRow(playerState: playerState),
+              ),
+              const SizedBox(height: AppDimensions.duelFieldSecondHandRowSpacing),
+              Expanded(
+                child: MainMonsterRow(playerState: playerState),
+              ),
+            ],
+          ),
         ),
-        const SizedBox(height: AppDimensions.duelFieldFirstSecondRowSpacing),
-        Expanded(
-          child: SpellTrapRow(playerState: playerState),
-        ),
-        const SizedBox(height: AppDimensions.duelFieldSecondHandRowSpacing),
-        Expanded(
-          child: HandRow(zone: playerState.hand),
-        ),
-      ],
+      ),
     );
   }
 }

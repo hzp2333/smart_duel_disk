@@ -1,11 +1,30 @@
-import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 
-part 'speed_duel_state.freezed.dart';
+@immutable
+class SpeedDuelState extends Equatable {
+  final PlayerState userState;
+  final PlayerState opponentState;
 
-@freezed
-abstract class SpeedDuelState with _$SpeedDuelState {
-  const factory SpeedDuelState(PlayerState playerState) = SpeedDuelData;
-  const factory SpeedDuelState.loading() = SpeedDuelLoading;
-  const factory SpeedDuelState.error() = SpeedDuelError;
+  const SpeedDuelState({
+    @required this.userState,
+    @required this.opponentState,
+  });
+
+  SpeedDuelState copyWith({PlayerState userState, PlayerState opponentState}) {
+    return SpeedDuelState(
+      userState: userState ?? this.userState,
+      opponentState: opponentState ?? this.opponentState,
+    );
+  }
+
+  @override
+  List<Object> get props => [
+        userState,
+        opponentState,
+      ];
+
+  @override
+  bool get stringify => true;
 }
