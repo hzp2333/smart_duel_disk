@@ -50,4 +50,6 @@ abstract class RouterHelper {
   Future<CardPosition> showPlayCardDialog(PlayCard playCard, {Zone newZone});
 
   //endregion
+
+  Future<void> launchUrl(String url);
 }

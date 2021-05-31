@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_config/core_config_interface/lib/core_config_interface.dart';
@@ -44,4 +45,10 @@ dynamic _parseJson(String text) {
 // Must be top-level function
 FutureOr<dynamic> _parseAndDecode(dynamic response) {
   return response is String ? jsonDecode(response) : null;
+}
+
+@module
+abstract class FlutterModule {
+  @LazySingleton()
+  AssetBundle get provideAssetBundle => rootBundle;
 }

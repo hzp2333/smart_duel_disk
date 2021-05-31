@@ -23,6 +23,7 @@ dependencies:
   flutter_dotenv: ^2.1.0
   flutter_hooks: ^0.15.0
   flutter_svg: ^0.19.3
+  flutter_widget_from_html_core: ^0.5.1+3
   font_awesome_flutter: ^8.11.0
   freezed_annotation: ^0.12.0
   get_it: ^5.0.6
@@ -68,6 +69,7 @@ flutter:
     - secrets.env
     - assets/illustrations/
     - assets/icons/
+    - assets/html/
 
 scripts:
   clean: flutter clean

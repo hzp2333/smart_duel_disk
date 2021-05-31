@@ -137,4 +137,13 @@ class RouterHelperImpl implements RouterHelper {
   }
 
   //endregion
+
+  @override
+  Future<void> launchUrl(String url) async {
+    try {
+      await _urlLauncherProvider.launchUrl(_appConfig.discordUrl);
+    } catch (exception) {
+      debugPrint(exception.toString());
+    }
+  }
 }
