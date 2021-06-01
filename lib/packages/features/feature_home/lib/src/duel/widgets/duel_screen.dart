@@ -73,7 +73,7 @@ class _PortTextField extends StatelessWidget {
 
     return DuelFormTextField(
       label: 'Port',
-      hint: '52300',
+      hint: '8080',
       textStream: vm.port,
       onChanged: vm.onPortChanged,
       onSubmitted: vm.onPortSubmitted,
