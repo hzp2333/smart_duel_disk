@@ -41,4 +41,7 @@ class AssetsProviderImpl implements AssetsProvider {
 
   @override
   String get iconCardTypeTrap => 'assets/icons/ic_card_type_trap.png';
+
+  @override
+  String get privacyPolicy => 'assets/html/privacy_policy.html';
 }

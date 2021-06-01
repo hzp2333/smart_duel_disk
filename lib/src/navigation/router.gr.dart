@@ -14,13 +14,15 @@ import '../../packages/features/feature_yugioh_card_detail/lib/feature_yugioh_ca
     as _i5;
 import '../../packages/features/feature_draw_card/lib/feature_draw_card.dart'
     as _i6;
-import '../../packages/features/feature_speed_duel/lib/feature_speed_duel.dart'
+import '../../packages/features/feature_privacy_policy/lib/feature_privacy_policy.dart'
     as _i7;
-import '../../packages/features/feature_duel_room/lib/src/widgets/duel_room_screen_provider.dart'
+import '../../packages/features/feature_speed_duel/lib/feature_speed_duel.dart'
     as _i8;
-import '../../packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart'
+import '../../packages/features/feature_duel_room/lib/src/widgets/duel_room_screen_provider.dart'
     as _i9;
-import 'package:flutter/material.dart' as _i10;
+import '../../packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart'
+    as _i10;
+import 'package:flutter/material.dart' as _i11;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter();
@@ -57,17 +59,21 @@ class AppRouter extends _i1.RootStackRouter {
           durationInMilliseconds: 0,
           reverseDurationInMilliseconds: 0);
     },
+    PrivacyPolicyRoute.name: (entry) {
+      return _i1.AdaptivePage(
+          entry: entry, child: _i7.PrivacyPolicyScreenProvider());
+    },
     SpeedDuelRoute.name: (entry) {
       var route = entry.routeData.as<SpeedDuelRoute>();
       return _i1.AdaptivePage(
           entry: entry,
-          child: _i7.SpeedDuelScreenProvider(preBuiltDeck: route.preBuiltDeck));
+          child: _i8.SpeedDuelScreenProvider(preBuiltDeck: route.preBuiltDeck));
     },
     DuelRoomRoute.name: (entry) {
       var route = entry.routeData.as<DuelRoomRoute>();
       return _i1.AdaptivePage(
           entry: entry,
-          child: _i8.DuelRoomScreenProvider(preBuiltDeck: route.preBuiltDeck));
+          child: _i9.DuelRoomScreenProvider(preBuiltDeck: route.preBuiltDeck));
     },
     DuelTab.name: (entry) {
       return _i1.AdaptivePage(entry: entry, child: _i3.DuelScreenProvider());
@@ -86,34 +92,37 @@ class AppRouter extends _i1.RootStackRouter {
             path: '/',
             routeBuilder: (match) => OnboardingRoute.fromMatch(match)),
         _i1.RouteConfig<HomeRoute>(HomeRoute.name,
-            path: '/home-screen-provider',
+            path: '/home',
             usesTabsRouter: true,
             routeBuilder: (match) => HomeRoute.fromMatch(match),
             children: [
               _i1.RouteConfig<DuelTab>(DuelTab.name,
-                  path: 'duel-screen-provider',
+                  path: 'duel',
                   routeBuilder: (match) => DuelTab.fromMatch(match)),
               _i1.RouteConfig<NewsTab>(NewsTab.name,
-                  path: 'news-screen-provider',
+                  path: 'news',
                   routeBuilder: (match) => NewsTab.fromMatch(match)),
               _i1.RouteConfig<DeckTab>(DeckTab.name,
-                  path: 'deck-screen-provider',
+                  path: 'deck',
                   routeBuilder: (match) => DeckTab.fromMatch(match))
             ]),
         _i1.RouteConfig<DeckBuilderRoute>(DeckBuilderRoute.name,
-            path: '/deck-builder-screen-provider',
+            path: '/deck-builder',
             routeBuilder: (match) => DeckBuilderRoute.fromMatch(match)),
         _i1.RouteConfig<YugiohCardDetailRoute>(YugiohCardDetailRoute.name,
-            path: '/yugioh-card-detail-screen-provider',
+            path: '/card-detail',
             routeBuilder: (match) => YugiohCardDetailRoute.fromMatch(match)),
         _i1.RouteConfig<DrawCardRoute>(DrawCardRoute.name,
             path: '/draw-card-screen-provider',
             routeBuilder: (match) => DrawCardRoute.fromMatch(match)),
+        _i1.RouteConfig<PrivacyPolicyRoute>(PrivacyPolicyRoute.name,
+            path: '/privacy-policy',
+            routeBuilder: (match) => PrivacyPolicyRoute.fromMatch(match)),
         _i1.RouteConfig<SpeedDuelRoute>(SpeedDuelRoute.name,
-            path: '/speed-duel-screen-provider',
+            path: '/speed-duel',
             routeBuilder: (match) => SpeedDuelRoute.fromMatch(match)),
         _i1.RouteConfig<DuelRoomRoute>(DuelRoomRoute.name,
-            path: '/duel-room-screen-provider',
+            path: '/duel-room',
             routeBuilder: (match) => DuelRoomRoute.fromMatch(match))
       ];
 }
@@ -128,7 +137,7 @@ class OnboardingRoute extends _i1.PageRouteInfo {
 
 class HomeRoute extends _i1.PageRouteInfo {
   const HomeRoute({List<_i1.PageRouteInfo> children})
-      : super(name, path: '/home-screen-provider', initialChildren: children);
+      : super(name, path: '/home', initialChildren: children);
 
   HomeRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
 
@@ -136,29 +145,28 @@ class HomeRoute extends _i1.PageRouteInfo {
 }
 
 class DeckBuilderRoute extends _i1.PageRouteInfo {
-  DeckBuilderRoute({this.preBuiltDeck})
-      : super(name, path: '/deck-builder-screen-provider');
+  DeckBuilderRoute({this.preBuiltDeck}) : super(name, path: '/deck-builder');
 
   DeckBuilderRoute.fromMatch(_i1.RouteMatch match)
       : preBuiltDeck = null,
         super.fromMatch(match);
 
-  final _i9.PreBuiltDeck preBuiltDeck;
+  final _i10.PreBuiltDeck preBuiltDeck;
 
   static const String name = 'DeckBuilderRoute';
 }
 
 class YugiohCardDetailRoute extends _i1.PageRouteInfo {
   YugiohCardDetailRoute(
-      {@_i10.required this.yugiohCard, @_i10.required this.index})
-      : super(name, path: '/yugioh-card-detail-screen-provider');
+      {@_i11.required this.yugiohCard, @_i11.required this.index})
+      : super(name, path: '/card-detail');
 
   YugiohCardDetailRoute.fromMatch(_i1.RouteMatch match)
       : yugiohCard = null,
         index = null,
         super.fromMatch(match);
 
-  final _i9.YugiohCard yugiohCard;
+  final _i10.YugiohCard yugiohCard;
 
   final int index;
 
@@ -166,7 +174,7 @@ class YugiohCardDetailRoute extends _i1.PageRouteInfo {
 }
 
 class DrawCardRoute extends _i1.PageRouteInfo {
-  DrawCardRoute({@_i10.required this.cardDrawnCallback})
+  DrawCardRoute({@_i11.required this.cardDrawnCallback})
       : super(name, path: '/draw-card-screen-provider');
 
   DrawCardRoute.fromMatch(_i1.RouteMatch match)
@@ -178,34 +186,42 @@ class DrawCardRoute extends _i1.PageRouteInfo {
   static const String name = 'DrawCardRoute';
 }
 
+class PrivacyPolicyRoute extends _i1.PageRouteInfo {
+  const PrivacyPolicyRoute() : super(name, path: '/privacy-policy');
+
+  PrivacyPolicyRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
+
+  static const String name = 'PrivacyPolicyRoute';
+}
+
 class SpeedDuelRoute extends _i1.PageRouteInfo {
-  SpeedDuelRoute({@_i10.required this.preBuiltDeck})
-      : super(name, path: '/speed-duel-screen-provider');
+  SpeedDuelRoute({@_i11.required this.preBuiltDeck})
+      : super(name, path: '/speed-duel');
 
   SpeedDuelRoute.fromMatch(_i1.RouteMatch match)
       : preBuiltDeck = null,
         super.fromMatch(match);
 
-  final _i9.PreBuiltDeck preBuiltDeck;
+  final _i10.PreBuiltDeck preBuiltDeck;
 
   static const String name = 'SpeedDuelRoute';
 }
 
 class DuelRoomRoute extends _i1.PageRouteInfo {
-  DuelRoomRoute({@_i10.required this.preBuiltDeck})
-      : super(name, path: '/duel-room-screen-provider');
+  DuelRoomRoute({@_i11.required this.preBuiltDeck})
+      : super(name, path: '/duel-room');
 
   DuelRoomRoute.fromMatch(_i1.RouteMatch match)
       : preBuiltDeck = null,
         super.fromMatch(match);
 
-  final _i9.PreBuiltDeck preBuiltDeck;
+  final _i10.PreBuiltDeck preBuiltDeck;
 
   static const String name = 'DuelRoomRoute';
 }
 
 class DuelTab extends _i1.PageRouteInfo {
-  const DuelTab() : super(name, path: 'duel-screen-provider');
+  const DuelTab() : super(name, path: 'duel');
 
   DuelTab.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
 
@@ -213,7 +229,7 @@ class DuelTab extends _i1.PageRouteInfo {
 }
 
 class NewsTab extends _i1.PageRouteInfo {
-  const NewsTab() : super(name, path: 'news-screen-provider');
+  const NewsTab() : super(name, path: 'news');
 
   NewsTab.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
 
@@ -221,7 +237,7 @@ class NewsTab extends _i1.PageRouteInfo {
 }
 
 class DeckTab extends _i1.PageRouteInfo {
-  const DeckTab() : super(name, path: 'deck-screen-provider');
+  const DeckTab() : super(name, path: 'deck');
 
   DeckTab.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
 

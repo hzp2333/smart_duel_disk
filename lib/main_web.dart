@@ -9,5 +9,5 @@ Future<void> main() async {
   final dotEnv = DotEnv();
   await dotEnv.load(_secretsFilePath);
 
-  await start(AppConfig.release(dotEnv), mobile);
+  await start(AppConfig.release(dotEnv), web);
 }

@@ -15,4 +15,6 @@ abstract class AssetsProvider {
   String get iconCardLevel;
   String get iconCardTypeSpell;
   String get iconCardTypeTrap;
+
+  String get privacyPolicy;
 }

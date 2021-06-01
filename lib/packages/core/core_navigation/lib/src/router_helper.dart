@@ -56,4 +56,6 @@ abstract class RouterHelper {
   Future<void> showDuelRoom(PreBuiltDeck preBuiltDeck);
 
   //endregion
+  
+  Future<void> launchUrl(String url);
 }

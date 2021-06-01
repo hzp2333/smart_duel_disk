@@ -1,8 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
+import 'package:universal_io/io.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/src/dialogs/dialog_config.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/src/dialogs/dialog_service.dart';
 import 'package:smart_duel_disk/src/navigation/router.gr.dart';
