@@ -4,7 +4,18 @@ import 'package:smart_duel_disk/packages/core/core_storage/core_storage_interfac
 
 @LazySingleton(as: YugiohCardsStorageProvider)
 class YugiohCardsStorageProviderImpl implements YugiohCardsStorageProvider {
+  Iterable<YugiohCard> _speedDuelCards;
   YugiohCard _token;
+
+  @override
+  Iterable<YugiohCard> getSpeedDuelCards() {
+    return _speedDuelCards;
+  }
+
+  @override
+  Future<void> saveSpeedDuelCards(Iterable<YugiohCard> speedDuelCards) async {
+    _speedDuelCards = speedDuelCards;
+  }
 
   @override
   YugiohCard getToken() {

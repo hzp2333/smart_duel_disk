@@ -14,9 +14,15 @@ class YugiohCardsDataManagerImpl implements YugiohCardsDataManager {
   );
 
   @override
-  Future<Iterable<YugiohCard>> getSpeedDuelCards({bool includeSkillCards = false}) async {
-    final cards = await _ygoProDeckApiProvider.getSpeedDuelCards();
-    return includeSkillCards ? cards : cards.where((card) => card.type != CardType.skillCard);
+  Future<Iterable<YugiohCard>> getSpeedDuelCards() async {
+    var cards = _yugiohCardsStorageProvider.getSpeedDuelCards();
+    if (cards != null) {
+      return cards;
+    }
+
+    cards = await _ygoProDeckApiProvider.getSpeedDuelCards();
+    _yugiohCardsStorageProvider.saveSpeedDuelCards(cards);
+    return cards;
   }
 
   @override

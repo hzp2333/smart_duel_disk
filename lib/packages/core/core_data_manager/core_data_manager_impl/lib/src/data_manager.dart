@@ -28,7 +28,7 @@ class DataManagerImpl implements DataManager {
 
   @override
   Future<Iterable<YugiohCard>> getSpeedDuelCards({bool includeSkillCards = false}) {
-    return _yugiohCardsDataManager.getSpeedDuelCards(includeSkillCards: includeSkillCards);
+    return _yugiohCardsDataManager.getSpeedDuelCards();
   }
 
   @override

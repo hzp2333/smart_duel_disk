@@ -93,7 +93,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     logger.info(_tag, '_init()');
 
     try {
-      _initPlayerStateSubscription();
+      _initSpeedDuelStateSubscription();
 
       await _setDeck();
       _shuffleDeck();
@@ -109,8 +109,8 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
   }
 
-  void _initPlayerStateSubscription() {
-    logger.verbose(_tag, '_initPlayerStateSubscription()');
+  void _initSpeedDuelStateSubscription() {
+    logger.verbose(_tag, '_initSpeedDuelStateSubscription()');
 
     _speedDuelStateSubscription = _duelState.listen((state) {
       if (_initialized && _screenState.value is SpeedDuelData) {
