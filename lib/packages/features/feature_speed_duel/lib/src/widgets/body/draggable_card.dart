@@ -28,7 +28,7 @@ class DraggableCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final vm = Provider.of<SpeedDuelViewModel>(context);
     final assetsProvider = Provider.of<AssetsProvider>(context);
-    
+
     final cardBack = assetsProvider.cardBack;
     final childWhenDragging = zone.zoneType == ZoneType.hand
         ? const ZoneFiller()
@@ -84,7 +84,9 @@ class CardImage extends StatelessWidget {
   Widget build(BuildContext context) {
     final quarterTurns = playCard.position.isAttack ? 0 : 3;
     final zoneHeight = context.playCardHeight;
-    final zoneWidth = playCard.zoneType.isMainMonsterZone || playCard.zoneType.isSpellTrapCardZone ? zoneHeight : null;
+    final zoneWidth = playCard.zoneType.isMainMonsterZone || playCard.zoneType.isSpellTrapCardZone
+        ? zoneHeight
+        : zoneHeight * AppDimensions.yugiohCardAspectRatio;
     final cardSleeve = ImagePlaceholder(imageAssetId: placeholderImage);
 
     return GestureDetector(
@@ -100,6 +102,9 @@ class CardImage extends StatelessWidget {
                     imageUrl: playCard.yugiohCard.imageSmallUrl,
                     placeholder: (_, __) => cardSleeve,
                     errorWidget: (_, __, dynamic ___) => cardSleeve,
+                    height: playCard.position.isAttack ? zoneHeight : null,
+                    width: playCard.position.isAttack ? null : zoneHeight,
+                    fit: BoxFit.contain,
                   )
                 : cardSleeve,
           ),

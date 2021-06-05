@@ -188,15 +188,15 @@ class _PlayerField extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Expanded(
-                child: HandRow(zone: playerState.hand),
-              ),
-              const SizedBox(height: AppDimensions.duelFieldFirstSecondRowSpacing),
-              Expanded(
-                child: SpellTrapRow(playerState: playerState),
+                child: MainMonsterRow(playerState: playerState),
               ),
               const SizedBox(height: AppDimensions.duelFieldSecondHandRowSpacing),
               Expanded(
-                child: MainMonsterRow(playerState: playerState),
+                child: SpellTrapRow(playerState: playerState),
+              ),
+              const SizedBox(height: AppDimensions.duelFieldFirstSecondRowSpacing),
+              Expanded(
+                child: HandRow(zone: playerState.hand),
               ),
             ],
           ),

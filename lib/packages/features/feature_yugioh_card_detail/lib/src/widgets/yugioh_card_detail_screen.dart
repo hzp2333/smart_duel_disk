@@ -48,8 +48,8 @@ class _Body extends StatelessWidget {
     final vm = Provider.of<YugiohCardDetailViewModel>(context);
     final assetsProvider = Provider.of<AssetsProvider>(context);
 
-    return Center(
-      child: InteractiveViewer(
+    return InteractiveViewer(
+      child: Center(
         child: Hero(
           tag: vm.heroTag,
           child: CachedNetworkImage(
