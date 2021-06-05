@@ -26,6 +26,11 @@ class YugiohCardsDataManagerImpl implements YugiohCardsDataManager {
   }
 
   @override
+  Future<YugiohCard> getSpeedDuelCard(int cardId) {
+    return Future.value(_yugiohCardsStorageProvider.getSpeedDuelCard(cardId));
+  }
+
+  @override
   Future<YugiohCard> getToken() async {
     var token = _yugiohCardsStorageProvider.getToken();
     if (token != null) {

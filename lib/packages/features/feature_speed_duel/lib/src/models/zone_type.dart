@@ -13,6 +13,37 @@ enum ZoneType {
   deck,
 }
 
+ZoneType parseZoneType(String zoneType) {
+  switch (zoneType) {
+    case 'hand':
+      return ZoneType.hand;
+    case 'field':
+      return ZoneType.field;
+    case 'mainMonster1':
+      return ZoneType.mainMonster1;
+    case 'mainMonster2':
+      return ZoneType.mainMonster2;
+    case 'mainMonster3':
+      return ZoneType.mainMonster3;
+    case 'graveyard':
+      return ZoneType.graveyard;
+    case 'banished':
+      return ZoneType.banished;
+    case 'extraDeck':
+      return ZoneType.extraDeck;
+    case 'spellTrap1':
+      return ZoneType.spellTrap1;
+    case 'spellTrap2':
+      return ZoneType.spellTrap2;
+    case 'spellTrap3':
+      return ZoneType.spellTrap3;
+    case 'deck':
+      return ZoneType.deck;
+    default:
+      return null;
+  }
+}
+
 extension ZoneTypeExtensions on ZoneType {
   bool get isMainMonsterZone =>
       this == ZoneType.mainMonster1 || this == ZoneType.mainMonster2 || this == ZoneType.mainMonster3;

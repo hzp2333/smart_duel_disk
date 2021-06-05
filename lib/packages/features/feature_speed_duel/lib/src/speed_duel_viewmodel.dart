@@ -222,7 +222,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   }
 
   void _updatePlayerState(List<Zone> updatedZones) {
-    logger.verbose(_tag, '_updatePlayerState(updatedZones: $updatedZones)');
+    logger.verbose(_tag, '_updatePlayerState()');
 
     final currentState = _duelState.value;
     final userState = currentState.userState;
@@ -459,33 +459,95 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
 
     if (event.scope == SmartDuelEventConstants.cardScope) {
-      _handleCardEvent(event);
+      await _handleCardEvent(event);
       return;
     }
   }
 
-  void _handleCardEvent(SmartDuelEvent event) {
+  Future<void> _handleCardEvent(SmartDuelEvent event) async {
     logger.verbose(_tag, '_handleCardEvent(event: $event)');
 
     final eventData = event.data;
     if (eventData is CardEventData) {
       switch (event.action) {
         case SmartDuelEventConstants.cardPlayAction:
-          _handlePlayCardEvent(eventData);
+          await _handlePlayCardEvent(eventData);
           break;
         case SmartDuelEventConstants.cardRemoveAction:
-          _handleRemoveCardEvent(eventData);
+          await _handleRemoveCardEvent(eventData);
           break;
       }
     }
   }
 
-  void _handlePlayCardEvent(CardEventData data) {
+  Future<void> _handlePlayCardEvent(CardEventData data) async {
     logger.verbose(_tag, '_handlePlayCardEvent(data: $data)');
+
+    final cardId = int.tryParse(data.cardId);
+    final zoneType = parseZoneType(data.zoneName);
+    final cardPosition = parseCardPosition(data.cardPosition);
+    if (cardId == null || zoneType == null || zoneType.isMultiCardZone) {
+      return;
+    }
+
+    final currentState = _duelState.value;
+    final opponentState = currentState.opponentState;
+    final opponentZones = opponentState.zones;
+    final oldZone = opponentZones.firstWhere((zone) => zone.zoneType == zoneType);
+
+    final card = await _dataManager.getSpeedDuelCard(cardId);
+    final playCard = _createPlayCardUseCase(card, 1, position: cardPosition, zoneType: zoneType);
+
+    final newZone = oldZone.copyWith(cards: [playCard]);
+
+    _updateOpponentState(oldZone, newZone);
   }
 
-  void _handleRemoveCardEvent(CardEventData data) {
+  Future<void> _handleRemoveCardEvent(CardEventData data) async {
     logger.verbose(_tag, '_handleRemoveCardEvent(data: $data)');
+
+    final zoneType = parseZoneType(data.zoneName);
+    if (zoneType == null || zoneType.isMultiCardZone) {
+      return;
+    }
+
+    final currentState = _duelState.value;
+    final opponentState = currentState.opponentState;
+    final opponentZones = opponentState.zones;
+    final oldZone = opponentZones.firstWhere((zone) => zone.zoneType == zoneType);
+
+    final newZone = oldZone.copyWith(cards: []);
+
+    _updateOpponentState(oldZone, newZone);
+  }
+
+  void _updateOpponentState(Zone oldZone, Zone newZone) {
+    logger.verbose(_tag, '_updateOpponentState(oldZone: $oldZone, newZone: $newZone)');
+
+    final currentState = _duelState.value;
+    final opponentState = currentState.opponentState;
+    final opponentZones = opponentState.zones;
+
+    final updatedZones = opponentZones.toList()
+      ..remove(oldZone)
+      ..add(newZone);
+
+    final updatedOpponentState = opponentState.copyWith(
+      hand: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.hand),
+      fieldZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.field),
+      mainMonsterZone1: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster1),
+      mainMonsterZone2: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster2),
+      mainMonsterZone3: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster3),
+      graveyardZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.graveyard),
+      banishedZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.banished),
+      extraDeckZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.extraDeck),
+      spellTrapZone1: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap1),
+      spellTrapZone2: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap2),
+      spellTrapZone3: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap3),
+      deckZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.deck),
+    );
+
+    _duelState.add(currentState.copyWith(opponentState: updatedOpponentState));
   }
 
   //endregion

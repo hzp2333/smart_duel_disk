@@ -3,6 +3,7 @@ import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manage
 abstract class YugiohCardsStorageProvider {
   Iterable<YugiohCard> getSpeedDuelCards();
   Future<void> saveSpeedDuelCards(Iterable<YugiohCard> speedDuelCards);
+  YugiohCard getSpeedDuelCard(int cardId);
   YugiohCard getToken();
   Future<void> saveToken(YugiohCard token);
 }

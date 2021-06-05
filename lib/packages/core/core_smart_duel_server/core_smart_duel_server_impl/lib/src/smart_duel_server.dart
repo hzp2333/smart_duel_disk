@@ -58,6 +58,9 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
       case SmartDuelEventConstants.roomScope:
         _handleRoomEvent(action, json);
         break;
+      case SmartDuelEventConstants.cardScope:
+        _handleCardEvent(action, json);
+        break;
     }
   }
 
@@ -70,12 +73,15 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
   void _handleRoomEvent(String action, dynamic json) {
     _logger.verbose(_tag, '_handleRoomEvent(action: $action), json: $json');
 
+    // TODO: this can definitely be improved. Remove stringify in server?
     SmartDuelEventData data;
     if (json is String) {
       final dynamic map = jsonDecode(json);
       if (map is Map<String, dynamic>) {
         data = RoomEventData.fromJson(map);
       }
+    } else if (json is Map<String, dynamic>) {
+      data = RoomEventData.fromJson(json);
     }
 
     SmartDuelEvent event;
@@ -88,6 +94,35 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
         break;
       case SmartDuelEventConstants.roomJoinAction:
         event = SmartDuelEvent.joinRoom(data);
+        break;
+    }
+
+    if (event != null && !_smartDuelEvents.isClosed) {
+      _smartDuelEvents.add(event);
+    }
+  }
+
+  void _handleCardEvent(String action, dynamic json) {
+    _logger.verbose(_tag, '_handleCardEvent(action: $action), json: $json');
+
+    // TODO: this can definitely be improved. Remove stringify in server?
+    SmartDuelEventData data;
+    if (json is String) {
+      final dynamic map = jsonDecode(json);
+      if (map is Map<String, dynamic>) {
+        data = CardEventData.fromJson(map);
+      }
+    } else if (json is Map<String, dynamic>) {
+      data = CardEventData.fromJson(json);
+    }
+
+    SmartDuelEvent event;
+    switch (action) {
+      case SmartDuelEventConstants.cardPlayAction:
+        event = SmartDuelEvent.playCard(data);
+        break;
+      case SmartDuelEventConstants.cardRemoveAction:
+        event = SmartDuelEvent.removeCard(data);
         break;
     }
 

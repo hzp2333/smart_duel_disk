@@ -18,6 +18,11 @@ class YugiohCardsStorageProviderImpl implements YugiohCardsStorageProvider {
   }
 
   @override
+  YugiohCard getSpeedDuelCard(int cardId) {
+    return _speedDuelCards.firstWhere((card) => card.id == cardId);
+  }
+
+  @override
   YugiohCard getToken() {
     return _token;
   }

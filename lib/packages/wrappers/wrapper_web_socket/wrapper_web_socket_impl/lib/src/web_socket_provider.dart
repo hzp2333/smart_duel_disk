@@ -27,6 +27,7 @@ class WebSocketProviderImpl implements WebSocketProvider {
     try {
       _registerGlobalHandlers();
       _registerRoomHandlers();
+      _registerCardHandlers();
 
       _socket.connect();
     } catch (ex, stackTrace) {
@@ -105,6 +106,20 @@ class WebSocketProviderImpl implements WebSocketProvider {
 
     _socket.on('$scope:${SmartDuelEventConstants.roomJoinAction}', (dynamic json) {
       _onEventReceived(scope, SmartDuelEventConstants.roomJoinAction, json);
+    });
+  }
+
+  void _registerCardHandlers() {
+    _logger.verbose(_tag, '_registerCardHandlers()');
+
+    const scope = SmartDuelEventConstants.cardScope;
+
+    _socket.on('$scope:${SmartDuelEventConstants.cardPlayAction}', (dynamic json) {
+      _onEventReceived(scope, SmartDuelEventConstants.cardPlayAction, json);
+    });
+
+    _socket.on('$scope:${SmartDuelEventConstants.cardRemoveAction}', (dynamic json) {
+      _onEventReceived(scope, SmartDuelEventConstants.cardRemoveAction, json);
     });
   }
 }

@@ -16,14 +16,14 @@ class CreatePlayCardUseCase {
     this._enumHelper,
   );
 
-  PlayCard call(YugiohCard card, int copyNumber) {
+  PlayCard call(YugiohCard card, int copyNumber, {CardPosition position, ZoneType zoneType}) {
     final raceAndType =
         '[${_enumHelper.convertToString(card.race, camelCase: true)} / ${_enumHelper.convertToString(card.type, camelCase: true)}]';
 
     return PlayCard(
       yugiohCard: card,
-      zoneType: ZoneType.deck,
-      position: CardPosition.faceUp,
+      zoneType: zoneType ?? ZoneType.deck,
+      position: position ?? CardPosition.faceUp,
       copyNumber: copyNumber,
       formattedRaceAndType: raceAndType,
       formattedAttack: card.atk == null ? null : 'ATK/${card.atk}',

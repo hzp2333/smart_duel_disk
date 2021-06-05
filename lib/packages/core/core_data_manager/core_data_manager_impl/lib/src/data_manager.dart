@@ -32,6 +32,11 @@ class DataManagerImpl implements DataManager {
   }
 
   @override
+  Future<YugiohCard> getSpeedDuelCard(int cardId) {
+    return _yugiohCardsDataManager.getSpeedDuelCard(cardId);
+  }
+
+  @override
   Future<YugiohCard> getToken() {
     return _yugiohCardsDataManager.getToken();
   }
