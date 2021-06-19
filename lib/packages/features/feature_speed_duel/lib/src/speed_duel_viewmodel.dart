@@ -10,7 +10,6 @@ import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigatio
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_event.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_state.dart';
@@ -277,14 +276,20 @@ class SpeedDuelViewModel extends BaseViewModel {
     logger.verbose(_tag, '_drawCard()');
 
     final currentState = _duelState.value;
-    final userState = currentState.userState;
-    final deck = userState.deckZone.cards.toList();
+    final userState = _duelState.value.userState;
+    final deckZone = userState.deckZone;
+    final hand = userState.hand;
+
+    final deck = deckZone.cards.toList();
     if (deck.isEmpty) {
       _snackBarService.showSnackBar('Deck is empty');
       return;
     }
 
     final drawnCard = deck.removeLast().copyWith(zoneType: ZoneType.hand);
+
+    _sendPlayCardEvent(drawnCard, hand);
+    _sendRemoveCardEvent(drawnCard, deckZone);
 
     final updatedUserState = userState.copyWith(
       deckZone: userState.deckZone.copyWith(cards: deck),
