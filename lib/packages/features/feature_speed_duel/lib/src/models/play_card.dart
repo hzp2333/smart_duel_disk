@@ -29,6 +29,8 @@ class PlayCard extends Equatable {
     this.attributeAssetName,
   });
 
+  bool get belongsInExtraDeck => yugiohCard.type == CardType.fusionMonster;
+
   PlayCard copyWith({ZoneType zoneType, CardPosition position}) {
     return PlayCard(
       yugiohCard: yugiohCard,

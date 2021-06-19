@@ -23,6 +23,7 @@ abstract class SmartDuelEventConstants {
   static const roomCreateAction = 'create';
   static const roomCloseAction = 'close';
   static const roomJoinAction = 'join';
+  static const roomStartAction = 'start';
 
   //endregion
 }

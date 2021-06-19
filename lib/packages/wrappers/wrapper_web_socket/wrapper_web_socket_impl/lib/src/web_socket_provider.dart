@@ -36,6 +36,9 @@ class WebSocketProviderImpl implements WebSocketProvider {
   }
 
   @override
+  String getSocketId() => _socket?.id;
+
+  @override
   void emitEvent(String eventName, Map<String, dynamic> data) {
     _logger.info(_tag, 'emitEvent(eventName: $eventName, data: $data)');
 
@@ -106,6 +109,10 @@ class WebSocketProviderImpl implements WebSocketProvider {
 
     _socket.on('$scope:${SmartDuelEventConstants.roomJoinAction}', (dynamic json) {
       _onEventReceived(scope, SmartDuelEventConstants.roomJoinAction, json);
+    });
+
+    _socket.on('$scope:${SmartDuelEventConstants.roomStartAction}', (dynamic json) {
+      _onEventReceived(scope, SmartDuelEventConstants.roomStartAction, json);
     });
   }
 

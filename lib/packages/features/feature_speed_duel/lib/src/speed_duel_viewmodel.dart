@@ -21,8 +21,8 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_enum_helper/wrapper_en
 import 'models/deck_action.dart';
 import 'models/zone_type.dart';
 import 'usecases/create_play_card_use_case.dart';
+import 'usecases/create_player_state_use_case.dart';
 import 'usecases/does_card_fit_in_zone_use_case.dart';
-import 'usecases/get_cards_from_deck_use_case.dart';
 
 @Injectable()
 class SpeedDuelViewModel extends BaseViewModel {
@@ -30,10 +30,10 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   static const _speedDuelStartHandLength = 4;
 
-  final PreBuiltDeck _preBuiltDeck;
+  final DuelRoom _duelRoom;
   final RouterHelper _router;
   final SmartDuelServer _smartDuelServer;
-  final GetCardsFromDeckUseCase _getCardsFromDeckUseCase;
+  final CreatePlayerStateUseCase _createPlayerStateUseCase;
   final CreatePlayCardUseCase _createPlayCardUseCase;
   final DoesCardFitInZoneUseCase _doesCardFitInZoneUseCase;
   final DataManager _dataManager;
@@ -41,10 +41,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   final CrashlyticsProvider _crashlyticsProvider;
   final SnackBarService _snackBarService;
 
-  final _duelState = BehaviorSubject<SpeedDuelState>.seeded(const SpeedDuelState(
-    userState: PlayerState(),
-    opponentState: PlayerState(),
-  ));
+  final _duelState = BehaviorSubject<SpeedDuelState>();
 
   final _screenState = BehaviorSubject<SpeedDuelScreenState>.seeded(const SpeedDuelLoading());
   Stream<SpeedDuelScreenState> get screenState => _screenState.stream;
@@ -60,10 +57,10 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   SpeedDuelViewModel(
     Logger logger,
-    @factoryParam this._preBuiltDeck,
+    @factoryParam this._duelRoom,
     this._router,
     this._smartDuelServer,
-    this._getCardsFromDeckUseCase,
+    this._createPlayerStateUseCase,
     this._createPlayCardUseCase,
     this._doesCardFitInZoneUseCase,
     this._dataManager,
@@ -94,12 +91,11 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     try {
       _initSpeedDuelStateSubscription();
+      _initSmartDuelEventSubscription();
 
       await _setDeck();
       _shuffleDeck();
       _drawStartHand();
-
-      _initSmartDuelEventSubscription();
 
       _screenState.add(SpeedDuelData(_duelState.value));
       _initialized = true;
@@ -122,21 +118,16 @@ class SpeedDuelViewModel extends BaseViewModel {
   Future<void> _setDeck() async {
     logger.verbose(_tag, '_setDeck()');
 
-    final playCards = await _getCardsFromDeckUseCase(_preBuiltDeck);
+    final user = _duelRoom.duelists.firstWhere((duelist) => duelist.id == _smartDuelServer.duelistId);
+    final userState = await _createPlayerStateUseCase(user.deckList);
 
-    final mainDeck = playCards.where((card) => card.yugiohCard.type != CardType.fusionMonster);
-    final extraDeck = playCards
-        .where((card) => card.yugiohCard.type == CardType.fusionMonster)
-        .map((card) => card.copyWith(zoneType: ZoneType.extraDeck));
+    final opponent = _duelRoom.duelists.firstWhere((duelist) => duelist.id != _smartDuelServer.duelistId);
+    final opponentState = await _createPlayerStateUseCase(opponent.deckList);
 
-    final currentState = _duelState.value;
-    final userState = currentState.userState;
-    final updatedUserState = userState.copyWith(
-      deckZone: userState.deckZone.copyWith(cards: mainDeck),
-      extraDeckZone: userState.extraDeckZone.copyWith(cards: extraDeck),
-    );
-
-    _duelState.add(currentState.copyWith(userState: updatedUserState));
+    _duelState.add(SpeedDuelState(
+      userState: userState,
+      opponentState: opponentState,
+    ));
   }
 
   void _drawStartHand() {
@@ -151,7 +142,6 @@ class SpeedDuelViewModel extends BaseViewModel {
     logger.verbose(_tag, '_initSmartDuelEventSubscription()');
 
     _smartDuelEventSubscription = _smartDuelServer.smartDuelEvents.listen(_onSmartDuelEventReceived);
-    _smartDuelServer.init();
   }
 
   //endregion

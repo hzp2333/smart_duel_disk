@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
@@ -20,6 +18,8 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
   Stream<SmartDuelEvent> get smartDuelEvents => _smartDuelEvents.stream;
 
   WebSocketProvider _socket;
+  @override
+  String get duelistId => _socket?.getSocketId();
 
   SmartDuelServerImpl(
     this._webSocketFactory,
@@ -73,14 +73,8 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
   void _handleRoomEvent(String action, dynamic json) {
     _logger.verbose(_tag, '_handleRoomEvent(action: $action), json: $json');
 
-    // TODO: this can definitely be improved. Remove stringify in server?
     SmartDuelEventData data;
-    if (json is String) {
-      final dynamic map = jsonDecode(json);
-      if (map is Map<String, dynamic>) {
-        data = RoomEventData.fromJson(map);
-      }
-    } else if (json is Map<String, dynamic>) {
+    if (json is Map<String, dynamic>) {
       data = RoomEventData.fromJson(json);
     }
 
@@ -95,6 +89,9 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
       case SmartDuelEventConstants.roomJoinAction:
         event = SmartDuelEvent.joinRoom(data);
         break;
+      case SmartDuelEventConstants.roomStartAction:
+        event = SmartDuelEvent.startRoom(data);
+        break;
     }
 
     if (event != null && !_smartDuelEvents.isClosed) {
@@ -105,14 +102,8 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
   void _handleCardEvent(String action, dynamic json) {
     _logger.verbose(_tag, '_handleCardEvent(action: $action), json: $json');
 
-    // TODO: this can definitely be improved. Remove stringify in server?
     SmartDuelEventData data;
-    if (json is String) {
-      final dynamic map = jsonDecode(json);
-      if (map is Map<String, dynamic>) {
-        data = CardEventData.fromJson(map);
-      }
-    } else if (json is Map<String, dynamic>) {
+    if (json is Map<String, dynamic>) {
       data = CardEventData.fromJson(json);
     }
 

@@ -62,6 +62,14 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
+  factory SmartDuelEvent.startRoom(SmartDuelEventData data) {
+    return SmartDuelEvent._(
+      scope: SmartDuelEventConstants.roomScope,
+      action: SmartDuelEventConstants.roomStartAction,
+      data: data,
+    );
+  }
+
   @override
   List<Object> get props => [
         scope,

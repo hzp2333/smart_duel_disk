@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
 import 'package:smart_duel_disk/src/di/di.dart';
 
@@ -8,10 +8,10 @@ import '../speed_duel_viewmodel.dart';
 import 'speed_duel_screen.dart';
 
 class SpeedDuelScreenProvider extends StatelessWidget {
-  final PreBuiltDeck preBuiltDeck;
+  final DuelRoom duelRoom;
 
   const SpeedDuelScreenProvider({
-    @required this.preBuiltDeck,
+    @required this.duelRoom,
   });
 
   @override
@@ -19,7 +19,7 @@ class SpeedDuelScreenProvider extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<SpeedDuelViewModel>(
-          create: (_) => di.get<SpeedDuelViewModel>(param1: preBuiltDeck),
+          create: (_) => di.get<SpeedDuelViewModel>(param1: duelRoom),
           dispose: (_, vm) => vm.dispose(),
         ),
         Provider(create: (_) => di.get<AssetsProvider>()),

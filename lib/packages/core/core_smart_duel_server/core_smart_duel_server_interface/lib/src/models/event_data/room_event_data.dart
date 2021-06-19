@@ -2,7 +2,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
-import '../../../core_smart_duel_server_interface.dart';
+import 'room_event_data/duel_room.dart';
+import 'room_event_data/room_error.dart';
+import 'smart_duel_event_data.dart';
 
 part 'room_event_data.g.dart';
 
@@ -10,21 +12,26 @@ part 'room_event_data.g.dart';
 @JsonSerializable()
 class RoomEventData extends Equatable implements SmartDuelEventData {
   final String roomName;
-  final bool ready;
   @JsonKey(unknownEnumValue: RoomError.unknown)
   final RoomError error;
+  final Iterable<int> deckList;
+  final DuelRoom duelRoom;
 
   const RoomEventData({
     this.roomName,
-    this.ready = false,
     this.error,
+    this.deckList,
+    this.duelRoom,
   });
+
+  factory RoomEventData.fromJson(Map<String, dynamic> json) => _$RoomEventDataFromJson(json);
 
   @override
   List<Object> get props => [
         roomName,
-        ready,
         error,
+        deckList,
+        duelRoom,
       ];
 
   @override
@@ -32,27 +39,4 @@ class RoomEventData extends Equatable implements SmartDuelEventData {
 
   @override
   Map<String, dynamic> toJson() => _$RoomEventDataToJson(this);
-
-  factory RoomEventData.fromJson(Map<String, dynamic> json) => _$RoomEventDataFromJson(json);
-}
-
-enum RoomError {
-  @JsonValue('roomNotFound')
-  roomNotFound,
-  @JsonValue('tooManyPlayers')
-  tooManyPlayers,
-  unknown,
-}
-
-extension RoomErrorExtensions on RoomError {
-  String get stringValue {
-    switch (this) {
-      case RoomError.roomNotFound:
-        return 'room not found';
-      case RoomError.tooManyPlayers:
-        return 'too many players';
-      default:
-        return 'unknown reason';
-    }
-  }
 }

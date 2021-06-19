@@ -17,6 +17,7 @@ class DuelRoomViewModel extends BaseViewModel {
   final PreBuiltDeck _preBuiltDeck;
   final RouterHelper _router;
   final SmartDuelServer _smartDuelServer;
+  final DataManager _dataManager;
 
   final _roomName = BehaviorSubject<String>();
   Stream<String> get roomName => _roomName.stream;
@@ -25,13 +26,14 @@ class DuelRoomViewModel extends BaseViewModel {
   Stream<DuelRoomState> get roomState => _duelRoomState.stream;
 
   StreamSubscription<SmartDuelEvent> _smartDuelEventSubscription;
-  bool _joinedRoomSuccessfully = false;
+  bool _startedRoomSuccessfully = false;
 
   DuelRoomViewModel(
     Logger logger,
     @factoryParam this._preBuiltDeck,
     this._router,
     this._smartDuelServer,
+    this._dataManager,
   ) : super(logger) {
     _init();
   }
@@ -81,10 +83,14 @@ class DuelRoomViewModel extends BaseViewModel {
 
   //region Send smart duel events
 
-  void onCreateRoomPressed() {
+  Future<void> onCreateRoomPressed() async {
     logger.info(_tag, 'onCreateRoomPressed()');
 
-    _smartDuelServer.emitEvent(SmartDuelEvent.createRoom());
+    final deckList = await _dataManager.getPreBuiltDeckCardIds(_preBuiltDeck);
+
+    _smartDuelServer.emitEvent(SmartDuelEvent.createRoom(RoomEventData(
+      deckList: deckList,
+    )));
   }
 
   void onCloseRoomPressed() {
@@ -98,11 +104,14 @@ class DuelRoomViewModel extends BaseViewModel {
     }
   }
 
-  void onJoinRoomPressed() {
+  Future<void> onJoinRoomPressed() async {
     logger.info(_tag, 'onJoinRoomPressed()');
+
+    final deckList = await _dataManager.getPreBuiltDeckCardIds(_preBuiltDeck);
 
     _smartDuelServer.emitEvent(SmartDuelEvent.joinRoom(RoomEventData(
       roomName: _roomName.value,
+      deckList: deckList,
     )));
   }
 
@@ -175,6 +184,9 @@ class DuelRoomViewModel extends BaseViewModel {
         case SmartDuelEventConstants.roomJoinAction:
           await _handleJoinRoomEvent(eventData);
           break;
+        case SmartDuelEventConstants.roomStartAction:
+          await _handleStartRoomEvent(eventData);
+          break;
       }
     }
   }
@@ -200,15 +212,21 @@ class DuelRoomViewModel extends BaseViewModel {
   Future<void> _handleJoinRoomEvent(RoomEventData data) async {
     logger.verbose(_tag, '_handleJoinRoomEvent(data: $data)');
 
-    if (data.ready) {
-      _joinedRoomSuccessfully = true;
-      await _router.showSpeedDuel(_preBuiltDeck);
+    final errorMessage = 'Could not connect to room ${data.roomName}\n\nReason: ${data.error.stringValue}';
+    _duelRoomState.add(DuelRoomError(errorMessage));
+  }
+
+  Future<void> _handleStartRoomEvent(RoomEventData data) async {
+    logger.verbose(_tag, '_handleStartRoomEvent(data: $data)');
+
+    if (data.duelRoom == null) {
+      final errorMessage = 'Could not connect to room ${data.roomName}\n\nReason: could not parse duel room data';
+      _duelRoomState.add(DuelRoomError(errorMessage));
       return;
     }
 
-    // TODO: add retry
-    final errorMessage = 'Could not connect to room ${data.roomName}\n\nReason: ${data.error.stringValue}';
-    _duelRoomState.add(DuelRoomError(errorMessage));
+    _startedRoomSuccessfully = true;
+    await _router.showSpeedDuel(data.duelRoom);
   }
 
   //endregion
@@ -223,7 +241,7 @@ class DuelRoomViewModel extends BaseViewModel {
 
     _cancelSmartDuelEventSubscription();
 
-    if (!_joinedRoomSuccessfully) {
+    if (!_startedRoomSuccessfully) {
       _smartDuelServer.dispose();
     }
 

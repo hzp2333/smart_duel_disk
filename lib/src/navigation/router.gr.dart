@@ -23,6 +23,8 @@ import '../../packages/features/feature_duel_room/lib/src/widgets/duel_room_scre
 import '../../packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart'
     as _i10;
 import 'package:flutter/material.dart' as _i11;
+import '../../packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart'
+    as _i12;
 
 class AppRouter extends _i1.RootStackRouter {
   AppRouter();
@@ -67,7 +69,7 @@ class AppRouter extends _i1.RootStackRouter {
       var route = entry.routeData.as<SpeedDuelRoute>();
       return _i1.AdaptivePage(
           entry: entry,
-          child: _i8.SpeedDuelScreenProvider(preBuiltDeck: route.preBuiltDeck));
+          child: _i8.SpeedDuelScreenProvider(duelRoom: route.duelRoom));
     },
     DuelRoomRoute.name: (entry) {
       var route = entry.routeData.as<DuelRoomRoute>();
@@ -195,14 +197,14 @@ class PrivacyPolicyRoute extends _i1.PageRouteInfo {
 }
 
 class SpeedDuelRoute extends _i1.PageRouteInfo {
-  SpeedDuelRoute({@_i11.required this.preBuiltDeck})
+  SpeedDuelRoute({@_i11.required this.duelRoom})
       : super(name, path: '/speed-duel');
 
   SpeedDuelRoute.fromMatch(_i1.RouteMatch match)
-      : preBuiltDeck = null,
+      : duelRoom = null,
         super.fromMatch(match);
 
-  final _i10.PreBuiltDeck preBuiltDeck;
+  final _i12.DuelRoom duelRoom;
 
   static const String name = 'SpeedDuelRoute';
 }

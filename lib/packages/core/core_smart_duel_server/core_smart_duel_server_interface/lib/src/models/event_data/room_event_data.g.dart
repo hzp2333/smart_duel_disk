@@ -9,17 +9,21 @@ part of 'room_event_data.dart';
 RoomEventData _$RoomEventDataFromJson(Map<String, dynamic> json) {
   return RoomEventData(
     roomName: json['roomName'] as String,
-    ready: json['ready'] as bool,
     error: _$enumDecodeNullable(_$RoomErrorEnumMap, json['error'],
         unknownValue: RoomError.unknown),
+    deckList: (json['deckList'] as List)?.map((e) => e as int),
+    duelRoom: json['duelRoom'] == null
+        ? null
+        : DuelRoom.fromJson(json['duelRoom'] as Map<String, dynamic>),
   );
 }
 
 Map<String, dynamic> _$RoomEventDataToJson(RoomEventData instance) =>
     <String, dynamic>{
       'roomName': instance.roomName,
-      'ready': instance.ready,
       'error': _$RoomErrorEnumMap[instance.error],
+      'deckList': instance.deckList?.toList(),
+      'duelRoom': instance.duelRoom,
     };
 
 T _$enumDecode<T>(

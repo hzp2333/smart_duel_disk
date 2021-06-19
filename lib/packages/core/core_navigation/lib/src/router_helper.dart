@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
@@ -33,7 +34,7 @@ abstract class RouterHelper {
 
   //region Duel
 
-  Future<void> showSpeedDuel(PreBuiltDeck preBuiltDeck);
+  Future<void> showSpeedDuel(DuelRoom duelRoom);
   Future<PreBuiltDeck> showSelectDeckDialog();
 
   //endregion
@@ -56,6 +57,6 @@ abstract class RouterHelper {
   Future<void> showDuelRoom(PreBuiltDeck preBuiltDeck);
 
   //endregion
-  
+
   Future<void> launchUrl(String url);
 }

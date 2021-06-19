@@ -4,6 +4,7 @@ import 'package:smart_duel_disk/packages/core/core_config/core_config_interface/
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/src/yugioh_cards/entities/yugioh_card.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
+import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/feature_home.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature_speed_duel.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
@@ -102,8 +103,8 @@ class RouterHelperImpl implements RouterHelper {
   //region Duel
 
   @override
-  Future<void> showSpeedDuel(PreBuiltDeck preBuiltDeck) {
-    return _router.replace(SpeedDuelRoute(preBuiltDeck: preBuiltDeck));
+  Future<void> showSpeedDuel(DuelRoom duelRoom) {
+    return _router.replace(SpeedDuelRoute(duelRoom: duelRoom));
   }
 
   @override
