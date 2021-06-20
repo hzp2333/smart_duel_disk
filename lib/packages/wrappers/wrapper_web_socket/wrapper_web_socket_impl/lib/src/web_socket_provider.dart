@@ -13,6 +13,10 @@ class WebSocketProviderImpl implements WebSocketProvider {
 
   SmartDuelEventReceiver _receiver;
 
+  String _socketId;
+  @override
+  String get socketId => _socketId;
+
   WebSocketProviderImpl(
     this._socket,
     this._logger,
@@ -36,9 +40,6 @@ class WebSocketProviderImpl implements WebSocketProvider {
   }
 
   @override
-  String getSocketId() => _socket?.id;
-
-  @override
   void emitEvent(String eventName, Map<String, dynamic> data) {
     _logger.info(_tag, 'emitEvent(eventName: $eventName, data: $data)');
 
@@ -51,7 +52,10 @@ class WebSocketProviderImpl implements WebSocketProvider {
 
     _receiver = null;
 
-    _socket.dispose();
+    // If you call _socket.dispose(), it's not possible anymore to get the id of this socket or a 'new' socket instance.
+    // We can use _socket.close() instead, but apparently this causes memory leak issues on iOS.
+    // More info: https://github.com/rikulo/socket.io-client-dart/issues/194
+    _socket.close();
   }
 
   void _onEventReceived(String scope, String action, dynamic json) {
@@ -66,30 +70,37 @@ class WebSocketProviderImpl implements WebSocketProvider {
     const scope = SmartDuelEventConstants.globalScope;
 
     _socket.on(SmartDuelEventConstants.globalConnectAction, (dynamic json) {
+      _socketId = _socket.id;
       _onEventReceived(scope, SmartDuelEventConstants.globalConnectAction, json);
     });
 
     _socket.on(SmartDuelEventConstants.globalConnectErrorAction, (dynamic json) {
+      _socketId = null;
       _onEventReceived(scope, SmartDuelEventConstants.globalConnectErrorAction, json);
     });
 
     _socket.on(SmartDuelEventConstants.globalConnectTimeoutAction, (dynamic json) {
+      _socketId = null;
       _onEventReceived(scope, SmartDuelEventConstants.globalConnectTimeoutAction, json);
     });
 
     _socket.on(SmartDuelEventConstants.globalConnectingAction, (dynamic json) {
+      _socketId = null;
       _onEventReceived(scope, SmartDuelEventConstants.globalConnectingAction, json);
     });
 
     _socket.on(SmartDuelEventConstants.globalDisconnectAction, (dynamic json) {
+      _socketId = null;
       _onEventReceived(scope, SmartDuelEventConstants.globalDisconnectAction, json);
     });
 
     _socket.on(SmartDuelEventConstants.globalErrorAction, (dynamic json) {
+      _socketId = null;
       _onEventReceived(scope, SmartDuelEventConstants.globalErrorAction, json);
     });
 
     _socket.on(SmartDuelEventConstants.globalReconnectAction, (dynamic json) {
+      _socketId = _socket.id;
       _onEventReceived(scope, SmartDuelEventConstants.globalReconnectAction, json);
     });
   }

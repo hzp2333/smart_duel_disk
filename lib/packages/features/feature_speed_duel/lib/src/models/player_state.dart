@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 
+import 'play_card.dart';
 import 'zone.dart';
 import 'zone_type.dart';
 
@@ -38,6 +39,21 @@ class PlayerState extends Equatable {
         mainMonsterZone1,
         mainMonsterZone2,
         mainMonsterZone3,
+      ];
+
+  Iterable<PlayCard> get cards => [
+        ...hand.cards,
+        ...fieldZone.cards,
+        ...mainMonsterZone1.cards,
+        ...mainMonsterZone2.cards,
+        ...mainMonsterZone3.cards,
+        ...graveyardZone.cards,
+        ...banishedZone.cards,
+        ...extraDeckZone.cards,
+        ...spellTrapZone1.cards,
+        ...spellTrapZone2.cards,
+        ...spellTrapZone3.cards,
+        ...deckZone.cards,
       ];
 
   const PlayerState({

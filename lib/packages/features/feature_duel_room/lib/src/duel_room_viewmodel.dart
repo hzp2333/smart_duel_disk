@@ -59,7 +59,11 @@ class DuelRoomViewModel extends BaseViewModel {
   void _initSmartDuelEventSubscription() {
     logger.verbose(_tag, '_initSmartDuelEventSubscription()');
 
-    _smartDuelEventSubscription = _smartDuelServer.smartDuelEvents.listen(_onSmartDuelEventReceived);
+    _smartDuelEventSubscription = Rx.merge([
+      _smartDuelServer.globalEvents,
+      _smartDuelServer.roomEvents,
+    ]).listen(_onSmartDuelEventReceived);
+
     _smartDuelServer.init();
   }
 

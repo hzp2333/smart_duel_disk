@@ -13,13 +13,19 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
   final DataManager _dataManager;
   final Logger _logger;
 
-  final _smartDuelEvents = PublishSubject<SmartDuelEvent>();
+  final _globalEvents = PublishSubject<SmartDuelEvent>();
   @override
-  Stream<SmartDuelEvent> get smartDuelEvents => _smartDuelEvents.stream;
+  Stream<SmartDuelEvent> get globalEvents => _globalEvents.stream;
+
+  final _roomEvents = PublishSubject<SmartDuelEvent>();
+  @override
+  Stream<SmartDuelEvent> get roomEvents => _roomEvents.stream;
+
+  final _cardEvents = ReplaySubject<SmartDuelEvent>();
+  @override
+  Stream<SmartDuelEvent> get cardEvents => _cardEvents.stream;
 
   WebSocketProvider _socket;
-  @override
-  String get duelistId => _socket?.getSocketId();
 
   SmartDuelServerImpl(
     this._webSocketFactory,
@@ -38,6 +44,14 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
     final connectionInfo = _dataManager.getConnectionInfo();
     _socket = _webSocketFactory.createWebSocketProvider(connectionInfo);
     _socket.init(this);
+  }
+
+  @override
+  String getDuelistId() {
+    final duelistId = _socket?.socketId;
+    _logger.info(_tag, 'Duelist ID: $duelistId');
+
+    return duelistId;
   }
 
   @override
@@ -67,7 +81,9 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
   void _handleGlobalEvent(String status) {
     _logger.verbose(_tag, '_handleGlobalEvent(status: $status)');
 
-    _smartDuelEvents.add(SmartDuelEvent.global(status));
+    if (!_globalEvents.isClosed) {
+      _globalEvents.add(SmartDuelEvent.global(status));
+    }
   }
 
   void _handleRoomEvent(String action, dynamic json) {
@@ -94,8 +110,8 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
         break;
     }
 
-    if (event != null && !_smartDuelEvents.isClosed) {
-      _smartDuelEvents.add(event);
+    if (event != null && !_roomEvents.isClosed) {
+      _roomEvents.add(event);
     }
   }
 
@@ -117,8 +133,8 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
         break;
     }
 
-    if (event != null && !_smartDuelEvents.isClosed) {
-      _smartDuelEvents.add(event);
+    if (event != null && !_cardEvents.isClosed) {
+      _cardEvents.add(event);
     }
   }
 
