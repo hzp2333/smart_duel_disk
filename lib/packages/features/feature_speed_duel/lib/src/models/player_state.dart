@@ -7,6 +7,8 @@ import 'zone_type.dart';
 
 @immutable
 class PlayerState extends Equatable {
+  final String duelistId;
+  final bool isOpponent;
   final Zone hand;
   final Zone fieldZone;
   final Zone mainMonsterZone1;
@@ -57,6 +59,8 @@ class PlayerState extends Equatable {
       ];
 
   const PlayerState({
+    @required this.duelistId,
+    @required this.isOpponent,
     this.hand = const Zone(zoneType: ZoneType.hand),
     this.fieldZone = const Zone(zoneType: ZoneType.field),
     this.mainMonsterZone1 = const Zone(zoneType: ZoneType.mainMonster1),
@@ -86,6 +90,8 @@ class PlayerState extends Equatable {
     Zone deckZone,
   }) {
     return PlayerState(
+      duelistId: duelistId,
+      isOpponent: isOpponent,
       hand: hand ?? this.hand,
       fieldZone: fieldZone ?? this.fieldZone,
       mainMonsterZone1: mainMonsterZone1 ?? this.mainMonsterZone1,
@@ -103,6 +109,8 @@ class PlayerState extends Equatable {
 
   @override
   List<Object> get props => [
+        duelistId,
+        isOpponent,
         hand,
         fieldZone,
         mainMonsterZone1,

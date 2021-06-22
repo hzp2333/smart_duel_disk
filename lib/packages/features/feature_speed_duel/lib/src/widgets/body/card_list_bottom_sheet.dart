@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 
-import 'draggable_card.dart';
+import 'rows/zones/cards/draggable_card.dart';
 
 class CardListBottomSheet extends StatelessWidget {
   final Zone zone;

@@ -124,10 +124,10 @@ class SpeedDuelViewModel extends BaseViewModel {
     final duelistId = _smartDuelServer.getDuelistId();
 
     final user = _duelRoom.duelists.firstWhere((duelist) => duelist.id == duelistId);
-    final userState = await _createPlayerStateUseCase(user.deckList);
+    final userState = await _createPlayerStateUseCase(user);
 
     final opponent = _duelRoom.duelists.firstWhere((duelist) => duelist.id != duelistId);
-    final opponentState = await _createPlayerStateUseCase(opponent.deckList);
+    final opponentState = await _createPlayerStateUseCase(opponent, isOpponent: true);
 
     _duelState.add(SpeedDuelState(
       userState: userState,

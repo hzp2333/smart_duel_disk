@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone_type.dart';
@@ -16,7 +17,7 @@ class CreatePlayerStateUseCase {
     this._createPlayCardUseCase,
   );
 
-  Future<PlayerState> call(Iterable<int> deckList) async {
+  Future<PlayerState> call(Duelist duelist, {bool isOpponent = false}) async {
     // TODO: we do this here to cache the token, can be improved
     await _dataManager.getToken();
 
@@ -24,7 +25,7 @@ class CreatePlayerStateUseCase {
 
     // TODO: as this is a heavy computation we should probably spawn an isolate.
     // Curently having a problem with that though: Invalid argument(s): Illegal argument in isolate message : (object is a closure - Function '<anonymous closure>':.)
-    final yugiohCards = deckList.map((cardId) => allCards.firstWhere((card) => card.id == cardId));
+    final yugiohCards = duelist.deckList.map((cardId) => allCards.firstWhere((card) => card.id == cardId));
 
     final playCards = <PlayCard>[];
     for (final card in yugiohCards) {
@@ -35,8 +36,7 @@ class CreatePlayerStateUseCase {
       playCards.add(_createPlayCardUseCase(card, copyNumber, zoneType: zoneType));
     }
 
-    const playerState = PlayerState();
-
+    final playerState = PlayerState(duelistId: duelist.id, isOpponent: isOpponent);
     final mainDeck = playCards.where((card) => !card.belongsInExtraDeck);
     final extraDeck = playCards.where((card) => card.belongsInExtraDeck);
 

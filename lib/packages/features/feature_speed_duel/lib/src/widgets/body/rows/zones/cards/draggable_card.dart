@@ -6,12 +6,12 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone_type.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/speed_duel_viewmodel.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/widgets/body/rows/zones/shared/zone_background.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/widgets/body/rows/zones/shared/zone_filler.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
-
-import 'speed_duel_field_zones.dart';
 
 class DraggableCard extends StatelessWidget {
   final PlayCard card;
@@ -30,11 +30,8 @@ class DraggableCard extends StatelessWidget {
     final assetsProvider = Provider.of<AssetsProvider>(context);
 
     final cardBack = assetsProvider.cardBack;
-    final childWhenDragging = zone.zoneType == ZoneType.hand
-        ? const ZoneFiller()
-        : ZoneBackground(
-            zoneType: card.zoneType,
-          );
+    final childWhenDragging =
+        zone.zoneType == ZoneType.hand ? const ZoneFiller() : ZoneBackground(zoneType: card.zoneType);
 
     return Draggable<PlayCard>(
       maxSimultaneousDrags: 1,
@@ -53,18 +50,6 @@ class DraggableCard extends StatelessWidget {
         placeholderImage: cardBack,
         onCardTapped: () => vm.onCardPressed(card),
       ),
-    );
-  }
-}
-
-class ZoneFiller extends StatelessWidget {
-  const ZoneFiller();
-
-  @override
-  Widget build(BuildContext context) {
-    return AspectRatio(
-      aspectRatio: AppDimensions.yugiohCardAspectRatio,
-      child: SizedBox(height: context.playCardHeight),
     );
   }
 }

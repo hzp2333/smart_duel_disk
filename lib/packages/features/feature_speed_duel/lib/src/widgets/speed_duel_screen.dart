@@ -4,17 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_event.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_state.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
-import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 
 import '../speed_duel_viewmodel.dart';
 import 'body/card_list_bottom_sheet.dart';
-import 'body/speed_duel_field_rows.dart';
+import 'body/speed_duel_field.dart';
 
 class SpeedDuelScreen extends StatefulWidget {
   const SpeedDuelScreen();
@@ -132,75 +129,9 @@ class _BodyBuilder extends HookWidget {
 
     return SafeArea(
       child: speedDuelState.data.when(
-        (state) => _SpeedDuelField(state: state),
+        (state) => SpeedDuelField(state: state),
         loading: () => const GeneralLoadingState(),
         error: () => const GeneralErrorState(description: 'An error occurred while starting the speed duel'),
-      ),
-    );
-  }
-}
-
-class _SpeedDuelField extends StatelessWidget {
-  final SpeedDuelState state;
-
-  const _SpeedDuelField({
-    @required this.state,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      reverse: true,
-      physics: const ClampingScrollPhysics(),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _PlayerField(
-            playerState: state.opponentState,
-            isOpponent: true,
-          ),
-          _PlayerField(playerState: state.userState),
-        ],
-      ),
-    );
-  }
-}
-
-class _PlayerField extends StatelessWidget {
-  final PlayerState playerState;
-  final bool isOpponent;
-
-  const _PlayerField({
-    @required this.playerState,
-    this.isOpponent = false,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: context.screenHeight,
-      width: context.screenWidth,
-      child: Padding(
-        padding: const EdgeInsets.all(AppDimensions.screenMargin),
-        child: RotatedBox(
-          quarterTurns: isOpponent ? 2 : 0,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(
-                child: MainMonsterRow(playerState: playerState),
-              ),
-              const SizedBox(height: AppDimensions.duelFieldSecondHandRowSpacing),
-              Expanded(
-                child: SpellTrapRow(playerState: playerState),
-              ),
-              const SizedBox(height: AppDimensions.duelFieldFirstSecondRowSpacing),
-              Expanded(
-                child: HandRow(zone: playerState.hand),
-              ),
-            ],
-          ),
-        ),
       ),
     );
   }
