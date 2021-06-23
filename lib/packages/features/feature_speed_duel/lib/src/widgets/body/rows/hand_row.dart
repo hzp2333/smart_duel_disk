@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
-import 'zones/cards/draggable_card.dart';
+import 'zones/cards/player_card.dart';
 import 'zones/shared/card_drag_target.dart';
 
 class HandRow extends StatelessWidget {
@@ -23,13 +23,8 @@ class HandRow extends StatelessWidget {
             padding: EdgeInsets.zero,
             scrollDirection: Axis.horizontal,
             itemCount: zone.cards.length,
-            itemBuilder: (_, index) => DraggableCard(
-              card: zone.cards.elementAt(index),
-              zone: zone,
-            ),
-            separatorBuilder: (_, __) => const SizedBox(
-              width: AppDimensions.screenMargin,
-            ),
+            itemBuilder: (_, index) => PlayerCardBuilder(card: zone.cards.elementAt(index)),
+            separatorBuilder: (_, __) => const SizedBox(width: AppDimensions.screenMargin),
           ),
         ),
       ),

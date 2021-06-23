@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/deck_action.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 
 import '../../../../speed_duel_viewmodel.dart';
@@ -17,12 +18,14 @@ class DeckZone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<SpeedDuelViewModel>(context);
+    final playerState = Provider.of<PlayerState>(context);
 
     return CardDragTarget(
       zone: zone,
       child: PopupMenuButton<DeckAction>(
+        enabled: !playerState.isOpponent,
         onSelected: vm.onDeckActionSelected,
-        tooltip: 'Show deck actions',
+        tooltip: playerState.isOpponent ? "Opponent's deck" : 'Show deck actions',
         padding: EdgeInsets.zero,
         itemBuilder: (context) => [
           const PopupMenuItem<DeckAction>(

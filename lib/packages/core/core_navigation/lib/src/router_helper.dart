@@ -48,7 +48,7 @@ abstract class RouterHelper {
   //region Speed duel
 
   Future<void> showDrawCard(VoidCallback cardDrawnCallback);
-  Future<CardPosition> showPlayCardDialog(PlayCard playCard, {Zone newZone});
+  Future<CardPosition> showPlayCardDialog(PlayCard playCard, {Zone newZone, bool showActions = false});
 
   //endregion
 

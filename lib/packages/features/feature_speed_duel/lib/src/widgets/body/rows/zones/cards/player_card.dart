@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone_type.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/speed_duel_viewmodel.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/widgets/body/rows/zones/shared/zone_background.dart';
@@ -13,42 +13,74 @@ import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart
 import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 
-class DraggableCard extends StatelessWidget {
+class PlayerCardBuilder extends StatelessWidget {
   final PlayCard card;
-  final Zone zone;
-  final VoidCallback onDragStarted;
 
-  const DraggableCard({
+  const PlayerCardBuilder({
     @required this.card,
-    @required this.zone,
-    this.onDragStarted,
   });
 
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<SpeedDuelViewModel>(context);
     final assetsProvider = Provider.of<AssetsProvider>(context);
+    final playerState = Provider.of<PlayerState>(context);
 
     final cardBack = assetsProvider.cardBack;
+
+    if (playerState.isOpponent) {
+      return CardImage(
+        playCard: card,
+        playerState: playerState,
+        placeholderImage: cardBack,
+        onCardTapped: () => vm.onCardPressed(card),
+      );
+    }
+
+    return _DraggableCard(
+      playCard: card,
+      playerState: playerState,
+      placeholderImage: cardBack,
+      onCardTapped: () => vm.onCardPressed(card),
+    );
+  }
+}
+
+class _DraggableCard extends StatelessWidget {
+  final PlayCard playCard;
+  final PlayerState playerState;
+  final String placeholderImage;
+  final VoidCallback onCardTapped;
+
+  const _DraggableCard({
+    @required this.playCard,
+    @required this.playerState,
+    @required this.placeholderImage,
+    @required this.onCardTapped,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final vm = Provider.of<SpeedDuelViewModel>(context);
+
     final childWhenDragging =
-        zone.zoneType == ZoneType.hand ? const ZoneFiller() : ZoneBackground(zoneType: card.zoneType);
+        playCard.zoneType == ZoneType.hand ? const ZoneFiller() : ZoneBackground(zoneType: playCard.zoneType);
 
     return Draggable<PlayCard>(
       maxSimultaneousDrags: 1,
-      onDragStarted: () {
-        HapticFeedback.selectionClick();
-        onDragStarted?.call();
-      },
-      data: card,
+      onDragStarted: () => HapticFeedback.selectionClick(),
+      data: playCard,
       feedback: CardImage(
-        playCard: card,
-        placeholderImage: cardBack,
+        playCard: playCard,
+        playerState: playerState,
+        placeholderImage: placeholderImage,
       ),
       childWhenDragging: childWhenDragging,
       child: CardImage(
-        playCard: card,
-        placeholderImage: cardBack,
-        onCardTapped: () => vm.onCardPressed(card),
+        playCard: playCard,
+        playerState: playerState,
+        placeholderImage: placeholderImage,
+        onCardTapped: () => vm.onCardPressed(playCard),
       ),
     );
   }
@@ -56,11 +88,13 @@ class DraggableCard extends StatelessWidget {
 
 class CardImage extends StatelessWidget {
   final PlayCard playCard;
+  final PlayerState playerState;
   final String placeholderImage;
   final VoidCallback onCardTapped;
 
   const CardImage({
     @required this.playCard,
+    @required this.playerState,
     @required this.placeholderImage,
     this.onCardTapped,
   });
@@ -74,6 +108,9 @@ class CardImage extends StatelessWidget {
         : zoneHeight * AppDimensions.yugiohCardAspectRatio;
     final cardSleeve = ImagePlaceholder(imageAssetId: placeholderImage);
 
+    final showImage = playCard.position.isFaceUp &&
+        (!playerState.isOpponent || (playerState.isOpponent && playCard.zoneType != ZoneType.hand));
+
     return GestureDetector(
       onTap: onCardTapped,
       child: SizedBox(
@@ -82,7 +119,7 @@ class CardImage extends StatelessWidget {
         child: Center(
           child: RotatedBox(
             quarterTurns: quarterTurns,
-            child: playCard.position.isFaceUp
+            child: showImage
                 ? CachedNetworkImage(
                     imageUrl: playCard.yugiohCard.imageSmallUrl,
                     placeholder: (_, __) => cardSleeve,

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_event.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
@@ -42,8 +43,8 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
 
     _speedDuelEventSubscription = vm.screenEvent.listen((event) {
       event.when(
-        hideOverlays: () => _hideOverlays(),
-        inspectCardPile: (zone) => _onInspectCardPileEventReceived(zone),
+        hideOverlays: () => _closeBottomSheet(),
+        inspectCardPile: (playerState, zone) => _onInspectCardPileEventReceived(playerState, zone),
       );
     });
   }
@@ -66,25 +67,17 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
     super.dispose();
   }
 
-  void _hideOverlays() {
-    _closeBottomSheet();
-  }
-
-  void _onInspectCardPileEventReceived(Zone zone) {
+  void _onInspectCardPileEventReceived(PlayerState playerState, Zone zone) {
     _closeBottomSheet();
     _bottomSheetController = _scaffoldKey.currentState.showBottomSheet(
-      (_) => CardListBottomSheet(zone: zone),
+      (_) => CardListBottomSheet(playerState: playerState, zone: zone),
       backgroundColor: AppColors.cardBackgroundColor,
     );
   }
 
   void _closeBottomSheet() {
-    if (_bottomSheetController == null) {
-      return;
-    }
-
     try {
-      _bottomSheetController.close();
+      _bottomSheetController?.close();
     } finally {
       _bottomSheetController = null;
     }

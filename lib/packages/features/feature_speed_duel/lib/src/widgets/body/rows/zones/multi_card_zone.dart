@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone_type.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
 
 import '../../../../speed_duel_viewmodel.dart';
-import 'cards/draggable_card.dart';
+import 'cards/player_card.dart';
 import 'shared/card_drag_target.dart';
 import 'shared/zone_background.dart';
 
@@ -23,11 +24,18 @@ class MultiCardZone extends StatelessWidget {
   Widget build(BuildContext context) {
     final vm = Provider.of<SpeedDuelViewModel>(context);
     final assetsProvider = Provider.of<AssetsProvider>(context);
+    final playerState = Provider.of<PlayerState>(context);
 
     final cardBack = assetsProvider.cardBack;
     final amountOfCards = zone.cards.length.toString();
 
-    final onPressed = zone.zoneType == ZoneType.deck ? null : () => vm.onMultiCardZonePressed(zone);
+    final zoneType = zone.zoneType;
+    final onPressed = zoneType == ZoneType.deck
+        ? null
+        : !playerState.isOpponent ||
+                (playerState.isOpponent && (zoneType == ZoneType.graveyard || zoneType == ZoneType.banished))
+            ? () => vm.onMultiCardZonePressed(playerState, zone)
+            : null;
 
     return CardDragTarget(
       zone: zone,
@@ -43,6 +51,7 @@ class MultiCardZone extends StatelessWidget {
             } else ...{
               CardImage(
                 playCard: zone.cards.last,
+                playerState: playerState,
                 placeholderImage: cardBack,
               ),
             },

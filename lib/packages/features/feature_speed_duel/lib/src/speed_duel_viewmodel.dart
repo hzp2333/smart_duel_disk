@@ -19,6 +19,7 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/wrapper_cr
 import 'package:smart_duel_disk/packages/wrappers/wrapper_enum_helper/wrapper_enum_helper_interface/lib/wrapper_enum_helper_interface.dart';
 
 import 'models/deck_action.dart';
+import 'models/player_state.dart';
 import 'models/zone_type.dart';
 import 'usecases/create_play_card_use_case.dart';
 import 'usecases/create_player_state_use_case.dart';
@@ -171,7 +172,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       return;
     }
 
-    final position = await _router.showPlayCardDialog(card, newZone: newZone);
+    final position = await _router.showPlayCardDialog(card, newZone: newZone, showActions: true);
     if (position != null) {
       _moveCardToNewZone(card, newZone, position);
     }
@@ -181,6 +182,10 @@ class SpeedDuelViewModel extends BaseViewModel {
     logger.verbose(_tag, '_moveCardToNewZone(card: $card, newZone: $newZone, position: $position)');
 
     _screenEvent.add(const SpeedDuelHideOverlaysEvent());
+
+    if (card.zoneType == newZone.zoneType) {
+      return;
+    }
 
     final userState = _duelState.value.userState;
     final updatedUserState = _moveCardUseCase(userState, card, position, newZone: newZone);
@@ -227,7 +232,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     logger.verbose(_tag, '_showDeckList()');
 
     final userState = _duelState.value.userState;
-    onMultiCardZonePressed(userState.deckZone);
+    onMultiCardZonePressed(userState, userState.deckZone);
   }
 
   void _drawCard() {
@@ -293,7 +298,8 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
 
     final token = await _dataManager.getToken();
-    final tokenCard = _createPlayCardUseCase(token, 1);
+    final tokenCount = userState.cards.where((card) => card.yugiohCard.id == token.id).length;
+    final tokenCard = _createPlayCardUseCase(token, userState.duelistId, tokenCount + 1);
     return onZoneAcceptsCard(tokenCard, tokenZone);
   }
 
@@ -302,12 +308,34 @@ class SpeedDuelViewModel extends BaseViewModel {
   //region Card pressed events
 
   Future<void> onCardPressed(PlayCard card) async {
-    final position = await _router.showPlayCardDialog(card);
+    logger.info(_tag, 'onCardPressed(card: $card)');
+
+    if (card.duelistId == _smartDuelServer.getDuelistId()) {
+      await _handleUserCardPressed(card);
+    } else {
+      await _handleOpponentCardPressed(card);
+    }
+  }
+
+  Future<void> _handleUserCardPressed(PlayCard card) async {
+    logger.verbose(_tag, '_handleUserCardPressed(card: $card)');
+
+    final position = await _router.showPlayCardDialog(card, showActions: true);
     if (position == null) {
       return;
     }
 
     _updateCardPosition(card, position);
+  }
+
+  Future<void> _handleOpponentCardPressed(PlayCard card) async {
+    logger.verbose(_tag, '_handleOpponentCardPressed(card: $card)');
+
+    if (card.position.isFaceDown || card.zoneType == ZoneType.hand) {
+      return;
+    }
+
+    await _router.showPlayCardDialog(card);
   }
 
   void _updateCardPosition(PlayCard card, CardPosition position) {
@@ -328,14 +356,14 @@ class SpeedDuelViewModel extends BaseViewModel {
     _duelState.add(_duelState.value.copyWith(userState: updatedUserState));
   }
 
-  void onMultiCardZonePressed(Zone zone) {
-    logger.info(_tag, 'onMultiCardZonePressed()');
+  void onMultiCardZonePressed(PlayerState playerState, Zone zone) {
+    logger.info(_tag, 'onMultiCardZonePressed(playerState: $playerState, zone: $zone)');
 
     if (zone.cards.isEmpty) {
       return;
     }
 
-    _screenEvent.add(SpeedDuelInspectCardPileEvent(zone));
+    _screenEvent.add(SpeedDuelInspectCardPileEvent(playerState, zone));
   }
 
   //endregion
@@ -412,7 +440,8 @@ class SpeedDuelViewModel extends BaseViewModel {
         throw Exception('Card with ID $cardId was played, but is not in the decklist and is not a token');
       }
 
-      playCard = _createPlayCardUseCase(token, 1);
+      final tokenCount = opponentState.cards.where((card) => card.yugiohCard.id == token.id).length;
+      playCard = _createPlayCardUseCase(token, opponentState.duelistId, tokenCount + 1);
     }
 
     final newZone = opponentState.zones.firstWhere((zone) => zone.zoneType == zoneType);

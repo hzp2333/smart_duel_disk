@@ -8,6 +8,7 @@ import 'zone_type.dart';
 @immutable
 class PlayCard extends Equatable {
   final YugiohCard yugiohCard;
+  final String duelistId;
   final ZoneType zoneType;
   final CardPosition position;
   final int copyNumber;
@@ -19,6 +20,7 @@ class PlayCard extends Equatable {
 
   const PlayCard({
     @required this.yugiohCard,
+    @required this.duelistId,
     @required this.zoneType,
     @required this.position,
     @required this.copyNumber,
@@ -34,6 +36,7 @@ class PlayCard extends Equatable {
   PlayCard copyWith({ZoneType zoneType, CardPosition position}) {
     return PlayCard(
       yugiohCard: yugiohCard,
+      duelistId: duelistId,
       zoneType: zoneType ?? this.zoneType,
       position: position ?? this.position,
       copyNumber: copyNumber,
@@ -48,6 +51,7 @@ class PlayCard extends Equatable {
   @override
   List<Object> get props => [
         yugiohCard,
+        duelistId,
         zoneType,
         position,
         copyNumber,

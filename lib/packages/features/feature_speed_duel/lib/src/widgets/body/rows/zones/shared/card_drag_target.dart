@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 
 import '../../../../../speed_duel_viewmodel.dart';
@@ -16,8 +17,12 @@ class CardDragTarget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final vm = Provider.of<SpeedDuelViewModel>(context);
+    final playerState = Provider.of<PlayerState>(context);
+    if (playerState.isOpponent) {
+      return child;
+    }
 
+    final vm = Provider.of<SpeedDuelViewModel>(context);
     return DragTarget<PlayCard>(
       onWillAccept: (card) => vm.onWillZoneAcceptCard(card, zone),
       onAccept: (card) => vm.onZoneAcceptsCard(card, zone),

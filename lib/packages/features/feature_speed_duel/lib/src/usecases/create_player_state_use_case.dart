@@ -33,7 +33,12 @@ class CreatePlayerStateUseCase {
       final isExtraDeck = card.type == CardType.fusionMonster;
       final zoneType = isExtraDeck ? ZoneType.extraDeck : ZoneType.deck;
 
-      playCards.add(_createPlayCardUseCase(card, copyNumber, zoneType: zoneType));
+      playCards.add(_createPlayCardUseCase(
+        card,
+        duelist.id,
+        copyNumber,
+        zoneType: zoneType,
+      ));
     }
 
     final playerState = PlayerState(duelistId: duelist.id, isOpponent: isOpponent);

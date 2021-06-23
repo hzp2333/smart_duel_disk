@@ -7,33 +7,44 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dia
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/use_cases/create_play_card_dialog_actions_use_case.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone_type.dart';
 
 import 'models/play_card_dialog_action.dart';
+import 'models/play_card_dialog_parameters.dart';
 
 @Injectable()
 class PlayCardDialogViewModel extends BaseViewModel {
   static const _tag = 'PlayCardDialogViewModel';
 
-  final PlayCard _playCard;
-  final Zone _newZone;
+  final PlayCardDialogParameters _parameters;
   final CreatePlayCardDialogActionsUseCase _createPlayCardDialogActionsUseCase;
   final DialogService _dialogService;
 
-  PlayCard get playCard => _playCard;
+  PlayCard get playCard => _parameters?.playCard;
 
   Iterable<PlayCardDialogAction> _cardActions = [];
   Iterable<PlayCardDialogAction> get cardActions => _cardActions;
 
   PlayCardDialogViewModel(
-    @factoryParam this._playCard,
-    @factoryParam this._newZone,
+    @factoryParam this._parameters,
     this._createPlayCardDialogActionsUseCase,
     this._dialogService,
     Logger logger,
   ) : super(logger) {
-    _cardActions = _createPlayCardDialogActionsUseCase(_playCard, _newZone);
+    _init();
+  }
+
+  void _init() {
+    logger.verbose(_tag, '_init()');
+
+    if (!_parameters.showActions) {
+      return;
+    }
+
+    _cardActions = _createPlayCardDialogActionsUseCase(
+      _parameters?.playCard,
+      _parameters?.newZone,
+    );
   }
 
   void onPlayCardDialogActionPressed(PlayCardDialogActionType actionType) {
@@ -91,7 +102,7 @@ class PlayCardDialogViewModel extends BaseViewModel {
   void _onSetPressed() {
     logger.verbose(_tag, '_onSetPressed()');
 
-    if (playCard.zoneType.isMultiCardZone && _newZone != null) {
+    if (_parameters.playCard.zoneType.isMultiCardZone && _parameters.newZone != null) {
       _setCardFromMultiCardZone();
       return;
     }
@@ -107,7 +118,7 @@ class PlayCardDialogViewModel extends BaseViewModel {
   void _setCardFromMultiCardZone() {
     logger.verbose(_tag, '_setCardFromMultiCardZone(');
 
-    if (_newZone.zoneType.isMainMonsterZone) {
+    if (_parameters.newZone.zoneType.isMainMonsterZone) {
       _setMonsterCard();
     } else {
       _setSpellTrapCard();
@@ -117,7 +128,7 @@ class PlayCardDialogViewModel extends BaseViewModel {
   void _setMonsterCard() {
     logger.verbose(_tag, '_setMonsterCard()');
 
-    if (_playCard.yugiohCard.type == CardType.token) {
+    if (_parameters.playCard.yugiohCard.type == CardType.token) {
       _dialogService.popDialog(CardPosition.faceUpDefence);
     } else {
       _dialogService.popDialog(CardPosition.faceDownDefence);

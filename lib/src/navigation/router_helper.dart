@@ -7,6 +7,7 @@ import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigatio
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/feature_home.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature_speed_duel.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/models/play_card_dialog_parameters.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
@@ -132,8 +133,15 @@ class RouterHelperImpl implements RouterHelper {
   }
 
   @override
-  Future<CardPosition> showPlayCardDialog(PlayCard playCard, {Zone newZone}) {
-    final playCardDialog = _speedDuelDialogProvider.createPlayCardDialog(playCard, newZone: newZone);
+  Future<CardPosition> showPlayCardDialog(PlayCard playCard, {Zone newZone, bool showActions = false}) {
+    final parameters = PlayCardDialogParameters(
+      playCard: playCard,
+      newZone: newZone,
+      showActions: showActions,
+    );
+
+    final playCardDialog = _speedDuelDialogProvider.createPlayCardDialog(parameters);
+
     return _dialogService.showCustomDialog(playCardDialog);
   }
 

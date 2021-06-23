@@ -13,9 +13,8 @@ class WebSocketProviderImpl implements WebSocketProvider {
 
   SmartDuelEventReceiver _receiver;
 
-  String _socketId;
   @override
-  String get socketId => _socketId;
+  String get socketId => _socket.id;
 
   WebSocketProviderImpl(
     this._socket,
@@ -70,37 +69,30 @@ class WebSocketProviderImpl implements WebSocketProvider {
     const scope = SmartDuelEventConstants.globalScope;
 
     _socket.on(SmartDuelEventConstants.globalConnectAction, (dynamic json) {
-      _socketId = _socket.id;
       _onEventReceived(scope, SmartDuelEventConstants.globalConnectAction, json);
     });
 
     _socket.on(SmartDuelEventConstants.globalConnectErrorAction, (dynamic json) {
-      _socketId = null;
       _onEventReceived(scope, SmartDuelEventConstants.globalConnectErrorAction, json);
     });
 
     _socket.on(SmartDuelEventConstants.globalConnectTimeoutAction, (dynamic json) {
-      _socketId = null;
       _onEventReceived(scope, SmartDuelEventConstants.globalConnectTimeoutAction, json);
     });
 
     _socket.on(SmartDuelEventConstants.globalConnectingAction, (dynamic json) {
-      _socketId = null;
       _onEventReceived(scope, SmartDuelEventConstants.globalConnectingAction, json);
     });
 
     _socket.on(SmartDuelEventConstants.globalDisconnectAction, (dynamic json) {
-      _socketId = null;
       _onEventReceived(scope, SmartDuelEventConstants.globalDisconnectAction, json);
     });
 
     _socket.on(SmartDuelEventConstants.globalErrorAction, (dynamic json) {
-      _socketId = null;
       _onEventReceived(scope, SmartDuelEventConstants.globalErrorAction, json);
     });
 
     _socket.on(SmartDuelEventConstants.globalReconnectAction, (dynamic json) {
-      _socketId = _socket.id;
       _onEventReceived(scope, SmartDuelEventConstants.globalReconnectAction, json);
     });
   }
