@@ -16,12 +16,14 @@ class RoomEventData extends Equatable implements SmartDuelEventData {
   final RoomError error;
   final Iterable<int> deckList;
   final DuelRoom duelRoom;
+  final String winnerId;
 
   const RoomEventData({
     this.roomName,
     this.error,
     this.deckList,
     this.duelRoom,
+    this.winnerId,
   });
 
   factory RoomEventData.fromJson(Map<String, dynamic> json) => _$RoomEventDataFromJson(json);
@@ -32,6 +34,7 @@ class RoomEventData extends Equatable implements SmartDuelEventData {
         error,
         deckList,
         duelRoom,
+        winnerId,
       ];
 
   @override

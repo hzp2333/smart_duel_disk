@@ -229,14 +229,15 @@ class DuelRoomViewModel extends BaseViewModel {
   Future<void> _handleStartRoomEvent(RoomEventData data) async {
     logger.verbose(_tag, '_handleStartRoomEvent(data: $data)');
 
-    if (data.duelRoom == null) {
-      final errorMessage = 'Could not connect to room ${data.roomName}\n\nReason: could not parse duel room data';
+    final duelRoom = data.duelRoom;
+    if (duelRoom == null) {
+      const errorMessage = 'Could not connect to room\n\nReason: could not parse duel room data';
       _duelRoomState.add(DuelRoomError(errorMessage, _resetToConnectedState));
       return;
     }
 
     _startedDuelSuccessfully = true;
-    await _router.showSpeedDuel(data.duelRoom);
+    await _router.showSpeedDuel(duelRoom);
   }
 
   void _resetToConnectedState() {

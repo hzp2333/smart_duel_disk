@@ -52,10 +52,11 @@ class SpeedDuelViewModel extends BaseViewModel {
   Stream<SpeedDuelScreenEvent> get screenEvent => _screenEvent.stream;
 
   StreamSubscription<SpeedDuelState> _speedDuelStateSubscription;
-  StreamSubscription<SmartDuelEvent> _cardEventSubscription;
+  StreamSubscription<SmartDuelEvent> _smartDuelEventSubscription;
 
   bool _initialized = false;
   bool _surrendered = false;
+  bool _victory = false;
 
   SpeedDuelViewModel(
     Logger logger,
@@ -77,7 +78,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   bool onBackPressed() {
     logger.info(_tag, 'onBackPressed()');
 
-    final canPop = _surrendered || _screenState.value is! SpeedDuelData;
+    final canPop = _surrendered || _victory || _screenState.value is! SpeedDuelData;
     if (!canPop) {
       _snackBarService.showSnackBar('Currently, the back key cannot be used.');
     }
@@ -147,7 +148,10 @@ class SpeedDuelViewModel extends BaseViewModel {
   void _initSmartDuelEventSubscription() {
     logger.verbose(_tag, '_initSmartDuelEventSubscription()');
 
-    _cardEventSubscription = _smartDuelServer.cardEvents.listen(_onCardEventReceived);
+    _smartDuelEventSubscription = Rx.merge([
+      _smartDuelServer.cardEvents,
+      _smartDuelServer.roomEvents,
+    ]).listen(_onSmartDuelEventReceived);
   }
 
   //endregion
@@ -283,7 +287,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     if (surrender ?? false) {
       _surrendered = true;
-      _router.closeScreen();
+      _sendSurrenderEvent();
     }
   }
 
@@ -398,7 +402,31 @@ class SpeedDuelViewModel extends BaseViewModel {
     );
   }
 
+  void _sendSurrenderEvent() {
+    logger.verbose(_tag, '_sendSurrenderEvent()');
+
+    _smartDuelServer.emitEvent(SmartDuelEvent.surrenderRoom(
+      RoomEventData(roomName: _duelRoom.roomName),
+    ));
+  }
+
   //endregion
+
+  //region Receive smart duel events
+
+  Future<void> _onSmartDuelEventReceived(SmartDuelEvent event) async {
+    logger.verbose(_tag, '_onSmartDuelEventReceived(event: $event)');
+
+    if (event.scope == SmartDuelEventConstants.cardScope) {
+      _onCardEventReceived(event);
+      return;
+    }
+
+    if (event.scope == SmartDuelEventConstants.roomScope) {
+      await _handleRoomEvent(event);
+      return;
+    }
+  }
 
   //region Receive card events
 
@@ -478,6 +506,49 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   //endregion
 
+  //region Room events
+
+  Future<void> _handleRoomEvent(SmartDuelEvent event) async {
+    logger.verbose(_tag, '_handleRoomEvent(event: $event)');
+
+    final eventData = event.data;
+    if (eventData is RoomEventData) {
+      switch (event.action) {
+        case SmartDuelEventConstants.roomCloseAction:
+          await _handleCloseRoomEvent(eventData);
+          break;
+      }
+    }
+  }
+
+  Future<void> _handleCloseRoomEvent(RoomEventData data) async {
+    logger.verbose(_tag, '_handleCloseRoomEvent(data: $data)');
+
+    final winnerId = data.winnerId;
+    if (winnerId == null) {
+      return;
+    }
+
+    final userWon = _smartDuelServer.getDuelistId() == winnerId;
+    final description = userWon ? 'Your opponent admitted defeat. You won!' : 'You admitted defeat. Your opponent won!';
+
+    await _router.showDialog(
+      DialogConfig(
+        title: 'Duel is over',
+        description: description,
+        positiveButton: 'Continue',
+        isDismissable: false,
+      ),
+    );
+
+    _victory = true;
+    await _router.closeScreen();
+  }
+
+  //endregion
+
+  //endregion
+
   //region Clean-up
 
   @override
@@ -506,8 +577,8 @@ class SpeedDuelViewModel extends BaseViewModel {
   void _cancelSmartDuelEventSubscription() {
     logger.verbose(_tag, '_cancelSmartDuelEventSubscription()');
 
-    _cardEventSubscription?.cancel();
-    _cardEventSubscription = null;
+    _smartDuelEventSubscription?.cancel();
+    _smartDuelEventSubscription = null;
   }
 
   //endregion

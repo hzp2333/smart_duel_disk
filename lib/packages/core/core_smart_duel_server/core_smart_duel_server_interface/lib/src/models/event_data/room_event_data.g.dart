@@ -15,6 +15,7 @@ RoomEventData _$RoomEventDataFromJson(Map<String, dynamic> json) {
     duelRoom: json['duelRoom'] == null
         ? null
         : DuelRoom.fromJson(json['duelRoom'] as Map<String, dynamic>),
+    winnerId: json['winnerId'] as String,
   );
 }
 
@@ -24,6 +25,7 @@ Map<String, dynamic> _$RoomEventDataToJson(RoomEventData instance) =>
       'error': _$RoomErrorEnumMap[instance.error],
       'deckList': instance.deckList?.toList(),
       'duelRoom': instance.duelRoom,
+      'winnerId': instance.winnerId,
     };
 
 T _$enumDecode<T>(
