@@ -60,8 +60,11 @@ class _Body extends HookWidget {
         createRoom: (roomName) => CreateRoomState(roomName: roomName),
         joinRoom: (roomName) => const SizedBox.shrink(),
         ready: () => const SizedBox.shrink(),
-        // TODO: retry action
-        error: (errorMessage) => GeneralErrorState(description: errorMessage),
+        error: (errorMessage, retryAction) => GeneralErrorState(
+          description: errorMessage,
+          canRetry: true,
+          retryAction: retryAction,
+        ),
       ),
     );
   }

@@ -26,7 +26,7 @@ class DuelRoomViewModel extends BaseViewModel {
   Stream<DuelRoomState> get roomState => _duelRoomState.stream;
 
   StreamSubscription<SmartDuelEvent> _smartDuelEventSubscription;
-  bool _startedRoomSuccessfully = false;
+  bool _startedDuelSuccessfully = false;
 
   DuelRoomViewModel(
     Logger logger,
@@ -164,9 +164,15 @@ class DuelRoomViewModel extends BaseViewModel {
   void _handleErrorEvent(String error) {
     logger.verbose(_tag, '_handleErrorEvent(error: $error)');
 
-    // TODO: add retry
     final errorMessage = 'Could not connect to Smart Duel Server\n\nReason: $error';
-    _duelRoomState.add(DuelRoomError(errorMessage));
+    _duelRoomState.add(DuelRoomError(errorMessage, _resetSmartDuelServerConnection));
+  }
+
+  void _resetSmartDuelServerConnection() {
+    logger.verbose(_tag, '_resetSmartDuelServerConnection()');
+
+    _smartDuelServer.dispose();
+    _smartDuelServer.init();
   }
 
   //endregion
@@ -200,7 +206,7 @@ class DuelRoomViewModel extends BaseViewModel {
 
     final roomName = data?.roomName;
     if (roomName == null) {
-      _duelRoomState.add(const DuelRoomError('room name not found'));
+      _duelRoomState.add(DuelRoomError('room name not found', _resetSmartDuelServerConnection));
       return;
     }
 
@@ -210,14 +216,14 @@ class DuelRoomViewModel extends BaseViewModel {
   void _handleCloseRoomEvent(RoomEventData data) {
     logger.verbose(_tag, '_handleCloseRoomEvent(data: $data)');
 
-    _duelRoomState.add(const DuelRoomConnected());
+    _resetToConnectedState();
   }
 
   Future<void> _handleJoinRoomEvent(RoomEventData data) async {
     logger.verbose(_tag, '_handleJoinRoomEvent(data: $data)');
 
     final errorMessage = 'Could not connect to room ${data.roomName}\n\nReason: ${data.error.stringValue}';
-    _duelRoomState.add(DuelRoomError(errorMessage));
+    _duelRoomState.add(DuelRoomError(errorMessage, _resetToConnectedState));
   }
 
   Future<void> _handleStartRoomEvent(RoomEventData data) async {
@@ -225,12 +231,18 @@ class DuelRoomViewModel extends BaseViewModel {
 
     if (data.duelRoom == null) {
       final errorMessage = 'Could not connect to room ${data.roomName}\n\nReason: could not parse duel room data';
-      _duelRoomState.add(DuelRoomError(errorMessage));
+      _duelRoomState.add(DuelRoomError(errorMessage, _resetToConnectedState));
       return;
     }
 
-    _startedRoomSuccessfully = true;
+    _startedDuelSuccessfully = true;
     await _router.showSpeedDuel(data.duelRoom);
+  }
+
+  void _resetToConnectedState() {
+    logger.verbose(_tag, '_resetToConnectedState()');
+
+    _duelRoomState.add(const DuelRoomConnected());
   }
 
   //endregion
@@ -245,7 +257,7 @@ class DuelRoomViewModel extends BaseViewModel {
 
     _cancelSmartDuelEventSubscription();
 
-    if (!_startedRoomSuccessfully) {
+    if (!_startedDuelSuccessfully) {
       _smartDuelServer.dispose();
     }
 

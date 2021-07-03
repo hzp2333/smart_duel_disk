@@ -27,7 +27,7 @@ class GeneralErrorState extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             if (canRetry && retryAction != null) ...{
-              const SizedBox(height: AppDimensions.descriptionButtonSpacing),
+              const SizedBox(height: AppDimensions.screenMargin),
               ElevatedButton(
                 onPressed: retryAction,
                 style: ElevatedButton.styleFrom(

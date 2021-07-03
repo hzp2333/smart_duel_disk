@@ -43,9 +43,10 @@ class _$DuelRoomStateTearOff {
   }
 
 // ignore: unused_element
-  DuelRoomError error(String errorMessage) {
+  DuelRoomError error(String errorMessage, void Function() retryAction) {
     return DuelRoomError(
       errorMessage,
+      retryAction,
     );
   }
 }
@@ -63,7 +64,7 @@ mixin _$DuelRoomState {
     @required TResult createRoom(String roomName),
     @required TResult joinRoom(String roomName),
     @required TResult ready(),
-    @required TResult error(String errorMessage),
+    @required TResult error(String errorMessage, void Function() retryAction),
   });
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object>({
@@ -72,7 +73,7 @@ mixin _$DuelRoomState {
     TResult createRoom(String roomName),
     TResult joinRoom(String roomName),
     TResult ready(),
-    TResult error(String errorMessage),
+    TResult error(String errorMessage, void Function() retryAction),
     @required TResult orElse(),
   });
   @optionalTypeArgs
@@ -133,12 +134,20 @@ class _$DuelRoomConnectingCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$DuelRoomConnecting implements DuelRoomConnecting {
+class _$DuelRoomConnecting
+    with DiagnosticableTreeMixin
+    implements DuelRoomConnecting {
   const _$DuelRoomConnecting();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'DuelRoomState.connecting()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'DuelRoomState.connecting'));
   }
 
   @override
@@ -157,7 +166,7 @@ class _$DuelRoomConnecting implements DuelRoomConnecting {
     @required TResult createRoom(String roomName),
     @required TResult joinRoom(String roomName),
     @required TResult ready(),
-    @required TResult error(String errorMessage),
+    @required TResult error(String errorMessage, void Function() retryAction),
   }) {
     assert(connecting != null);
     assert(connected != null);
@@ -176,7 +185,7 @@ class _$DuelRoomConnecting implements DuelRoomConnecting {
     TResult createRoom(String roomName),
     TResult joinRoom(String roomName),
     TResult ready(),
-    TResult error(String errorMessage),
+    TResult error(String errorMessage, void Function() retryAction),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -248,12 +257,20 @@ class _$DuelRoomConnectedCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$DuelRoomConnected implements DuelRoomConnected {
+class _$DuelRoomConnected
+    with DiagnosticableTreeMixin
+    implements DuelRoomConnected {
   const _$DuelRoomConnected();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'DuelRoomState.connected()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'DuelRoomState.connected'));
   }
 
   @override
@@ -272,7 +289,7 @@ class _$DuelRoomConnected implements DuelRoomConnected {
     @required TResult createRoom(String roomName),
     @required TResult joinRoom(String roomName),
     @required TResult ready(),
-    @required TResult error(String errorMessage),
+    @required TResult error(String errorMessage, void Function() retryAction),
   }) {
     assert(connecting != null);
     assert(connected != null);
@@ -291,7 +308,7 @@ class _$DuelRoomConnected implements DuelRoomConnected {
     TResult createRoom(String roomName),
     TResult joinRoom(String roomName),
     TResult ready(),
-    TResult error(String errorMessage),
+    TResult error(String errorMessage, void Function() retryAction),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -373,15 +390,23 @@ class _$DuelRoomCreateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$DuelRoomCreate implements DuelRoomCreate {
+class _$DuelRoomCreate with DiagnosticableTreeMixin implements DuelRoomCreate {
   const _$DuelRoomCreate(this.roomName) : assert(roomName != null);
 
   @override
   final String roomName;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'DuelRoomState.createRoom(roomName: $roomName)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'DuelRoomState.createRoom'))
+      ..add(DiagnosticsProperty('roomName', roomName));
   }
 
   @override
@@ -410,7 +435,7 @@ class _$DuelRoomCreate implements DuelRoomCreate {
     @required TResult createRoom(String roomName),
     @required TResult joinRoom(String roomName),
     @required TResult ready(),
-    @required TResult error(String errorMessage),
+    @required TResult error(String errorMessage, void Function() retryAction),
   }) {
     assert(connecting != null);
     assert(connected != null);
@@ -429,7 +454,7 @@ class _$DuelRoomCreate implements DuelRoomCreate {
     TResult createRoom(String roomName),
     TResult joinRoom(String roomName),
     TResult ready(),
-    TResult error(String errorMessage),
+    TResult error(String errorMessage, void Function() retryAction),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -514,15 +539,23 @@ class _$DuelRoomJoinCopyWithImpl<$Res> extends _$DuelRoomStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$DuelRoomJoin implements DuelRoomJoin {
+class _$DuelRoomJoin with DiagnosticableTreeMixin implements DuelRoomJoin {
   const _$DuelRoomJoin(this.roomName) : assert(roomName != null);
 
   @override
   final String roomName;
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'DuelRoomState.joinRoom(roomName: $roomName)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'DuelRoomState.joinRoom'))
+      ..add(DiagnosticsProperty('roomName', roomName));
   }
 
   @override
@@ -551,7 +584,7 @@ class _$DuelRoomJoin implements DuelRoomJoin {
     @required TResult createRoom(String roomName),
     @required TResult joinRoom(String roomName),
     @required TResult ready(),
-    @required TResult error(String errorMessage),
+    @required TResult error(String errorMessage, void Function() retryAction),
   }) {
     assert(connecting != null);
     assert(connected != null);
@@ -570,7 +603,7 @@ class _$DuelRoomJoin implements DuelRoomJoin {
     TResult createRoom(String roomName),
     TResult joinRoom(String roomName),
     TResult ready(),
-    TResult error(String errorMessage),
+    TResult error(String errorMessage, void Function() retryAction),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -646,12 +679,18 @@ class _$DuelRoomReadyCopyWithImpl<$Res>
 }
 
 /// @nodoc
-class _$DuelRoomReady implements DuelRoomReady {
+class _$DuelRoomReady with DiagnosticableTreeMixin implements DuelRoomReady {
   const _$DuelRoomReady();
 
   @override
-  String toString() {
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
     return 'DuelRoomState.ready()';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties..add(DiagnosticsProperty('type', 'DuelRoomState.ready'));
   }
 
   @override
@@ -670,7 +709,7 @@ class _$DuelRoomReady implements DuelRoomReady {
     @required TResult createRoom(String roomName),
     @required TResult joinRoom(String roomName),
     @required TResult ready(),
-    @required TResult error(String errorMessage),
+    @required TResult error(String errorMessage, void Function() retryAction),
   }) {
     assert(connecting != null);
     assert(connected != null);
@@ -689,7 +728,7 @@ class _$DuelRoomReady implements DuelRoomReady {
     TResult createRoom(String roomName),
     TResult joinRoom(String roomName),
     TResult ready(),
-    TResult error(String errorMessage),
+    TResult error(String errorMessage, void Function() retryAction),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
@@ -746,7 +785,7 @@ abstract class $DuelRoomErrorCopyWith<$Res> {
   factory $DuelRoomErrorCopyWith(
           DuelRoomError value, $Res Function(DuelRoomError) then) =
       _$DuelRoomErrorCopyWithImpl<$Res>;
-  $Res call({String errorMessage});
+  $Res call({String errorMessage, void Function() retryAction});
 }
 
 /// @nodoc
@@ -763,23 +802,40 @@ class _$DuelRoomErrorCopyWithImpl<$Res>
   @override
   $Res call({
     Object errorMessage = freezed,
+    Object retryAction = freezed,
   }) {
     return _then(DuelRoomError(
       errorMessage == freezed ? _value.errorMessage : errorMessage as String,
+      retryAction == freezed
+          ? _value.retryAction
+          : retryAction as void Function(),
     ));
   }
 }
 
 /// @nodoc
-class _$DuelRoomError implements DuelRoomError {
-  const _$DuelRoomError(this.errorMessage) : assert(errorMessage != null);
+class _$DuelRoomError with DiagnosticableTreeMixin implements DuelRoomError {
+  const _$DuelRoomError(this.errorMessage, this.retryAction)
+      : assert(errorMessage != null),
+        assert(retryAction != null);
 
   @override
   final String errorMessage;
+  @override
+  final void Function() retryAction;
 
   @override
-  String toString() {
-    return 'DuelRoomState.error(errorMessage: $errorMessage)';
+  String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
+    return 'DuelRoomState.error(errorMessage: $errorMessage, retryAction: $retryAction)';
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('type', 'DuelRoomState.error'))
+      ..add(DiagnosticsProperty('errorMessage', errorMessage))
+      ..add(DiagnosticsProperty('retryAction', retryAction));
   }
 
   @override
@@ -788,12 +844,17 @@ class _$DuelRoomError implements DuelRoomError {
         (other is DuelRoomError &&
             (identical(other.errorMessage, errorMessage) ||
                 const DeepCollectionEquality()
-                    .equals(other.errorMessage, errorMessage)));
+                    .equals(other.errorMessage, errorMessage)) &&
+            (identical(other.retryAction, retryAction) ||
+                const DeepCollectionEquality()
+                    .equals(other.retryAction, retryAction)));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(errorMessage);
+      runtimeType.hashCode ^
+      const DeepCollectionEquality().hash(errorMessage) ^
+      const DeepCollectionEquality().hash(retryAction);
 
   @JsonKey(ignore: true)
   @override
@@ -808,7 +869,7 @@ class _$DuelRoomError implements DuelRoomError {
     @required TResult createRoom(String roomName),
     @required TResult joinRoom(String roomName),
     @required TResult ready(),
-    @required TResult error(String errorMessage),
+    @required TResult error(String errorMessage, void Function() retryAction),
   }) {
     assert(connecting != null);
     assert(connected != null);
@@ -816,7 +877,7 @@ class _$DuelRoomError implements DuelRoomError {
     assert(joinRoom != null);
     assert(ready != null);
     assert(error != null);
-    return error(errorMessage);
+    return error(errorMessage, retryAction);
   }
 
   @override
@@ -827,12 +888,12 @@ class _$DuelRoomError implements DuelRoomError {
     TResult createRoom(String roomName),
     TResult joinRoom(String roomName),
     TResult ready(),
-    TResult error(String errorMessage),
+    TResult error(String errorMessage, void Function() retryAction),
     @required TResult orElse(),
   }) {
     assert(orElse != null);
     if (error != null) {
-      return error(errorMessage);
+      return error(errorMessage, retryAction);
     }
     return orElse();
   }
@@ -876,9 +937,11 @@ class _$DuelRoomError implements DuelRoomError {
 }
 
 abstract class DuelRoomError implements DuelRoomState {
-  const factory DuelRoomError(String errorMessage) = _$DuelRoomError;
+  const factory DuelRoomError(
+      String errorMessage, void Function() retryAction) = _$DuelRoomError;
 
   String get errorMessage;
+  void Function() get retryAction;
   @JsonKey(ignore: true)
   $DuelRoomErrorCopyWith<DuelRoomError> get copyWith;
 }

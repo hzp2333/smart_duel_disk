@@ -21,7 +21,7 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
   @override
   Stream<SmartDuelEvent> get roomEvents => _roomEvents.stream;
 
-  final _cardEvents = ReplaySubject<SmartDuelEvent>();
+  ReplaySubject<SmartDuelEvent> _cardEvents = ReplaySubject<SmartDuelEvent>();
   @override
   Stream<SmartDuelEvent> get cardEvents => _cardEvents.stream;
 
@@ -144,5 +144,8 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
 
     _socket?.dispose();
     _socket = null;
+
+    _cardEvents.close();
+    _cardEvents = ReplaySubject<SmartDuelEvent>();
   }
 }
