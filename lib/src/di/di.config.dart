@@ -12,23 +12,23 @@ import 'package:flutter/services.dart' as _i3;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:shared_preferences/shared_preferences.dart' as _i27;
-import 'package:socket_io_client/socket_io_client.dart' as _i76;
+import 'package:socket_io_client/socket_io_client.dart' as _i77;
 
 import '../../packages/core/core_config/core_config_interface/lib/core_config_interface.dart'
     as _i25;
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/data_manager.dart'
-    as _i68;
+    as _i70;
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/deck/deck_data_manager.dart'
     as _i49;
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/duel/duel_data_manager.dart'
-    as _i63;
+    as _i65;
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/news/news_data_manager.dart'
     as _i52;
 import '../../packages/core/core_data_manager/core_data_manager_impl/lib/src/yugioh_cards/yugioh_cards_data_manager.dart'
-    as _i67;
+    as _i69;
 import '../../packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart'
     as _i41;
-import '../../packages/core/core_general/lib/core_general.dart' as _i72;
+import '../../packages/core/core_general/lib/core_general.dart' as _i75;
 import '../../packages/core/core_general/lib/src/formatters/date_formatter.dart'
     as _i8;
 import '../../packages/core/core_logger/core_logger_impl/lib/src/logger.dart'
@@ -42,14 +42,14 @@ import '../../packages/core/core_messaging/core_messaging_impl/lib/src/snack_bar
 import '../../packages/core/core_messaging/core_messaging_interface/lib/core_messaging_interface.dart'
     as _i30;
 import '../../packages/core/core_messaging/core_messaging_interface/lib/src/snack_bar/snack_bar_service.dart'
-    as _i62;
+    as _i64;
 import '../../packages/core/core_navigation/lib/core_navigation.dart' as _i55;
 import '../../packages/core/core_navigation/lib/src/dialogs/dialog_service.dart'
     as _i9;
 import '../../packages/core/core_smart_duel_server/core_smart_duel_server_impl/lib/src/smart_duel_server.dart'
-    as _i75;
+    as _i61;
 import '../../packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart'
-    as _i74;
+    as _i60;
 import '../../packages/core/core_storage/core_storage_impl/lib/src/duel/duel_storage_provider.dart'
     as _i51;
 import '../../packages/core/core_storage/core_storage_impl/lib/src/providers/shared_preferences/shared_preferences_impl/shared_preferences_provider.dart'
@@ -61,34 +61,34 @@ import '../../packages/core/core_storage/core_storage_impl/lib/src/yugioh_cards/
 import '../../packages/core/core_storage/core_storage_interface/lib/core_storage_interface.dart'
     as _i42;
 import '../../packages/core/core_ygoprodeck/core_ygoprodeck_impl/lib/src/api/ygoprodeck_api.dart'
-    as _i60;
+    as _i62;
 import '../../packages/core/core_ygoprodeck/core_ygoprodeck_impl/lib/src/ygoprodeck_api_provider.dart'
-    as _i66;
+    as _i68;
 import '../../packages/core/core_ygoprodeck/core_ygoprodeck_interface/lib/core_ygoprodeck_interface.dart'
-    as _i65;
+    as _i67;
 import '../../packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart'
-    as _i69;
+    as _i71;
 import '../../packages/features/feature_duel_room/lib/src/duel_room_viewmodel.dart'
-    as _i79;
+    as _i72;
 import '../../packages/features/feature_home/lib/feature_home.dart' as _i57;
 import '../../packages/features/feature_home/lib/src/deck/deck_viewmodel.dart'
-    as _i61;
+    as _i63;
 import '../../packages/features/feature_home/lib/src/duel/dialogs/duel_dialog_provider.dart'
     as _i13;
 import '../../packages/features/feature_home/lib/src/duel/dialogs/select_deck/select_deck_dialog_viewmodel.dart'
     as _i59;
 import '../../packages/features/feature_home/lib/src/duel/duel_viewmodel.dart'
-    as _i70;
+    as _i73;
 import '../../packages/features/feature_home/lib/src/duel/mixins/duel_form_validators.dart'
     as _i14;
 import '../../packages/features/feature_home/lib/src/home/home_viewmodel.dart'
     as _i19;
 import '../../packages/features/feature_home/lib/src/news/news_viewmodel.dart'
-    as _i71;
+    as _i74;
 import '../../packages/features/feature_onboarding/lib/src/onboarding/onboarding_viewmodel.dart'
-    as _i73;
+    as _i76;
 import '../../packages/features/feature_privacy_policy/lib/src/privacy_policy_viewmodel.dart'
-    as _i64;
+    as _i66;
 import '../../packages/features/feature_speed_duel/lib/feature_speed_duel.dart'
     as _i58;
 import '../../packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/models/play_card_dialog_parameters.dart'
@@ -104,7 +104,7 @@ import '../../packages/features/feature_speed_duel/lib/src/speed_duel_viewmodel.
 import '../../packages/features/feature_speed_duel/lib/src/usecases/create_play_card_use_case.dart'
     as _i48;
 import '../../packages/features/feature_speed_duel/lib/src/usecases/create_player_state_use_case.dart'
-    as _i78;
+    as _i79;
 import '../../packages/features/feature_speed_duel/lib/src/usecases/does_card_fit_in_zone_use_case.dart'
     as _i12;
 import '../../packages/features/feature_speed_duel/lib/src/usecases/move_card_use_case.dart'
@@ -144,7 +144,7 @@ import '../../packages/wrappers/wrapper_url_launcher/wrapper_url_launcher_interf
 import '../../packages/wrappers/wrapper_web_socket/wrapper_web_socket_impl/lib/src/web_socket_factory.dart'
     as _i39;
 import '../../packages/wrappers/wrapper_web_socket/wrapper_web_socket_impl/lib/src/web_socket_provider.dart'
-    as _i77;
+    as _i78;
 import '../../packages/wrappers/wrapper_web_socket/wrapper_web_socket_interface/lib/wrapper_web_socket_interface.dart'
     as _i38;
 import '../navigation/dialogs/dialog_service.dart' as _i10;
@@ -246,75 +246,73 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.factory<_i59.SelectDeckDialogViewModel>(() =>
       _i59.SelectDeckDialogViewModel(get<_i55.RouterHelper>(),
           get<_i55.DialogService>(), get<_i20.Logger>()));
-  gh.lazySingleton<_i60.YgoProDeckRestClient>(
-      () => _i60.YgoProDeckRestClient(get<_i50.Dio>()));
-  gh.factory<_i61.DeckViewModel>(() => _i61.DeckViewModel(get<_i23.Logger>(),
-      get<_i55.RouterHelper>(), get<_i62.SnackBarService>()));
+  gh.lazySingleton<_i60.SmartDuelServer>(() => _i61.SmartDuelServerImpl(
+      get<_i38.WebSocketFactory>(), get<_i23.Logger>()));
+  gh.lazySingleton<_i62.YgoProDeckRestClient>(
+      () => _i62.YgoProDeckRestClient(get<_i50.Dio>()));
+  gh.factory<_i63.DeckViewModel>(() => _i63.DeckViewModel(get<_i23.Logger>(),
+      get<_i55.RouterHelper>(), get<_i64.SnackBarService>()));
   gh.lazySingleton<_i41.DuelDataManager>(
-      () => _i63.DuelDataManagerImpl(get<_i42.DuelStorageProvider>()));
-  gh.factory<_i64.PrivacyPolicyViewModel>(() => _i64.PrivacyPolicyViewModel(
+      () => _i65.DuelDataManagerImpl(get<_i42.DuelStorageProvider>()));
+  gh.factory<_i66.PrivacyPolicyViewModel>(() => _i66.PrivacyPolicyViewModel(
       get<_i4.AssetsProvider>(),
       get<_i3.AssetBundle>(),
       get<_i55.RouterHelper>(),
       get<_i20.Logger>()));
-  gh.lazySingleton<_i65.YgoProDeckApiProvider>(
-      () => _i66.YgoProDeckApiProviderImpl(get<_i60.YgoProDeckRestClient>()));
+  gh.lazySingleton<_i67.YgoProDeckApiProvider>(
+      () => _i68.YgoProDeckApiProviderImpl(get<_i62.YgoProDeckRestClient>()));
   gh.lazySingleton<_i41.YugiohCardsDataManager>(() =>
-      _i67.YugiohCardsDataManagerImpl(get<_i65.YgoProDeckApiProvider>(),
+      _i69.YugiohCardsDataManagerImpl(get<_i67.YgoProDeckApiProvider>(),
           get<_i42.YugiohCardsStorageProvider>()));
-  gh.lazySingleton<_i41.DataManager>(() => _i68.DataManagerImpl(
+  gh.lazySingleton<_i41.DataManager>(() => _i70.DataManagerImpl(
       get<_i41.NewsDataManager>(),
       get<_i41.YugiohCardsDataManager>(),
       get<_i41.DeckDataManager>(),
       get<_i41.DuelDataManager>()));
-  gh.factoryParam<_i69.DeckBuilderViewModel, _i41.PreBuiltDeck, dynamic>(
-      (_preBuiltDeck, _) => _i69.DeckBuilderViewModel(get<_i23.Logger>(),
+  gh.factoryParam<_i71.DeckBuilderViewModel, _i41.PreBuiltDeck, dynamic>(
+      (_preBuiltDeck, _) => _i71.DeckBuilderViewModel(get<_i23.Logger>(),
           _preBuiltDeck, get<_i55.RouterHelper>(), get<_i41.DataManager>()));
-  gh.factory<_i70.DuelViewModel>(() => _i70.DuelViewModel(
+  gh.factoryParam<_i72.DuelRoomViewModel, _i41.PreBuiltDeck, dynamic>(
+      (_preBuiltDeck, _) => _i72.DuelRoomViewModel(
+          get<_i20.Logger>(),
+          _preBuiltDeck,
+          get<_i55.RouterHelper>(),
+          get<_i60.SmartDuelServer>(),
+          get<_i41.DataManager>()));
+  gh.factory<_i73.DuelViewModel>(() => _i73.DuelViewModel(
       get<_i23.Logger>(),
       get<_i14.DuelFormValidators>(),
       get<_i55.RouterHelper>(),
       get<_i41.DataManager>()));
-  gh.factory<_i71.NewsViewModel>(() => _i71.NewsViewModel(
+  gh.factory<_i74.NewsViewModel>(() => _i74.NewsViewModel(
       get<_i23.Logger>(),
       get<_i55.RouterHelper>(),
       get<_i41.DataManager>(),
-      get<_i72.DateFormatter>(),
+      get<_i75.DateFormatter>(),
       get<_i6.CrashlyticsProvider>()));
-  gh.factory<_i73.OnboardingViewModel>(() => _i73.OnboardingViewModel(
+  gh.factory<_i76.OnboardingViewModel>(() => _i76.OnboardingViewModel(
       get<_i20.Logger>(), get<_i55.RouterHelper>(), get<_i41.DataManager>()));
-  gh.lazySingleton<_i74.SmartDuelServer>(() => _i75.SmartDuelServerImpl(
-      get<_i38.WebSocketFactory>(),
-      get<_i41.DataManager>(),
-      get<_i23.Logger>()));
-  gh.factory<_i76.Socket>(
+  gh.factory<_i77.Socket>(
       () => socketIoModule.provideSocket(get<_i41.DataManager>()));
   gh.factory<_i38.WebSocketProvider>(
-      () => _i77.WebSocketProviderImpl(get<_i76.Socket>(), get<_i23.Logger>()));
-  gh.lazySingleton<_i78.CreatePlayerStateUseCase>(() =>
-      _i78.CreatePlayerStateUseCase(
+      () => _i78.WebSocketProviderImpl(get<_i77.Socket>(), get<_i23.Logger>()));
+  gh.lazySingleton<_i79.CreatePlayerStateUseCase>(() =>
+      _i79.CreatePlayerStateUseCase(
           get<_i41.DataManager>(), get<_i48.CreatePlayCardUseCase>()));
-  gh.factoryParam<_i79.DuelRoomViewModel, _i41.PreBuiltDeck, dynamic>(
-      (_preBuiltDeck, _) => _i79.DuelRoomViewModel(
-          get<_i20.Logger>(),
-          _preBuiltDeck,
-          get<_i55.RouterHelper>(),
-          get<_i74.SmartDuelServer>(),
-          get<_i41.DataManager>()));
-  gh.factoryParam<_i80.SpeedDuelViewModel, _i74.DuelRoom, dynamic>(
+  gh.factoryParam<_i80.SpeedDuelViewModel, _i60.DuelRoom, dynamic>(
       (_duelRoom, _) => _i80.SpeedDuelViewModel(
           get<_i23.Logger>(),
           _duelRoom,
           get<_i55.RouterHelper>(),
-          get<_i74.SmartDuelServer>(),
-          get<_i78.CreatePlayerStateUseCase>(),
+          get<_i60.SmartDuelServer>(),
+          get<_i79.CreatePlayerStateUseCase>(),
           get<_i48.CreatePlayCardUseCase>(),
           get<_i12.DoesCardFitInZoneUseCase>(),
           get<_i26.MoveCardUseCase>(),
           get<_i41.DataManager>(),
           get<_i15.EnumHelper>(),
           get<_i6.CrashlyticsProvider>(),
-          get<_i62.SnackBarService>()));
+          get<_i64.SnackBarService>()));
   return get;
 }
 

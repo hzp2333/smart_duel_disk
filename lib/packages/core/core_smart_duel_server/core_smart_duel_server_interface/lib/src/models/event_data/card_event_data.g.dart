@@ -8,6 +8,7 @@ part of 'card_event_data.dart';
 
 CardEventData _$CardEventDataFromJson(Map<String, dynamic> json) {
   return CardEventData(
+    duelistId: json['duelistId'] as String,
     cardId: json['cardId'] as String,
     copyNumber: json['copyNumber'] as int,
     zoneName: json['zoneName'] as String,
@@ -17,6 +18,7 @@ CardEventData _$CardEventDataFromJson(Map<String, dynamic> json) {
 
 Map<String, dynamic> _$CardEventDataToJson(CardEventData instance) =>
     <String, dynamic>{
+      'duelistId': instance.duelistId,
       'cardId': instance.cardId,
       'copyNumber': instance.copyNumber,
       'zoneName': instance.zoneName,

@@ -9,12 +9,14 @@ part 'card_event_data.g.dart';
 @immutable
 @JsonSerializable()
 class CardEventData extends Equatable implements SmartDuelEventData {
+  final String duelistId;
   final String cardId;
   final int copyNumber;
   final String zoneName;
   final String cardPosition;
 
   const CardEventData({
+    @required this.duelistId,
     @required this.cardId,
     @required this.copyNumber,
     this.zoneName,
@@ -23,6 +25,7 @@ class CardEventData extends Equatable implements SmartDuelEventData {
 
   @override
   List<Object> get props => [
+        duelistId,
         cardId,
         copyNumber,
         cardPosition,

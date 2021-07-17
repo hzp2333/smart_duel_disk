@@ -1,6 +1,5 @@
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/subjects.dart';
-import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/core_logger_interface/lib/core_logger_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_web_socket/wrapper_web_socket_interface/lib/wrapper_web_socket_interface.dart';
@@ -10,7 +9,6 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
   static const _tag = 'SmartDuelServerImpl';
 
   final WebSocketFactory _webSocketFactory;
-  final DataManager _dataManager;
   final Logger _logger;
 
   final _globalEvents = PublishSubject<SmartDuelEvent>();
@@ -29,7 +27,6 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
 
   SmartDuelServerImpl(
     this._webSocketFactory,
-    this._dataManager,
     this._logger,
   );
 
@@ -41,8 +38,7 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
       return;
     }
 
-    final connectionInfo = _dataManager.getConnectionInfo();
-    _socket = _webSocketFactory.createWebSocketProvider(connectionInfo);
+    _socket = _webSocketFactory.createWebSocketProvider();
     _socket.init(this);
   }
 

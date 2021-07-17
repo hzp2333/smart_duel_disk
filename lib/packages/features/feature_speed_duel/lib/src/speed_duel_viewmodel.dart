@@ -380,6 +380,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     _smartDuelServer.emitEvent(
       SmartDuelEvent.playCard(
         CardEventData(
+          duelistId: _smartDuelServer.getDuelistId(),
           cardId: card.yugiohCard.id.toString(),
           copyNumber: card.copyNumber,
           cardPosition: _enumHelper.convertToString(newPosition),
@@ -395,6 +396,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     _smartDuelServer.emitEvent(
       SmartDuelEvent.removeCard(
         CardEventData(
+          duelistId: _smartDuelServer.getDuelistId(),
           cardId: card.yugiohCard.id.toString(),
           copyNumber: card.copyNumber,
         ),
@@ -418,7 +420,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     logger.verbose(_tag, '_onSmartDuelEventReceived(event: $event)');
 
     if (event.scope == SmartDuelEventConstants.cardScope) {
-      _onCardEventReceived(event);
+      _handleCardEvent(event);
       return;
     }
 
@@ -428,10 +430,10 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
   }
 
-  //region Receive card events
+  //region Handle card events
 
-  Future<void> _onCardEventReceived(SmartDuelEvent event) async {
-    logger.verbose(_tag, '_onCardEventReceived(event: $event)');
+  Future<void> _handleCardEvent(SmartDuelEvent event) async {
+    logger.verbose(_tag, '_handleCardEvent(event: $event)');
 
     final eventData = event.data;
     if (eventData is CardEventData) {
