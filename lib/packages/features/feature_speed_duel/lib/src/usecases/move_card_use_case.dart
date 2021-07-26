@@ -14,13 +14,12 @@ class MoveCardUseCase {
     Zone newZone,
   }) {
     final playerZones = playerState.zones.toList();
+    final oldZone = playerZones.firstWhere((zone) => zone.zoneType == card.zoneType);
 
     // TODO: this is used to destroy tokens, but it isn't really a card position
     if (position == CardPosition.destroy) {
-      return _removeCard(playerState, card, playerZones);
+      return _removeCard(playerState, card, playerZones, oldZone);
     }
-
-    final oldZone = playerZones.firstWhere((zone) => zone.zoneType == card.zoneType);
 
     if (newZone == null || newZone.zoneType == card.zoneType) {
       return _updateCardPosition(playerState, card, position, playerZones, oldZone);
@@ -29,8 +28,7 @@ class MoveCardUseCase {
     return _updateCardZone(playerState, card, position, playerZones, oldZone, newZone);
   }
 
-  PlayerState _removeCard(PlayerState playerState, PlayCard card, List<Zone> playerZones) {
-    final oldZone = playerZones.firstWhere((zone) => zone.zoneType == card.zoneType);
+  PlayerState _removeCard(PlayerState playerState, PlayCard card, List<Zone> playerZones, Zone oldZone) {
     final updatedOldZone = oldZone.copyWith(cards: [...oldZone.cards]..remove(card));
 
     final updatedZones = playerZones.toList()

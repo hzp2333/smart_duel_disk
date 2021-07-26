@@ -381,7 +381,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       SmartDuelEvent.playCard(
         CardEventData(
           duelistId: _smartDuelServer.getDuelistId(),
-          cardId: card.yugiohCard.id.toString(),
+          cardId: card.yugiohCard.id,
           copyNumber: card.copyNumber,
           cardPosition: _enumHelper.convertToString(newPosition),
           zoneName: _enumHelper.convertToString(zoneType),
@@ -397,7 +397,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       SmartDuelEvent.removeCard(
         CardEventData(
           duelistId: _smartDuelServer.getDuelistId(),
-          cardId: card.yugiohCard.id.toString(),
+          cardId: card.yugiohCard.id,
           copyNumber: card.copyNumber,
         ),
       ),
@@ -451,7 +451,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   Future<void> _handlePlayCardEvent(CardEventData data) async {
     logger.verbose(_tag, '_handlePlayCardEvent(data: $data)');
 
-    final cardId = int.tryParse(data.cardId);
+    final cardId = data.cardId;
     final copyNumber = data.copyNumber;
     final zoneType = parseZoneType(data.zoneName);
     final position = parseCardPosition(data.cardPosition);
@@ -487,7 +487,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   Future<void> _handleRemoveCardEvent(CardEventData data) async {
     logger.verbose(_tag, '_handleRemoveCardEvent(data: $data)');
 
-    final cardId = int.tryParse(data.cardId);
+    final cardId = data.cardId;
     final copyNumber = data.copyNumber;
     if (cardId == null || copyNumber == null) {
       return;
