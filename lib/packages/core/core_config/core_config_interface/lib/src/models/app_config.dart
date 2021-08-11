@@ -5,6 +5,9 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 class AppConfig {
   bool get loggingEnabled => true;
 
+  String get smartDuelServerAddress => 'https://smart-duel-server.herokuapp.com';
+  String get smartDuelServerPort => '443';
+
   String get ygoProDeckBaseUrl => 'https://db.ygoprodeck.com/api/v7';
   int get ygoProDeckReceiveTimeout => 60000;
   int get ygoProDeckConnectTimeout => 60000;

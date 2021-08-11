@@ -252,8 +252,8 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i62.YgoProDeckRestClient(get<_i50.Dio>()));
   gh.factory<_i63.DeckViewModel>(() => _i63.DeckViewModel(get<_i23.Logger>(),
       get<_i55.RouterHelper>(), get<_i64.SnackBarService>()));
-  gh.lazySingleton<_i41.DuelDataManager>(
-      () => _i65.DuelDataManagerImpl(get<_i42.DuelStorageProvider>()));
+  gh.lazySingleton<_i41.DuelDataManager>(() => _i65.DuelDataManagerImpl(
+      get<_i25.AppConfig>(), get<_i42.DuelStorageProvider>()));
   gh.factory<_i66.PrivacyPolicyViewModel>(() => _i66.PrivacyPolicyViewModel(
       get<_i4.AssetsProvider>(),
       get<_i3.AssetBundle>(),

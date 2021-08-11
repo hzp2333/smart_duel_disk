@@ -4,7 +4,8 @@ import 'package:injectable/injectable.dart';
 
 @LazySingleton()
 class DuelFormValidators {
-  static final _ipAddressRegex = RegExp(r'^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$');
+  // TODO: uncomment
+  // static final _ipAddressRegex = RegExp(r'^(?:[0-9]{1,3}\.){3}[0-9]{1,3}$');
   static final _portRegex = RegExp('[0-9]+');
 
   StreamTransformer<String, String> get ipAddressValidator {
@@ -54,7 +55,9 @@ class DuelFormValidators {
   }
 
   bool isValidIpAddress(String ipAddress) {
-    return ipAddress != null && _ipAddressRegex.hasMatch(ipAddress);
+    return ipAddress != null
+        //&& _ipAddressRegex.hasMatch(ipAddress)
+        ;
   }
 
   bool isValidPort(String port) {

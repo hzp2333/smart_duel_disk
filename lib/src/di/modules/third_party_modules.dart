@@ -40,7 +40,10 @@ abstract class SocketIoModule {
   @Injectable()
   Socket provideSocket(DataManager dataManager) {
     final connectionInfo = dataManager.getConnectionInfo();
-    final uri = 'http://${connectionInfo.ipAddress}:${connectionInfo.port}';
+    final prefix = connectionInfo.ipAddress.startsWith('http://') || connectionInfo.ipAddress.startsWith('https://')
+        ? ''
+        : 'http://';
+    final uri = '$prefix${connectionInfo.ipAddress}:${connectionInfo.port}';
 
     return io(uri, OptionBuilder().setTransports(['websocket']).disableAutoConnect().build());
   }
