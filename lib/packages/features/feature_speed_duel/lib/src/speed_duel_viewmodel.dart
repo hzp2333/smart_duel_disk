@@ -2,12 +2,12 @@ import 'dart:async';
 
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
-import 'package:smart_duel_disk/packages/core/core_logger/core_logger_interface/lib/core_logger_interface.dart';
-import 'package:smart_duel_disk/packages/core/core_messaging/core_messaging_interface/lib/src/snack_bar/snack_bar_service.dart';
+import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
+import 'package:smart_duel_disk/packages/core/core_messaging/lib/core_messaging.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
-import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_event.dart';
@@ -15,8 +15,8 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/usecases/move_card_use_case.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_interface/lib/wrapper_crashlytics_interface.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_enum_helper/wrapper_enum_helper_interface/lib/wrapper_enum_helper_interface.dart';
+import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/lib/wrapper_crashlytics.dart';
+import 'package:smart_duel_disk/packages/wrappers/wrapper_enum_helper/lib/wrapper_enum_helper.dart';
 
 import 'models/deck_action.dart';
 import 'models/player_state.dart';
@@ -32,7 +32,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   static const _speedDuelStartHandLength = 4;
 
   final DuelRoom _duelRoom;
-  final RouterHelper _router;
+  final AppRouter _router;
   final SmartDuelServer _smartDuelServer;
   final CreatePlayerStateUseCase _createPlayerStateUseCase;
   final CreatePlayCardUseCase _createPlayCardUseCase;
@@ -281,8 +281,8 @@ class SpeedDuelViewModel extends BaseViewModel {
     final surrender = await _router.showDialog(const DialogConfig(
       title: 'Surrender',
       description: 'Are you sure you want to surrender?',
-      positiveButton: 'Yes',
-      negativeButton: 'Cancel',
+      positiveButtonText: 'Yes',
+      negativeButtonText: 'Cancel',
     ));
 
     if (surrender ?? false) {
@@ -420,7 +420,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     logger.verbose(_tag, '_onSmartDuelEventReceived(event: $event)');
 
     if (event.scope == SmartDuelEventConstants.cardScope) {
-      _handleCardEvent(event);
+      await _handleCardEvent(event);
       return;
     }
 
@@ -538,7 +538,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       DialogConfig(
         title: 'Duel is over',
         description: description,
-        positiveButton: 'Continue',
+        positiveButtonText: 'Continue',
         isDismissable: false,
       ),
     );

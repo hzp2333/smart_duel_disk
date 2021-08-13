@@ -21,7 +21,7 @@ class MainMonsterRow extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const ZoneFiller(),
-            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
+            const SizedBox(width: AppSizes.duelFieldCardSpacing),
             SingleCardZone(zone: playerState.fieldZone),
           ],
         ),
@@ -29,9 +29,9 @@ class MainMonsterRow extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             SingleCardZone(zone: playerState.mainMonsterZone1),
-            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
+            const SizedBox(width: AppSizes.duelFieldCardSpacing),
             SingleCardZone(zone: playerState.mainMonsterZone2),
-            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
+            const SizedBox(width: AppSizes.duelFieldCardSpacing),
             SingleCardZone(zone: playerState.mainMonsterZone3),
           ],
         ),
@@ -42,7 +42,7 @@ class MainMonsterRow extends StatelessWidget {
               zone: playerState.graveyardZone,
               showCardBack: false,
             ),
-            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
+            const SizedBox(width: AppSizes.duelFieldCardSpacing),
             MultiCardZone(
               zone: playerState.banishedZone,
               showCardBack: false,

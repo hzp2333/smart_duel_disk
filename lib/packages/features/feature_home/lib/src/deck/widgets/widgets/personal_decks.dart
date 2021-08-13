@@ -20,7 +20,7 @@ class PersonalDecks extends StatelessWidget {
           title: Strings.deckPersonalCreateDeck.get(),
           onPressed: vm.onBuildDeckPressed,
         ),
-        const SizedBox(height: AppDimensions.iconTitleTileSeparator),
+        const SizedBox(height: AppSizes.iconTitleTileSeparator),
         IconTitleTileButton(
           icon: Icons.search,
           title: Strings.deckPersonalSearchCard.get(),

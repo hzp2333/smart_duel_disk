@@ -16,10 +16,10 @@ class PrimaryButton extends StatelessWidget {
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         primary: AppColors.primaryAccentColor,
-        minimumSize: const Size(double.infinity, AppDimensions.buttonHeight),
+        minimumSize: const Size(double.infinity, AppSizes.buttonHeight),
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.all(
-            Radius.circular(AppDimensions.generalBorderRadius),
+            Radius.circular(AppSizes.generalBorderRadius),
           ),
         ),
       ),

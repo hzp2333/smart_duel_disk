@@ -15,7 +15,7 @@ class ZoneBackground extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cardHeight = context.playCardHeight;
-    final cardWidth = context.playCardHeight * AppDimensions.yugiohCardAspectRatio;
+    final cardWidth = context.playCardHeight * AppSizes.yugiohCardAspectRatio;
     final zoneWidth = zoneType.isMainMonsterZone || zoneType.isSpellTrapCardZone ? cardHeight : null;
 
     return Stack(
@@ -35,7 +35,7 @@ class ZoneBackground extends StatelessWidget {
           ),
         },
         AspectRatio(
-          aspectRatio: AppDimensions.yugiohCardAspectRatio,
+          aspectRatio: AppSizes.yugiohCardAspectRatio,
           child: Container(
             height: cardHeight,
             decoration: BoxDecoration(

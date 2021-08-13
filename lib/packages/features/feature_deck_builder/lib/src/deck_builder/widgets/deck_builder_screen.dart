@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart';
 import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/deck_builder/models/deck_builder_state.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
@@ -111,7 +111,7 @@ class _PreBuiltDeckBody extends StatelessWidget {
           yugiohCards: cardTypeSection.value,
         );
       },
-      separatorBuilder: (context, index) => const SizedBox(height: AppDimensions.deckBuilderSectionSeparator),
+      separatorBuilder: (context, index) => const SizedBox(height: AppSizes.deckBuilderSectionSeparator),
     );
   }
 }
@@ -132,7 +132,7 @@ class _PreBuiltDeckSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: AppDimensions.screenMarginSmall),
+          padding: const EdgeInsets.symmetric(horizontal: AppSizes.screenMarginSmall),
           child: SectionTitle(title: title),
         ),
         CardGrid(

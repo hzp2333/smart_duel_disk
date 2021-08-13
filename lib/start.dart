@@ -4,9 +4,9 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
+import 'package:smart_duel_disk/packages/core/core_config/lib/core_config.dart';
+import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/lib/wrapper_crashlytics.dart';
 import 'package:url_strategy/url_strategy.dart';
-import 'package:smart_duel_disk/packages/core/core_config/core_config_interface/lib/core_config_interface.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/wrapper_crashlytics_interface/lib/wrapper_crashlytics_interface.dart';
 
 import 'src/app/app_provider.dart';
 import 'src/di/di.dart';
@@ -24,8 +24,8 @@ Future<void> start(AppConfig appConfig, Environment environment) async {
   FlutterError.onError = crashlyticsProvider.logFlutterException;
 
   // Catch all uncaught errors from the framework and report them.
-  runZonedGuarded<Future<void>>(() async {
-    SystemChrome.setPreferredOrientations([
+  await runZonedGuarded<Future<void>>(() async {
+    await SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
     ]);
 

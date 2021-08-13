@@ -1,8 +1,8 @@
 library ui_components;
 
 export 'src/primitives/app_colors.dart';
-export 'src/primitives/app_dimensions.dart';
 export 'src/primitives/app_elevations.dart';
+export 'src/primitives/app_sizes.dart';
 export 'src/primitives/text_sizes.dart';
 export 'src/primitives/text_styles.dart';
 export 'src/scrolling/no_scroll_glow_behavior.dart';

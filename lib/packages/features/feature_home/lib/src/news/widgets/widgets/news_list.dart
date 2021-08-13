@@ -16,13 +16,13 @@ class NewsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: AppDimensions.newsListPaddingVertical),
+      padding: const EdgeInsets.symmetric(vertical: AppSizes.newsListPaddingVertical),
       child: ListView.separated(
         shrinkWrap: true,
         physics: const NeverScrollableScrollPhysics(),
         itemCount: newsItems.length,
         itemBuilder: (_, index) => _NewsListItemBuilder(newsItem: newsItems.elementAt(index)),
-        separatorBuilder: (_, __) => const SizedBox(height: AppDimensions.newsListItemSeparatorSize),
+        separatorBuilder: (_, __) => const SizedBox(height: AppSizes.newsListItemSeparatorSize),
       ),
     );
   }
@@ -60,9 +60,9 @@ class _NewsListItem extends StatelessWidget {
     return Card(
       elevation: AppElevations.newsCardElevation,
       color: AppColors.cardBackgroundColor,
-      margin: const EdgeInsets.all(AppDimensions.newsCardMargin),
+      margin: const EdgeInsets.all(AppSizes.newsCardMargin),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(AppDimensions.generalBorderRadius),
+        borderRadius: BorderRadius.circular(AppSizes.generalBorderRadius),
       ),
       child: Column(
         children: <Widget>[
@@ -92,11 +92,11 @@ class _NewsListItemImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: AppDimensions.newsCardImageAspectRatio,
+      aspectRatio: AppSizes.newsCardImageAspectRatio,
       child: ClipRRect(
         borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(AppDimensions.generalBorderRadius),
-          topRight: Radius.circular(AppDimensions.generalBorderRadius),
+          topLeft: Radius.circular(AppSizes.generalBorderRadius),
+          topRight: Radius.circular(AppSizes.generalBorderRadius),
         ),
         child: CachedNetworkImage(
           imageUrl: imageUrl,
@@ -121,23 +121,23 @@ class _NewsListItemHeader extends StatelessWidget {
         color: AppColors.cardHeaderBackgroundColor,
         borderRadius: !newsItem.hasImage
             ? const BorderRadius.only(
-                topLeft: Radius.circular(AppDimensions.generalBorderRadius),
-                topRight: Radius.circular(AppDimensions.generalBorderRadius),
+                topLeft: Radius.circular(AppSizes.generalBorderRadius),
+                topRight: Radius.circular(AppSizes.generalBorderRadius),
               )
             : null,
       ),
       padding: const EdgeInsets.fromLTRB(
-        AppDimensions.newsCardPadding,
-        AppDimensions.newsCardPadding,
-        AppDimensions.newsCardPadding,
-        AppDimensions.titleDescriptionSpacing / 2,
+        AppSizes.newsCardPadding,
+        AppSizes.newsCardPadding,
+        AppSizes.newsCardPadding,
+        AppSizes.titleDescriptionSpacing / 2,
       ),
       child: Row(
         children: <Widget>[
           Expanded(
             child: _NewsListItemAuthor(newsItem: newsItem),
           ),
-          const SizedBox(width: AppDimensions.newsCardAuthorDateSpacing),
+          const SizedBox(width: AppSizes.newsCardAuthorDateSpacing),
           _NewsListItemDate(createdAt: newsItem.createdAt),
         ],
       ),
@@ -158,9 +158,9 @@ class _NewsListItemAuthor extends StatelessWidget {
       children: [
         CircleAvatar(
           backgroundImage: CachedNetworkImageProvider(newsItem.authorImageUrl),
-          radius: AppDimensions.newsCardAuthorImageRadius,
+          radius: AppSizes.newsCardAuthorImageRadius,
         ),
-        const SizedBox(width: AppDimensions.newsCardAuthorImageNameSpacing),
+        const SizedBox(width: AppSizes.newsCardAuthorImageNameSpacing),
         AutoSizeText(
           newsItem.authorName,
           style: TextStyles.subtitle,
@@ -199,10 +199,10 @@ class _NewsListItemText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(
-        AppDimensions.newsCardPadding,
-        AppDimensions.titleDescriptionSpacing / 2,
-        AppDimensions.newsCardPadding,
-        AppDimensions.newsCardPadding,
+        AppSizes.newsCardPadding,
+        AppSizes.titleDescriptionSpacing / 2,
+        AppSizes.newsCardPadding,
+        AppSizes.newsCardPadding,
       ),
       child: Text(newsItem.text),
     );
@@ -223,12 +223,12 @@ class _NewsListItemRipple extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: Padding(
-        padding: const EdgeInsets.all(AppDimensions.newsCardMargin),
+        padding: const EdgeInsets.all(AppSizes.newsCardMargin),
         child: InkWell(
           onTap: () => vm.onNewsItemTapped(newsItem),
           highlightColor: Colors.transparent,
           splashColor: AppColors.cardSplashColor,
-          borderRadius: BorderRadius.circular(AppDimensions.generalBorderRadius),
+          borderRadius: BorderRadius.circular(AppSizes.generalBorderRadius),
         ),
       ),
     );

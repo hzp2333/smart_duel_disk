@@ -55,7 +55,7 @@ class _DataBody extends StatelessWidget {
     final vm = Provider.of<NewsViewModel>(context);
 
     return Padding(
-      padding: const EdgeInsets.only(bottom: AppDimensions.screenMargin),
+      padding: const EdgeInsets.only(bottom: AppSizes.screenMargin),
       child: ScrollConfiguration(
         behavior: const NoScrollGlowBehavior(),
         child: RefreshIndicator(
@@ -63,7 +63,7 @@ class _DataBody extends StatelessWidget {
           color: AppColors.primaryAccentColor,
           child: SingleChildScrollView(
             physics: const ClampingScrollPhysics(),
-            padding: const EdgeInsets.symmetric(horizontal: AppDimensions.screenMargin),
+            padding: const EdgeInsets.symmetric(horizontal: AppSizes.screenMargin),
             child: Column(
               children: [
                 SocialMediaHeader(),

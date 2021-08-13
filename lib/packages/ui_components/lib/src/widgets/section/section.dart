@@ -17,7 +17,7 @@ class Section extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionTitle(title: title),
-        const SizedBox(height: AppDimensions.sectionTitleChildSeparator),
+        const SizedBox(height: AppSizes.sectionTitleChildSeparator),
         child,
       ],
     );

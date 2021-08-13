@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:smart_duel_disk/packages/core/core_logger/core_logger_interface/lib/core_logger_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 
 abstract class BaseViewModel {
   final Logger _logger;

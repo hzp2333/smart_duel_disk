@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_yugioh_card_detail/lib/src/yugioh_card_detail_viewmodel.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
+import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/lib/wrapper_assets.dart';
 
 class YugiohCardDetailScreen extends StatelessWidget {
   const YugiohCardDetailScreen();
@@ -56,6 +56,7 @@ class _Body extends StatelessWidget {
             imageUrl: vm.yugiohCard.imageLargeUrl,
             fit: BoxFit.fitWidth,
             placeholder: (_, __) => ImagePlaceholder(imageAssetId: assetsProvider.cardBack),
+            // ignore: avoid_annotating_with_dynamic
             errorWidget: (_, __, dynamic ___) => const ImageError(),
           ),
         ),

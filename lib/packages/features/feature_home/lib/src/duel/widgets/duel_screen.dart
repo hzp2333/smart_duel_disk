@@ -12,7 +12,7 @@ class DuelScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(AppDimensions.screenMargin),
+      padding: const EdgeInsets.all(AppSizes.screenMargin),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,

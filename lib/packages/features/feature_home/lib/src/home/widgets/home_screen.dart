@@ -1,9 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/home/models/home_tab.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 import 'package:smart_duel_disk/src/localization/strings.al.dart';
-import 'package:smart_duel_disk/src/navigation/router.gr.dart';
 
 class HomeScreen extends StatelessWidget {
   static final _tabs = List<HomeTab>.unmodifiable(<HomeTab>[
@@ -109,7 +109,7 @@ class _BottomNavigationBarItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: AppDimensions.tabBarItemHeight,
+      height: AppSizes.tabBarItemHeight,
       child: InkWell(
         highlightColor: Colors.transparent,
         splashColor: AppColors.tabSplashColor,
@@ -120,7 +120,7 @@ class _BottomNavigationBarItem extends StatelessWidget {
           children: [
             Icon(
               icon,
-              size: AppDimensions.tabBarIconSize,
+              size: AppSizes.tabBarIconSize,
               color: color,
             ),
             Text(

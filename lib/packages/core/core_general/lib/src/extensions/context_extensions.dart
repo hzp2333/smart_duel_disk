@@ -10,8 +10,8 @@ extension BuildContextExtensions on BuildContext {
       (screenHeight -
           safeAreaPadding.top -
           safeAreaPadding.bottom -
-          AppDimensions.duelFieldFirstSecondRowSpacing -
-          AppDimensions.duelFieldSecondHandRowSpacing -
-          2 * AppDimensions.screenMargin) /
+          AppSizes.duelFieldFirstSecondRowSpacing -
+          AppSizes.duelFieldSecondHandRowSpacing -
+          2 * AppSizes.screenMargin) /
       3;
 }

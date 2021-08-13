@@ -25,16 +25,16 @@ class IconTitleTileButton extends StatelessWidget {
           onTap: onPressed,
           highlightColor: Colors.transparent,
           splashColor: AppColors.cardSplashColor,
-          borderRadius: BorderRadius.circular(AppDimensions.generalBorderRadius),
+          borderRadius: BorderRadius.circular(AppSizes.generalBorderRadius),
           child: Padding(
-            padding: const EdgeInsets.all(AppDimensions.deckPersonalCardPadding),
+            padding: const EdgeInsets.all(AppSizes.deckPersonalCardPadding),
             child: Row(
               children: [
                 Icon(
                   icon,
                   color: AppColors.primaryIconColor,
                 ),
-                const SizedBox(width: AppDimensions.iconTitleSpacing),
+                const SizedBox(width: AppSizes.iconTitleSpacing),
                 Expanded(
                   child: Text(
                     title,

@@ -1,9 +1,9 @@
 import 'package:flutter/services.dart';
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
-import 'package:smart_duel_disk/packages/core/core_logger/core_logger_interface/lib/src/logger.dart';
+import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
+import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/lib/wrapper_assets.dart';
 
 @Injectable()
 class PrivacyPolicyViewModel extends BaseViewModel {
@@ -11,7 +11,7 @@ class PrivacyPolicyViewModel extends BaseViewModel {
 
   final AssetsProvider _assetsProvider;
   final AssetBundle _assetBundle;
-  final RouterHelper _router;
+  final AppRouter _router;
 
   PrivacyPolicyViewModel(
     this._assetsProvider,

@@ -10,7 +10,7 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/wid
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/widgets/body/rows/zones/shared/zone_filler.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
+import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/lib/wrapper_assets.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 
 class PlayerCardBuilder extends StatelessWidget {
@@ -105,7 +105,7 @@ class CardImage extends StatelessWidget {
     final zoneHeight = context.playCardHeight;
     final zoneWidth = playCard.zoneType.isMainMonsterZone || playCard.zoneType.isSpellTrapCardZone
         ? zoneHeight
-        : zoneHeight * AppDimensions.yugiohCardAspectRatio;
+        : zoneHeight * AppSizes.yugiohCardAspectRatio;
     final cardSleeve = ImagePlaceholder(imageAssetId: placeholderImage);
 
     final showImage = playCard.position.isFaceUp &&
@@ -123,6 +123,7 @@ class CardImage extends StatelessWidget {
                 ? CachedNetworkImage(
                     imageUrl: playCard.yugiohCard.imageSmallUrl,
                     placeholder: (_, __) => cardSleeve,
+                    // ignore: avoid_annotating_with_dynamic
                     errorWidget: (_, __, dynamic ___) => cardSleeve,
                     height: playCard.position.isAttack ? zoneHeight : null,
                     width: playCard.position.isAttack ? null : zoneHeight,

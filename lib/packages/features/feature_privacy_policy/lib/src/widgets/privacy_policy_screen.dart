@@ -35,7 +35,7 @@ class _Body extends StatelessWidget {
 
         return SafeArea(
           child: SingleChildScrollView(
-            padding: const EdgeInsets.all(AppDimensions.screenMargin),
+            padding: const EdgeInsets.all(AppSizes.screenMargin),
             child: HtmlWidget(
               snapshot.data,
               onTapUrl: vm.onUrlPressed,

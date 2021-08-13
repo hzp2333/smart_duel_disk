@@ -53,7 +53,7 @@ class _Body extends HookWidget {
     final duelRoomState = useStream(vm.roomState, initialData: const DuelRoomConnecting());
 
     return Padding(
-      padding: const EdgeInsets.all(AppDimensions.screenMargin),
+      padding: const EdgeInsets.all(AppSizes.screenMargin),
       child: duelRoomState.data.when(
         connecting: () => const GeneralLoadingState(),
         connected: () => const ConnectedState(),

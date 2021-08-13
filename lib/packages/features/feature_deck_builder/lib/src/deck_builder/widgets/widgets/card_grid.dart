@@ -1,10 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
+import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/lib/wrapper_assets.dart';
 
 class CardGrid extends StatelessWidget {
   final Iterable<YugiohCard> yugiohCards;
@@ -21,12 +21,12 @@ class CardGrid extends StatelessWidget {
       child: GridView.builder(
         shrinkWrap: true,
         physics: scrollPhysics,
-        padding: const EdgeInsets.all(AppDimensions.screenMarginSmall),
+        padding: const EdgeInsets.all(AppSizes.screenMarginSmall),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 6,
-          mainAxisSpacing: AppDimensions.deckBuilderGridSpacing,
-          crossAxisSpacing: AppDimensions.deckBuilderGridSpacing,
-          childAspectRatio: AppDimensions.yugiohCardAspectRatio,
+          mainAxisSpacing: AppSizes.deckBuilderGridSpacing,
+          crossAxisSpacing: AppSizes.deckBuilderGridSpacing,
+          childAspectRatio: AppSizes.yugiohCardAspectRatio,
         ),
         itemCount: yugiohCards.length,
         itemBuilder: (context, index) {
@@ -69,6 +69,7 @@ class _GridCard extends StatelessWidget {
           imageUrl: yugiohCard.imageSmallUrl,
           fit: BoxFit.fitWidth,
           placeholder: (_, __) => ImagePlaceholder(imageAssetId: assetsProvider.cardBack),
+          // ignore: avoid_annotating_with_dynamic
           errorWidget: (_, __, dynamic ___) => ImagePlaceholder(imageAssetId: assetsProvider.cardBack),
         ),
       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
+import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/lib/wrapper_assets.dart';
 import 'package:smart_duel_disk/src/localization/strings.al.dart';
 
 import '../onboarding_viewmodel.dart';
@@ -30,7 +30,7 @@ class _Body extends StatelessWidget {
       ),
       child: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(AppDimensions.screenMarginLarge),
+          padding: const EdgeInsets.all(AppSizes.screenMarginLarge),
           child: Column(
             children: const [
               Expanded(
@@ -59,7 +59,7 @@ class _Header extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.end,
       children: const [
         _CompanyLogo(),
-        SizedBox(height: AppDimensions.screenMarginSmall),
+        SizedBox(height: AppSizes.screenMarginSmall),
         _AppName(),
       ],
     );
@@ -118,7 +118,7 @@ class _Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: AppDimensions.onboardingFooterMarginTop),
+      padding: const EdgeInsets.only(top: AppSizes.onboardingFooterMarginTop),
       child: Text(
         Strings.onboardingFineprint.get(),
         textAlign: TextAlign.center,

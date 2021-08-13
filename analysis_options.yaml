@@ -1,6 +1,15 @@
 include: package:lint/analysis_options.yaml
 
 analyzer:
+  exclude:
+    # Generated files
+    - lib/**/*.g.dart
+    - lib/**/*.gr.dart
+    - lib/**/*.freezed.dart
+    - lib/**/*.config.dart
+    - lib/**/messages_*.dart
+    - lib/**/*.al.dart
+    - test/**/*.mocks.dart
   strong-mode:
     implicit-casts: false
     implicit-dynamic: false
@@ -8,14 +17,14 @@ analyzer:
     missing_required_param: error
     missing_return: error
     todo: ignore
-  exclude:
-    - "**/*.g.dart"
-    - "**/*.gr.dart"
-    - "**/*.al.dart"
-    - "**/*.freezed.dart"
-    - "**/*.config.dart"
 
 linter:
   rules:
     use_setters_to_change_properties: false
-    
+    always_use_package_imports: false
+    prefer_single_quotes: true
+    prefer_const_declarations: true
+    avoid_annotating_with_dynamic: true
+    literal_only_boolean_expressions: true
+    unawaited_futures: true
+    close_sinks: true

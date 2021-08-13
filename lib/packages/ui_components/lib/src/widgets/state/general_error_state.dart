@@ -17,7 +17,7 @@ class GeneralErrorState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(AppDimensions.screenMargin),
+      padding: const EdgeInsets.all(AppSizes.screenMargin),
       child: Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -27,13 +27,13 @@ class GeneralErrorState extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             if (canRetry && retryAction != null) ...{
-              const SizedBox(height: AppDimensions.screenMargin),
+              const SizedBox(height: AppSizes.screenMargin),
               ElevatedButton(
                 onPressed: retryAction,
                 style: ElevatedButton.styleFrom(
                   primary: AppColors.primaryAccentColor,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(AppDimensions.generalBorderRadius),
+                    borderRadius: BorderRadius.circular(AppSizes.generalBorderRadius),
                   ),
                 ),
                 child: Text(Strings.generalErrorTryAgain.get()),

@@ -47,16 +47,16 @@ class _PlayerField extends StatelessWidget {
         height: context.screenHeight,
         width: context.screenWidth,
         child: Padding(
-          padding: const EdgeInsets.all(AppDimensions.screenMargin),
+          padding: const EdgeInsets.all(AppSizes.screenMargin),
           child: RotatedBox(
             quarterTurns: playerState.isOpponent ? 2 : 0,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: const [
                 Expanded(child: MainMonsterRow()),
-                SizedBox(height: AppDimensions.duelFieldSecondHandRowSpacing),
+                SizedBox(height: AppSizes.duelFieldSecondHandRowSpacing),
                 Expanded(child: SpellTrapRow()),
-                SizedBox(height: AppDimensions.duelFieldFirstSecondRowSpacing),
+                SizedBox(height: AppSizes.duelFieldFirstSecondRowSpacing),
                 Expanded(child: HandRow()),
               ],
             ),

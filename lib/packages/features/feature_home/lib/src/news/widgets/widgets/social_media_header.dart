@@ -44,7 +44,7 @@ class _SocialMediaHeaderItem extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(
-        horizontal: AppDimensions.newsSocialMediaSpacing,
+        horizontal: AppSizes.newsSocialMediaSpacing,
       ),
       child: IconButton(
         onPressed: () => vm.onSocialMediaPressed(socialMedia),

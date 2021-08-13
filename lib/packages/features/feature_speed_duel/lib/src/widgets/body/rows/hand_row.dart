@@ -24,7 +24,7 @@ class HandRow extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: zone.cards.length,
             itemBuilder: (_, index) => PlayerCardBuilder(card: zone.cards.elementAt(index)),
-            separatorBuilder: (_, __) => const SizedBox(width: AppDimensions.screenMargin),
+            separatorBuilder: (_, __) => const SizedBox(width: AppSizes.screenMargin),
           ),
         ),
       ),

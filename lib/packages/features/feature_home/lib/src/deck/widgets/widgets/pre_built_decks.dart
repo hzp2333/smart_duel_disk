@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/deck/deck_viewmodel.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 import 'package:smart_duel_disk/src/localization/strings.al.dart';
@@ -29,7 +29,7 @@ class PreBuiltDecks extends StatelessWidget {
             onPressed: () => vm.onPreBuiltDeckPressed(PreBuiltDeck.yugi),
           ),
         ),
-        const SizedBox(width: AppDimensions.deckPrebuiltCardSeparator),
+        const SizedBox(width: AppSizes.deckPrebuiltCardSeparator),
         Expanded(
           child: _PreBuiltDeckCard(
             backgroundColor: AppColors.deckKaibaBackgroundColor,
@@ -67,7 +67,7 @@ class _PreBuiltDeckCard extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 color: backgroundColor,
-                borderRadius: BorderRadius.circular(AppDimensions.generalBorderRadius),
+                borderRadius: BorderRadius.circular(AppSizes.generalBorderRadius),
               ),
             ),
           ),
@@ -75,7 +75,7 @@ class _PreBuiltDeckCard extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(
                 gradient: AppColors.whiteOverlayGradient,
-                borderRadius: BorderRadius.circular(AppDimensions.generalBorderRadius),
+                borderRadius: BorderRadius.circular(AppSizes.generalBorderRadius),
               ),
             ),
           ),
@@ -88,12 +88,12 @@ class _PreBuiltDeckCard extends StatelessWidget {
           ),
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(AppDimensions.deckPrebuiltTextPadding),
+            padding: const EdgeInsets.all(AppSizes.deckPrebuiltTextPadding),
             decoration: BoxDecoration(
               boxShadow: [AppElevations.blackShadow],
               borderRadius: const BorderRadius.only(
-                bottomLeft: Radius.circular(AppDimensions.generalBorderRadius),
-                bottomRight: Radius.circular(AppDimensions.generalBorderRadius),
+                bottomLeft: Radius.circular(AppSizes.generalBorderRadius),
+                bottomRight: Radius.circular(AppSizes.generalBorderRadius),
               ),
             ),
             child: AutoSizeText(
@@ -135,7 +135,7 @@ class _PreBuiltDeckCardRipple extends StatelessWidget {
         onTap: onPressed,
         highlightColor: Colors.transparent,
         splashColor: backgroundColor.withOpacity(0.15),
-        borderRadius: BorderRadius.circular(AppDimensions.generalBorderRadius),
+        borderRadius: BorderRadius.circular(AppSizes.generalBorderRadius),
       ),
     );
   }

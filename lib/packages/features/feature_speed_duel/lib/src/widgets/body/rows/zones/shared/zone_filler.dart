@@ -8,7 +8,7 @@ class ZoneFiller extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: AppDimensions.yugiohCardAspectRatio,
+      aspectRatio: AppSizes.yugiohCardAspectRatio,
       child: SizedBox(height: context.playCardHeight),
     );
   }

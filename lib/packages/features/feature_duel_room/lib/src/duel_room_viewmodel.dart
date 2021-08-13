@@ -2,11 +2,11 @@ import 'dart:async';
 
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:smart_duel_disk/packages/core/core_data_manager/core_data_manager_interface/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
-import 'package:smart_duel_disk/packages/core/core_logger/core_logger_interface/lib/src/logger.dart';
+import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
-import 'package:smart_duel_disk/packages/core/core_smart_duel_server/core_smart_duel_server_interface/lib/core_smart_duel_server_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart';
 
 import 'models/duel_room_state.dart';
 
@@ -15,7 +15,7 @@ class DuelRoomViewModel extends BaseViewModel {
   static const _tag = 'DuelRoomViewModel';
 
   final PreBuiltDeck _preBuiltDeck;
-  final RouterHelper _router;
+  final AppRouter _router;
   final SmartDuelServer _smartDuelServer;
   final DataManager _dataManager;
 

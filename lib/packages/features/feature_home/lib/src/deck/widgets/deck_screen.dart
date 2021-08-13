@@ -12,7 +12,7 @@ class DeckScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: const ClampingScrollPhysics(),
-      padding: const EdgeInsets.all(AppDimensions.screenMargin),
+      padding: const EdgeInsets.all(AppSizes.screenMargin),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -20,7 +20,7 @@ class DeckScreen extends StatelessWidget {
             title: Strings.deckPreBuiltDecksTitle.get(),
             child: const PreBuiltDecks(),
           ),
-          const SizedBox(height: AppDimensions.deckSectionSeparator),
+          const SizedBox(height: AppSizes.deckSectionSeparator),
           Section(
             title: Strings.deckPersonalDecksTitle.get(),
             child: const PersonalDecks(),

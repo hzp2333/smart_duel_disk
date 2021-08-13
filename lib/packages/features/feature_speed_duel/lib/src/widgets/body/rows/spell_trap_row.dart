@@ -22,7 +22,7 @@ class SpellTrapRow extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             const ZoneFiller(),
-            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
+            const SizedBox(width: AppSizes.duelFieldCardSpacing),
             MultiCardZone(
               zone: playerState.extraDeckZone,
               showCardBack: true,
@@ -33,9 +33,9 @@ class SpellTrapRow extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             SingleCardZone(zone: playerState.spellTrapZone1),
-            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
+            const SizedBox(width: AppSizes.duelFieldCardSpacing),
             SingleCardZone(zone: playerState.spellTrapZone2),
-            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
+            const SizedBox(width: AppSizes.duelFieldCardSpacing),
             SingleCardZone(zone: playerState.spellTrapZone3),
           ],
         ),
@@ -43,7 +43,7 @@ class SpellTrapRow extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             DeckZone(zone: playerState.deckZone),
-            const SizedBox(width: AppDimensions.duelFieldCardSpacing),
+            const SizedBox(width: AppSizes.duelFieldCardSpacing),
             const ZoneFiller(),
           ],
         ),

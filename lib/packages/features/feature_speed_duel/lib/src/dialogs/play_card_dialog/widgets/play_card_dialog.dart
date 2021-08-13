@@ -4,7 +4,7 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dia
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/play_card_dialog_viewmodel.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/wrapper_assets_interface/lib/wrapper_assets_interface.dart';
+import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/lib/wrapper_assets.dart';
 
 class PlayCardDialog extends StatelessWidget {
   const PlayCardDialog();
@@ -23,7 +23,7 @@ class PlayCardDialog extends StatelessWidget {
             child: SizedBox(
               width: MediaQuery.of(context).size.width / 2,
               child: Container(
-                padding: const EdgeInsets.all(AppDimensions.screenMargin),
+                padding: const EdgeInsets.all(AppSizes.screenMargin),
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.primaryAccentColor),
                 ),
@@ -89,7 +89,7 @@ class _FirstRow extends StatelessWidget {
         ),
         ImageAssetProvider(
           assetName: playCard.attributeAssetName,
-          size: AppDimensions.iconSize24,
+          size: AppSizes.iconSize24,
         ),
       ],
     );
@@ -139,7 +139,7 @@ class _MonsterLevel extends StatelessWidget {
       children: [
         ImageAssetProvider(
           assetName: assetsProvider.iconCardLevel,
-          size: AppDimensions.iconSize16,
+          size: AppSizes.iconSize16,
         ),
         const SizedBox(width: 4),
         Text(
@@ -166,7 +166,7 @@ class _MonsterAttackAndDefence extends StatelessWidget {
           playCard.formattedAttack,
           style: TextStyles.cardDialogBigText,
         ),
-        const SizedBox(width: AppDimensions.screenMargin),
+        const SizedBox(width: AppSizes.screenMargin),
         Text(
           playCard.formattedDefence,
           style: TextStyles.cardDialogBigText,
@@ -249,8 +249,8 @@ class _ActionItem extends StatelessWidget {
       onTap: () => vm.onPlayCardDialogActionPressed(action.type),
       child: Container(
         padding: const EdgeInsets.symmetric(
-          horizontal: AppDimensions.screenMarginLarge,
-          vertical: AppDimensions.screenMarginSmall,
+          horizontal: AppSizes.screenMarginLarge,
+          vertical: AppSizes.screenMarginSmall,
         ),
         decoration: BoxDecoration(
           color: AppColors.cardDialogBackgroundColor,
@@ -259,7 +259,7 @@ class _ActionItem extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Icon(action.icon),
-            const SizedBox(height: AppDimensions.iconTitleTileSeparator),
+            const SizedBox(height: AppSizes.iconTitleTileSeparator),
             Text(
               action.name,
               style: const TextStyle(color: Colors.white),

@@ -1,5 +1,5 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:smart_duel_disk/packages/core/core_config/core_config_interface/lib/core_config_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_config/lib/core_config.dart';
 import 'package:smart_duel_disk/src/di/di.dart';
 import 'package:smart_duel_disk/start.dart';
 
