@@ -5,7 +5,7 @@ import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/features/feature_onboarding/lib/src/onboarding/onboarding_viewmodel.dart';
 
-import '../../../testing/empty_mocks.dart';
+import '../../../../testing/empty_mocks.dart';
 
 void main() {
   OnboardingViewModel _viewModel;

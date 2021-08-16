@@ -10,7 +10,7 @@ import 'package:smart_duel_disk/packages/features/feature_user_settings/lib/src/
 import 'package:smart_duel_disk/packages/features/feature_user_settings/lib/src/models/user_setting_type.dart';
 import 'package:smart_duel_disk/packages/features/feature_user_settings/lib/src/user_settings_viewmodel.dart';
 
-import '../../testing/empty_mocks.dart';
+import '../../../testing/empty_mocks.dart';
 
 void main() {
   UserSettingsViewModel _viewModel;
@@ -51,7 +51,7 @@ void main() {
           observable,
           emits([
             SwitchSettingItem(
-              title: 'Enable developer mode',
+              title: 'Developer mode',
               leadingIcon: Icons.developer_mode,
               type: UserSettingType.developerModeEnabled,
               value: false,
@@ -94,7 +94,7 @@ void main() {
           emitsInOrder(<StreamMatcher>[
             emits([
               SwitchSettingItem(
-                title: 'Enable developer mode',
+                title: 'Developer mode',
                 leadingIcon: Icons.developer_mode,
                 type: UserSettingType.developerModeEnabled,
                 value: false,
@@ -103,7 +103,7 @@ void main() {
             ]),
             emits([
               SwitchSettingItem(
-                title: 'Enable developer mode',
+                title: 'Developer mode',
                 leadingIcon: Icons.developer_mode,
                 type: UserSettingType.developerModeEnabled,
                 value: true,

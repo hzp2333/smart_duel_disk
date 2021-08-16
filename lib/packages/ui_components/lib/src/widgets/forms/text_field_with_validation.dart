@@ -3,7 +3,7 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 
-class DuelFormTextField extends HookWidget {
+class TextFieldWithValidation extends HookWidget {
   final String label;
   final String hint;
   final Stream<String> textStream;
@@ -11,7 +11,7 @@ class DuelFormTextField extends HookWidget {
   final TextChangedCallback onSubmitted;
   final TextInputType textInputType;
 
-  const DuelFormTextField({
+  const TextFieldWithValidation({
     @required this.label,
     @required this.hint,
     @required this.textStream,

@@ -69,6 +69,16 @@ class DataManagerImpl implements DataManager {
     return _duelDataManager.saveConnectionInfo(connectionInfo);
   }
 
+  @override
+  bool useOnlineDuelRoom() {
+    return _duelDataManager.useOnlineDuelRoom();
+  }
+
+  @override
+  Future<void> saveUseOnlineDuelRoom({bool value}) {
+    return _duelDataManager.saveUseOnlineDuelRoom(value: value);
+  }
+
   //endregion
 
   //region Settings

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_duel_disk/packages/features/feature_home/lib/src/duel/widgets/body/duel_form_textfield.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
 import '../../duel_room_viewmodel.dart';
@@ -65,8 +64,7 @@ class _EnterRoomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     final vm = Provider.of<DuelRoomViewModel>(context);
 
-    // TODO: add to ui_components
-    return DuelFormTextField(
+    return TextFieldWithValidation(
       label: 'Room name',
       hint: 'K41B4',
       textStream: vm.roomName,

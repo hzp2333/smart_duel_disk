@@ -9,6 +9,7 @@ export 'src/scrolling/no_scroll_glow_behavior.dart';
 export 'src/widgets/app_bar/sdd_app_bar.dart';
 export 'src/widgets/bordered_text.dart';
 export 'src/widgets/buttons/primary_button.dart';
+export 'src/widgets/forms/text_field_with_validation.dart';
 export 'src/widgets/forms/text_field_without_validation.dart';
 export 'src/widgets/image_asset_provider.dart';
 export 'src/widgets/images/image_error.dart';

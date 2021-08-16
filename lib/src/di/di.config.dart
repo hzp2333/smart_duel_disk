@@ -233,10 +233,10 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i37.DuelStorageProvider>(() =>
       _i37.DuelStorageProviderImpl(get<_i38.SharedPreferencesProvider>()));
   gh.factory<_i39.DuelViewModel>(() => _i39.DuelViewModel(
-      get<_i14.Logger>(),
       get<_i34.DuelFormValidators>(),
       get<_i5.AppRouter>(),
-      get<_i19.DataManager>()));
+      get<_i19.DataManager>(),
+      get<_i14.Logger>()));
   gh.lazySingleton<_i40.EnumHelper>(() => _i40.EnumHelperImpl());
   gh.lazySingleton<_i41.FirebaseCrashlytics>(
       () => crashlyticsModule.provideFirebaseCrashlytics());

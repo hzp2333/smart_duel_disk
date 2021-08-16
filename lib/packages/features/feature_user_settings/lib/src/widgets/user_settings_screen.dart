@@ -54,8 +54,31 @@ class _Body extends HookWidget {
       padding: const EdgeInsets.all(AppSizes.screenMargin),
       itemCount: userSettings.data.length,
       itemBuilder: (context, index) {
-        return _SettingsListItem(settingItem: userSettings.data.elementAt(index));
+        return _SettingListItemContainer(settingItem: userSettings.data.elementAt(index));
       },
+    );
+  }
+}
+
+class _SettingListItemContainer extends StatelessWidget {
+  final SettingItem settingItem;
+
+  const _SettingListItemContainer({
+    @required this.settingItem,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 12,
+        vertical: 4,
+      ),
+      decoration: BoxDecoration(
+        color: AppColors.cardBackgroundColor,
+        borderRadius: BorderRadius.circular(AppSizes.generalBorderRadius),
+      ),
+      child: _SettingsListItem(settingItem: settingItem),
     );
   }
 }
@@ -75,6 +98,8 @@ class _SettingsListItem extends StatelessWidget {
       return ListTile(
         leading: Icon(item.leadingIcon),
         title: Text(item.title),
+        contentPadding: EdgeInsets.zero,
+        horizontalTitleGap: 0,
         trailing: Switch.adaptive(
           value: item.value,
           onChanged: item.onValueChanged,
@@ -85,6 +110,8 @@ class _SettingsListItem extends StatelessWidget {
     return ListTile(
       leading: Icon(item.leadingIcon),
       title: Text(item.title),
+      contentPadding: EdgeInsets.zero,
+      horizontalTitleGap: 0,
     );
   }
 }

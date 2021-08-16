@@ -26,19 +26,21 @@ class DuelViewModel extends BaseViewModel {
   Stream<bool> get isFormValid => Rx.combineLatest2(
       _ipAddress, _port, (String ipAddress, String port) => !ipAddress.isNullOrEmpty && !port.isNullOrEmpty);
 
+  final bool _localDuelRoomAvailable;
+  bool get isLocalDuelRoomAvailable => _localDuelRoomAvailable;
+
   DuelViewModel(
-    Logger logger,
     this._duelFormValidators,
     this._router,
     this._dataManager,
-  ) : super(logger) {
-    _init();
-  }
+    Logger logger,
+  )   : _localDuelRoomAvailable = _dataManager.isDeveloperModeEnabled(),
+        super(logger);
 
   //region Initialization
 
-  void _init() {
-    logger.verbose(_tag, '_init()');
+  void init() {
+    logger.info(_tag, 'init()');
 
     _initForm();
   }
@@ -92,13 +94,29 @@ class DuelViewModel extends BaseViewModel {
 
   //region Actions
 
-  Future<void> onDuelRoomPressed() async {
-    logger.info(_tag, 'onDuelRoomPressed()');
+  Future<void> onEnterOnlineDuelRoomPressed() async {
+    logger.info(_tag, 'onEnterOnlineDuelRoomPressed()');
+
+    await _dataManager.saveUseOnlineDuelRoom(value: true);
+
+    await _selectDeckAndEnterDuelRoom();
+  }
+
+  Future<void> onEnterLocalDuelRoomPressed() async {
+    logger.info(_tag, 'onEnterLocalDuelRoomPressed()');
 
     await _dataManager.saveConnectionInfo(ConnectionInfo(
       ipAddress: _ipAddress.value,
       port: _port.value,
     ));
+
+    await _dataManager.saveUseOnlineDuelRoom(value: false);
+
+    await _selectDeckAndEnterDuelRoom();
+  }
+
+  Future<void> _selectDeckAndEnterDuelRoom() async {
+    logger.verbose(_tag, '_selectDeckAndEnterDuelRoom()');
 
     final deck = await _router.showSelectDeckDialog();
     if (deck == null) {

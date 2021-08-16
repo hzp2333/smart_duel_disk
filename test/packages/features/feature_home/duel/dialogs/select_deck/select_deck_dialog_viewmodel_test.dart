@@ -6,7 +6,7 @@ import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigatio
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/duel/dialogs/select_deck/select_deck_dialog_viewmodel.dart';
 import 'package:smart_duel_disk/src/localization/strings.al.dart';
 
-import '../../../../../testing/empty_mocks.dart';
+import '../../../../../../testing/empty_mocks.dart';
 
 void main() {
   SelectDeckDialogViewModel _selectDeckDialogViewModel;
