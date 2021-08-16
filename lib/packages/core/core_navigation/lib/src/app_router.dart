@@ -13,7 +13,6 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_url_launcher/lib/wrapp
 
 import '../core_navigation.dart';
 
-
 abstract class AppRouter {
   Future<void> closeScreen();
   Future<bool> showDialog(DialogConfig dialogConfig);
@@ -31,6 +30,7 @@ abstract class AppRouter {
   Future<void> showDrawCard(VoidCallback cardDrawnCallback);
   Future<CardPosition> showPlayCardDialog(PlayCard playCard, {Zone newZone, bool showActions = false});
   Future<void> showDuelRoom(PreBuiltDeck preBuiltDeck);
+  Future<void> showUserSettings();
 }
 
 @LazySingleton(as: AppRouter)
@@ -181,6 +181,15 @@ class AppRouterImpl implements AppRouter {
   @override
   Future<void> showDuelRoom(PreBuiltDeck preBuiltDeck) {
     return _router.navigate(DuelRoomRoute(preBuiltDeck: preBuiltDeck));
+  }
+
+  //endregion
+
+  //region User Settings
+
+  @override
+  Future<void> showUserSettings() {
+    return _router.navigate(const UserSettingsRoute());
   }
 
   //endregion

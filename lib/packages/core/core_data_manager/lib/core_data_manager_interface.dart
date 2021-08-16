@@ -7,6 +7,7 @@ export 'src/duel/duel_data_manager.dart';
 export 'src/duel/entities/connection_info.dart';
 export 'src/news/entities/news_item.dart';
 export 'src/news/news_data_manager.dart';
+export 'src/settings/settings_data_manager.dart';
 export 'src/yugioh_cards/entities/card_attribute.dart';
 export 'src/yugioh_cards/entities/card_race.dart';
 export 'src/yugioh_cards/entities/card_type.dart';

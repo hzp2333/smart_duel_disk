@@ -16,7 +16,7 @@ void main() {
 
   setUp(() {
     _logger = MockLogger();
-    _router = MockRouterHelper();
+    _router = MockAppRouter();
     _dataManager = MockDataManager();
 
     _viewModel = OnboardingViewModel(

@@ -6,6 +6,7 @@ export 'src/primitives/app_sizes.dart';
 export 'src/primitives/text_sizes.dart';
 export 'src/primitives/text_styles.dart';
 export 'src/scrolling/no_scroll_glow_behavior.dart';
+export 'src/widgets/app_bar/sdd_app_bar.dart';
 export 'src/widgets/bordered_text.dart';
 export 'src/widgets/buttons/primary_button.dart';
 export 'src/widgets/forms/text_field_without_validation.dart';

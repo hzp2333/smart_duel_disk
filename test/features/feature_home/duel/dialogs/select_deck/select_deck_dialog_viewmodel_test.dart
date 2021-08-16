@@ -16,7 +16,7 @@ void main() {
   Logger _logger;
 
   setUp(() {
-    _router = MockRouterHelper();
+    _router = MockAppRouter();
     _dialogService = MockDialogService();
     _logger = MockLogger();
 

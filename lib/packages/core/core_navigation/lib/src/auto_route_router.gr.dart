@@ -20,11 +20,13 @@ import '../../../../features/feature_speed_duel/lib/feature_speed_duel.dart'
     as _i8;
 import '../../../../features/feature_duel_room/lib/src/widgets/duel_room_screen_provider.dart'
     as _i9;
-import '../../../core_data_manager/lib/core_data_manager_interface.dart'
+import '../../../../features/feature_user_settings/lib/src/widgets/user_settings_screen_provider.dart'
     as _i10;
-import 'package:flutter/material.dart' as _i11;
+import '../../../core_data_manager/lib/core_data_manager_interface.dart'
+    as _i11;
+import 'package:flutter/material.dart' as _i12;
 import '../../../core_smart_duel_server/lib/core_smart_duel_server.dart'
-    as _i12;
+    as _i13;
 
 class AutoRouteRouter extends _i1.RootStackRouter {
   AutoRouteRouter();
@@ -77,6 +79,12 @@ class AutoRouteRouter extends _i1.RootStackRouter {
           entry: entry,
           child: _i9.DuelRoomScreenProvider(preBuiltDeck: route.preBuiltDeck));
     },
+    UserSettingsRoute.name: (entry) {
+      return _i1.AdaptivePage(
+          entry: entry,
+          child: _i10.UserSettingsScreenProvider(),
+          fullscreenDialog: true);
+    },
     DuelTab.name: (entry) {
       return _i1.AdaptivePage(entry: entry, child: _i3.DuelScreenProvider());
     },
@@ -125,7 +133,10 @@ class AutoRouteRouter extends _i1.RootStackRouter {
             routeBuilder: (match) => SpeedDuelRoute.fromMatch(match)),
         _i1.RouteConfig<DuelRoomRoute>(DuelRoomRoute.name,
             path: '/duel-room',
-            routeBuilder: (match) => DuelRoomRoute.fromMatch(match))
+            routeBuilder: (match) => DuelRoomRoute.fromMatch(match)),
+        _i1.RouteConfig<UserSettingsRoute>(UserSettingsRoute.name,
+            path: '/user-settings',
+            routeBuilder: (match) => UserSettingsRoute.fromMatch(match))
       ];
 }
 
@@ -153,14 +164,14 @@ class DeckBuilderRoute extends _i1.PageRouteInfo {
       : preBuiltDeck = null,
         super.fromMatch(match);
 
-  final _i10.PreBuiltDeck preBuiltDeck;
+  final _i11.PreBuiltDeck preBuiltDeck;
 
   static const String name = 'DeckBuilderRoute';
 }
 
 class YugiohCardDetailRoute extends _i1.PageRouteInfo {
   YugiohCardDetailRoute(
-      {@_i11.required this.yugiohCard, @_i11.required this.index})
+      {@_i12.required this.yugiohCard, @_i12.required this.index})
       : super(name, path: '/card-detail');
 
   YugiohCardDetailRoute.fromMatch(_i1.RouteMatch match)
@@ -168,7 +179,7 @@ class YugiohCardDetailRoute extends _i1.PageRouteInfo {
         index = null,
         super.fromMatch(match);
 
-  final _i10.YugiohCard yugiohCard;
+  final _i11.YugiohCard yugiohCard;
 
   final int index;
 
@@ -176,7 +187,7 @@ class YugiohCardDetailRoute extends _i1.PageRouteInfo {
 }
 
 class DrawCardRoute extends _i1.PageRouteInfo {
-  DrawCardRoute({@_i11.required this.cardDrawnCallback})
+  DrawCardRoute({@_i12.required this.cardDrawnCallback})
       : super(name, path: '/draw-card-screen-provider');
 
   DrawCardRoute.fromMatch(_i1.RouteMatch match)
@@ -197,29 +208,37 @@ class PrivacyPolicyRoute extends _i1.PageRouteInfo {
 }
 
 class SpeedDuelRoute extends _i1.PageRouteInfo {
-  SpeedDuelRoute({@_i11.required this.duelRoom})
+  SpeedDuelRoute({@_i12.required this.duelRoom})
       : super(name, path: '/speed-duel');
 
   SpeedDuelRoute.fromMatch(_i1.RouteMatch match)
       : duelRoom = null,
         super.fromMatch(match);
 
-  final _i12.DuelRoom duelRoom;
+  final _i13.DuelRoom duelRoom;
 
   static const String name = 'SpeedDuelRoute';
 }
 
 class DuelRoomRoute extends _i1.PageRouteInfo {
-  DuelRoomRoute({@_i11.required this.preBuiltDeck})
+  DuelRoomRoute({@_i12.required this.preBuiltDeck})
       : super(name, path: '/duel-room');
 
   DuelRoomRoute.fromMatch(_i1.RouteMatch match)
       : preBuiltDeck = null,
         super.fromMatch(match);
 
-  final _i10.PreBuiltDeck preBuiltDeck;
+  final _i11.PreBuiltDeck preBuiltDeck;
 
   static const String name = 'DuelRoomRoute';
+}
+
+class UserSettingsRoute extends _i1.PageRouteInfo {
+  const UserSettingsRoute() : super(name, path: '/user-settings');
+
+  UserSettingsRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
+
+  static const String name = 'UserSettingsRoute';
 }
 
 class DuelTab extends _i1.PageRouteInfo {

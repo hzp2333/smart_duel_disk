@@ -18,30 +18,12 @@ class DuelRoomScreen extends StatelessWidget {
     return WillPopScope(
       onWillPop: vm.onWillPop,
       child: const Scaffold(
-        appBar: _AppBar(),
+        appBar: SddAppBar(title: 'Duel Room'),
         body: _Body(),
         backgroundColor: AppColors.primaryBackgroundColor,
       ),
     );
   }
-}
-
-class _AppBar extends StatelessWidget implements PreferredSizeWidget {
-  const _AppBar();
-
-  @override
-  Widget build(BuildContext context) {
-    return AppBar(
-      elevation: 0,
-      backgroundColor: AppColors.primaryBackgroundColor,
-      leading: const BackButton(color: AppColors.primaryIconColor),
-      // TODO: Localization
-      title: const Text('Duel Room'),
-    );
-  }
-
-  @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }
 
 class _Body extends HookWidget {

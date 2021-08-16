@@ -33,6 +33,7 @@ class SmartDuelDiskApp extends StatelessWidget {
           routeInformationParser: router.defaultRouteParser(),
           supportedLocales: context.supportedLocales,
           localizationsDelegates: context.localizationsDelegates,
+          debugShowCheckedModeBanner: false,
         ),
       ),
     );
