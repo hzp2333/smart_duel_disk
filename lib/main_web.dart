@@ -6,8 +6,14 @@ import 'package:smart_duel_disk/start.dart';
 const _secretsFilePath = './secrets.env';
 
 Future<void> main() async {
-  final dotEnv = DotEnv();
-  await dotEnv.load(_secretsFilePath);
+  AppConfig appConfig;
+  try {
+    final dotEnv = DotEnv();
+    await dotEnv.load(_secretsFilePath);
+    appConfig = AppConfig.release(dotEnv);
+  } catch (e) {
+    appConfig = AppConfig.develop();
+  }
 
-  await start(AppConfig.release(dotEnv), web);
+  await start(appConfig, web);
 }

@@ -40,4 +40,14 @@ class AppConfig {
       twitterSecret: dotEnv.env['TWITTER_SECRET'],
     );
   }
+
+  factory AppConfig.develop() {
+    return const AppConfig._(
+      twitterUserId: '',
+      twitterConsumerKey: '',
+      twitterConsumerSecret: '',
+      twitterToken: '',
+      twitterSecret: '',
+    );
+  }
 }

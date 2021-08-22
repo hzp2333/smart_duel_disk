@@ -6,7 +6,15 @@
 1. Download and install any IDE to edit the code. Using [Visual Studio Code](https://code.visualstudio.com/) or [Android Studio](https://developer.android.com/studio/install) is recommended.
 1. Download and install the Flutter and Dart plugins in your IDE.
 
-## Building the app
+## Running the app (develop)
+
+1. Create an empty `secrets.env` file on root level.
+1. Run with
+    1. `flutter run` for Android or iOS.
+    1. `flutter run -d chrome -t lib/main_web.dart` for web.
+    1. `flutter run -d macos` for macOS.
+
+## Building the app (release)
 
 1. Getting a valid `google-services.json` file
     1. Create a [Firebase](https://console.firebase.google.com) project.
