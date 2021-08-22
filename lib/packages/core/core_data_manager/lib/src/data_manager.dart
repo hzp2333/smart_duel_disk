@@ -60,8 +60,8 @@ class DataManagerImpl implements DataManager {
   //region Duel
 
   @override
-  ConnectionInfo getConnectionInfo() {
-    return _duelDataManager.getConnectionInfo();
+  ConnectionInfo getConnectionInfo({bool forceLocalInfo = false}) {
+    return _duelDataManager.getConnectionInfo(forceLocalInfo: forceLocalInfo);
   }
 
   @override

@@ -6,7 +6,7 @@ import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart
 import 'entities/connection_info.dart';
 
 abstract class DuelDataManager {
-  ConnectionInfo getConnectionInfo();
+  ConnectionInfo getConnectionInfo({bool forceLocalInfo = false});
   Future<void> saveConnectionInfo(ConnectionInfo connectionInfo);
   bool useOnlineDuelRoom();
   Future<void> saveUseOnlineDuelRoom({@required bool value});
@@ -23,8 +23,8 @@ class DuelDataManagerImpl implements DuelDataManager {
   );
 
   @override
-  ConnectionInfo getConnectionInfo() {
-    return useOnlineDuelRoom() ? _getOnlineConnectionInfo() : _getLocalConnectionInfo();
+  ConnectionInfo getConnectionInfo({bool forceLocalInfo = false}) {
+    return useOnlineDuelRoom() && !forceLocalInfo ? _getOnlineConnectionInfo() : _getLocalConnectionInfo();
   }
 
   ConnectionInfo _getOnlineConnectionInfo() {
