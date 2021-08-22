@@ -8,8 +8,11 @@
 
 ## Running the app (develop)
 
-1. Create an empty `secrets.env` file
-1. Run with `flutter run -d chrome -t lib/main_web.dart` or `flutter run -d macos`
+1. Create an empty `secrets.env` file on root level.
+1. Run with
+    1. `flutter run` for Android or iOS.
+    1. `flutter run -d chrome -t lib/main_web.dart` for web.
+    1. `flutter run -d macos` for macOS.
 
 ## Building the app (release)
 
