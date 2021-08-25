@@ -34,10 +34,10 @@ class DoesCardFitInZoneUseCase {
 
       case ZoneType.hand:
       case ZoneType.deck:
-        return _fitsInDeck(card);
+        return _fitsInDeck(playCard);
 
       case ZoneType.extraDeck:
-        return card.type == CardType.fusionMonster;
+        return playCard.belongsInExtraDeck;
 
       case ZoneType.graveyard:
       case ZoneType.banished:
@@ -49,17 +49,7 @@ class DoesCardFitInZoneUseCase {
   }
 
   bool _fitsInMainMonsterZone(PlayCard playCard) {
-    final card = playCard.yugiohCard;
-
-    return !playCard.zoneType.isMainMonsterZone &&
-        (card.type == CardType.effectMonster ||
-            card.type == CardType.flipEffectMonster ||
-            card.type == CardType.fusionMonster ||
-            card.type == CardType.normalMonster ||
-            card.type == CardType.ritualEffectMonster ||
-            card.type == CardType.ritualMonster ||
-            card.type == CardType.toonMonster ||
-            card.type == CardType.unionEffectMonster);
+    return !playCard.zoneType.isMainMonsterZone && playCard.isMonster;
   }
 
   bool _fitsInSpellTrapZone(PlayCard playCard) {
@@ -71,8 +61,10 @@ class DoesCardFitInZoneUseCase {
             card.type == CardType.unionEffectMonster);
   }
 
-  bool _fitsInDeck(YugiohCard card) {
-    return card.type != CardType.fusionMonster && card.type != CardType.token && card.type != CardType.unknown;
+  bool _fitsInDeck(PlayCard playCard) {
+    final card = playCard.yugiohCard;
+
+    return !playCard.belongsInExtraDeck && card.type != CardType.token && card.type != CardType.unknown;
   }
 
   bool _fitsInGraveyard(YugiohCard card) {

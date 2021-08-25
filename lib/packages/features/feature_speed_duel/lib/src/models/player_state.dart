@@ -3,7 +3,6 @@ import 'package:flutter/foundation.dart';
 
 import 'play_card.dart';
 import 'zone.dart';
-import 'zone_type.dart';
 
 @immutable
 class PlayerState extends Equatable {
@@ -61,18 +60,18 @@ class PlayerState extends Equatable {
   const PlayerState({
     @required this.duelistId,
     @required this.isOpponent,
-    this.hand = const Zone(zoneType: ZoneType.hand),
-    this.fieldZone = const Zone(zoneType: ZoneType.field),
-    this.mainMonsterZone1 = const Zone(zoneType: ZoneType.mainMonster1),
-    this.mainMonsterZone2 = const Zone(zoneType: ZoneType.mainMonster2),
-    this.mainMonsterZone3 = const Zone(zoneType: ZoneType.mainMonster3),
-    this.graveyardZone = const Zone(zoneType: ZoneType.graveyard),
-    this.banishedZone = const Zone(zoneType: ZoneType.banished),
-    this.extraDeckZone = const Zone(zoneType: ZoneType.extraDeck),
-    this.spellTrapZone1 = const Zone(zoneType: ZoneType.spellTrap1),
-    this.spellTrapZone2 = const Zone(zoneType: ZoneType.spellTrap2),
-    this.spellTrapZone3 = const Zone(zoneType: ZoneType.spellTrap3),
-    this.deckZone = const Zone(zoneType: ZoneType.deck),
+    @required this.hand,
+    @required this.fieldZone,
+    @required this.mainMonsterZone1,
+    @required this.mainMonsterZone2,
+    @required this.mainMonsterZone3,
+    @required this.graveyardZone,
+    @required this.banishedZone,
+    @required this.extraDeckZone,
+    @required this.spellTrapZone1,
+    @required this.spellTrapZone2,
+    @required this.spellTrapZone3,
+    @required this.deckZone,
   });
 
   PlayerState copyWith({

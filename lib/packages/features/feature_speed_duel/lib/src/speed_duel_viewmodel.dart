@@ -14,6 +14,7 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/usecases/can_card_attack_zone_use_case.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/usecases/move_card_use_case.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/lib/wrapper_crashlytics.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_enum_helper/lib/wrapper_enum_helper.dart';
@@ -37,6 +38,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   final CreatePlayerStateUseCase _createPlayerStateUseCase;
   final CreatePlayCardUseCase _createPlayCardUseCase;
   final DoesCardFitInZoneUseCase _doesCardFitInZoneUseCase;
+  final CanCardAttackZoneUseCase _canCardAttackZoneUseCase;
   final MoveCardUseCase _moveCardUseCase;
   final DataManager _dataManager;
   final EnumHelper _enumHelper;
@@ -66,6 +68,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     this._createPlayerStateUseCase,
     this._createPlayCardUseCase,
     this._doesCardFitInZoneUseCase,
+    this._canCardAttackZoneUseCase,
     this._moveCardUseCase,
     this._dataManager,
     this._enumHelper,
@@ -165,21 +168,40 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     final userState = _duelState.value.userState;
 
-    return _doesCardFitInZoneUseCase(card, zone, userState);
+    if (userState.duelistId == zone.duelistId) {
+      return _doesCardFitInZoneUseCase(card, zone, userState);
+    }
+
+    return _canCardAttackZoneUseCase(card, zone, userState.duelistId);
   }
 
-  Future<void> onZoneAcceptsCard(PlayCard card, Zone newZone) async {
-    logger.info(_tag, 'onZoneAcceptsCard($card, $newZone)');
+  Future<void> onZoneAcceptsCard(PlayCard card, Zone zone) async {
+    logger.info(_tag, 'onZoneAcceptsCard(card: $card, zone: $zone)');
 
-    if (newZone.zoneType.isMultiCardZone) {
-      _moveCardToNewZone(card, newZone, CardPosition.faceUp);
+    final userState = _duelState.value.userState;
+
+    if (_canCardAttackZoneUseCase(card, zone, userState.duelistId)) {
+      _onMonsterAttack(card, zone);
       return;
     }
 
-    final position = await _router.showPlayCardDialog(card, newZone: newZone, showActions: true);
-    if (position != null) {
-      _moveCardToNewZone(card, newZone, position);
+    if (zone.zoneType.isMultiCardZone) {
+      _moveCardToNewZone(card, zone, CardPosition.faceUp);
+      return;
     }
+
+    final position = await _router.showPlayCardDialog(card, newZone: zone, showActions: true);
+    if (position != null) {
+      _moveCardToNewZone(card, zone, position);
+    }
+  }
+
+  void _onMonsterAttack(PlayCard attackingMonster, Zone targettedZone) {
+    logger.verbose(_tag, '_onMonsterAttack(attackingMonster: $attackingMonster, targettedZone: $targettedZone)');
+
+    // TODO: send monster attack event
+
+    // TODO: some kind of attack animation?
   }
 
   void _moveCardToNewZone(PlayCard card, Zone newZone, CardPosition position) {
