@@ -199,9 +199,11 @@ class SpeedDuelViewModel extends BaseViewModel {
   void _onMonsterAttack(PlayCard attackingMonster, Zone targettedZone) {
     logger.verbose(_tag, '_onMonsterAttack(attackingMonster: $attackingMonster, targettedZone: $targettedZone)');
 
-    // TODO: send monster attack event
+    _sendAttackCardEvent(attackingMonster, targettedZone.cards.first);
 
-    // TODO: some kind of attack animation?
+    // TODO: attack animation
+
+    // TODO: receive attack events
   }
 
   void _moveCardToNewZone(PlayCard card, Zone newZone, CardPosition position) {
@@ -421,6 +423,22 @@ class SpeedDuelViewModel extends BaseViewModel {
           duelistId: _smartDuelServer.getDuelistId(),
           cardId: card.yugiohCard.id,
           copyNumber: card.copyNumber,
+        ),
+      ),
+    );
+  }
+
+  void _sendAttackCardEvent(PlayCard attacker, PlayCard target) {
+    logger.verbose(_tag, '_sendAttackCardEvent(attacker: $attacker, target: $target)');
+
+    _smartDuelServer.emitEvent(
+      SmartDuelEvent.attackCard(
+        CardEventData(
+          duelistId: _smartDuelServer.getDuelistId(),
+          cardId: attacker.yugiohCard.id,
+          copyNumber: attacker.copyNumber,
+          targetCardId: target.yugiohCard.id,
+          targetCardCopyNumber: target.copyNumber,
         ),
       ),
     );
