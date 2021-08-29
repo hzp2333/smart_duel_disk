@@ -40,7 +40,7 @@ void main() {
       imageLargeUrl: '',
     ),
     duelistId: _userId,
-    zoneType: ZoneType.hand,
+    zoneType: ZoneType.mainMonster1,
     position: CardPosition.faceUp,
     copyNumber: 1,
     formattedRaceAndType: '',
@@ -50,6 +50,7 @@ void main() {
 
   const _opponentSpellTrapZone = Zone(zoneType: ZoneType.spellTrap1, duelistId: _opponentId);
   const _opponentMonsterZone = Zone(zoneType: ZoneType.mainMonster1, duelistId: _opponentId);
+  const _opponentHandZone = Zone(zoneType: ZoneType.hand, duelistId: _opponentId);
 
   setUp(() {
     _useCase = CanCardAttackZoneUseCase();
@@ -62,7 +63,7 @@ void main() {
       expect(result, false);
     });
 
-    test('and the card is not in a main monster zone, then false is returned', () {
+    test('and the card initiating the attack is not in a main monster zone, then false is returned', () {
       final monsterInHand = _monsterCard.copyWith(zoneType: ZoneType.hand);
 
       final result = _useCase(monsterInHand, _opponentMonsterZone, _userId);
@@ -70,29 +71,34 @@ void main() {
       expect(result, false);
     });
 
-    test('and the targetted zone belongs to the user, then false is returned', () {
+    test('and the targetted zone does not belong to an opponent, then false is returned', () {
       final result = _useCase(_monsterCard, _userMonsterZone, _userId);
 
       expect(result, false);
     });
 
-    test('and the targetted zone is not a monster zone, then false is returned', () {
+    test('and the targetted zone is the hand zone of the opponent, then true is returned', () {
+      final result = _useCase(_monsterCard, _opponentHandZone, _userId);
+
+      expect(result, true);
+    });
+
+    test('and the targetted zone is not a monster zone of an opponent, then false is returned', () {
       final result = _useCase(_monsterCard, _opponentSpellTrapZone, _userId);
 
       expect(result, false);
     });
 
-    test('and there is not a monster in the targetted zone, then false is returned', () {
+    test('and there is not a monster in the targetted zone of the opponent, then false is returned', () {
       final result = _useCase(_monsterCard, _opponentMonsterZone, _userId);
 
       expect(result, false);
     });
 
-    test('and there is a monster in the targetted zone, then true is returned', () {
-      final monsterInMonsterZone = _monsterCard.copyWith(zoneType: ZoneType.mainMonster1);
+    test('and there is a monster in the targetted zone of the opponent, then true is returned', () {
       final targettedZone = _opponentMonsterZone.copyWith(cards: [_monsterCard]);
 
-      final result = _useCase(monsterInMonsterZone, targettedZone, _userId);
+      final result = _useCase(_monsterCard, targettedZone, _userId);
 
       expect(result, true);
     });

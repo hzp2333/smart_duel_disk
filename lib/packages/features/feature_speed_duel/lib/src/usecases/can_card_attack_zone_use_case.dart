@@ -6,10 +6,16 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 @LazySingleton()
 class CanCardAttackZoneUseCase {
   bool call(PlayCard attackingCard, Zone targettedZone, String duelistId) {
-    return attackingCard.isMonster &&
-        attackingCard.zoneType.isMainMonsterZone &&
-        targettedZone.duelistId != duelistId &&
-        targettedZone.zoneType.isMainMonsterZone &&
-        targettedZone.cards.isNotEmpty;
+    if (!attackingCard.isMonster) return false;
+    if (!attackingCard.zoneType.isMainMonsterZone) return false;
+    if (targettedZone.duelistId == duelistId) return false;
+
+    // Direct attack
+    if (targettedZone.zoneType == ZoneType.hand) return true;
+
+    // Attack a monster of the opponent
+    if (targettedZone.zoneType.isMainMonsterZone && targettedZone.cards.isNotEmpty) return true;
+
+    return false;
   }
 }
