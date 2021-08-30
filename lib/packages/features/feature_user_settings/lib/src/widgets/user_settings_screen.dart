@@ -102,6 +102,7 @@ class _SettingsListItem extends StatelessWidget {
         horizontalTitleGap: 0,
         trailing: Switch.adaptive(
           value: item.value,
+          activeColor: AppColors.primaryAccentColor,
           onChanged: item.onValueChanged,
         ),
       );

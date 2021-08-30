@@ -57,8 +57,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   StreamSubscription<SmartDuelEvent> _smartDuelEventSubscription;
 
   bool _initialized = false;
-  bool _surrendered = false;
-  bool _victory = false;
+  bool _duelOver = false;
 
   SpeedDuelViewModel(
     Logger logger,
@@ -81,7 +80,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   bool onBackPressed() {
     logger.info(_tag, 'onBackPressed()');
 
-    final canPop = _surrendered || _victory || _screenState.value is! SpeedDuelData;
+    final canPop = _duelOver || _screenState.value is! SpeedDuelData;
     if (!canPop) {
       _snackBarService.showSnackBar('Currently, the back key cannot be used.');
     }
@@ -154,6 +153,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     _smartDuelEventSubscription = Rx.merge([
       _smartDuelServer.cardEvents,
       _smartDuelServer.roomEvents,
+      _smartDuelServer.globalEvents,
     ]).listen(_onSmartDuelEventReceived);
   }
 
@@ -248,12 +248,12 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
   }
 
-  Future<void> _showDrawCard() {
+  Future<void> _showDrawCard() async {
     logger.verbose(_tag, '_showDrawCard()');
 
     _screenEvent.add(const SpeedDuelHideOverlaysEvent());
 
-    return _router.showDrawCard(_drawCard);
+    await _router.showDrawCard(_drawCard);
   }
 
   void _showDeckList() {
@@ -310,7 +310,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     ));
 
     if (surrender ?? false) {
-      _surrendered = true;
+      _duelOver = true;
       _sendSurrenderEvent();
     }
   }
@@ -468,6 +468,11 @@ class SpeedDuelViewModel extends BaseViewModel {
       await _handleRoomEvent(event);
       return;
     }
+
+    if (event.scope == SmartDuelEventConstants.globalScope) {
+      await _handleGlobalEvent(event);
+      return;
+    }
   }
 
   //region Handle card events
@@ -566,15 +571,25 @@ class SpeedDuelViewModel extends BaseViewModel {
   Future<void> _handleCloseRoomEvent(RoomEventData data) async {
     logger.verbose(_tag, '_handleCloseRoomEvent(data: $data)');
 
+    _duelOver = true;
+
     final winnerId = data.winnerId;
     if (winnerId == null) {
       return;
     }
 
     final userWon = _smartDuelServer.getDuelistId() == winnerId;
-    final description = userWon ? 'Your opponent admitted defeat. You won!' : 'You admitted defeat. Your opponent won!';
+    final description =
+        userWon ? 'Your opponent admitted defeat.\nYou won!' : 'You admitted defeat.\nYour opponent won!';
 
-    await _router.showDialog(
+    await _showDuelIsOverDialog(description);
+    await _router.closeScreen();
+  }
+
+  Future<void> _showDuelIsOverDialog(String description) {
+    logger.verbose(_tag, '_showDuelIsOverDialog(description: $description)');
+
+    return _router.showDialog(
       DialogConfig(
         title: 'Duel is over',
         description: description,
@@ -582,8 +597,30 @@ class SpeedDuelViewModel extends BaseViewModel {
         isDismissable: false,
       ),
     );
+  }
 
-    _victory = true;
+  //endregion
+
+  //region Global events
+
+  Future<void> _handleGlobalEvent(SmartDuelEvent event) async {
+    logger.verbose(_tag, '_handleGlobalEvent(event: $event)');
+
+    switch (event.action) {
+      case SmartDuelEventConstants.globalReconnectAction:
+      case SmartDuelEventConstants.globalDisconnectAction:
+        await _handleDisconnectEvent();
+        break;
+    }
+  }
+
+  Future<void> _handleDisconnectEvent() async {
+    if (_duelOver) {
+      return;
+    }
+
+    _duelOver = true;
+    await _showDuelIsOverDialog('The connection to the Smart Duel Server has been lost.');
     await _router.closeScreen();
   }
 

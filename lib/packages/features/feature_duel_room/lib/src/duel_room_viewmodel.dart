@@ -5,8 +5,10 @@ import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
+import 'package:smart_duel_disk/packages/core/core_messaging/lib/core_messaging.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart';
+import 'package:smart_duel_disk/packages/wrappers/wrapper_clipboard/lib/wrapper_clipboard.dart';
 
 import 'models/duel_room_state.dart';
 
@@ -18,6 +20,8 @@ class DuelRoomViewModel extends BaseViewModel {
   final AppRouter _router;
   final SmartDuelServer _smartDuelServer;
   final DataManager _dataManager;
+  final SnackBarService _snackBarService;
+  final ClipboardProvider _clipboardProvider;
 
   final _roomName = BehaviorSubject<String>();
   Stream<String> get roomName => _roomName.stream;
@@ -34,6 +38,8 @@ class DuelRoomViewModel extends BaseViewModel {
     this._router,
     this._smartDuelServer,
     this._dataManager,
+    this._snackBarService,
+    this._clipboardProvider,
   ) : super(logger) {
     _init();
   }
@@ -97,6 +103,16 @@ class DuelRoomViewModel extends BaseViewModel {
     )));
   }
 
+  void onCopyRoomCodePressed() {
+    logger.info(_tag, 'onCopyRoomCodePressed()');
+
+    final state = _duelRoomState.value;
+    if (state is DuelRoomCreate) {
+      _clipboardProvider.copyToClipboard(state.roomName);
+      _snackBarService.showSnackBar('Room code copied to clipboard!');
+    }
+  }
+
   void onCloseRoomPressed() {
     logger.info(_tag, 'onCreateRoomPressed()');
 
@@ -110,6 +126,11 @@ class DuelRoomViewModel extends BaseViewModel {
 
   Future<void> onJoinRoomPressed() async {
     logger.info(_tag, 'onJoinRoomPressed()');
+
+    if (_roomName.value.isNullOrEmpty) {
+      _snackBarService.showSnackBar('Room name is required');
+      return;
+    }
 
     final deckList = await _dataManager.getPreBuiltDeckCardIds(_preBuiltDeck);
 

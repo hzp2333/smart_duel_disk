@@ -48,7 +48,7 @@ class DuelViewModel extends BaseViewModel {
   void _initForm() {
     logger.verbose(_tag, '_initForm()');
 
-    final connectionInfo = _dataManager.getConnectionInfo();
+    final connectionInfo = _dataManager.getConnectionInfo(forceLocalInfo: true);
     if (connectionInfo == null) {
       return;
     }

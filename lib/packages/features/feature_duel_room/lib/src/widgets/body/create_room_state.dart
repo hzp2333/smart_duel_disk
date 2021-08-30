@@ -21,11 +21,28 @@ class CreateRoomState extends StatelessWidget {
           children: [
             // TODO: create a copy action to copy the room name
             Text('Room name: $roomName\n\nWaiting for your opponent...'),
-            const SizedBox(height: 24),
+            const SizedBox(height: AppSizes.screenMarginLarge),
+            const _CopyRoomCodeButton(),
+            const SizedBox(height: AppSizes.screenMargin),
             const _CloseRoomButton(),
           ],
         ),
       ),
+    );
+  }
+}
+
+class _CopyRoomCodeButton extends StatelessWidget {
+  const _CopyRoomCodeButton();
+
+  @override
+  Widget build(BuildContext context) {
+    final vm = Provider.of<DuelRoomViewModel>(context);
+
+    return IconTitleTileButton(
+      icon: Icons.copy,
+      title: 'Copy room code',
+      onPressed: vm.onCopyRoomCodePressed,
     );
   }
 }
