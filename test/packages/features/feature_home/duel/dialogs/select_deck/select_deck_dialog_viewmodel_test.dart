@@ -4,45 +4,46 @@ import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_ma
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/duel/dialogs/select_deck/select_deck_dialog_viewmodel.dart';
-import 'package:smart_duel_disk/src/localization/strings.al.dart';
 
 import '../../../../../../testing/empty_mocks.dart';
 
 void main() {
   SelectDeckDialogViewModel _selectDeckDialogViewModel;
 
-  AppRouter _router;
-  DialogService _dialogService;
   Logger _logger;
+  AppRouter _router;
+  DataManager _dataManager;
+  DialogService _dialogService;
+
+  final _preBuiltDecks = [KaibaDeck(), MaiDeck(), YugiDeck()];
 
   setUp(() {
     _router = MockAppRouter();
     _dialogService = MockDialogService();
+    _dataManager = MockDataManager();
     _logger = MockLogger();
 
+    when(_dataManager.getPreBuiltDecks()).thenReturn(_preBuiltDecks);
+
     _selectDeckDialogViewModel = SelectDeckDialogViewModel(
-      _router,
-      _dialogService,
       _logger,
+      _router,
+      _dataManager,
+      _dialogService,
     );
   });
 
-  group('When getDecks is called', () {
+  group('When getPreBuiltDecks is called', () {
     test('then a list of decks is returned', () {
-      final expected = {
-        Strings.deckPreBuiltYugiTitle.get(): PreBuiltDeck.yugi,
-        Strings.deckPreBuiltKaibaTitle.get(): PreBuiltDeck.kaiba,
-      };
+      final decks = _selectDeckDialogViewModel.getPreBuiltDecks();
 
-      final decks = _selectDeckDialogViewModel.getDecks();
-
-      expect(decks, expected);
+      expect(decks, _preBuiltDecks);
     });
   });
 
   group('When onDeckSelected is called', () {
     test('then the dialog is popped with the deck as result', () {
-      const deck = PreBuiltDeck.kaiba;
+      final deck = KaibaDeck();
 
       _selectDeckDialogViewModel.onDeckSelected(deck);
 
@@ -52,7 +53,7 @@ void main() {
 
   group('When getDeckInfo is called', () {
     test('then the deck builder screen is opened with the deck', () {
-      const deck = PreBuiltDeck.kaiba;
+      final deck = KaibaDeck();
 
       _selectDeckDialogViewModel.getDeckInfo(deck);
 

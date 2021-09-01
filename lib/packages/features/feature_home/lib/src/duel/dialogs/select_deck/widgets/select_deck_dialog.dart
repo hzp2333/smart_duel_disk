@@ -11,7 +11,7 @@ class SelectDeckDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<SelectDeckDialogViewModel>(context);
-    final decks = vm.getDecks();
+    final decks = vm.getPreBuiltDecks();
 
     return Center(
       child: Card(
@@ -19,8 +19,8 @@ class SelectDeckDialog extends StatelessWidget {
         child: ListView.separated(
           shrinkWrap: true,
           itemCount: decks.length,
-          itemBuilder: (context, index) => _DeckListItem(deck: decks.entries.elementAt(index)),
-          separatorBuilder: (context, index) => Container(
+          itemBuilder: (_, index) => _DeckListItem(deck: decks.elementAt(index)),
+          separatorBuilder: (_, index) => Container(
             height: 4,
             width: double.infinity,
             color: Colors.black87,
@@ -32,7 +32,7 @@ class SelectDeckDialog extends StatelessWidget {
 }
 
 class _DeckListItem extends StatelessWidget {
-  final MapEntry<String, PreBuiltDeck> deck;
+  final PreBuiltDeck deck;
 
   const _DeckListItem({
     @required this.deck,
@@ -43,12 +43,12 @@ class _DeckListItem extends StatelessWidget {
     final vm = Provider.of<SelectDeckDialogViewModel>(context);
 
     return ListTile(
-      title: Text(deck.key),
-      onTap: () => vm.onDeckSelected(deck.value),
+      title: Text(deck.title),
+      onTap: () => vm.onDeckSelected(deck),
       trailing: const Icon(Icons.chevron_right),
       horizontalTitleGap: 0,
       leading: GestureDetector(
-        onTap: () => vm.getDeckInfo(deck.value),
+        onTap: () => vm.getDeckInfo(deck),
         child: const Icon(Icons.info_outline),
       ),
     );

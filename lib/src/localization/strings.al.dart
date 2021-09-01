@@ -243,4 +243,11 @@ class Strings {
           '''Smart Duel Disk is an unofficial Fan Project and is not approved or endorsed by Konami. Portions of the materials used are property of Konami Digital Entertainment.''',
     },
   );
+
+  static const deckPreBuiltMaiTitle = PlainLocalizedString(
+    key: 'deck_pre_built_mai_title',
+    values: {
+      'en': '''Mai's Deck''',
+    },
+  );
 }

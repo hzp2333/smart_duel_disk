@@ -31,7 +31,7 @@ void main() {
     _dataManager = MockDataManager();
     _logger = MockLogger();
 
-    when(_dataManager.getConnectionInfo()).thenReturn(_connectionInfo);
+    when(_dataManager.getConnectionInfo(forceLocalInfo: true)).thenReturn(_connectionInfo);
 
     when(_duelFormValidators.ipAddressValidator)
         .thenReturn(StreamTransformer<String, String>.fromHandlers(handleData: (input, sink) => sink.add(input)));
@@ -51,7 +51,7 @@ void main() {
     test('then the connection info is fetched', () {
       _viewModel.init();
 
-      verify(_dataManager.getConnectionInfo()).called(1);
+      verify(_dataManager.getConnectionInfo(forceLocalInfo: true)).called(1);
     });
 
     group('and there is connection info', () {
@@ -104,7 +104,7 @@ void main() {
 
     group('and the selected deck is not null', () {
       test('then the duel room screen is opened with the selected deck', () async {
-        const deck = PreBuiltDeck.kaiba;
+        final deck = KaibaDeck();
         when(_router.showSelectDeckDialog()).thenAnswer((_) => Future.value(deck));
 
         await _viewModel.onEnterOnlineDuelRoomPressed();
@@ -147,7 +147,7 @@ void main() {
 
     group('and the selected deck is not null', () {
       test('then the duel room screen is opened with the selected deck', () async {
-        const deck = PreBuiltDeck.kaiba;
+        final deck = KaibaDeck();
         when(_router.showSelectDeckDialog()).thenAnswer((_) => Future.value(deck));
 
         await _viewModel.onEnterLocalDuelRoomPressed();

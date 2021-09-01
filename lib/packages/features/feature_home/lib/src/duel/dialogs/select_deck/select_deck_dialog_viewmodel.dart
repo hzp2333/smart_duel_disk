@@ -3,28 +3,26 @@ import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_ma
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
-import 'package:smart_duel_disk/src/localization/strings.al.dart';
 
 @Injectable()
 class SelectDeckDialogViewModel extends BaseViewModel {
   static const _tag = 'SelectDeckDialogViewModel';
 
   final AppRouter _router;
+  final DataManager _dataManager;
   final DialogService _dialogService;
 
   SelectDeckDialogViewModel(
-    this._router,
-    this._dialogService,
     Logger logger,
+    this._router,
+    this._dataManager,
+    this._dialogService,
   ) : super(logger);
 
-  Map<String, PreBuiltDeck> getDecks() {
-    logger.info(_tag, 'getDecks()');
+  Iterable<PreBuiltDeck> getPreBuiltDecks() {
+    logger.info(_tag, 'getPreBuiltDecks()');
 
-    return {
-      Strings.deckPreBuiltYugiTitle.get(): PreBuiltDeck.yugi,
-      Strings.deckPreBuiltKaibaTitle.get(): PreBuiltDeck.kaiba,
-    };
+    return _dataManager.getPreBuiltDecks();
   }
 
   void onDeckSelected(PreBuiltDeck deck) {

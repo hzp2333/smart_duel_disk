@@ -30,6 +30,7 @@ dependencies:
   google_fonts: ^1.1.2
   html_unescape: ^2.0.0
   injectable: ^1.0.7
+  intersperse: ^1.1.1
   intl: ^0.17.0
   json_annotation: ^3.1.1
   logger: ^0.9.4
@@ -49,6 +50,7 @@ dev_dependencies:
   auto_localized_generator: ^0.7.1
   auto_route_generator: 1.0.0-beta.7
   build_runner: ^1.10.11
+  flutter_gen_runner: ^2.0.3
   freezed: ^0.12.6
   injectable_generator: ^1.0.7
   json_serializable: ^3.5.1
@@ -62,12 +64,17 @@ dependency_overrides:
   # mockito relies on
   test_api: ^0.2.19-nullsafety
 
+flutter_gen:
+  output: lib/generated/
+  line_length: 120
+
 flutter:
   uses-material-design: true
 
   assets:
     - secrets.env
     - assets/illustrations/
+    - assets/illustrations/duelists/
     - assets/icons/
     - assets/html/
 

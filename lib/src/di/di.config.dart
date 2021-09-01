@@ -220,7 +220,10 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i25.DeckDataManager>(
       () => _i25.DeckDataManagerImpl(get<_i26.CloudDatabaseProvider>()));
   gh.factory<_i27.DeckViewModel>(() => _i27.DeckViewModel(
-      get<_i16.Logger>(), get<_i5.AppRouter>(), get<_i28.SnackBarService>()));
+      get<_i16.Logger>(),
+      get<_i5.AppRouter>(),
+      get<_i21.DataManager>(),
+      get<_i28.SnackBarService>()));
   gh.lazySingleton<_i29.DialogService>(
       () => _i29.DialogServiceImpl(get<_i5.AutoRouteRouter>()));
   gh.lazySingleton<_i30.Dio>(() => ygoProDeckModule.provideYgoProDeckDio(
@@ -285,8 +288,8 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       get<_i5.AppRouter>(),
       get<_i16.Logger>()));
   gh.factory<_i61.SelectDeckDialogViewModel>(() =>
-      _i61.SelectDeckDialogViewModel(
-          get<_i5.AppRouter>(), get<_i5.DialogService>(), get<_i16.Logger>()));
+      _i61.SelectDeckDialogViewModel(get<_i16.Logger>(), get<_i5.AppRouter>(),
+          get<_i21.DataManager>(), get<_i5.DialogService>()));
   gh.lazySingleton<_i62.SettingsDataManager>(
       () => _i62.SettingsDataManagerImpl(get<_i34.SettingsStorageProvider>()));
   gh.lazySingleton<_i63.SettingsStorageProvider>(() =>
@@ -341,9 +344,8 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
           get<_i34.YugiohCardsStorageProvider>()));
   gh.lazySingleton<_i82.YugiohCardsStorageProvider>(
       () => _i82.YugiohCardsStorageProviderImpl());
-  gh.lazySingleton<_i83.CloudDatabaseProvider>(() =>
-      _i84.FirebaseCloudDatabaseProvider(
-          get<_i45.FirebaseFirestore>(), get<_i19.EnumHelper>()));
+  gh.lazySingleton<_i83.CloudDatabaseProvider>(
+      () => _i84.FirebaseCloudDatabaseProvider(get<_i45.FirebaseFirestore>()));
   gh.lazySingleton<_i13.CrashlyticsProvider>(
       () => _i85.FirebaseCrashlyticsProvider(get<_i44.FirebaseCrashlytics>()),
       registerFor: {_mobile});

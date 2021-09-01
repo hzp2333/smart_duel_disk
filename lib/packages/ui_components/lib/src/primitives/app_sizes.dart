@@ -29,7 +29,7 @@ class AppSizes {
   static const sectionTitleChildSeparator = 16.0;
   static const iconTitleTileSeparator = 10.0;
   static const deckPersonalCardPadding = 8.0;
-  static const deckPrebuiltCardSeparator = 16.0;
+  static const deckPrebBuiltCardSeparator = 16.0;
   static const deckPrebuiltTextPadding = 8.0;
 
   static const titleDescriptionSpacing = 16.0;

@@ -51,6 +51,11 @@ class DataManagerImpl implements DataManager {
   //region Decks
 
   @override
+  Iterable<PreBuiltDeck> getPreBuiltDecks() {
+    return _deckDataManager.getPreBuiltDecks();
+  }
+
+  @override
   Future<Iterable<int>> getPreBuiltDeckCardIds(PreBuiltDeck deck) {
     return _deckDataManager.getPreBuiltDeckCardIds(deck);
   }

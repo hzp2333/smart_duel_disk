@@ -19,6 +19,10 @@ abstract class AssetsProvider {
   String get iconCardTypeTrap;
 
   String get privacyPolicy;
+
+  String get duelistKaiba;
+  String get duelistMai;
+  String get duelistYugi;
 }
 
 @LazySingleton(as: AssetsProvider)
@@ -64,4 +68,13 @@ class AssetsProviderImpl implements AssetsProvider {
 
   @override
   String get privacyPolicy => 'assets/html/privacy_policy.html';
+
+  @override
+  String get duelistKaiba => 'assets/illustrations/duelists/duelist_kaiba.png';
+
+  @override
+  String get duelistMai => 'assets/illustrations/duelists/duelist_mai.png';
+
+  @override
+  String get duelistYugi => 'assets/illustrations/duelists/duelist_yugi.png';
 }

@@ -1,43 +1,36 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/deck/deck_viewmodel.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
-import 'package:smart_duel_disk/src/localization/strings.al.dart';
+import 'package:intersperse/intersperse.dart';
 
 class PreBuiltDecks extends StatelessWidget {
-  static const _yugiImageUrl =
-      'https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/84dc13b7-a2e7-4b45-83ec-311e72e82900/ddzt2in-de8eafe5-72bd-43b8-828c-f7ecbb634e6e.png?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOiIsImlzcyI6InVybjphcHA6Iiwib2JqIjpbW3sicGF0aCI6IlwvZlwvODRkYzEzYjctYTJlNy00YjQ1LTgzZWMtMzExZTcyZTgyOTAwXC9kZHp0MmluLWRlOGVhZmU1LTcyYmQtNDNiOC04MjhjLWY3ZWNiYjYzNGU2ZS5wbmcifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6ZmlsZS5kb3dubG9hZCJdfQ.nPSgoHWVu3imeEyPLFBR1swCyy33DIdEjo4jOIR9VBQ';
-  static const _kaibaImageUrl =
-      'https://static.wikia.nocookie.net/yugioh/images/2/2e/SetoKaibaDSOD-DULI.png/revision/latest?cb=20190929175200';
-
   const PreBuiltDecks();
 
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<DeckViewModel>(context);
 
+    final List<Widget> deckCards = vm
+        .getPreBuiltDecks()
+        .map((deck) => Expanded(
+              child: _PreBuiltDeckCard(
+                backgroundColor: deck.backgroundColor,
+                imageUrl: deck.imageUrl,
+                deckName: deck.title,
+                onPressed: () => vm.onPreBuiltDeckPressed(deck),
+              ),
+            ))
+        .toList();
+
+    const spacing = SizedBox(width: AppSizes.deckPrebBuiltCardSeparator);
+
+    final deckCardsAndSpacings = deckCards.intersperse(spacing);
+
     return Row(
       children: [
-        Expanded(
-          child: _PreBuiltDeckCard(
-            backgroundColor: AppColors.deckYugiBackgroundColor,
-            imageUrl: _yugiImageUrl,
-            deckName: Strings.deckPreBuiltYugiTitle.get(),
-            onPressed: () => vm.onPreBuiltDeckPressed(PreBuiltDeck.yugi),
-          ),
-        ),
-        const SizedBox(width: AppSizes.deckPrebuiltCardSeparator),
-        Expanded(
-          child: _PreBuiltDeckCard(
-            backgroundColor: AppColors.deckKaibaBackgroundColor,
-            imageUrl: _kaibaImageUrl,
-            deckName: Strings.deckPreBuiltKaibaTitle.get(),
-            onPressed: () => vm.onPreBuiltDeckPressed(PreBuiltDeck.kaiba),
-          ),
-        ),
+        ...deckCardsAndSpacings,
       ],
     );
   }
@@ -80,8 +73,8 @@ class _PreBuiltDeckCard extends StatelessWidget {
             ),
           ),
           Positioned.fill(
-            child: CachedNetworkImage(
-              imageUrl: imageUrl,
+            child: Image.asset(
+              imageUrl,
               fit: BoxFit.fitHeight,
               alignment: Alignment.topCenter,
             ),

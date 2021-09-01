@@ -15,8 +15,9 @@ class AppColors {
   static const tabUnselectedColor = Color(0xff9e9e9e);
   static const tabSplashColor = Color(0xff28292e);
 
-  static final deckYugiBackgroundColor = Colors.red[700];
-  static final deckKaibaBackgroundColor = Colors.blue[700];
+  static const deckKaibaBackgroundColor = Color(0xff1976d2);
+  static const deckMaiBackgroundColor = Color(0xfffdd835);
+  static const deckYugiBackgroundColor = Color(0xffd32f2f);
 
   static final cardDialogAccent = Colors.greenAccent;
   static final cardDialogBackgroundColor = Colors.black.withOpacity(0.4);

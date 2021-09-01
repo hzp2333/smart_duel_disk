@@ -8,23 +8,27 @@ import 'package:smart_duel_disk/src/localization/strings.al.dart';
 
 @Injectable()
 class DeckViewModel extends BaseViewModel {
-  final AppRouter _routerHelper;
+  final AppRouter _router;
+  final DataManager _dataManager;
   final SnackBarService _snackBarService;
 
   DeckViewModel(
     Logger logger,
-    this._routerHelper,
+    this._router,
+    this._dataManager,
     this._snackBarService,
-  ) : super(
-          logger,
-        );
+  ) : super(logger);
+
+  Iterable<PreBuiltDeck> getPreBuiltDecks() {
+    return _dataManager.getPreBuiltDecks();
+  }
 
   Future<void> onPreBuiltDeckPressed(PreBuiltDeck preBuiltDeck) {
-    return _routerHelper.showDeckBuilder(preBuiltDeck: preBuiltDeck);
+    return _router.showDeckBuilder(preBuiltDeck: preBuiltDeck);
   }
 
   Future<void> onSearchCardPressed() {
-    return _routerHelper.showDeckBuilder();
+    return _router.showDeckBuilder();
   }
 
   void onBuildDeckPressed() {
