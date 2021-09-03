@@ -4,12 +4,14 @@ import 'package:smart_duel_disk/packages/core/core_config/lib/core_config.dart';
 import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart';
 
 import 'entities/connection_info.dart';
+import 'entities/deck_action.dart';
 
 abstract class DuelDataManager {
   ConnectionInfo getConnectionInfo({bool forceLocalInfo = false});
   Future<void> saveConnectionInfo(ConnectionInfo connectionInfo);
   bool useOnlineDuelRoom();
   Future<void> saveUseOnlineDuelRoom({@required bool value});
+  Iterable<DeckAction> getDeckActions();
 }
 
 @LazySingleton(as: DuelDataManager)
@@ -17,10 +19,18 @@ class DuelDataManagerImpl implements DuelDataManager {
   final AppConfig _appConfig;
   final DuelStorageProvider _duelStorageProvider;
 
+  final Iterable<DeckAction> _deckActions;
+
   DuelDataManagerImpl(
     this._appConfig,
     this._duelStorageProvider,
-  );
+  ) : _deckActions = const [
+          DrawCard(),
+          SummonToken(),
+          ShowDeckList(),
+          ShuffleDeck(),
+          Surrender(),
+        ];
 
   @override
   ConnectionInfo getConnectionInfo({bool forceLocalInfo = false}) {
@@ -64,5 +74,10 @@ class DuelDataManagerImpl implements DuelDataManager {
   @override
   Future<void> saveUseOnlineDuelRoom({bool value}) {
     return _duelStorageProvider.saveUseOnlineDuelRoom(value: value);
+  }
+
+  @override
+  Iterable<DeckAction> getDeckActions() {
+    return _deckActions;
   }
 }

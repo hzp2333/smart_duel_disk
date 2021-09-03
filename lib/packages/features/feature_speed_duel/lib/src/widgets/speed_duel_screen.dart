@@ -69,6 +69,7 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
 
   void _onInspectCardPileEventReceived(PlayerState playerState, Zone zone) {
     _closeBottomSheet();
+
     _bottomSheetController = _scaffoldKey.currentState.showBottomSheet(
       (_) => CardListBottomSheet(playerState: playerState, zone: zone),
       backgroundColor: AppColors.cardBackgroundColor,
@@ -78,7 +79,8 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
   void _closeBottomSheet() {
     try {
       _bottomSheetController?.close();
-    } finally {
+      _bottomSheetController = null;
+    } catch (e) {
       _bottomSheetController = null;
     }
   }

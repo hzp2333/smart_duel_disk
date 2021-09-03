@@ -25,13 +25,15 @@ class CardListBottomSheet extends StatelessWidget {
         height: bottomSheetHeight,
         width: double.infinity,
         child: Center(
-          child: ListView.separated(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.fromLTRB(8, 8, 8, 32),
-            itemCount: cards.length,
-            itemBuilder: (_, index) => PlayerCardBuilder(card: cards.elementAt(index)),
-            separatorBuilder: (_, __) => const SizedBox(width: 12),
+          child: Scrollbar(
+            child: ListView.separated(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.fromLTRB(8, 8, 8, 32),
+              itemCount: cards.length,
+              itemBuilder: (_, index) => PlayerCardBuilder(card: cards.elementAt(index)),
+              separatorBuilder: (_, __) => const SizedBox(width: 12),
+            ),
           ),
         ),
       ),

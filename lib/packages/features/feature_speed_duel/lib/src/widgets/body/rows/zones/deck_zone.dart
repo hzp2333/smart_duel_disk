@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/deck_action.dart';
+import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
+import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
 import '../../../../speed_duel_viewmodel.dart';
 import 'multi_card_zone.dart';
@@ -20,50 +21,28 @@ class DeckZone extends StatelessWidget {
     final vm = Provider.of<SpeedDuelViewModel>(context);
     final playerState = Provider.of<PlayerState>(context);
 
+    final actions = vm
+        .getDeckActions()
+        .map(
+          (action) => PopupMenuItem<DeckAction>(
+            value: action,
+            child: _DeckZoneMenuItem(
+              title: action.title,
+              icon: action.icon,
+            ),
+          ),
+        )
+        .toList();
+
     return CardDragTarget(
       zone: zone,
-      child: PopupMenuButton<DeckAction>(
+      child: PopupMenuButtonWithCallback<DeckAction>(
         enabled: !playerState.isOpponent,
+        onPressed: vm.onDeckPressed,
         onSelected: vm.onDeckActionSelected,
         tooltip: playerState.isOpponent ? "Opponent's deck" : 'Show deck actions',
         padding: EdgeInsets.zero,
-        itemBuilder: (context) => [
-          const PopupMenuItem<DeckAction>(
-            value: DeckAction.drawCard,
-            child: _DeckZoneMenuItem(
-              title: 'Draw card',
-              icon: Icons.credit_card,
-            ),
-          ),
-          const PopupMenuItem<DeckAction>(
-            value: DeckAction.spawnToken,
-            child: _DeckZoneMenuItem(
-              title: 'Summon token',
-              icon: Icons.adb,
-            ),
-          ),
-          const PopupMenuItem<DeckAction>(
-            value: DeckAction.showDeckList,
-            child: _DeckZoneMenuItem(
-              title: 'Show deck list',
-              icon: Icons.view_carousel_rounded,
-            ),
-          ),
-          const PopupMenuItem<DeckAction>(
-            value: DeckAction.shuffleDeck,
-            child: _DeckZoneMenuItem(
-              title: 'Shuffle deck',
-              icon: Icons.shuffle,
-            ),
-          ),
-          const PopupMenuItem<DeckAction>(
-            value: DeckAction.surrender,
-            child: _DeckZoneMenuItem(
-              title: 'Surrender',
-              icon: Icons.flag,
-            ),
-          ),
-        ],
+        itemBuilder: (_) => actions,
         child: MultiCardZone(
           zone: zone,
           showCardBack: true,

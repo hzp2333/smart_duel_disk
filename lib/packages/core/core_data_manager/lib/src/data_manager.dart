@@ -84,6 +84,11 @@ class DataManagerImpl implements DataManager {
     return _duelDataManager.saveUseOnlineDuelRoom(value: value);
   }
 
+  @override
+  Iterable<DeckAction> getDeckActions() {
+    return _duelDataManager.getDeckActions();
+  }
+
   //endregion
 
   //region Settings

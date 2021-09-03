@@ -19,7 +19,6 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/use
 import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/lib/wrapper_crashlytics.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_enum_helper/lib/wrapper_enum_helper.dart';
 
-import 'models/deck_action.dart';
 import 'models/player_state.dart';
 import 'models/zone_type.dart';
 import 'usecases/create_play_card_use_case.dart';
@@ -178,6 +177,8 @@ class SpeedDuelViewModel extends BaseViewModel {
   Future<void> onZoneAcceptsCard(PlayCard card, Zone zone) async {
     logger.info(_tag, 'onZoneAcceptsCard(card: $card, zone: $zone)');
 
+    _screenEvent.add(const SpeedDuelHideOverlaysEvent());
+
     final userState = _duelState.value.userState;
 
     if (_canCardAttackZoneUseCase(card, zone, userState.duelistId)) {
@@ -209,8 +210,6 @@ class SpeedDuelViewModel extends BaseViewModel {
   void _moveCardToNewZone(PlayCard card, Zone newZone, CardPosition position) {
     logger.verbose(_tag, '_moveCardToNewZone(card: $card, newZone: $newZone, position: $position)');
 
-    _screenEvent.add(const SpeedDuelHideOverlaysEvent());
-
     if (card.zoneType == newZone.zoneType) {
       return;
     }
@@ -229,20 +228,34 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   //region Deck actions
 
+  Iterable<DeckAction> getDeckActions() {
+    logger.info(_tag, 'getDeckActions()');
+
+    return _dataManager.getDeckActions();
+  }
+
+  void onDeckPressed() {
+    logger.info(_tag, 'onDeckPressed()');
+
+    _screenEvent.add(const SpeedDuelHideOverlaysEvent());
+  }
+
   Future<void> onDeckActionSelected(DeckAction deckAction) {
     logger.info(_tag, 'onDeckActionSelected($deckAction)');
 
-    switch (deckAction) {
-      case DeckAction.drawCard:
+    _screenEvent.add(const SpeedDuelHideOverlaysEvent());
+
+    switch (deckAction.runtimeType) {
+      case DrawCard:
         return _showDrawCard();
-      case DeckAction.showDeckList:
+      case ShowDeckList:
         return Future.sync(_showDeckList);
-      case DeckAction.shuffleDeck:
+      case ShuffleDeck:
         return Future.sync(_shuffleDeck);
-      case DeckAction.surrender:
+      case Surrender:
         return _surrender();
-      case DeckAction.spawnToken:
-        return _spawnToken();
+      case SummonToken:
+        return _summonToken();
       default:
         return Future.value();
     }
@@ -250,8 +263,6 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   Future<void> _showDrawCard() async {
     logger.verbose(_tag, '_showDrawCard()');
-
-    _screenEvent.add(const SpeedDuelHideOverlaysEvent());
 
     await _router.showDrawCard(_drawCard);
   }
@@ -315,8 +326,8 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
   }
 
-  Future<void> _spawnToken() async {
-    logger.verbose(_tag, '_spawnToken()');
+  Future<void> _summonToken() async {
+    logger.verbose(_tag, '_summonToken()');
 
     final userState = _duelState.value.userState;
     final tokenZone = userState.mainMonsterZones.firstWhere((zone) => zone.isEmpty, orElse: () => null);
@@ -579,8 +590,9 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
 
     final userWon = _smartDuelServer.getDuelistId() == winnerId;
-    final description =
-        userWon ? 'Your opponent admitted defeat.\nYou won!' : 'You admitted defeat.\nYour opponent won!';
+    final description = userWon
+        ? 'Your opponent admitted defeat. You won the duel!'
+        : 'You admitted defeat. Your opponent won the duel!';
 
     await _showDuelIsOverDialog(description);
     await _router.closeScreen();

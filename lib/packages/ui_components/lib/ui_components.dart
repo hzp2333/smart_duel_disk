@@ -15,6 +15,7 @@ export 'src/widgets/image_asset_provider.dart';
 export 'src/widgets/images/image_error.dart';
 export 'src/widgets/images/image_placeholder.dart';
 export 'src/widgets/keyboard_dismisser.dart';
+export 'src/widgets/popup_menu_button_with_callback.dart';
 export 'src/widgets/section/icon_title_tile.dart';
 export 'src/widgets/section/section.dart';
 export 'src/widgets/state/general_error_state.dart';
