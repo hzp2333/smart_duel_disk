@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -125,7 +126,7 @@ class CardImage extends StatelessWidget {
               quarterTurns: quarterTurns,
               child: showImage
                   ? CachedNetworkImage(
-                      imageUrl: playCard.yugiohCard.imageSmallUrl,
+                      imageUrl: kIsWeb ? playCard.yugiohCard.imageLargeUrl : playCard.yugiohCard.imageSmallUrl,
                       placeholder: (_, __) => cardSleeve,
                       // ignore: avoid_annotating_with_dynamic
                       errorWidget: (_, __, dynamic ___) => cardSleeve,

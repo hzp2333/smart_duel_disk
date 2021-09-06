@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
@@ -66,7 +67,7 @@ class _GridCard extends StatelessWidget {
       child: Hero(
         tag: '${yugiohCard.id} - $index',
         child: CachedNetworkImage(
-          imageUrl: yugiohCard.imageSmallUrl,
+          imageUrl: kIsWeb ? yugiohCard.imageLargeUrl : yugiohCard.imageSmallUrl,
           fit: BoxFit.fitWidth,
           placeholder: (_, __) => ImagePlaceholder(imageAssetId: assetsProvider.cardBack),
           // ignore: avoid_annotating_with_dynamic

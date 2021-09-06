@@ -45,13 +45,13 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
       elevation: 0,
       backgroundColor: AppColors.primaryBackgroundColor,
       leading: const BackButton(color: AppColors.primaryIconColor),
-      title: vm.showFilter
-          ? TextFieldWithoutValidation(
+      title: vm.hasPreBuiltDeck
+          ? Text(vm.preBuiltDeckTitle)
+          : TextFieldWithoutValidation(
               hintText: Strings.deckBuilderSearchHint.get(),
               onChanged: vm.onTextFilterChanged,
               onClearPressed: vm.onClearTextFilterPressed,
-            )
-          : const SizedBox.shrink(),
+            ),
     );
   }
 

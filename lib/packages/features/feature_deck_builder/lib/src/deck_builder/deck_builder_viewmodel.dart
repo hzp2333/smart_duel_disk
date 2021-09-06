@@ -25,16 +25,15 @@ class DeckBuilderViewModel extends BaseViewModel {
 
   StreamSubscription<DeckBuilderState> _filteredCardsSubscription;
 
-  bool get showFilter => _preBuiltDeck == null;
+  bool get hasPreBuiltDeck => _preBuiltDeck != null;
+  String get preBuiltDeckTitle => _preBuiltDeck.title;
 
   DeckBuilderViewModel(
     Logger logger,
     @factoryParam this._preBuiltDeck,
     this._routerHelper,
     this._dataManager,
-  ) : super(
-          logger,
-        );
+  ) : super(logger);
 
   Future<void> init() async {
     logger.info(_tag, 'init()');
