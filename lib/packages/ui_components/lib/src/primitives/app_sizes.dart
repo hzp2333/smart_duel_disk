@@ -10,6 +10,7 @@ class AppSizes {
 
   static const buttonHeight = 48.0;
 
+  static const cardAnimationBorderRadius = 4.0;
   static const generalBorderRadius = 8.0;
 
   static const tabBarItemHeight = 60.0;

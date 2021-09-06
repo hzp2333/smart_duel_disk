@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone_type.dart';
 
 import 'play_card.dart';
 import 'zone.dart';
@@ -35,6 +36,8 @@ class PlayerState extends Equatable {
         spellTrapZone3,
         deckZone,
       ];
+
+  Zone getZone(ZoneType zoneType) => zones.firstWhere((zone) => zone.zoneType == zoneType);
 
   Iterable<Zone> get mainMonsterZones => [
         mainMonsterZone1,

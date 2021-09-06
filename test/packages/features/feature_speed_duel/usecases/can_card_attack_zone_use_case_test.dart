@@ -63,6 +63,14 @@ void main() {
       expect(result, false);
     });
 
+    test('and the card initiating the attack is not in face-up attack position, then false is returned', () {
+      final monsterInDefence = _monsterCard.copyWith(position: CardPosition.faceUpDefence);
+
+      final result = _useCase(monsterInDefence, _opponentMonsterZone, _userId);
+
+      expect(result, false);
+    });
+
     test('and the card initiating the attack is not in a main monster zone, then false is returned', () {
       final monsterInHand = _monsterCard.copyWith(zoneType: ZoneType.hand);
 

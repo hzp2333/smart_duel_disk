@@ -13,8 +13,6 @@ CardEventData _$CardEventDataFromJson(Map<String, dynamic> json) {
     copyNumber: json['copyNumber'] as int,
     zoneName: json['zoneName'] as String,
     cardPosition: json['cardPosition'] as String,
-    targetCardId: json['targetCardId'] as int,
-    targetCardCopyNumber: json['targetCardCopyNumber'] as int,
   );
 }
 
@@ -25,6 +23,4 @@ Map<String, dynamic> _$CardEventDataToJson(CardEventData instance) =>
       'copyNumber': instance.copyNumber,
       'zoneName': instance.zoneName,
       'cardPosition': instance.cardPosition,
-      'targetCardId': instance.targetCardId,
-      'targetCardCopyNumber': instance.targetCardCopyNumber,
     };

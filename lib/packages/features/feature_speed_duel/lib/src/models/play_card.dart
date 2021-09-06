@@ -77,5 +77,6 @@ extension PlayCardExtensions on PlayCard {
       yugiohCard.type == CardType.ritualEffectMonster ||
       yugiohCard.type == CardType.ritualMonster ||
       yugiohCard.type == CardType.toonMonster ||
-      yugiohCard.type == CardType.unionEffectMonster;
+      yugiohCard.type == CardType.unionEffectMonster ||
+      yugiohCard.type == CardType.token;
 }

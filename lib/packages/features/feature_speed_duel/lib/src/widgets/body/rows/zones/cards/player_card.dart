@@ -13,6 +13,8 @@ import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart
 import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/lib/wrapper_assets.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 
+import 'card_animation_container.dart';
+
 class PlayerCardBuilder extends StatelessWidget {
   final PlayCard card;
 
@@ -117,19 +119,22 @@ class CardImage extends StatelessWidget {
         height: zoneHeight,
         width: zoneWidth,
         child: Center(
-          child: RotatedBox(
-            quarterTurns: quarterTurns,
-            child: showImage
-                ? CachedNetworkImage(
-                    imageUrl: playCard.yugiohCard.imageSmallUrl,
-                    placeholder: (_, __) => cardSleeve,
-                    // ignore: avoid_annotating_with_dynamic
-                    errorWidget: (_, __, dynamic ___) => cardSleeve,
-                    height: playCard.position.isAttack ? zoneHeight : null,
-                    width: playCard.position.isAttack ? null : zoneHeight,
-                    fit: BoxFit.contain,
-                  )
-                : cardSleeve,
+          child: CardAnimationContainer(
+            playCard: playCard,
+            child: RotatedBox(
+              quarterTurns: quarterTurns,
+              child: showImage
+                  ? CachedNetworkImage(
+                      imageUrl: playCard.yugiohCard.imageSmallUrl,
+                      placeholder: (_, __) => cardSleeve,
+                      // ignore: avoid_annotating_with_dynamic
+                      errorWidget: (_, __, dynamic ___) => cardSleeve,
+                      height: playCard.position.isAttack ? zoneHeight : null,
+                      width: playCard.position.isAttack ? null : zoneHeight,
+                      fit: BoxFit.contain,
+                    )
+                  : cardSleeve,
+            ),
           ),
         ),
       ),

@@ -8,6 +8,7 @@ import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_messaging/lib/core_messaging.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/helpers/card_event_animation_handler.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_event.dart';
@@ -17,8 +18,8 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/usecases/can_card_attack_zone_use_case.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/usecases/move_card_use_case.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/lib/wrapper_crashlytics.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_enum_helper/lib/wrapper_enum_helper.dart';
 
+import 'helpers/speed_duel_event_emitter.dart';
 import 'models/player_state.dart';
 import 'models/zone_type.dart';
 import 'usecases/create_play_card_use_case.dart';
@@ -39,8 +40,9 @@ class SpeedDuelViewModel extends BaseViewModel {
   final DoesCardFitInZoneUseCase _doesCardFitInZoneUseCase;
   final CanCardAttackZoneUseCase _canCardAttackZoneUseCase;
   final MoveCardUseCase _moveCardUseCase;
+  final SpeedDuelEventEmitter _speedDuelEventEmitter;
+  final CardEventAnimationHandler _cardEventAnimationHandler;
   final DataManager _dataManager;
-  final EnumHelper _enumHelper;
   final CrashlyticsProvider _crashlyticsProvider;
   final SnackBarService _snackBarService;
 
@@ -68,8 +70,9 @@ class SpeedDuelViewModel extends BaseViewModel {
     this._doesCardFitInZoneUseCase,
     this._canCardAttackZoneUseCase,
     this._moveCardUseCase,
+    this._speedDuelEventEmitter,
+    this._cardEventAnimationHandler,
     this._dataManager,
-    this._enumHelper,
     this._crashlyticsProvider,
     this._snackBarService,
   ) : super(logger);
@@ -197,14 +200,11 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
   }
 
-  void _onMonsterAttack(PlayCard attackingMonster, Zone targettedZone) {
-    logger.verbose(_tag, '_onMonsterAttack(attackingMonster: $attackingMonster, targettedZone: $targettedZone)');
+  void _onMonsterAttack(PlayCard attackingCard, Zone targettedZone) {
+    logger.verbose(_tag, '_onMonsterAttack(attacker: $attackingCard, targettedZone: $targettedZone)');
 
-    _sendAttackCardEvent(attackingMonster, targettedZone.cards.first);
-
-    // TODO: attack animation
-
-    // TODO: receive attack events
+    _speedDuelEventEmitter.sendAttackCardEvent(attackingCard, targettedZone.zoneType);
+    _cardEventAnimationHandler.onAttackCardEvent(attackingCard, targettedZone);
   }
 
   void _moveCardToNewZone(PlayCard card, Zone newZone, CardPosition position) {
@@ -220,7 +220,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       return;
     }
 
-    _sendPlayCardEvent(card, newZone.zoneType, position);
+    _speedDuelEventEmitter.sendPlayCardEvent(card, newZone.zoneType, position);
     _duelState.add(_duelState.value.copyWith(userState: updatedUserState));
   }
 
@@ -288,7 +288,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     final drawnCard = deck.removeLast().copyWith(zoneType: ZoneType.hand);
 
-    _sendPlayCardEvent(drawnCard, ZoneType.hand, CardPosition.faceUp);
+    _speedDuelEventEmitter.sendPlayCardEvent(drawnCard, ZoneType.hand, CardPosition.faceUp);
 
     final updatedUserState = userState.copyWith(
       deckZone: userState.deckZone.copyWith(cards: deck),
@@ -322,7 +322,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     if (surrender ?? false) {
       _duelOver = true;
-      _sendSurrenderEvent();
+      _speedDuelEventEmitter.sendSurrenderEvent(_duelRoom);
     }
   }
 
@@ -387,9 +387,9 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
 
     if (position == CardPosition.destroy) {
-      _sendRemoveCardEvent(card);
+      _speedDuelEventEmitter.sendRemoveCardEvent(card);
     } else {
-      _sendPlayCardEvent(card, card.zoneType, position);
+      _speedDuelEventEmitter.sendPlayCardEvent(card, card.zoneType, position);
     }
 
     _duelState.add(_duelState.value.copyWith(userState: updatedUserState));
@@ -403,64 +403,6 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
 
     _screenEvent.add(SpeedDuelInspectCardPileEvent(playerState, zone));
-  }
-
-  //endregion
-
-  //region Send smart duel events
-
-  void _sendPlayCardEvent(PlayCard card, ZoneType zoneType, CardPosition newPosition) {
-    logger.verbose(_tag, '_sendPlayCardEvent(card: $card, zoneType: $zoneType, newPosition: $newPosition)');
-
-    _smartDuelServer.emitEvent(
-      SmartDuelEvent.playCard(
-        CardEventData(
-          duelistId: _smartDuelServer.getDuelistId(),
-          cardId: card.yugiohCard.id,
-          copyNumber: card.copyNumber,
-          cardPosition: _enumHelper.convertToString(newPosition),
-          zoneName: _enumHelper.convertToString(zoneType),
-        ),
-      ),
-    );
-  }
-
-  void _sendRemoveCardEvent(PlayCard card) {
-    logger.verbose(_tag, '_sendRemoveCardEvent(card: $card)');
-
-    _smartDuelServer.emitEvent(
-      SmartDuelEvent.removeCard(
-        CardEventData(
-          duelistId: _smartDuelServer.getDuelistId(),
-          cardId: card.yugiohCard.id,
-          copyNumber: card.copyNumber,
-        ),
-      ),
-    );
-  }
-
-  void _sendAttackCardEvent(PlayCard attacker, PlayCard target) {
-    logger.verbose(_tag, '_sendAttackCardEvent(attacker: $attacker, target: $target)');
-
-    _smartDuelServer.emitEvent(
-      SmartDuelEvent.attackCard(
-        CardEventData(
-          duelistId: _smartDuelServer.getDuelistId(),
-          cardId: attacker.yugiohCard.id,
-          copyNumber: attacker.copyNumber,
-          targetCardId: target.yugiohCard.id,
-          targetCardCopyNumber: target.copyNumber,
-        ),
-      ),
-    );
-  }
-
-  void _sendSurrenderEvent() {
-    logger.verbose(_tag, '_sendSurrenderEvent()');
-
-    _smartDuelServer.emitEvent(SmartDuelEvent.surrenderRoom(
-      RoomEventData(roomName: _duelRoom.roomName),
-    ));
   }
 
   //endregion
@@ -499,6 +441,9 @@ class SpeedDuelViewModel extends BaseViewModel {
           break;
         case SmartDuelEventConstants.cardRemoveAction:
           await _handleRemoveCardEvent(eventData);
+          break;
+        case SmartDuelEventConstants.cardAttackAction:
+          await _handleAttackCardEvent(eventData);
           break;
       }
     }
@@ -560,6 +505,26 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
 
     _duelState.add(_duelState.value.copyWith(opponentState: updatedOpponentState));
+  }
+
+  Future<void> _handleAttackCardEvent(CardEventData data) async {
+    logger.verbose(_tag, '_handleAttackCardEvent(data: $data)');
+
+    final cardId = data.cardId;
+    final copyNumber = data.copyNumber;
+    final zoneType = parseZoneType(data.zoneName);
+    if (cardId == null || copyNumber == null || zoneType == null) {
+      return;
+    }
+
+    final duelState = _duelState.value;
+    final attackingCard = duelState.opponentState.cards
+        .firstWhere((card) => card.yugiohCard.id == cardId && card.copyNumber == copyNumber);
+    final targetZone = duelState.userState.getZone(zoneType);
+
+    if (attackingCard != null && targetZone != null) {
+      await _cardEventAnimationHandler.onAttackCardEvent(attackingCard, targetZone);
+    }
   }
 
   //endregion

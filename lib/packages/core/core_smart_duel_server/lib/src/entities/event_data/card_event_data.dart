@@ -14,8 +14,6 @@ class CardEventData extends Equatable implements SmartDuelEventData {
   final int copyNumber;
   final String zoneName;
   final String cardPosition;
-  final int targetCardId;
-  final int targetCardCopyNumber;
 
   const CardEventData({
     @required this.duelistId,
@@ -23,8 +21,6 @@ class CardEventData extends Equatable implements SmartDuelEventData {
     @required this.copyNumber,
     this.zoneName,
     this.cardPosition,
-    this.targetCardId,
-    this.targetCardCopyNumber,
   });
 
   @override
@@ -34,8 +30,6 @@ class CardEventData extends Equatable implements SmartDuelEventData {
         copyNumber,
         cardPosition,
         zoneName,
-        targetCardId,
-        targetCardCopyNumber,
       ];
 
   @override
