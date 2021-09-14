@@ -67,7 +67,7 @@ class DeckBuilderViewModel extends BaseViewModel {
       );
 
       if (filteredCards.isEmpty) {
-        return const DeckBuilderState.noData();
+        return const DeckBuilderNoData();
       }
 
       return DeckBuilderState(filteredCards, isPreBuilt: false);
@@ -76,16 +76,16 @@ class DeckBuilderViewModel extends BaseViewModel {
     return _fetchData();
   }
 
-  Future<void> onRetryPressed() {
+  Future<void> onRetryPressed() async {
     logger.info(_tag, 'onRetryPressed()');
 
-    return _fetchData();
+    await _fetchData();
   }
 
   Future<void> _fetchData() async {
     logger.verbose(_tag, '_fetchData()');
 
-    _deckBuilderState.add(const DeckBuilderState.loading());
+    _deckBuilderState.add(const DeckBuilderLoading());
 
     try {
       final speedDuelCards = await _dataManager.getSpeedDuelCards();
@@ -96,7 +96,7 @@ class DeckBuilderViewModel extends BaseViewModel {
       _yugiohCards.add(speedDuelCards);
     } catch (exception, stackTrace) {
       logger.error(_tag, 'An error occurred while fetching the speed tuel cards.', exception, stackTrace);
-      _deckBuilderState.add(const DeckBuilderState.error());
+      _deckBuilderState.add(const DeckBuilderError());
     }
   }
 
@@ -120,6 +120,8 @@ class DeckBuilderViewModel extends BaseViewModel {
 
   @override
   void dispose() {
+    logger.info(_tag, 'dispose()');
+
     _filteredCardsSubscription?.cancel();
     _filteredCardsSubscription = null;
 

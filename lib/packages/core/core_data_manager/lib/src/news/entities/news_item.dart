@@ -3,12 +3,12 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class NewsItem extends Equatable {
-  final String? id;
-  final String? text;
-  final String? authorId;
-  final String? authorName;
-  final String? authorImageUrl;
-  final DateTime? createdAt;
+  final String id;
+  final String text;
+  final String authorId;
+  final String authorName;
+  final String authorImageUrl;
+  final DateTime createdAt;
   final String? imageUrl;
 
   const NewsItem({

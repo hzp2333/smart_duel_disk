@@ -9,7 +9,7 @@ abstract class DuelStorageProvider {
   ConnectionInfoModel? getConnectionInfo();
   Future<void> saveConnectionInfo(ConnectionInfoModel connectionInfo);
   bool useOnlineDuelRoom();
-  Future<void> saveUseOnlineDuelRoom({required bool? value});
+  Future<void> saveUseOnlineDuelRoom({required bool value});
 }
 
 @LazySingleton(as: DuelStorageProvider)
@@ -44,7 +44,7 @@ class DuelStorageProviderImpl implements DuelStorageProvider {
   }
 
   @override
-  Future<void> saveUseOnlineDuelRoom({bool? value}) async {
+  Future<void> saveUseOnlineDuelRoom({required bool value}) async {
     await _sharedPreferencesProvider.setBool(_onlineDuelRoomKey, value: value);
   }
 }

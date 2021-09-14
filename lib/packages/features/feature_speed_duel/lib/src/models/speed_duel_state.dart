@@ -4,8 +4,8 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 
 @immutable
 class SpeedDuelState extends Equatable {
-  final PlayerState? userState;
-  final PlayerState? opponentState;
+  final PlayerState userState;
+  final PlayerState opponentState;
 
   const SpeedDuelState({
     required this.userState,

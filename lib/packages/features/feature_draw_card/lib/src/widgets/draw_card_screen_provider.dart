@@ -20,9 +20,9 @@ class DrawCardScreenProvider extends StatelessWidget {
       providers: [
         Provider(
           create: (_) => DrawCardViewModel(
-            di.get<Logger>(),
             cardDrawnCallback,
             di.get<AppRouter>(),
+            di.get<Logger>(),
           ),
         ),
         Provider(create: (_) => di.get<AssetsProvider>()),

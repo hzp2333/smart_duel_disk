@@ -37,7 +37,7 @@ class CardEventAnimationHandler {
     );
 
     if (targetZone.zoneType.isMainMonsterZone) {
-      final targettedCard = targetZone.cards.first!;
+      final targettedCard = targetZone.cards.first;
 
       _cardAnimations.add(
         AttackAnimation(

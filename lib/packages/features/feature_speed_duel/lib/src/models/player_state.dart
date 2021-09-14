@@ -7,7 +7,7 @@ import 'zone.dart';
 
 @immutable
 class PlayerState extends Equatable {
-  final String? duelistId;
+  final String duelistId;
   final bool isOpponent;
   final Zone hand;
   final Zone fieldZone;

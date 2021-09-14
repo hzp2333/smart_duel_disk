@@ -157,12 +157,12 @@ class _NewsListItemAuthor extends StatelessWidget {
     return Row(
       children: [
         CircleAvatar(
-          backgroundImage: CachedNetworkImageProvider(newsItem.authorImageUrl!),
+          backgroundImage: CachedNetworkImageProvider(newsItem.authorImageUrl),
           radius: AppSizes.newsCardAuthorImageRadius,
         ),
         const SizedBox(width: AppSizes.newsCardAuthorImageNameSpacing),
         AutoSizeText(
-          newsItem.authorName!,
+          newsItem.authorName,
           style: TextStyles.subtitle,
           maxLines: 1,
         ),
@@ -204,7 +204,7 @@ class _NewsListItemText extends StatelessWidget {
         AppSizes.newsCardPadding,
         AppSizes.newsCardPadding,
       ),
-      child: Text(newsItem.text!),
+      child: Text(newsItem.text),
     );
   }
 }

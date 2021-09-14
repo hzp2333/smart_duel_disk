@@ -9,4 +9,4 @@ export 'src/entities/event_data/smart_duel_event_data.dart';
 export 'src/entities/smart_duel_event.dart';
 export 'src/entities/smart_duel_event_constants.dart';
 export 'src/smart_duel_event_receiver.dart';
-export 'src/smart_duel_server.dart';
+export 'src/smart_duel_server.dart' show SmartDuelServer;

@@ -23,11 +23,16 @@ class NewsDataManagerImpl implements NewsDataManager {
 
   @override
   Future<Iterable<NewsItem>> getNewsItems() async {
-    final newsItems = (await _twitterProvider.getUserTweets(_appConfig.twitterUserId))
-        .map((newsItem) => newsItem.copyWith(text: _htmlUnescapeProvider.convert(newsItem.text)))
+    final tweets = await _twitterProvider.getUserTweets(_appConfig.twitterUserId);
+    final newsItems = tweets
+        .map(
+          (newsItem) => newsItem.copyWith(
+            text: _htmlUnescapeProvider.convert(newsItem.text),
+          ),
+        )
         .toList();
 
-    newsItems.sort((a, b) => a.createdAt!.compareTo(b.createdAt!));
+    newsItems.sort((a, b) => a.createdAt.compareTo(b.createdAt));
 
     return newsItems.reversed;
   }

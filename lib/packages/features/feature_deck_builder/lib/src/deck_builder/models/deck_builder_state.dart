@@ -5,8 +5,8 @@ part 'deck_builder_state.freezed.dart';
 
 @freezed
 class DeckBuilderState with _$DeckBuilderState {
-  const factory DeckBuilderState(Iterable<YugiohCard> speedDuelCards, {required bool isPreBuilt}) = Data;
-  const factory DeckBuilderState.loading() = Loading;
-  const factory DeckBuilderState.noData() = NoData;
-  const factory DeckBuilderState.error() = Error;
+  const factory DeckBuilderState(Iterable<YugiohCard> speedDuelCards, {required bool isPreBuilt}) = DeckBuilderData;
+  const factory DeckBuilderState.loading() = DeckBuilderLoading;
+  const factory DeckBuilderState.noData() = DeckBuilderNoData;
+  const factory DeckBuilderState.error() = DeckBuilderError;
 }

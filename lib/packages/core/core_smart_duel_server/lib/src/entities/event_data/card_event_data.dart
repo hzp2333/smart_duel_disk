@@ -9,9 +9,9 @@ part 'card_event_data.g.dart';
 @immutable
 @JsonSerializable()
 class CardEventData extends Equatable implements SmartDuelEventData {
-  final String? duelistId;
-  final int? cardId;
-  final int? copyNumber;
+  final String duelistId;
+  final int cardId;
+  final int copyNumber;
   final String? zoneName;
   final String? cardPosition;
 

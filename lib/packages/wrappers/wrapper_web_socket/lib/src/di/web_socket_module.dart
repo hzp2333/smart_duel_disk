@@ -10,7 +10,7 @@ abstract class SocketIoModule {
   @Injectable()
   Socket provideSocket(DataManager dataManager) {
     final connectionInfo = dataManager.getConnectionInfo()!;
-    final prefix = connectionInfo.ipAddress!.startsWith(_httpPrefix) || connectionInfo.ipAddress!.startsWith(_httpsPrefix)
+    final prefix = connectionInfo.ipAddress.startsWith(_httpPrefix) || connectionInfo.ipAddress.startsWith(_httpsPrefix)
         ? ''
         : _httpPrefix;
     final uri = '$prefix${connectionInfo.ipAddress}:${connectionInfo.port}';

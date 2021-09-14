@@ -3,7 +3,7 @@ import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart
 
 abstract class SettingsDataManager {
   bool isDeveloperModeEnabled();
-  Future<void> saveDeveloperModeEnabled({required bool? value});
+  Future<void> saveDeveloperModeEnabled({required bool value});
 }
 
 @LazySingleton(as: SettingsDataManager)
@@ -18,6 +18,6 @@ class SettingsDataManagerImpl implements SettingsDataManager {
   bool isDeveloperModeEnabled() => _settingsStorageProvider.isDeveloperModeEnabled();
 
   @override
-  Future<void> saveDeveloperModeEnabled({required bool? value}) =>
+  Future<void> saveDeveloperModeEnabled({required bool value}) =>
       _settingsStorageProvider.saveDeveloperModeEnabled(value: value);
 }

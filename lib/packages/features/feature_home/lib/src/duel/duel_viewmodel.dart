@@ -110,8 +110,8 @@ class DuelViewModel extends BaseViewModel {
 
     await _dataManager.saveConnectionInfo(
       ConnectionInfo(
-        ipAddress: _ipAddress.value,
-        port: _port.value,
+        ipAddress: _ipAddress.value!,
+        port: _port.value!,
       ),
     );
 

@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_data_manager/lib/src/duel/duel_data_manager.dart';
 import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart';
 
 import '../../../../testing/mocks/shared.mocks.dart';

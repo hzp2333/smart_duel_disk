@@ -9,7 +9,7 @@ abstract class DuelDataManager {
   ConnectionInfo? getConnectionInfo({bool forceLocalInfo = false});
   Future<void> saveConnectionInfo(ConnectionInfo connectionInfo);
   bool useOnlineDuelRoom();
-  Future<void> saveUseOnlineDuelRoom({required bool? value});
+  Future<void> saveUseOnlineDuelRoom({required bool value});
   Iterable<DeckAction> getDeckActions();
 }
 
@@ -58,8 +58,8 @@ class DuelDataManagerImpl implements DuelDataManager {
   @override
   Future<void> saveConnectionInfo(ConnectionInfo connectionInfo) {
     final model = ConnectionInfoModel(
-      ipAddress: connectionInfo.ipAddress!,
-      port: connectionInfo.port!,
+      ipAddress: connectionInfo.ipAddress,
+      port: connectionInfo.port,
     );
 
     return _duelStorageProvider.saveConnectionInfo(model);
@@ -71,7 +71,7 @@ class DuelDataManagerImpl implements DuelDataManager {
   }
 
   @override
-  Future<void> saveUseOnlineDuelRoom({bool? value}) {
+  Future<void> saveUseOnlineDuelRoom({required bool value}) {
     return _duelStorageProvider.saveUseOnlineDuelRoom(value: value);
   }
 

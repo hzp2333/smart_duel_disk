@@ -100,9 +100,7 @@ class DuelRoomViewModel extends BaseViewModel {
 
     _smartDuelServer.emitEvent(
       SmartDuelEvent.createRoom(
-        RoomEventData(
-          deckList: deckList,
-        ),
+        RoomEventData(deckList: deckList),
       ),
     );
   }
@@ -124,9 +122,7 @@ class DuelRoomViewModel extends BaseViewModel {
     if (state is DuelRoomCreate) {
       _smartDuelServer.emitEvent(
         SmartDuelEvent.closeRoom(
-          RoomEventData(
-            roomName: state.roomName,
-          ),
+          RoomEventData(roomName: state.roomName),
         ),
       );
     }

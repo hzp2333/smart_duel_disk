@@ -6,7 +6,7 @@ import 'package:logger/logger.dart';
 import 'package:smart_duel_disk/packages/core/core_config/lib/core_config.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/lib/wrapper_crashlytics.dart';
 
-import './logger.dart' as api;
+import 'logger.dart' as api;
 
 @LazySingleton(as: api.Logger)
 class LoggerImpl implements api.Logger {

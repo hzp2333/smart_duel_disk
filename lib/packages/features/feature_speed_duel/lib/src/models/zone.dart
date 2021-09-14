@@ -7,8 +7,8 @@ import 'zone_type.dart';
 @immutable
 class Zone extends Equatable {
   final ZoneType zoneType;
-  final String? duelistId;
-  final Iterable<PlayCard?> cards;
+  final String duelistId;
+  final Iterable<PlayCard> cards;
 
   const Zone({
     required this.zoneType,
@@ -18,7 +18,7 @@ class Zone extends Equatable {
 
   bool get isEmpty => cards.isEmpty;
 
-  Zone copyWith({Iterable<PlayCard?>? cards}) {
+  Zone copyWith({Iterable<PlayCard>? cards}) {
     return Zone(
       zoneType: zoneType,
       duelistId: duelistId,

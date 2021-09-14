@@ -80,7 +80,7 @@ class DataManagerImpl implements DataManager {
   }
 
   @override
-  Future<void> saveUseOnlineDuelRoom({bool? value}) {
+  Future<void> saveUseOnlineDuelRoom({required bool value}) {
     return _duelDataManager.saveUseOnlineDuelRoom(value: value);
   }
 
@@ -99,7 +99,7 @@ class DataManagerImpl implements DataManager {
   }
 
   @override
-  Future<void> saveDeveloperModeEnabled({bool? value}) {
+  Future<void> saveDeveloperModeEnabled({required bool value}) {
     return _settingsDataManager.saveDeveloperModeEnabled(value: value);
   }
 

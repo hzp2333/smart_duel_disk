@@ -71,7 +71,7 @@ class _Body extends StatelessWidget {
       behavior: const NoScrollGlowBehavior(),
       child: StreamBuilder<DeckBuilderState>(
         stream: vm.deckBuilderState,
-        initialData: const DeckBuilderState.loading(),
+        initialData: const DeckBuilderLoading(),
         builder: (context, snapshot) {
           return snapshot.data!.when(
             (cards, isPreBuilt) => isPreBuilt ? _PreBuiltDeckBody(yugiohCards: cards) : CardGrid(yugiohCards: cards),

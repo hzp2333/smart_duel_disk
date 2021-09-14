@@ -8,12 +8,10 @@ class DrawCardViewModel extends BaseViewModel {
   final AppRouter _router;
 
   DrawCardViewModel(
-    Logger logger,
     this._cardDrawnCallback,
     this._router,
-  ) : super(
-          logger,
-        );
+    Logger logger,
+  ) : super(logger);
 
   Future<void> onCardDrawn() {
     _cardDrawnCallback.call();

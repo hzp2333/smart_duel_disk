@@ -3,8 +3,8 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class ConnectionInfo extends Equatable {
-  final String? ipAddress;
-  final String? port;
+  final String ipAddress;
+  final String port;
 
   const ConnectionInfo({
     required this.ipAddress,

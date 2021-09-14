@@ -16,23 +16,24 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$DeckBuilderStateTearOff {
   const _$DeckBuilderStateTearOff();
 
-  Data call(Iterable<YugiohCard> speedDuelCards, {required bool isPreBuilt}) {
-    return Data(
+  DeckBuilderData call(Iterable<YugiohCard> speedDuelCards,
+      {required bool isPreBuilt}) {
+    return DeckBuilderData(
       speedDuelCards,
       isPreBuilt: isPreBuilt,
     );
   }
 
-  Loading loading() {
-    return const Loading();
+  DeckBuilderLoading loading() {
+    return const DeckBuilderLoading();
   }
 
-  NoData noData() {
-    return const NoData();
+  DeckBuilderNoData noData() {
+    return const DeckBuilderNoData();
   }
 
-  Error error() {
-    return const Error();
+  DeckBuilderError error() {
+    return const DeckBuilderError();
   }
 }
 
@@ -62,18 +63,18 @@ mixin _$DeckBuilderState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(Data value) $default, {
-    required TResult Function(Loading value) loading,
-    required TResult Function(NoData value) noData,
-    required TResult Function(Error value) error,
+    TResult Function(DeckBuilderData value) $default, {
+    required TResult Function(DeckBuilderLoading value) loading,
+    required TResult Function(DeckBuilderNoData value) noData,
+    required TResult Function(DeckBuilderError value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(Data value)? $default, {
-    TResult Function(Loading value)? loading,
-    TResult Function(NoData value)? noData,
-    TResult Function(Error value)? error,
+    TResult Function(DeckBuilderData value)? $default, {
+    TResult Function(DeckBuilderLoading value)? loading,
+    TResult Function(DeckBuilderNoData value)? noData,
+    TResult Function(DeckBuilderError value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -97,27 +98,30 @@ class _$DeckBuilderStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class $DataCopyWith<$Res> {
-  factory $DataCopyWith(Data value, $Res Function(Data) then) =
-      _$DataCopyWithImpl<$Res>;
+abstract class $DeckBuilderDataCopyWith<$Res> {
+  factory $DeckBuilderDataCopyWith(
+          DeckBuilderData value, $Res Function(DeckBuilderData) then) =
+      _$DeckBuilderDataCopyWithImpl<$Res>;
   $Res call({Iterable<YugiohCard> speedDuelCards, bool isPreBuilt});
 }
 
 /// @nodoc
-class _$DataCopyWithImpl<$Res> extends _$DeckBuilderStateCopyWithImpl<$Res>
-    implements $DataCopyWith<$Res> {
-  _$DataCopyWithImpl(Data _value, $Res Function(Data) _then)
-      : super(_value, (v) => _then(v as Data));
+class _$DeckBuilderDataCopyWithImpl<$Res>
+    extends _$DeckBuilderStateCopyWithImpl<$Res>
+    implements $DeckBuilderDataCopyWith<$Res> {
+  _$DeckBuilderDataCopyWithImpl(
+      DeckBuilderData _value, $Res Function(DeckBuilderData) _then)
+      : super(_value, (v) => _then(v as DeckBuilderData));
 
   @override
-  Data get _value => super._value as Data;
+  DeckBuilderData get _value => super._value as DeckBuilderData;
 
   @override
   $Res call({
     Object? speedDuelCards = freezed,
     Object? isPreBuilt = freezed,
   }) {
-    return _then(Data(
+    return _then(DeckBuilderData(
       speedDuelCards == freezed
           ? _value.speedDuelCards
           : speedDuelCards // ignore: cast_nullable_to_non_nullable
@@ -132,8 +136,8 @@ class _$DataCopyWithImpl<$Res> extends _$DeckBuilderStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Data implements Data {
-  const _$Data(this.speedDuelCards, {required this.isPreBuilt});
+class _$DeckBuilderData implements DeckBuilderData {
+  const _$DeckBuilderData(this.speedDuelCards, {required this.isPreBuilt});
 
   @override
   final Iterable<YugiohCard> speedDuelCards;
@@ -148,7 +152,7 @@ class _$Data implements Data {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is Data &&
+        (other is DeckBuilderData &&
             (identical(other.speedDuelCards, speedDuelCards) ||
                 const DeepCollectionEquality()
                     .equals(other.speedDuelCards, speedDuelCards)) &&
@@ -165,8 +169,8 @@ class _$Data implements Data {
 
   @JsonKey(ignore: true)
   @override
-  $DataCopyWith<Data> get copyWith =>
-      _$DataCopyWithImpl<Data>(this, _$identity);
+  $DeckBuilderDataCopyWith<DeckBuilderData> get copyWith =>
+      _$DeckBuilderDataCopyWithImpl<DeckBuilderData>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -199,10 +203,10 @@ class _$Data implements Data {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(Data value) $default, {
-    required TResult Function(Loading value) loading,
-    required TResult Function(NoData value) noData,
-    required TResult Function(Error value) error,
+    TResult Function(DeckBuilderData value) $default, {
+    required TResult Function(DeckBuilderLoading value) loading,
+    required TResult Function(DeckBuilderNoData value) noData,
+    required TResult Function(DeckBuilderError value) error,
   }) {
     return $default(this);
   }
@@ -210,10 +214,10 @@ class _$Data implements Data {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(Data value)? $default, {
-    TResult Function(Loading value)? loading,
-    TResult Function(NoData value)? noData,
-    TResult Function(Error value)? error,
+    TResult Function(DeckBuilderData value)? $default, {
+    TResult Function(DeckBuilderLoading value)? loading,
+    TResult Function(DeckBuilderNoData value)? noData,
+    TResult Function(DeckBuilderError value)? error,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -223,36 +227,40 @@ class _$Data implements Data {
   }
 }
 
-abstract class Data implements DeckBuilderState {
-  const factory Data(Iterable<YugiohCard> speedDuelCards,
-      {required bool isPreBuilt}) = _$Data;
+abstract class DeckBuilderData implements DeckBuilderState {
+  const factory DeckBuilderData(Iterable<YugiohCard> speedDuelCards,
+      {required bool isPreBuilt}) = _$DeckBuilderData;
 
   Iterable<YugiohCard> get speedDuelCards => throw _privateConstructorUsedError;
   bool get isPreBuilt => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $DataCopyWith<Data> get copyWith => throw _privateConstructorUsedError;
+  $DeckBuilderDataCopyWith<DeckBuilderData> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LoadingCopyWith<$Res> {
-  factory $LoadingCopyWith(Loading value, $Res Function(Loading) then) =
-      _$LoadingCopyWithImpl<$Res>;
+abstract class $DeckBuilderLoadingCopyWith<$Res> {
+  factory $DeckBuilderLoadingCopyWith(
+          DeckBuilderLoading value, $Res Function(DeckBuilderLoading) then) =
+      _$DeckBuilderLoadingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$LoadingCopyWithImpl<$Res> extends _$DeckBuilderStateCopyWithImpl<$Res>
-    implements $LoadingCopyWith<$Res> {
-  _$LoadingCopyWithImpl(Loading _value, $Res Function(Loading) _then)
-      : super(_value, (v) => _then(v as Loading));
+class _$DeckBuilderLoadingCopyWithImpl<$Res>
+    extends _$DeckBuilderStateCopyWithImpl<$Res>
+    implements $DeckBuilderLoadingCopyWith<$Res> {
+  _$DeckBuilderLoadingCopyWithImpl(
+      DeckBuilderLoading _value, $Res Function(DeckBuilderLoading) _then)
+      : super(_value, (v) => _then(v as DeckBuilderLoading));
 
   @override
-  Loading get _value => super._value as Loading;
+  DeckBuilderLoading get _value => super._value as DeckBuilderLoading;
 }
 
 /// @nodoc
 
-class _$Loading implements Loading {
-  const _$Loading();
+class _$DeckBuilderLoading implements DeckBuilderLoading {
+  const _$DeckBuilderLoading();
 
   @override
   String toString() {
@@ -261,7 +269,7 @@ class _$Loading implements Loading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Loading);
+    return identical(this, other) || (other is DeckBuilderLoading);
   }
 
   @override
@@ -298,10 +306,10 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(Data value) $default, {
-    required TResult Function(Loading value) loading,
-    required TResult Function(NoData value) noData,
-    required TResult Function(Error value) error,
+    TResult Function(DeckBuilderData value) $default, {
+    required TResult Function(DeckBuilderLoading value) loading,
+    required TResult Function(DeckBuilderNoData value) noData,
+    required TResult Function(DeckBuilderError value) error,
   }) {
     return loading(this);
   }
@@ -309,10 +317,10 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(Data value)? $default, {
-    TResult Function(Loading value)? loading,
-    TResult Function(NoData value)? noData,
-    TResult Function(Error value)? error,
+    TResult Function(DeckBuilderData value)? $default, {
+    TResult Function(DeckBuilderLoading value)? loading,
+    TResult Function(DeckBuilderNoData value)? noData,
+    TResult Function(DeckBuilderError value)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -322,30 +330,33 @@ class _$Loading implements Loading {
   }
 }
 
-abstract class Loading implements DeckBuilderState {
-  const factory Loading() = _$Loading;
+abstract class DeckBuilderLoading implements DeckBuilderState {
+  const factory DeckBuilderLoading() = _$DeckBuilderLoading;
 }
 
 /// @nodoc
-abstract class $NoDataCopyWith<$Res> {
-  factory $NoDataCopyWith(NoData value, $Res Function(NoData) then) =
-      _$NoDataCopyWithImpl<$Res>;
+abstract class $DeckBuilderNoDataCopyWith<$Res> {
+  factory $DeckBuilderNoDataCopyWith(
+          DeckBuilderNoData value, $Res Function(DeckBuilderNoData) then) =
+      _$DeckBuilderNoDataCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$NoDataCopyWithImpl<$Res> extends _$DeckBuilderStateCopyWithImpl<$Res>
-    implements $NoDataCopyWith<$Res> {
-  _$NoDataCopyWithImpl(NoData _value, $Res Function(NoData) _then)
-      : super(_value, (v) => _then(v as NoData));
+class _$DeckBuilderNoDataCopyWithImpl<$Res>
+    extends _$DeckBuilderStateCopyWithImpl<$Res>
+    implements $DeckBuilderNoDataCopyWith<$Res> {
+  _$DeckBuilderNoDataCopyWithImpl(
+      DeckBuilderNoData _value, $Res Function(DeckBuilderNoData) _then)
+      : super(_value, (v) => _then(v as DeckBuilderNoData));
 
   @override
-  NoData get _value => super._value as NoData;
+  DeckBuilderNoData get _value => super._value as DeckBuilderNoData;
 }
 
 /// @nodoc
 
-class _$NoData implements NoData {
-  const _$NoData();
+class _$DeckBuilderNoData implements DeckBuilderNoData {
+  const _$DeckBuilderNoData();
 
   @override
   String toString() {
@@ -354,7 +365,7 @@ class _$NoData implements NoData {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is NoData);
+    return identical(this, other) || (other is DeckBuilderNoData);
   }
 
   @override
@@ -391,10 +402,10 @@ class _$NoData implements NoData {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(Data value) $default, {
-    required TResult Function(Loading value) loading,
-    required TResult Function(NoData value) noData,
-    required TResult Function(Error value) error,
+    TResult Function(DeckBuilderData value) $default, {
+    required TResult Function(DeckBuilderLoading value) loading,
+    required TResult Function(DeckBuilderNoData value) noData,
+    required TResult Function(DeckBuilderError value) error,
   }) {
     return noData(this);
   }
@@ -402,10 +413,10 @@ class _$NoData implements NoData {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(Data value)? $default, {
-    TResult Function(Loading value)? loading,
-    TResult Function(NoData value)? noData,
-    TResult Function(Error value)? error,
+    TResult Function(DeckBuilderData value)? $default, {
+    TResult Function(DeckBuilderLoading value)? loading,
+    TResult Function(DeckBuilderNoData value)? noData,
+    TResult Function(DeckBuilderError value)? error,
     required TResult orElse(),
   }) {
     if (noData != null) {
@@ -415,30 +426,33 @@ class _$NoData implements NoData {
   }
 }
 
-abstract class NoData implements DeckBuilderState {
-  const factory NoData() = _$NoData;
+abstract class DeckBuilderNoData implements DeckBuilderState {
+  const factory DeckBuilderNoData() = _$DeckBuilderNoData;
 }
 
 /// @nodoc
-abstract class $ErrorCopyWith<$Res> {
-  factory $ErrorCopyWith(Error value, $Res Function(Error) then) =
-      _$ErrorCopyWithImpl<$Res>;
+abstract class $DeckBuilderErrorCopyWith<$Res> {
+  factory $DeckBuilderErrorCopyWith(
+          DeckBuilderError value, $Res Function(DeckBuilderError) then) =
+      _$DeckBuilderErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ErrorCopyWithImpl<$Res> extends _$DeckBuilderStateCopyWithImpl<$Res>
-    implements $ErrorCopyWith<$Res> {
-  _$ErrorCopyWithImpl(Error _value, $Res Function(Error) _then)
-      : super(_value, (v) => _then(v as Error));
+class _$DeckBuilderErrorCopyWithImpl<$Res>
+    extends _$DeckBuilderStateCopyWithImpl<$Res>
+    implements $DeckBuilderErrorCopyWith<$Res> {
+  _$DeckBuilderErrorCopyWithImpl(
+      DeckBuilderError _value, $Res Function(DeckBuilderError) _then)
+      : super(_value, (v) => _then(v as DeckBuilderError));
 
   @override
-  Error get _value => super._value as Error;
+  DeckBuilderError get _value => super._value as DeckBuilderError;
 }
 
 /// @nodoc
 
-class _$Error implements Error {
-  const _$Error();
+class _$DeckBuilderError implements DeckBuilderError {
+  const _$DeckBuilderError();
 
   @override
   String toString() {
@@ -447,7 +461,7 @@ class _$Error implements Error {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Error);
+    return identical(this, other) || (other is DeckBuilderError);
   }
 
   @override
@@ -484,10 +498,10 @@ class _$Error implements Error {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(Data value) $default, {
-    required TResult Function(Loading value) loading,
-    required TResult Function(NoData value) noData,
-    required TResult Function(Error value) error,
+    TResult Function(DeckBuilderData value) $default, {
+    required TResult Function(DeckBuilderLoading value) loading,
+    required TResult Function(DeckBuilderNoData value) noData,
+    required TResult Function(DeckBuilderError value) error,
   }) {
     return error(this);
   }
@@ -495,10 +509,10 @@ class _$Error implements Error {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(Data value)? $default, {
-    TResult Function(Loading value)? loading,
-    TResult Function(NoData value)? noData,
-    TResult Function(Error value)? error,
+    TResult Function(DeckBuilderData value)? $default, {
+    TResult Function(DeckBuilderLoading value)? loading,
+    TResult Function(DeckBuilderNoData value)? noData,
+    TResult Function(DeckBuilderError value)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -508,6 +522,6 @@ class _$Error implements Error {
   }
 }
 
-abstract class Error implements DeckBuilderState {
-  const factory Error() = _$Error;
+abstract class DeckBuilderError implements DeckBuilderState {
+  const factory DeckBuilderError() = _$DeckBuilderError;
 }

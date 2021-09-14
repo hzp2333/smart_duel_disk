@@ -26,18 +26,18 @@ class CreatePlayerStateUseCase {
 
     // TODO: as this is a heavy computation we should probably spawn an isolate.
     // Curently having a problem with that though: Invalid argument(s): Illegal argument in isolate message : (object is a closure - Function '<anonymous closure>':.)
-    final yugiohCards = duelist.deckList!.map((cardId) => allCards.firstWhere((card) => card.id == cardId));
+    final yugiohCards = duelist.deckList.map((cardId) => allCards.firstWhere((card) => card.id == cardId));
 
-    final playCards = <PlayCard?>[];
+    final playCards = <PlayCard>[];
     for (final card in yugiohCards) {
-      final copyNumber = playCards.where((playCard) => playCard!.yugiohCard == card).length + 1;
+      final copyNumber = playCards.where((playCard) => playCard.yugiohCard == card).length + 1;
       final isExtraDeck = card.type == CardType.fusionMonster;
       final zoneType = isExtraDeck ? ZoneType.extraDeck : ZoneType.deck;
 
       playCards.add(
         _createPlayCardUseCase(
           card,
-          duelist.id!,
+          duelist.id,
           copyNumber,
           zoneType: zoneType,
         ),
@@ -61,8 +61,8 @@ class CreatePlayerStateUseCase {
       deckZone: Zone(zoneType: ZoneType.deck, duelistId: duelist.id),
     );
 
-    final mainDeck = playCards.where((card) => !card!.belongsInExtraDeck);
-    final extraDeck = playCards.where((card) => card!.belongsInExtraDeck);
+    final mainDeck = playCards.where((card) => !card.belongsInExtraDeck);
+    final extraDeck = playCards.where((card) => card.belongsInExtraDeck);
 
     return playerState.copyWith(
       deckZone: playerState.deckZone.copyWith(cards: mainDeck),

@@ -129,10 +129,10 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     final duelistId = _smartDuelServer.getDuelistId();
 
-    final user = _duelRoom!.duelists!.firstWhere((duelist) => duelist.id == duelistId);
+    final user = _duelRoom!.duelists.firstWhere((duelist) => duelist.id == duelistId);
     final PlayerState userState = await _createPlayerStateUseCase(user);
 
-    final opponent = _duelRoom!.duelists!.firstWhere((duelist) => duelist.id != duelistId);
+    final opponent = _duelRoom!.duelists.firstWhere((duelist) => duelist.id != duelistId);
     final PlayerState opponentState = await _createPlayerStateUseCase(opponent, isOpponent: true);
 
     _duelState.add(
@@ -170,13 +170,13 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     _screenEvent.add(const SpeedDuelHideOverlaysEvent());
 
-    final userState = _duelState.value.userState!;
+    final userState = _duelState.value.userState;
 
     if (userState.duelistId == zone.duelistId) {
       return _doesCardFitInZoneUseCase(card!, zone, userState);
     }
 
-    return _canCardAttackZoneUseCase(card!, zone, userState.duelistId!);
+    return _canCardAttackZoneUseCase(card!, zone, userState.duelistId);
   }
 
   Future<void> onZoneAcceptsCard(PlayCard? card, Zone zone) async {
@@ -184,9 +184,9 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     _screenEvent.add(const SpeedDuelHideOverlaysEvent());
 
-    final userState = _duelState.value.userState!;
+    final userState = _duelState.value.userState;
 
-    if (_canCardAttackZoneUseCase(card!, zone, userState.duelistId!)) {
+    if (_canCardAttackZoneUseCase(card!, zone, userState.duelistId)) {
       _onMonsterAttack(card, zone);
       return;
     }
@@ -217,7 +217,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
 
     final userState = _duelState.value.userState;
-    final PlayerState updatedUserState = _moveCardUseCase(userState!, card, position, newZone: newZone);
+    final PlayerState updatedUserState = _moveCardUseCase(userState, card, position, newZone: newZone);
     if (userState == updatedUserState) {
       return;
     }
@@ -272,14 +272,14 @@ class SpeedDuelViewModel extends BaseViewModel {
   void _showDeckList() {
     logger.verbose(_tag, '_showDeckList()');
 
-    final userState = _duelState.value.userState!;
+    final userState = _duelState.value.userState;
     onMultiCardZonePressed(userState, userState.deckZone);
   }
 
   void _drawCard() {
     logger.verbose(_tag, '_drawCard()');
 
-    final userState = _duelState.value.userState!;
+    final userState = _duelState.value.userState;
     final deckZone = userState.deckZone;
 
     final deck = deckZone.cards.toList();
@@ -288,7 +288,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       return;
     }
 
-    final drawnCard = deck.removeLast()!.copyWith(zoneType: ZoneType.hand);
+    final drawnCard = deck.removeLast().copyWith(zoneType: ZoneType.hand);
 
     _speedDuelEventEmitter.sendPlayCardEvent(drawnCard, ZoneType.hand, CardPosition.faceUp);
 
@@ -303,7 +303,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   void _shuffleDeck() {
     logger.verbose(_tag, '_shuffleDeck()');
 
-    final userState = _duelState.value.userState!;
+    final userState = _duelState.value.userState;
     final shuffledDeck = userState.deckZone.cards.toList()..shuffle();
     final updatedUserState = userState.copyWith(
       deckZone: userState.deckZone.copyWith(cards: shuffledDeck),
@@ -333,7 +333,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   Future<void> _summonToken() async {
     logger.verbose(_tag, '_summonToken()');
 
-    final userState = _duelState.value.userState!;
+    final userState = _duelState.value.userState;
     final availableZones = userState.mainMonsterZones.where((zone) => zone.isEmpty);
     if (availableZones.isEmpty) {
       _snackBarService.showSnackBar('You need an empty main monster zone to summon a token.');
@@ -342,7 +342,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     final token = await _dataManager.getToken();
     final tokenCount = userState.cards.where((card) => card!.yugiohCard.id == token.id).length;
-    final PlayCard tokenCard = _createPlayCardUseCase(token, userState.duelistId!, tokenCount + 1);
+    final PlayCard tokenCard = _createPlayCardUseCase(token, userState.duelistId, tokenCount + 1);
     return onZoneAcceptsCard(tokenCard, availableZones.first);
   }
 
@@ -385,7 +385,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     logger.verbose(_tag, '_updateCardPosition(card: $card, position: $position)');
 
     final userState = _duelState.value.userState;
-    final PlayerState updatedUserState = _moveCardUseCase(userState!, card, position);
+    final PlayerState updatedUserState = _moveCardUseCase(userState, card, position);
     if (userState == updatedUserState) {
       return;
     }
@@ -460,11 +460,11 @@ class SpeedDuelViewModel extends BaseViewModel {
     final copyNumber = data.copyNumber;
     final zoneType = parseZoneType(data.zoneName);
     final position = parseCardPosition(data.cardPosition);
-    if (cardId == null || copyNumber == null || zoneType == null || position == null) {
+    if (zoneType == null || position == null) {
       return;
     }
 
-    final opponentState = _duelState.value.opponentState!;
+    final opponentState = _duelState.value.opponentState;
 
     PlayCard? playCard = opponentState.cards
         .firstWhere((card) => card!.yugiohCard.id == cardId && card.copyNumber == copyNumber, orElse: () => null);
@@ -476,7 +476,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       }
 
       final tokenCount = opponentState.cards.where((card) => card!.yugiohCard.id == token.id).length;
-      playCard = _createPlayCardUseCase(token, opponentState.duelistId!, tokenCount + 1);
+      playCard = _createPlayCardUseCase(token, opponentState.duelistId, tokenCount + 1);
     }
 
     final newZone = opponentState.zones.firstWhere((zone) => zone.zoneType == zoneType);
@@ -494,16 +494,13 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     final cardId = data.cardId;
     final copyNumber = data.copyNumber;
-    if (cardId == null || copyNumber == null) {
-      return;
-    }
 
-    final opponentState = _duelState.value.opponentState!;
+    final opponentState = _duelState.value.opponentState;
 
     final playCard =
         opponentState.cards.firstWhere((card) => card!.yugiohCard.id == cardId && card.copyNumber == copyNumber);
 
-    final PlayerState updatedOpponentState = _moveCardUseCase(opponentState, playCard!, CardPosition.destroy);
+    final updatedOpponentState = _moveCardUseCase(opponentState, playCard!, CardPosition.destroy);
     if (opponentState == updatedOpponentState) {
       return;
     }
@@ -517,14 +514,14 @@ class SpeedDuelViewModel extends BaseViewModel {
     final cardId = data.cardId;
     final copyNumber = data.copyNumber;
     final zoneType = parseZoneType(data.zoneName);
-    if (cardId == null || copyNumber == null || zoneType == null) {
+    if (zoneType == null) {
       return;
     }
 
     final duelState = _duelState.value;
-    final attackingCard = duelState.opponentState!.cards
+    final attackingCard = duelState.opponentState.cards
         .firstWhere((card) => card!.yugiohCard.id == cardId && card.copyNumber == copyNumber);
-    final targetZone = duelState.userState!.getZone(zoneType);
+    final targetZone = duelState.userState.getZone(zoneType);
 
     if (attackingCard != null) {
       await _cardEventAnimationHandler.onAttackCardEvent(attackingCard, targetZone);

@@ -26,12 +26,12 @@ class TwitterProviderImpl implements TwitterProvider {
 
       newsItems.add(
         NewsItem(
-          id: tweet.idStr,
-          text: tweet.fullText,
-          authorId: tweet.user!.screenName,
-          authorName: tweet.user!.name,
-          authorImageUrl: tweet.user!.profileImageUrlHttps,
-          createdAt: tweet.createdAt,
+          id: tweet.idStr!,
+          text: tweet.fullText!,
+          authorId: tweet.user!.screenName!,
+          authorName: tweet.user!.name!,
+          authorImageUrl: tweet.user!.profileImageUrlHttps!,
+          createdAt: tweet.createdAt!,
           imageUrl: imageUrl,
         ),
       );
