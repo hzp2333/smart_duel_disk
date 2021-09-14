@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_duel_disk/generated/assets.gen.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone_type.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/lib/wrapper_assets.dart';
 
 import '../../../../speed_duel_viewmodel.dart';
 import 'cards/player_card.dart';
@@ -23,10 +23,9 @@ class MultiCardZone extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<SpeedDuelViewModel>(context);
-    final assetsProvider = Provider.of<AssetsProvider>(context);
     final playerState = Provider.of<PlayerState>(context);
 
-    final cardBack = assetsProvider.cardBack;
+    final cardBack = Assets.illustrations.cardBack.path;
     final amountOfCards = zone.cards.length.toString();
 
     final zoneType = zone.zoneType;

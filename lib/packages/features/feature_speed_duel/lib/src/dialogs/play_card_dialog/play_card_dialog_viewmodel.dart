@@ -20,7 +20,7 @@ class PlayCardDialogViewModel extends BaseViewModel {
   final CreatePlayCardDialogActionsUseCase _createPlayCardDialogActionsUseCase;
   final DialogService _dialogService;
 
-  PlayCard? get playCard => _parameters?.playCard;
+  PlayCard get playCard => _parameters!.playCard!;
 
   Iterable<PlayCardDialogAction>? _cardActions = [];
   Iterable<PlayCardDialogAction>? get cardActions => _cardActions;
@@ -107,7 +107,7 @@ class PlayCardDialogViewModel extends BaseViewModel {
       return;
     }
 
-    if (playCard!.zoneType.isMainMonsterZone) {
+    if (playCard.zoneType.isMainMonsterZone) {
       _setMonsterCard();
       return;
     }

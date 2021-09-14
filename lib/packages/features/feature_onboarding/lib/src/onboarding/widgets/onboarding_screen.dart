@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_duel_disk/generated/assets.gen.dart';
 import 'package:smart_duel_disk/generated/locale_keys.g.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/lib/wrapper_assets.dart';
 
 import '../onboarding_viewmodel.dart';
 
@@ -71,10 +71,8 @@ class _CompanyLogo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final assetsProvider = Provider.of<AssetsProvider>(context);
-
     return Image.asset(
-      assetsProvider.iconCrownCorp,
+      Assets.illustrations.crowncorpLogo.path,
       width: 250,
     );
   }

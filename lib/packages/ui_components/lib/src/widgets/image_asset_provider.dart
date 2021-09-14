@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ImageAssetProvider extends StatelessWidget {
-  final String? assetName;
+  final String assetName;
   final Color? color;
   final double? size;
   final BoxFit? fit;
@@ -16,7 +16,7 @@ class ImageAssetProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Image.asset(
-      assetName!,
+      assetName,
       color: color,
       width: size,
       height: size,

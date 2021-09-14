@@ -16,7 +16,7 @@ class PlayCard extends Equatable {
   final String? formattedAttack;
   final String? formattedDefence;
   final String? formattedLevel;
-  final String? attributeAssetName;
+  final String attributeAssetName;
 
   const PlayCard({
     required this.yugiohCard,
@@ -28,7 +28,7 @@ class PlayCard extends Equatable {
     this.formattedAttack,
     this.formattedDefence,
     this.formattedLevel,
-    this.attributeAssetName,
+    required this.attributeAssetName,
   });
 
   bool get belongsInExtraDeck => yugiohCard.type == CardType.fusionMonster;

@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:smart_duel_disk/generated/assets.gen.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
@@ -12,8 +13,8 @@ void main() {
   const _userId = '123';
   const _opponentId = '456';
 
-  const _spellCard = PlayCard(
-    yugiohCard: YugiohCard(
+  final _spellCard = PlayCard(
+    yugiohCard: const YugiohCard(
       id: 0,
       name: 'Spell',
       type: CardType.spellCard,
@@ -27,10 +28,11 @@ void main() {
     position: CardPosition.faceUp,
     copyNumber: 1,
     formattedRaceAndType: '',
+    attributeAssetName: Assets.icons.icCardTypeSpell.path,
   );
 
-  const _monsterCard = PlayCard(
-    yugiohCard: YugiohCard(
+  final _monsterCard = PlayCard(
+    yugiohCard: const YugiohCard(
       id: 1,
       name: 'Monster',
       type: CardType.normalMonster,
@@ -38,12 +40,14 @@ void main() {
       race: CardRace.machine,
       imageSmallUrl: '',
       imageLargeUrl: '',
+      attribute: CardAttribute.dark,
     ),
     duelistId: _userId,
     zoneType: ZoneType.mainMonster1,
     position: CardPosition.faceUp,
     copyNumber: 1,
     formattedRaceAndType: '',
+    attributeAssetName: Assets.icons.icAttributeDark.path,
   );
 
   const _userMonsterZone = Zone(zoneType: ZoneType.mainMonster1, duelistId: _userId);

@@ -2,10 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_duel_disk/generated/assets.gen.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/lib/wrapper_assets.dart';
 
 class CardGrid extends StatelessWidget {
   final Iterable<YugiohCard> yugiohCards;
@@ -53,7 +53,8 @@ class _GridCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<DeckBuilderViewModel>(context);
-    final assetsProvider = Provider.of<AssetsProvider>(context);
+
+    final cardBackPath = Assets.illustrations.cardBack.path;
 
     return GestureDetector(
       onTap: () {
@@ -69,9 +70,9 @@ class _GridCard extends StatelessWidget {
         child: CachedNetworkImage(
           imageUrl: kIsWeb ? yugiohCard.imageLargeUrl : yugiohCard.imageSmallUrl,
           fit: BoxFit.fitWidth,
-          placeholder: (_, __) => ImagePlaceholder(imageAssetId: assetsProvider.cardBack),
+          placeholder: (_, __) => ImagePlaceholder(imageAssetId: cardBackPath),
           // ignore: avoid_annotating_with_dynamic
-          errorWidget: (_, __, dynamic ___) => ImagePlaceholder(imageAssetId: assetsProvider.cardBack),
+          errorWidget: (_, __, dynamic ___) => ImagePlaceholder(imageAssetId: cardBackPath),
         ),
       ),
     );

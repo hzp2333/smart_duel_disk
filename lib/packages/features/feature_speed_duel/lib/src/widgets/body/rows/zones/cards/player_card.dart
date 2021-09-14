@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_duel_disk/generated/assets.gen.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
@@ -12,7 +13,6 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/spe
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/widgets/body/rows/zones/shared/zone_background.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/widgets/body/rows/zones/shared/zone_filler.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/lib/wrapper_assets.dart';
 
 import 'card_animation_container.dart';
 
@@ -26,10 +26,9 @@ class PlayerCardBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<SpeedDuelViewModel>(context);
-    final assetsProvider = Provider.of<AssetsProvider>(context);
     final playerState = Provider.of<PlayerState>(context);
 
-    final cardBack = assetsProvider.cardBack;
+    final cardBack = Assets.illustrations.cardBack.path;
 
     if (playerState.isOpponent) {
       return CardImage(

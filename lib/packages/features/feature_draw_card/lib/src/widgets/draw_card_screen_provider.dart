@@ -4,7 +4,6 @@ import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/features/feature_draw_card/lib/src/draw_card_viewmodel.dart';
 import 'package:smart_duel_disk/packages/features/feature_draw_card/lib/src/widgets/draw_card_screen.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/lib/wrapper_assets.dart';
 import 'package:smart_duel_disk/src/di/di.dart';
 
 class DrawCardScreenProvider extends StatelessWidget {
@@ -25,7 +24,6 @@ class DrawCardScreenProvider extends StatelessWidget {
             di.get<Logger>(),
           ),
         ),
-        Provider(create: (_) => di.get<AssetsProvider>()),
       ],
       child: const DrawCardScreen(),
     );

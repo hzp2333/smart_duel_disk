@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_duel_disk/generated/assets.gen.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/models/play_card_dialog_action.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/play_card_dialog_viewmodel.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/lib/wrapper_assets.dart';
 
 class PlayCardDialog extends StatelessWidget {
   const PlayCardDialog();
@@ -132,13 +132,11 @@ class _MonsterLevel extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final assetsProvider = Provider.of<AssetsProvider>(context);
-
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         ImageAssetProvider(
-          assetName: assetsProvider.iconCardLevel,
+          assetName: Assets.icons.icCardLevel.path,
           size: AppSizes.iconSize16,
         ),
         const SizedBox(width: 4),

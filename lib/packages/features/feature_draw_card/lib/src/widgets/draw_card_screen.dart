@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_duel_disk/generated/assets.gen.dart';
 import 'package:smart_duel_disk/packages/features/feature_draw_card/lib/src/draw_card_viewmodel.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/lib/wrapper_assets.dart';
 
 class DrawCardScreen extends StatefulWidget {
   const DrawCardScreen();
@@ -23,8 +23,7 @@ class _DrawCardScreenState extends State<DrawCardScreen> {
   void initState() {
     super.initState();
 
-    final assetsProvider = Provider.of<AssetsProvider>(context, listen: false);
-    _cardImage = _CardImage(imageAssetId: assetsProvider.cardBack);
+    _cardImage = _CardImage(imageAssetId: Assets.illustrations.cardBack.path);
 
     _startAnimation();
   }
@@ -47,8 +46,6 @@ class _DrawCardScreenState extends State<DrawCardScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final assetsProvider = Provider.of<AssetsProvider>(context);
-
     final screenHeight = MediaQuery.of(context).size.height;
     final animatingRightOffset = screenHeight * 2;
     final animatingLeftOffset = animatingRightOffset * -1;
@@ -65,7 +62,7 @@ class _DrawCardScreenState extends State<DrawCardScreen> {
               curve: Curves.fastOutSlowIn,
               left: _isAnimationStarted ? 0 : animatingLeftOffset,
               right: _isAnimationStarted ? 0 : animatingRightOffset,
-              child: _CardImage(imageAssetId: assetsProvider.cardBack),
+              child: _CardImage(imageAssetId: Assets.illustrations.cardBack.path),
             ),
           } else ...{
             _CardDraggable(cardImage: _cardImage),
