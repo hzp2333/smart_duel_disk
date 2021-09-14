@@ -8,11 +8,13 @@ import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/d
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
 class CardGrid extends StatelessWidget {
-  final Iterable<YugiohCard> yugiohCards;
+  static const _cardsPerRow = 6;
+
+  final Iterable<YugiohCard> cards;
   final ScrollPhysics scrollPhysics;
 
   const CardGrid({
-    required this.yugiohCards,
+    required this.cards,
     this.scrollPhysics = const ClampingScrollPhysics(),
   });
 
@@ -24,15 +26,15 @@ class CardGrid extends StatelessWidget {
         physics: scrollPhysics,
         padding: const EdgeInsets.all(AppSizes.screenMarginSmall),
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 6,
+          crossAxisCount: _cardsPerRow,
           mainAxisSpacing: AppSizes.deckBuilderGridSpacing,
           crossAxisSpacing: AppSizes.deckBuilderGridSpacing,
           childAspectRatio: AppSizes.yugiohCardAspectRatio,
         ),
-        itemCount: yugiohCards.length,
+        itemCount: cards.length,
         itemBuilder: (context, index) {
           return _GridCard(
-            yugiohCard: yugiohCards.elementAt(index),
+            card: cards.elementAt(index),
             index: index,
           );
         },
@@ -42,11 +44,11 @@ class CardGrid extends StatelessWidget {
 }
 
 class _GridCard extends StatelessWidget {
-  final YugiohCard yugiohCard;
+  final YugiohCard card;
   final int index;
 
   const _GridCard({
-    required this.yugiohCard,
+    required this.card,
     required this.index,
   });
 
@@ -57,18 +59,11 @@ class _GridCard extends StatelessWidget {
     final cardBackPath = Assets.illustrations.cardBack.path;
 
     return GestureDetector(
-      onTap: () {
-        final currentFocus = WidgetsBinding.instance!.focusManager.primaryFocus;
-        if (currentFocus != null) {
-          currentFocus.unfocus();
-        }
-
-        vm.onYugiohCardPressed(yugiohCard, index);
-      },
+      onTap: () => vm.onCardPressed(card, index),
       child: Hero(
-        tag: '${yugiohCard.id} - $index',
+        tag: '${card.id} - $index',
         child: CachedNetworkImage(
-          imageUrl: kIsWeb ? yugiohCard.imageLargeUrl : yugiohCard.imageSmallUrl,
+          imageUrl: kIsWeb ? card.imageLargeUrl : card.imageSmallUrl,
           fit: BoxFit.fitWidth,
           placeholder: (_, __) => ImagePlaceholder(imageAssetId: cardBackPath),
           // ignore: avoid_annotating_with_dynamic

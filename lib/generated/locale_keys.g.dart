@@ -1,9 +1,19 @@
 // DO NOT EDIT. This is code generated via package:easy_localization/generate.dart
 
 abstract class  LocaleKeys {
+  static const app_title = 'app_title';
+  static const deck_action_draw_card = 'deck_action_draw_card';
+  static const deck_action_show_deck_list = 'deck_action_show_deck_list';
+  static const deck_action_shuffle_deck = 'deck_action_shuffle_deck';
+  static const deck_action_summon_token = 'deck_action_summon_token';
+  static const deck_action_surrender = 'deck_action_surrender';
+  static const deck_builder_extra_deck_section = 'deck_builder_extra_deck_section';
   static const deck_builder_general_error_description = 'deck_builder_general_error_description';
+  static const deck_builder_monster_cards_section = 'deck_builder_monster_cards_section';
   static const deck_builder_no_data_error_description = 'deck_builder_no_data_error_description';
   static const deck_builder_search_hint = 'deck_builder_search_hint';
+  static const deck_builder_spell_cards_section = 'deck_builder_spell_cards_section';
+  static const deck_builder_trap_cards_section = 'deck_builder_trap_cards_section';
   static const deck_personal_create_deck = 'deck_personal_create_deck';
   static const deck_personal_decks_title = 'deck_personal_decks_title';
   static const deck_personal_search_card = 'deck_personal_search_card';

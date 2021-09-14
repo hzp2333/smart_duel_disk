@@ -31,7 +31,8 @@ class PlayCard extends Equatable {
     required this.attributeAssetName,
   });
 
-  bool get belongsInExtraDeck => yugiohCard.type == CardType.fusionMonster;
+  bool get belongsInExtraDeck => yugiohCard.belongsInExtraDeck;
+  bool get isMonster => yugiohCard.isMonster;
 
   PlayCard copyWith({ZoneType? zoneType, CardPosition? position}) {
     return PlayCard(
@@ -64,19 +65,4 @@ class PlayCard extends Equatable {
 
   @override
   bool get stringify => true;
-}
-
-extension PlayCardExtensions on PlayCard {
-  bool get belongsInExtraDeck => yugiohCard.type == CardType.fusionMonster;
-
-  bool get isMonster =>
-      yugiohCard.type == CardType.effectMonster ||
-      yugiohCard.type == CardType.flipEffectMonster ||
-      yugiohCard.type == CardType.fusionMonster ||
-      yugiohCard.type == CardType.normalMonster ||
-      yugiohCard.type == CardType.ritualEffectMonster ||
-      yugiohCard.type == CardType.ritualMonster ||
-      yugiohCard.type == CardType.toonMonster ||
-      yugiohCard.type == CardType.unionEffectMonster ||
-      yugiohCard.type == CardType.token;
 }

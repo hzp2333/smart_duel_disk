@@ -70,15 +70,15 @@ class NewsViewModel extends BaseViewModel {
   Future<void> _fetchData() async {
     logger.verbose(_tag, '_fetchData()');
 
-    _newsState.add(const NewsLoading());
+    _newsState.safeAdd(const NewsLoading());
 
     try {
       final newsItems = await _dataManager.getNewsItems();
       final newsListItems = newsItems.map((newsItem) => newsItem.toNewsListItem(_dateFormatter));
-      _newsState.add(NewsData(newsListItems));
+      _newsState.safeAdd(NewsData(newsListItems));
     } catch (exception, stackTrace) {
       logger.error(_tag, 'An error occured while fetching the news', exception, stackTrace);
-      _newsState.add(const NewsError());
+      _newsState.safeAdd(const NewsError());
     }
   }
 

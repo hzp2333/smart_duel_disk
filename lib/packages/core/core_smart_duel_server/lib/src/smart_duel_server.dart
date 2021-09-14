@@ -1,5 +1,6 @@
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/subjects.dart';
+import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_web_socket/lib/wrapper_web_socket.dart';
 
@@ -90,7 +91,7 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
     _logger.verbose(_tag, '_handleGlobalEvent(status: $status)');
 
     if (!_globalEvents.isClosed) {
-      _globalEvents.add(SmartDuelEvent.global(status));
+      _globalEvents.safeAdd(SmartDuelEvent.global(status));
     }
   }
 
@@ -120,7 +121,7 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
     }
 
     if (event != null && !_roomEvents.isClosed) {
-      _roomEvents.add(event);
+      _roomEvents.safeAdd(event);
     }
   }
 
@@ -147,7 +148,7 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
     }
 
     if (event != null && !_cardEvents.isClosed) {
-      _cardEvents.add(event);
+      _cardEvents.safeAdd(event);
     }
   }
 

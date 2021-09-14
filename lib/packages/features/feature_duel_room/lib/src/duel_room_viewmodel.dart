@@ -80,13 +80,13 @@ class DuelRoomViewModel extends BaseViewModel {
   void onRoomNameChanged(String roomName) {
     logger.info(_tag, 'onRoomNameChanged($roomName)');
 
-    _roomName.add(roomName);
+    _roomName.safeAdd(roomName);
   }
 
   void onRoomNameSubmitted(String roomName) {
     logger.info(_tag, 'onRoomNameSubmitted($roomName)');
 
-    _roomName.add(roomName);
+    _roomName.safeAdd(roomName);
   }
 
   //endregion
@@ -187,14 +187,14 @@ class DuelRoomViewModel extends BaseViewModel {
   void _handleConnectEvent() {
     logger.verbose(_tag, '_handleConnectEvent()');
 
-    _duelRoomState.add(const DuelRoomConnected());
+    _duelRoomState.safeAdd(const DuelRoomConnected());
   }
 
   void _handleErrorEvent(String error) {
     logger.verbose(_tag, '_handleErrorEvent(error: $error)');
 
     final errorMessage = 'Could not connect to Smart Duel Server\n\nReason: $error';
-    _duelRoomState.add(DuelRoomError(errorMessage, _resetSmartDuelServerConnection));
+    _duelRoomState.safeAdd(DuelRoomError(errorMessage, _resetSmartDuelServerConnection));
   }
 
   void _resetSmartDuelServerConnection() {
@@ -235,11 +235,11 @@ class DuelRoomViewModel extends BaseViewModel {
 
     final roomName = data.roomName;
     if (roomName == null) {
-      _duelRoomState.add(DuelRoomError('room name not found', _resetSmartDuelServerConnection));
+      _duelRoomState.safeAdd(DuelRoomError('room name not found', _resetSmartDuelServerConnection));
       return;
     }
 
-    _duelRoomState.add(DuelRoomCreate(data.roomName!));
+    _duelRoomState.safeAdd(DuelRoomCreate(data.roomName!));
   }
 
   void _handleCloseRoomEvent(RoomEventData data) {
@@ -252,7 +252,7 @@ class DuelRoomViewModel extends BaseViewModel {
     logger.verbose(_tag, '_handleJoinRoomEvent(data: $data)');
 
     final errorMessage = 'Could not connect to room ${data.roomName}\n\nReason: ${data.error.stringValue}';
-    _duelRoomState.add(DuelRoomError(errorMessage, _resetToConnectedState));
+    _duelRoomState.safeAdd(DuelRoomError(errorMessage, _resetToConnectedState));
   }
 
   Future<void> _handleStartRoomEvent(RoomEventData data) async {
@@ -261,7 +261,7 @@ class DuelRoomViewModel extends BaseViewModel {
     final duelRoom = data.duelRoom;
     if (duelRoom == null) {
       const errorMessage = 'Could not connect to room\n\nReason: could not parse duel room data';
-      _duelRoomState.add(DuelRoomError(errorMessage, _resetToConnectedState));
+      _duelRoomState.safeAdd(DuelRoomError(errorMessage, _resetToConnectedState));
       return;
     }
 
@@ -272,7 +272,7 @@ class DuelRoomViewModel extends BaseViewModel {
   void _resetToConnectedState() {
     logger.verbose(_tag, '_resetToConnectedState()');
 
-    _duelRoomState.add(const DuelRoomConnected());
+    _duelRoomState.safeAdd(const DuelRoomConnected());
   }
 
   //endregion

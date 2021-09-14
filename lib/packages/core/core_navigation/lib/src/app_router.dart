@@ -77,6 +77,7 @@ class AppRouterImpl implements AppRouter {
 
   //region News
 
+  // TODO: catch exceptions in viewmodel, and use logger instead of debugPrint
   @override
   Future<void> showNewsDetails(String? newsItemId, String? newsItemAuthorId) async {
     try {
@@ -129,7 +130,7 @@ class AppRouterImpl implements AppRouter {
 
   @override
   Future<void> showSpeedDuel(DuelRoom duelRoom) {
-    return _router.replace(SpeedDuelRoute(duelRoom: duelRoom));
+    return _router.navigate(SpeedDuelRoute(duelRoom: duelRoom));
   }
 
   @override

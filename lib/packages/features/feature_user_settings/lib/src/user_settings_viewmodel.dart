@@ -35,7 +35,7 @@ class UserSettingsViewModel extends BaseViewModel {
 
     userSettings = _updateDeveloperModeEnabledSetting(userSettings);
 
-    _userSettings.add(userSettings);
+    _userSettings.safeAdd(userSettings);
   }
 
   List<SettingItem> _updateDeveloperModeEnabledSetting(List<SettingItem> settings) {
@@ -71,7 +71,7 @@ class UserSettingsViewModel extends BaseViewModel {
     final currentUserSettings = _userSettings.value.toList();
     final updatedUserSettings = _updateDeveloperModeEnabledSetting(currentUserSettings);
 
-    _userSettings.add(updatedUserSettings);
+    _userSettings.safeAdd(updatedUserSettings);
   }
 
   @override

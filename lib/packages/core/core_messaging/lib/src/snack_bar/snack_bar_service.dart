@@ -24,6 +24,7 @@ class SnackBarServiceImpl implements SnackBarService {
       SnackBar(
         content: Text(
           message,
+          // TODO: move to app_colors
           style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: AppColors.cardBackgroundColor,

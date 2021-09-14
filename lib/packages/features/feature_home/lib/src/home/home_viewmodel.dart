@@ -27,7 +27,7 @@ class HomeViewModel extends BaseViewModel {
     logger.info(_tag, 'init()');
 
     final tabs = _getHomeTabsUseCase();
-    _homeTabs.add(tabs);
+    _homeTabs.safeAdd(tabs);
   }
 
   Future<void> onShowUserSettingsPressed() async {

@@ -18,9 +18,7 @@ abstract class YgoProDeckModule {
         connectTimeout: appConfig.ygoProDeckConnectTimeout,
         receiveTimeout: appConfig.ygoProDeckReceiveTimeout,
       ),
-    );
-
-    dio.transformer = dioPluginProvider.getDioBackgroundDecoder();
+    )..transformer = dioPluginProvider.getDioBackgroundDecoder();
 
     if (appConfig.loggingEnabled) {
       dio.interceptors.add(

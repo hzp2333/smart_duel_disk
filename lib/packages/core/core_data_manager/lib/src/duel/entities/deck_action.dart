@@ -1,18 +1,22 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_duel_disk/generated/locale_keys.g.dart';
 
 @immutable
 abstract class DeckAction extends Equatable {
-  final String title;
+  final String titleId;
   final IconData icon;
 
   const DeckAction({
-    required this.title,
+    required this.titleId,
     required this.icon,
   });
 
   @override
-  List<Object> get props => [title, icon];
+  List<Object> get props => [
+        titleId,
+        icon,
+      ];
 
   @override
   bool get stringify => true;
@@ -21,7 +25,7 @@ abstract class DeckAction extends Equatable {
 class DrawCard extends DeckAction {
   const DrawCard()
       : super(
-          title: 'Draw card',
+          titleId: LocaleKeys.deck_action_draw_card,
           icon: Icons.credit_card,
         );
 }
@@ -29,7 +33,7 @@ class DrawCard extends DeckAction {
 class SummonToken extends DeckAction {
   const SummonToken()
       : super(
-          title: 'Summon token',
+          titleId: LocaleKeys.deck_action_summon_token,
           icon: Icons.adb,
         );
 }
@@ -37,7 +41,7 @@ class SummonToken extends DeckAction {
 class ShowDeckList extends DeckAction {
   const ShowDeckList()
       : super(
-          title: 'Show deck list',
+          titleId: LocaleKeys.deck_action_show_deck_list,
           icon: Icons.view_carousel_rounded,
         );
 }
@@ -45,7 +49,7 @@ class ShowDeckList extends DeckAction {
 class ShuffleDeck extends DeckAction {
   const ShuffleDeck()
       : super(
-          title: 'Shuffle deck',
+          titleId: LocaleKeys.deck_action_shuffle_deck,
           icon: Icons.shuffle,
         );
 }
@@ -53,7 +57,7 @@ class ShuffleDeck extends DeckAction {
 class Surrender extends DeckAction {
   const Surrender()
       : super(
-          title: 'Surrender',
+          titleId: LocaleKeys.deck_action_surrender,
           icon: Icons.flag,
         );
 }

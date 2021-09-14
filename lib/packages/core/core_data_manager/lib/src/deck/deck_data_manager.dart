@@ -10,17 +10,17 @@ abstract class DeckDataManager {
 
 @LazySingleton(as: DeckDataManager)
 class DeckDataManagerImpl implements DeckDataManager {
-  final CloudDatabaseProvider _cloudDatabaseProvider;
+  static final _preBuiltDecks = [
+    KaibaDeck(),
+    MaiDeck(),
+    YugiDeck(),
+  ];
 
-  final Iterable<PreBuiltDeck> _preBuiltDecks;
+  final CloudDatabaseProvider _cloudDatabaseProvider;
 
   DeckDataManagerImpl(
     this._cloudDatabaseProvider,
-  ) : _preBuiltDecks = [
-          KaibaDeck(),
-          MaiDeck(),
-          YugiDeck(),
-        ];
+  );
 
   @override
   Iterable<PreBuiltDeck> getPreBuiltDecks() {

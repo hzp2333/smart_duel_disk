@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/packages/core/core_config/lib/core_config.dart';
+import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_models.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
@@ -28,7 +29,7 @@ class CardEventAnimationHandler {
 
     await _delayProvider.delay(AppDurations.preCardAnimationDelay);
 
-    _cardAnimations.add(
+    _cardAnimations.safeAdd(
       AttackAnimation(
         duelistId: attackingCard.duelistId,
         cardId: attackingCard.yugiohCard.id,
@@ -39,7 +40,7 @@ class CardEventAnimationHandler {
     if (targetZone.zoneType.isMainMonsterZone) {
       final targettedCard = targetZone.cards.first;
 
-      _cardAnimations.add(
+      _cardAnimations.safeAdd(
         AttackAnimation(
           duelistId: targettedCard.duelistId,
           cardId: targettedCard.yugiohCard.id,

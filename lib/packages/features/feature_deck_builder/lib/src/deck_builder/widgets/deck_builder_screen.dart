@@ -3,10 +3,11 @@ import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/generated/locale_keys.g.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart';
+import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/deck_builder/models/deck_builder_section.dart';
 import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/deck_builder/models/deck_builder_state.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
-import 'widgets/card_grid.dart';
+import 'body/card_grid.dart';
 
 class DeckBuilderScreen extends StatefulWidget {
   const DeckBuilderScreen();
@@ -74,9 +75,10 @@ class _Body extends StatelessWidget {
         initialData: const DeckBuilderLoading(),
         builder: (context, snapshot) {
           return snapshot.data!.when(
-            (cards, isPreBuilt) => isPreBuilt ? _PreBuiltDeckBody(yugiohCards: cards) : CardGrid(yugiohCards: cards),
+            filtered: (cards) => CardGrid(cards: cards),
+            preBuilt: (sections) => _PreBuiltDeckBody(sections: sections),
             loading: () => const _LoadingBody(),
-            noData: () => const _NoCardsBody(),
+            noData: () => const _NoDataBody(),
             error: () => const _ErrorBody(),
           );
         },
@@ -86,62 +88,45 @@ class _Body extends StatelessWidget {
 }
 
 class _PreBuiltDeckBody extends StatelessWidget {
-  final Map<String, Iterable<YugiohCard>> cardTypeSections;
+  final Iterable<DeckBuilderSection> sections;
 
-  _PreBuiltDeckBody({
-    required Iterable<YugiohCard> yugiohCards,
-  }) : cardTypeSections = {
-          'Monster cards': yugiohCards.where(
-            (card) =>
-                card.type != CardType.fusionMonster &&
-                card.type != CardType.spellCard &&
-                card.type != CardType.trapCard,
-          ),
-          'Spell cards': yugiohCards.where((card) => card.type == CardType.spellCard),
-          'Trap cards': yugiohCards.where((card) => card.type == CardType.trapCard),
-          'Extra deck': yugiohCards.where((card) => card.type == CardType.fusionMonster),
-        }..removeWhere((key, value) => value.isEmpty);
+  const _PreBuiltDeckBody({
+    required this.sections,
+  });
 
   @override
   Widget build(BuildContext context) {
     return ListView.separated(
       shrinkWrap: true,
       physics: const ClampingScrollPhysics(),
-      itemCount: cardTypeSections.length,
-      itemBuilder: (context, index) {
-        final cardTypeSection = cardTypeSections.entries.elementAt(index);
-
-        return _PreBuiltDeckSection(
-          title: cardTypeSection.key,
-          yugiohCards: cardTypeSection.value,
-        );
-      },
+      itemCount: sections.length,
+      itemBuilder: (context, index) => _PreBuiltDeckSection(section: sections.elementAt(index)),
       separatorBuilder: (context, index) => const SizedBox(height: AppSizes.deckBuilderSectionSeparator),
     );
   }
 }
 
-class _PreBuiltDeckSection extends StatelessWidget {
-  final String title;
-  final Iterable<YugiohCard> yugiohCards;
+class _PreBuiltDeckSection extends StatelessWidget with ProviderMixin {
+  final DeckBuilderSection section;
 
   const _PreBuiltDeckSection({
-    required this.title,
-    required this.yugiohCards,
+    required this.section,
   });
 
   @override
   Widget build(BuildContext context) {
+    final stringProvider = getStringProvider(context);
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: AppSizes.screenMarginSmall),
-          child: SectionTitle(title: title),
+          child: SectionTitle(title: stringProvider.getString(section.titleId)),
         ),
         CardGrid(
-          yugiohCards: yugiohCards,
+          cards: section.cards,
           scrollPhysics: const NeverScrollableScrollPhysics(),
         ),
       ],
@@ -158,8 +143,8 @@ class _LoadingBody extends StatelessWidget {
   }
 }
 
-class _NoCardsBody extends StatelessWidget with ProviderMixin {
-  const _NoCardsBody();
+class _NoDataBody extends StatelessWidget with ProviderMixin {
+  const _NoDataBody();
 
   @override
   Widget build(BuildContext context) {

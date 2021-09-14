@@ -57,11 +57,11 @@ class DuelViewModel extends BaseViewModel {
     }
 
     if (!connectionInfo.ipAddress.isNullOrEmpty) {
-      _ipAddress.add(connectionInfo.ipAddress);
+      _ipAddress.safeAdd(connectionInfo.ipAddress);
     }
 
     if (!connectionInfo.port.isNullOrEmpty) {
-      _port.add(connectionInfo.port);
+      _port.safeAdd(connectionInfo.port);
     }
   }
 
@@ -72,25 +72,25 @@ class DuelViewModel extends BaseViewModel {
   void onIpAddressChanged(String ipAddress) {
     logger.info(_tag, 'onIpAddressChanged($ipAddress)');
 
-    _ipAddress.add(ipAddress.isNotEmpty && _duelFormValidators.isValidIpAddress(ipAddress) ? ipAddress : null);
+    _ipAddress.safeAdd(ipAddress.isNotEmpty && _duelFormValidators.isValidIpAddress(ipAddress) ? ipAddress : null);
   }
 
   void onIpAddressSubmitted(String ipAddress) {
     logger.info(_tag, 'onIpAddressSubmitted($ipAddress)');
 
-    _ipAddress.add(ipAddress);
+    _ipAddress.safeAdd(ipAddress);
   }
 
   void onPortChanged(String port) {
     logger.info(_tag, 'onPortChanged($port)');
 
-    _port.add(port.isNotEmpty && _duelFormValidators.isValidPort(port) ? port : null);
+    _port.safeAdd(port.isNotEmpty && _duelFormValidators.isValidPort(port) ? port : null);
   }
 
   void onPortSubmitted(String port) {
     logger.info(_tag, 'onPortSubmitted($port)');
 
-    _port.add(port);
+    _port.safeAdd(port);
   }
 
   //endregion

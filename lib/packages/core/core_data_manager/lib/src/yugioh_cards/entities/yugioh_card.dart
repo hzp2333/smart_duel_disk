@@ -20,6 +20,19 @@ class YugiohCard extends Equatable {
   final CardAttribute? attribute;
   final String? archetype;
 
+  bool get belongsInExtraDeck => type == CardType.fusionMonster;
+
+  bool get isMonster =>
+      type == CardType.effectMonster ||
+      type == CardType.flipEffectMonster ||
+      type == CardType.fusionMonster ||
+      type == CardType.normalMonster ||
+      type == CardType.ritualEffectMonster ||
+      type == CardType.ritualMonster ||
+      type == CardType.toonMonster ||
+      type == CardType.unionEffectMonster ||
+      type == CardType.token;
+
   const YugiohCard({
     required this.id,
     required this.name,

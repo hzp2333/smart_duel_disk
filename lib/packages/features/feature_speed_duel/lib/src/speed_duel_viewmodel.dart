@@ -106,11 +106,11 @@ class SpeedDuelViewModel extends BaseViewModel {
 
       _initSmartDuelEventSubscription();
 
-      _screenState.add(SpeedDuelData(_duelState.value));
+      _screenState.safeAdd(SpeedDuelData(_duelState.value));
       _initialized = true;
     } catch (e, stackTrace) {
       _crashlyticsProvider.logException(e, stackTrace);
-      _screenState.add(const SpeedDuelError());
+      _screenState.safeAdd(const SpeedDuelError());
     }
   }
 
@@ -119,7 +119,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     _speedDuelStateSubscription = _duelState.listen((state) {
       if (_initialized && _screenState.value is SpeedDuelData) {
-        _screenState.add(SpeedDuelData(state));
+        _screenState.safeAdd(SpeedDuelData(state));
       }
     });
   }
@@ -135,7 +135,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     final opponent = _duelRoom!.duelists.firstWhere((duelist) => duelist.id != duelistId);
     final PlayerState opponentState = await _createPlayerStateUseCase(opponent, isOpponent: true);
 
-    _duelState.add(
+    _duelState.safeAdd(
       SpeedDuelState(
         userState: userState,
         opponentState: opponentState,
@@ -168,7 +168,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   bool? onWillZoneAcceptCard(PlayCard? card, Zone zone) {
     logger.info(_tag, 'onWillZoneAcceptCard($card, $zone)');
 
-    _screenEvent.add(const SpeedDuelHideOverlaysEvent());
+    _screenEvent.safeAdd(const SpeedDuelHideOverlaysEvent());
 
     final userState = _duelState.value.userState;
 
@@ -182,7 +182,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   Future<void> onZoneAcceptsCard(PlayCard? card, Zone zone) async {
     logger.info(_tag, 'onZoneAcceptsCard(card: $card, zone: $zone)');
 
-    _screenEvent.add(const SpeedDuelHideOverlaysEvent());
+    _screenEvent.safeAdd(const SpeedDuelHideOverlaysEvent());
 
     final userState = _duelState.value.userState;
 
@@ -223,7 +223,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
 
     _speedDuelEventEmitter.sendPlayCardEvent(card, newZone.zoneType, position);
-    _duelState.add(_duelState.value.copyWith(userState: updatedUserState));
+    _duelState.safeAdd(_duelState.value.copyWith(userState: updatedUserState));
   }
 
   //endregion
@@ -239,13 +239,13 @@ class SpeedDuelViewModel extends BaseViewModel {
   void onDeckPressed() {
     logger.info(_tag, 'onDeckPressed()');
 
-    _screenEvent.add(const SpeedDuelHideOverlaysEvent());
+    _screenEvent.safeAdd(const SpeedDuelHideOverlaysEvent());
   }
 
   Future<void> onDeckActionSelected(DeckAction deckAction) {
     logger.info(_tag, 'onDeckActionSelected($deckAction)');
 
-    _screenEvent.add(const SpeedDuelHideOverlaysEvent());
+    _screenEvent.safeAdd(const SpeedDuelHideOverlaysEvent());
 
     switch (deckAction.runtimeType) {
       case DrawCard:
@@ -297,7 +297,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       hand: userState.hand.copyWith(cards: [...userState.hand.cards, drawnCard]),
     );
 
-    _duelState.add(_duelState.value.copyWith(userState: updatedUserState));
+    _duelState.safeAdd(_duelState.value.copyWith(userState: updatedUserState));
   }
 
   void _shuffleDeck() {
@@ -309,7 +309,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       deckZone: userState.deckZone.copyWith(cards: shuffledDeck),
     );
 
-    _duelState.add(_duelState.value.copyWith(userState: updatedUserState));
+    _duelState.safeAdd(_duelState.value.copyWith(userState: updatedUserState));
   }
 
   Future<void> _surrender() async {
@@ -396,7 +396,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       _speedDuelEventEmitter.sendPlayCardEvent(card, card.zoneType, position);
     }
 
-    _duelState.add(_duelState.value.copyWith(userState: updatedUserState));
+    _duelState.safeAdd(_duelState.value.copyWith(userState: updatedUserState));
   }
 
   void onMultiCardZonePressed(PlayerState playerState, Zone zone) {
@@ -406,7 +406,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       return;
     }
 
-    _screenEvent.add(SpeedDuelInspectCardPileEvent(playerState, zone));
+    _screenEvent.safeAdd(SpeedDuelInspectCardPileEvent(playerState, zone));
   }
 
   //endregion
@@ -486,7 +486,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       return;
     }
 
-    _duelState.add(_duelState.value.copyWith(opponentState: updatedOpponentState));
+    _duelState.safeAdd(_duelState.value.copyWith(opponentState: updatedOpponentState));
   }
 
   Future<void> _handleRemoveCardEvent(CardEventData data) async {
@@ -505,7 +505,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       return;
     }
 
-    _duelState.add(_duelState.value.copyWith(opponentState: updatedOpponentState));
+    _duelState.safeAdd(_duelState.value.copyWith(opponentState: updatedOpponentState));
   }
 
   Future<void> _handleAttackCardEvent(CardEventData data) async {

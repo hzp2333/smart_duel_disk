@@ -9,7 +9,7 @@ import '../../../../speed_duel_viewmodel.dart';
 import 'multi_card_zone.dart';
 import 'shared/card_drag_target.dart';
 
-class DeckZone extends StatelessWidget {
+class DeckZone extends StatelessWidget with ProviderMixin {
   final Zone zone;
 
   const DeckZone({
@@ -20,6 +20,7 @@ class DeckZone extends StatelessWidget {
   Widget build(BuildContext context) {
     final vm = Provider.of<SpeedDuelViewModel>(context);
     final playerState = Provider.of<PlayerState>(context);
+    final stringProvider = getStringProvider(context);
 
     final actions = vm
         .getDeckActions()
@@ -27,7 +28,7 @@ class DeckZone extends StatelessWidget {
           (action) => PopupMenuItem<DeckAction>(
             value: action,
             child: _DeckZoneMenuItem(
-              title: action.title,
+              title: stringProvider.getString(action.titleId),
               icon: action.icon,
             ),
           ),

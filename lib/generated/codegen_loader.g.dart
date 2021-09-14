@@ -15,9 +15,19 @@ class CodegenLoader extends AssetLoader{
   }
 
   static const Map<String,dynamic> en = {
+  "app_title": "Smart Duel Disk",
+  "deck_action_draw_card": "Draw card",
+  "deck_action_show_deck_list": "Show deck list",
+  "deck_action_shuffle_deck": "Shuffle deck",
+  "deck_action_summon_token": "Summon token",
+  "deck_action_surrender": "Surrender",
+  "deck_builder_extra_deck_section": "Extra deck",
   "deck_builder_general_error_description": "An error occurred while fetching the cards. Please check your internet connection and try again.",
+  "deck_builder_monster_cards_section": "Monster cards",
   "deck_builder_no_data_error_description": "No cards were found. Please update the filter.",
   "deck_builder_search_hint": "Search by name or archetype...",
+  "deck_builder_spell_cards_section": "Spell cards",
+  "deck_builder_trap_cards_section": "Trap cards",
   "deck_personal_create_deck": "Create a deck",
   "deck_personal_decks_title": "Personal decks",
   "deck_personal_search_card": "Search a card",

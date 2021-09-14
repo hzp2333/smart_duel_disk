@@ -7,31 +7,33 @@ import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart
 import 'package:smart_duel_disk/packages/core/core_localization/lib/core_localization.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
-import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/deck_builder/models/deck_builder_state.dart';
+
+import 'models/deck_builder_section.dart';
+import 'models/deck_builder_state.dart';
 
 @Injectable()
 class DeckBuilderViewModel extends BaseViewModel {
   static const _tag = 'DeckBuilderViewModel';
 
   final PreBuiltDeck? _preBuiltDeck;
-  final AppRouter _routerHelper;
+  final AppRouter _router;
   final DataManager _dataManager;
   final StringProvider _stringProvider;
 
-  final _deckBuilderState = BehaviorSubject<DeckBuilderState>();
+  final _deckBuilderState = BehaviorSubject<DeckBuilderState>.seeded(const DeckBuilderLoading());
   Stream<DeckBuilderState> get deckBuilderState => _deckBuilderState.stream;
 
-  final _yugiohCards = BehaviorSubject<Iterable<YugiohCard>>();
-  final _textFilter = BehaviorSubject<String>.seeded('');
+  final _speedDuelCards = BehaviorSubject<Iterable<YugiohCard>>();
   final _preBuiltDeckCardIds = BehaviorSubject<Iterable<int>>();
+  final _textFilter = BehaviorSubject<String>.seeded('');
 
-  StreamSubscription<DeckBuilderState>? _filteredCardsSubscription;
+  late StreamSubscription<DeckBuilderState>? _filteredCardsSubscription;
 
   String? get preBuiltDeckTitle => _preBuiltDeck == null ? null : _stringProvider.getString(_preBuiltDeck!.titleId);
 
   DeckBuilderViewModel(
     @factoryParam this._preBuiltDeck,
-    this._routerHelper,
+    this._router,
     this._dataManager,
     this._stringProvider,
     Logger logger,
@@ -40,40 +42,117 @@ class DeckBuilderViewModel extends BaseViewModel {
   Future<void> init() async {
     logger.info(_tag, 'init()');
 
-    if (_preBuiltDeck == null) {
-      _preBuiltDeckCardIds.add([]);
-    } else {
-      final preBuiltDeckCardIds = await _dataManager.getPreBuiltDeckCardIds(_preBuiltDeck!);
-      _preBuiltDeckCardIds.add(preBuiltDeckCardIds);
-    }
+    _initFilteredCardsSubscription();
+    await _fetchData();
+  }
 
-    _filteredCardsSubscription = Rx.combineLatest3(_yugiohCards, _textFilter, _preBuiltDeckCardIds,
-        (Iterable<YugiohCard> cards, String filterValue, Iterable<int> preBuiltDeckCardIds) {
-      if (!preBuiltDeckCardIds.isNullOrEmpty) {
-        final deckCards = preBuiltDeckCardIds.map((id) => cards.singleWhere((card) => card.id == id)).toList()
-          ..sort((c1, c2) => c1.name.compareTo(c2.name));
-        return DeckBuilderState(deckCards, isPreBuilt: true);
+  //region Data state subscription
+
+  void _initFilteredCardsSubscription() {
+    logger.verbose(_tag, '_initFilteredCardsSubscription()');
+
+    _filteredCardsSubscription = Rx.combineLatest3(_speedDuelCards, _preBuiltDeckCardIds, _textFilter, (
+      Iterable<YugiohCard> cards,
+      Iterable<int> cardIds,
+      String filterValue,
+    ) {
+      if (cardIds.isNotEmpty) {
+        return _createPreBuiltDeckState(cardIds, cards);
       }
 
       if (filterValue.isNullOrEmpty) {
-        return DeckBuilderState(cards, isPreBuilt: false);
+        return DeckBuilderFiltered(cards);
       }
 
-      final textFilter = filterValue.toLowerCase();
-      final filteredCards = cards.where(
-        (card) =>
-            card.name.toLowerCase().contains(textFilter) ||
-            (card.archetype?.toLowerCase().contains(textFilter) ?? false),
-      );
+      return _createFilteredCardsState(cards, filterValue);
+    }).listen(_deckBuilderState.safeAdd);
+  }
 
-      if (filteredCards.isEmpty) {
-        return const DeckBuilderNoData();
+  DeckBuilderState _createPreBuiltDeckState(Iterable<int> cardIds, Iterable<YugiohCard> cards) {
+    logger.verbose(_tag, '_createPreBuiltDeckState()');
+
+    final deckCards = cardIds.map((id) => cards.firstWhere((card) => card.id == id)).toList()
+      ..sort((card1, card2) => card1.name.compareTo(card2.name));
+
+    final sections = [
+      MonsterCardsSection(cards: deckCards.where((card) => card.isMonster && !card.belongsInExtraDeck)),
+      SpellCardsSection(cards: deckCards.where((card) => card.type == CardType.spellCard)),
+      TrapCardsSection(cards: deckCards.where((card) => card.type == CardType.trapCard)),
+      ExtraDeckSection(cards: deckCards.where((card) => card.belongsInExtraDeck))
+    ]..removeWhere((section) => section.cards.isEmpty);
+
+    return DeckBuilderPreBuilt(sections);
+  }
+
+  DeckBuilderState _createFilteredCardsState(Iterable<YugiohCard> cards, String filterValue) {
+    logger.verbose(_tag, '_createFilteredCardsState()');
+
+    final textFilter = filterValue.toLowerCase();
+    final filteredCards = cards.where(
+      (card) =>
+          card.name.toLowerCase().contains(textFilter) || (card.archetype?.toLowerCase().contains(textFilter) ?? false),
+    );
+
+    if (filteredCards.isEmpty) {
+      return const DeckBuilderNoData();
+    }
+
+    return filteredCards.isEmpty ? const DeckBuilderNoData() : DeckBuilderFiltered(filteredCards);
+  }
+
+  //endregion
+
+  //region Data fetching
+
+  Future<void> _fetchData() async {
+    logger.verbose(_tag, '_fetchData()');
+
+    _deckBuilderState.safeAdd(const DeckBuilderLoading());
+
+    try {
+      if (!_speedDuelCards.hasValue) {
+        await _fetchSpeedDuelCards();
       }
 
-      return DeckBuilderState(filteredCards, isPreBuilt: false);
-    }).listen(_deckBuilderState.add);
+      if (!_preBuiltDeckCardIds.hasValue) {
+        await _fetchPreBuiltDeckCardIds();
+      }
+    } catch (exception, stackTrace) {
+      logger.error(_tag, 'An error occurred while fetching the data.', exception, stackTrace);
+      _deckBuilderState.safeAdd(const DeckBuilderError());
+    }
+  }
 
-    return _fetchData();
+  Future<void> _fetchSpeedDuelCards() async {
+    logger.verbose(_tag, '_fetchSpeedDuelCards()');
+
+    final speedDuelCards = await _dataManager.getSpeedDuelCards();
+    if (speedDuelCards.isNullOrEmpty) {
+      throw Exception('No speed duel cards');
+    }
+
+    _speedDuelCards.safeAdd(speedDuelCards);
+  }
+
+  Future<void> _fetchPreBuiltDeckCardIds() async {
+    logger.verbose(_tag, '_fetchPreBuiltDeckCardIds()');
+
+    final deck = _preBuiltDeck;
+    if (deck == null) {
+      _preBuiltDeckCardIds.safeAdd(<int>[]);
+      return;
+    }
+
+    final preBuiltDeckCardIds = await _dataManager.getPreBuiltDeckCardIds(deck);
+    _preBuiltDeckCardIds.safeAdd(preBuiltDeckCardIds);
+  }
+
+  //region Actions
+
+  Future<void> onCardPressed(YugiohCard card, int index) async {
+    logger.info(_tag, 'onCardPressed(card: ${card.id}, index: $index)');
+
+    await _router.showYugiohCardDetail(card, index);
   }
 
   Future<void> onRetryPressed() async {
@@ -82,41 +161,21 @@ class DeckBuilderViewModel extends BaseViewModel {
     await _fetchData();
   }
 
-  Future<void> _fetchData() async {
-    logger.verbose(_tag, '_fetchData()');
-
-    _deckBuilderState.add(const DeckBuilderLoading());
-
-    try {
-      final speedDuelCards = await _dataManager.getSpeedDuelCards();
-      if (speedDuelCards.isNullOrEmpty) {
-        throw Exception('No cards');
-      }
-
-      _yugiohCards.add(speedDuelCards);
-    } catch (exception, stackTrace) {
-      logger.error(_tag, 'An error occurred while fetching the speed tuel cards.', exception, stackTrace);
-      _deckBuilderState.add(const DeckBuilderError());
-    }
-  }
-
   void onTextFilterChanged(String value) {
     logger.info(_tag, 'onTextFilterChanged($value)');
 
-    _textFilter.add(value);
+    _textFilter.safeAdd(value);
   }
 
   void onClearTextFilterPressed() {
     logger.info(_tag, 'onClearTextFilterPressed()');
 
-    _textFilter.add('');
+    _textFilter.safeAdd('');
   }
 
-  Future<void> onYugiohCardPressed(YugiohCard yugiohCard, int index) {
-    logger.info(_tag, 'onYugiohCardPressed($yugiohCard, $index)');
+  //endregion
 
-    return _routerHelper.showYugiohCardDetail(yugiohCard, index);
-  }
+  //region Clean-up
 
   @override
   void dispose() {
@@ -126,9 +185,12 @@ class DeckBuilderViewModel extends BaseViewModel {
     _filteredCardsSubscription = null;
 
     _deckBuilderState.close();
-    _yugiohCards.close();
+    _speedDuelCards.close();
+    _preBuiltDeckCardIds.close();
     _textFilter.close();
 
     super.dispose();
   }
+
+  //endregion
 }
