@@ -31,7 +31,7 @@ class _NewsScreenState extends State<NewsScreen> {
 
     return StreamBuilder<NewsState>(
       stream: vm.newsState,
-      initialData: const Loading(),
+      initialData: const NewsLoading(),
       builder: (context, snapshot) {
         return snapshot.data!.when(
           (news) => _DataBody(newsItems: news),

@@ -16,18 +16,18 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$NewsStateTearOff {
   const _$NewsStateTearOff();
 
-  Data call(Iterable<NewsListItem> news) {
-    return Data(
+  NewsData call(Iterable<NewsListItem> news) {
+    return NewsData(
       news,
     );
   }
 
-  Loading loading() {
-    return const Loading();
+  NewsLoading loading() {
+    return const NewsLoading();
   }
 
-  Error error() {
-    return const Error();
+  NewsError error() {
+    return const NewsError();
   }
 }
 
@@ -53,16 +53,16 @@ mixin _$NewsState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(Data value) $default, {
-    required TResult Function(Loading value) loading,
-    required TResult Function(Error value) error,
+    TResult Function(NewsData value) $default, {
+    required TResult Function(NewsLoading value) loading,
+    required TResult Function(NewsError value) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(Data value)? $default, {
-    TResult Function(Loading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(NewsData value)? $default, {
+    TResult Function(NewsLoading value)? loading,
+    TResult Function(NewsError value)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -84,26 +84,26 @@ class _$NewsStateCopyWithImpl<$Res> implements $NewsStateCopyWith<$Res> {
 }
 
 /// @nodoc
-abstract class $DataCopyWith<$Res> {
-  factory $DataCopyWith(Data value, $Res Function(Data) then) =
-      _$DataCopyWithImpl<$Res>;
+abstract class $NewsDataCopyWith<$Res> {
+  factory $NewsDataCopyWith(NewsData value, $Res Function(NewsData) then) =
+      _$NewsDataCopyWithImpl<$Res>;
   $Res call({Iterable<NewsListItem> news});
 }
 
 /// @nodoc
-class _$DataCopyWithImpl<$Res> extends _$NewsStateCopyWithImpl<$Res>
-    implements $DataCopyWith<$Res> {
-  _$DataCopyWithImpl(Data _value, $Res Function(Data) _then)
-      : super(_value, (v) => _then(v as Data));
+class _$NewsDataCopyWithImpl<$Res> extends _$NewsStateCopyWithImpl<$Res>
+    implements $NewsDataCopyWith<$Res> {
+  _$NewsDataCopyWithImpl(NewsData _value, $Res Function(NewsData) _then)
+      : super(_value, (v) => _then(v as NewsData));
 
   @override
-  Data get _value => super._value as Data;
+  NewsData get _value => super._value as NewsData;
 
   @override
   $Res call({
     Object? news = freezed,
   }) {
-    return _then(Data(
+    return _then(NewsData(
       news == freezed
           ? _value.news
           : news // ignore: cast_nullable_to_non_nullable
@@ -114,8 +114,8 @@ class _$DataCopyWithImpl<$Res> extends _$NewsStateCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$Data implements Data {
-  const _$Data(this.news);
+class _$NewsData implements NewsData {
+  const _$NewsData(this.news);
 
   @override
   final Iterable<NewsListItem> news;
@@ -128,7 +128,7 @@ class _$Data implements Data {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is Data &&
+        (other is NewsData &&
             (identical(other.news, news) ||
                 const DeepCollectionEquality().equals(other.news, news)));
   }
@@ -139,8 +139,8 @@ class _$Data implements Data {
 
   @JsonKey(ignore: true)
   @override
-  $DataCopyWith<Data> get copyWith =>
-      _$DataCopyWithImpl<Data>(this, _$identity);
+  $NewsDataCopyWith<NewsData> get copyWith =>
+      _$NewsDataCopyWithImpl<NewsData>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -169,9 +169,9 @@ class _$Data implements Data {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(Data value) $default, {
-    required TResult Function(Loading value) loading,
-    required TResult Function(Error value) error,
+    TResult Function(NewsData value) $default, {
+    required TResult Function(NewsLoading value) loading,
+    required TResult Function(NewsError value) error,
   }) {
     return $default(this);
   }
@@ -179,9 +179,9 @@ class _$Data implements Data {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(Data value)? $default, {
-    TResult Function(Loading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(NewsData value)? $default, {
+    TResult Function(NewsLoading value)? loading,
+    TResult Function(NewsError value)? error,
     required TResult orElse(),
   }) {
     if ($default != null) {
@@ -191,34 +191,37 @@ class _$Data implements Data {
   }
 }
 
-abstract class Data implements NewsState {
-  const factory Data(Iterable<NewsListItem> news) = _$Data;
+abstract class NewsData implements NewsState {
+  const factory NewsData(Iterable<NewsListItem> news) = _$NewsData;
 
   Iterable<NewsListItem> get news => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $DataCopyWith<Data> get copyWith => throw _privateConstructorUsedError;
+  $NewsDataCopyWith<NewsData> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $LoadingCopyWith<$Res> {
-  factory $LoadingCopyWith(Loading value, $Res Function(Loading) then) =
-      _$LoadingCopyWithImpl<$Res>;
+abstract class $NewsLoadingCopyWith<$Res> {
+  factory $NewsLoadingCopyWith(
+          NewsLoading value, $Res Function(NewsLoading) then) =
+      _$NewsLoadingCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$LoadingCopyWithImpl<$Res> extends _$NewsStateCopyWithImpl<$Res>
-    implements $LoadingCopyWith<$Res> {
-  _$LoadingCopyWithImpl(Loading _value, $Res Function(Loading) _then)
-      : super(_value, (v) => _then(v as Loading));
+class _$NewsLoadingCopyWithImpl<$Res> extends _$NewsStateCopyWithImpl<$Res>
+    implements $NewsLoadingCopyWith<$Res> {
+  _$NewsLoadingCopyWithImpl(
+      NewsLoading _value, $Res Function(NewsLoading) _then)
+      : super(_value, (v) => _then(v as NewsLoading));
 
   @override
-  Loading get _value => super._value as Loading;
+  NewsLoading get _value => super._value as NewsLoading;
 }
 
 /// @nodoc
 
-class _$Loading implements Loading {
-  const _$Loading();
+class _$NewsLoading implements NewsLoading {
+  const _$NewsLoading();
 
   @override
   String toString() {
@@ -227,7 +230,7 @@ class _$Loading implements Loading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Loading);
+    return identical(this, other) || (other is NewsLoading);
   }
 
   @override
@@ -260,9 +263,9 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(Data value) $default, {
-    required TResult Function(Loading value) loading,
-    required TResult Function(Error value) error,
+    TResult Function(NewsData value) $default, {
+    required TResult Function(NewsLoading value) loading,
+    required TResult Function(NewsError value) error,
   }) {
     return loading(this);
   }
@@ -270,9 +273,9 @@ class _$Loading implements Loading {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(Data value)? $default, {
-    TResult Function(Loading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(NewsData value)? $default, {
+    TResult Function(NewsLoading value)? loading,
+    TResult Function(NewsError value)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -282,30 +285,30 @@ class _$Loading implements Loading {
   }
 }
 
-abstract class Loading implements NewsState {
-  const factory Loading() = _$Loading;
+abstract class NewsLoading implements NewsState {
+  const factory NewsLoading() = _$NewsLoading;
 }
 
 /// @nodoc
-abstract class $ErrorCopyWith<$Res> {
-  factory $ErrorCopyWith(Error value, $Res Function(Error) then) =
-      _$ErrorCopyWithImpl<$Res>;
+abstract class $NewsErrorCopyWith<$Res> {
+  factory $NewsErrorCopyWith(NewsError value, $Res Function(NewsError) then) =
+      _$NewsErrorCopyWithImpl<$Res>;
 }
 
 /// @nodoc
-class _$ErrorCopyWithImpl<$Res> extends _$NewsStateCopyWithImpl<$Res>
-    implements $ErrorCopyWith<$Res> {
-  _$ErrorCopyWithImpl(Error _value, $Res Function(Error) _then)
-      : super(_value, (v) => _then(v as Error));
+class _$NewsErrorCopyWithImpl<$Res> extends _$NewsStateCopyWithImpl<$Res>
+    implements $NewsErrorCopyWith<$Res> {
+  _$NewsErrorCopyWithImpl(NewsError _value, $Res Function(NewsError) _then)
+      : super(_value, (v) => _then(v as NewsError));
 
   @override
-  Error get _value => super._value as Error;
+  NewsError get _value => super._value as NewsError;
 }
 
 /// @nodoc
 
-class _$Error implements Error {
-  const _$Error();
+class _$NewsError implements NewsError {
+  const _$NewsError();
 
   @override
   String toString() {
@@ -314,7 +317,7 @@ class _$Error implements Error {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is Error);
+    return identical(this, other) || (other is NewsError);
   }
 
   @override
@@ -347,9 +350,9 @@ class _$Error implements Error {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>(
-    TResult Function(Data value) $default, {
-    required TResult Function(Loading value) loading,
-    required TResult Function(Error value) error,
+    TResult Function(NewsData value) $default, {
+    required TResult Function(NewsLoading value) loading,
+    required TResult Function(NewsError value) error,
   }) {
     return error(this);
   }
@@ -357,9 +360,9 @@ class _$Error implements Error {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>(
-    TResult Function(Data value)? $default, {
-    TResult Function(Loading value)? loading,
-    TResult Function(Error value)? error,
+    TResult Function(NewsData value)? $default, {
+    TResult Function(NewsLoading value)? loading,
+    TResult Function(NewsError value)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
@@ -369,6 +372,6 @@ class _$Error implements Error {
   }
 }
 
-abstract class Error implements NewsState {
-  const factory Error() = _$Error;
+abstract class NewsError implements NewsState {
+  const factory NewsError() = _$NewsError;
 }

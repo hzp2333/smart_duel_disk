@@ -20,7 +20,7 @@ class AppConfig {
   String get twitterUrl => 'https://twitter.com/CrownCorpBE';
   String get tweetUrl => 'https://twitter.com/{0}/status/{1}';
   String get youtubeUrl => 'https://www.youtube.com/channel/UCz2Que3btHnGkwrW-emZV5A';
-  String get discordUrl => 'https://discord.gg/SxmeN9Yh8a';
+  String get discordUrl => 'https://discord.gg/XCcfcbBcjE';
 
   final String twitterUserId;
   final String? twitterConsumerKey;

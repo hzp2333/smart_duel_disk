@@ -7,69 +7,78 @@ import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigatio
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/news/models/news_list_item.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/news/models/news_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/news/models/social_media.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/lib/wrapper_crashlytics.dart';
 
 import 'extensions/news_item_extensions.dart';
 
 @Injectable()
 class NewsViewModel extends BaseViewModel {
-  final AppRouter _routerHelper;
+  static const _tag = 'NewsViewModel';
+
+  final AppRouter _router;
   final DataManager _dataManager;
   final DateFormatter _dateFormatter;
-  final CrashlyticsProvider _crashlyticsProvider;
 
   final _newsState = BehaviorSubject<NewsState>();
   Stream<NewsState> get newsState => _newsState.stream;
 
   NewsViewModel(
-    Logger logger,
-    this._routerHelper,
+    this._router,
     this._dataManager,
     this._dateFormatter,
-    this._crashlyticsProvider,
-  ) : super(
-          logger,
-        );
+    Logger logger,
+  ) : super(logger);
 
   Future<void> init() async {
-    return _fetchData();
+    logger.info(_tag, 'init()');
+
+    await _fetchData();
   }
 
-  Future<void> onRefresh() {
-    return _fetchData();
+  Future<void> onRefresh() async {
+    logger.info(_tag, 'onRefresh()');
+
+    await _fetchData();
   }
 
-  Future<void> onRetryPressed() {
-    return _fetchData();
+  Future<void> onRetryPressed() async {
+    logger.info(_tag, 'onRetryPressed()');
+
+    await _fetchData();
   }
 
-  Future<void> onNewsItemTapped(NewsListItem newsListItem) {
-    return _routerHelper.showNewsDetails(newsListItem.id, newsListItem.authorId);
+  Future<void> onNewsItemTapped(NewsListItem newsListItem) async {
+    logger.info(_tag, 'onNewsItemTapped(newsListItem: $newsListItem)');
+
+    await _router.showNewsDetails(newsListItem.id, newsListItem.authorId);
   }
 
   Future<void> onSocialMediaPressed(SocialMedia socialMedia) {
+    logger.info(_tag, 'onSocialMediaPressed(socialMedia: $socialMedia)');
+
     switch (socialMedia) {
       case SocialMedia.youtube:
-        return _routerHelper.showYoutube();
+        return _router.showYoutube();
       case SocialMedia.twitter:
-        return _routerHelper.showTwitter();
+        return _router.showTwitter();
       case SocialMedia.discord:
-        return _routerHelper.showDiscord();
+        return _router.showDiscord();
       default:
         throw 'Invalid social media.';
     }
   }
 
   Future<void> _fetchData() async {
-    _newsState.add(const NewsState.loading());
+    logger.verbose(_tag, '_fetchData()');
+
+    _newsState.add(const NewsLoading());
 
     try {
       final newsItems = await _dataManager.getNewsItems();
       final newsListItems = newsItems.map((newsItem) => newsItem.toNewsListItem(_dateFormatter));
-      _newsState.add(NewsState(newsListItems));
+      _newsState.add(NewsData(newsListItems));
     } catch (exception, stackTrace) {
-      _crashlyticsProvider.logException(exception, stackTrace);
-      _newsState.add(const NewsState.error());
+      logger.error(_tag, 'An error occured while fetching the news', exception, stackTrace);
+      _newsState.add(const NewsError());
     }
   }
 

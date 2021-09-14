@@ -296,12 +296,8 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       get<_i4.AppConfig>(),
       get<_i58.TwitterProvider>(),
       get<_i59.HtmlUnescapeProvider>()));
-  gh.factory<_i60.NewsViewModel>(() => _i60.NewsViewModel(
-      get<_i13.Logger>(),
-      get<_i5.AppRouter>(),
-      get<_i23.DataManager>(),
-      get<_i61.DateFormatter>(),
-      get<_i55.CrashlyticsProvider>()));
+  gh.factory<_i60.NewsViewModel>(() => _i60.NewsViewModel(get<_i5.AppRouter>(),
+      get<_i23.DataManager>(), get<_i61.DateFormatter>(), get<_i13.Logger>()));
   gh.factory<_i62.OnboardingViewModel>(() => _i62.OnboardingViewModel(
       get<_i5.AppRouter>(), get<_i23.DataManager>(), get<_i13.Logger>()));
   gh.factoryParam<_i63.PlayCardDialogViewModel, _i64.PlayCardDialogParameters?,
