@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'speed_duel_screen_event.dart';
 
@@ -9,16 +9,17 @@ part of 'speed_duel_screen_event.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$SpeedDuelScreenEventTearOff {
   const _$SpeedDuelScreenEventTearOff();
 
-// ignore: unused_element
   SpeedDuelHideOverlaysEvent hideOverlays() {
     return const SpeedDuelHideOverlaysEvent();
   }
 
-// ignore: unused_element
   SpeedDuelInspectCardPileEvent inspectCardPile(
       PlayerState playerState, Zone zone) {
     return SpeedDuelInspectCardPileEvent(
@@ -29,33 +30,38 @@ class _$SpeedDuelScreenEventTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $SpeedDuelScreenEvent = _$SpeedDuelScreenEventTearOff();
 
 /// @nodoc
 mixin _$SpeedDuelScreenEvent {
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult hideOverlays(),
-    @required TResult inspectCardPile(PlayerState playerState, Zone zone),
-  });
+  TResult when<TResult extends Object?>({
+    required TResult Function() hideOverlays,
+    required TResult Function(PlayerState playerState, Zone zone)
+        inspectCardPile,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult hideOverlays(),
-    TResult inspectCardPile(PlayerState playerState, Zone zone),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? hideOverlays,
+    TResult Function(PlayerState playerState, Zone zone)? inspectCardPile,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult hideOverlays(SpeedDuelHideOverlaysEvent value),
-    @required TResult inspectCardPile(SpeedDuelInspectCardPileEvent value),
-  });
+  TResult map<TResult extends Object?>({
+    required TResult Function(SpeedDuelHideOverlaysEvent value) hideOverlays,
+    required TResult Function(SpeedDuelInspectCardPileEvent value)
+        inspectCardPile,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult hideOverlays(SpeedDuelHideOverlaysEvent value),
-    TResult inspectCardPile(SpeedDuelInspectCardPileEvent value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SpeedDuelHideOverlaysEvent value)? hideOverlays,
+    TResult Function(SpeedDuelInspectCardPileEvent value)? inspectCardPile,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -96,6 +102,7 @@ class _$SpeedDuelHideOverlaysEventCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$SpeedDuelHideOverlaysEvent implements SpeedDuelHideOverlaysEvent {
   const _$SpeedDuelHideOverlaysEvent();
 
@@ -114,23 +121,21 @@ class _$SpeedDuelHideOverlaysEvent implements SpeedDuelHideOverlaysEvent {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult hideOverlays(),
-    @required TResult inspectCardPile(PlayerState playerState, Zone zone),
+  TResult when<TResult extends Object?>({
+    required TResult Function() hideOverlays,
+    required TResult Function(PlayerState playerState, Zone zone)
+        inspectCardPile,
   }) {
-    assert(hideOverlays != null);
-    assert(inspectCardPile != null);
     return hideOverlays();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult hideOverlays(),
-    TResult inspectCardPile(PlayerState playerState, Zone zone),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? hideOverlays,
+    TResult Function(PlayerState playerState, Zone zone)? inspectCardPile,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (hideOverlays != null) {
       return hideOverlays();
     }
@@ -139,23 +144,21 @@ class _$SpeedDuelHideOverlaysEvent implements SpeedDuelHideOverlaysEvent {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult hideOverlays(SpeedDuelHideOverlaysEvent value),
-    @required TResult inspectCardPile(SpeedDuelInspectCardPileEvent value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(SpeedDuelHideOverlaysEvent value) hideOverlays,
+    required TResult Function(SpeedDuelInspectCardPileEvent value)
+        inspectCardPile,
   }) {
-    assert(hideOverlays != null);
-    assert(inspectCardPile != null);
     return hideOverlays(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult hideOverlays(SpeedDuelHideOverlaysEvent value),
-    TResult inspectCardPile(SpeedDuelInspectCardPileEvent value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SpeedDuelHideOverlaysEvent value)? hideOverlays,
+    TResult Function(SpeedDuelInspectCardPileEvent value)? inspectCardPile,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (hideOverlays != null) {
       return hideOverlays(this);
     }
@@ -191,21 +194,26 @@ class _$SpeedDuelInspectCardPileEventCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object playerState = freezed,
-    Object zone = freezed,
+    Object? playerState = freezed,
+    Object? zone = freezed,
   }) {
     return _then(SpeedDuelInspectCardPileEvent(
-      playerState == freezed ? _value.playerState : playerState as PlayerState,
-      zone == freezed ? _value.zone : zone as Zone,
+      playerState == freezed
+          ? _value.playerState
+          : playerState // ignore: cast_nullable_to_non_nullable
+              as PlayerState,
+      zone == freezed
+          ? _value.zone
+          : zone // ignore: cast_nullable_to_non_nullable
+              as Zone,
     ));
   }
 }
 
 /// @nodoc
+
 class _$SpeedDuelInspectCardPileEvent implements SpeedDuelInspectCardPileEvent {
-  const _$SpeedDuelInspectCardPileEvent(this.playerState, this.zone)
-      : assert(playerState != null),
-        assert(zone != null);
+  const _$SpeedDuelInspectCardPileEvent(this.playerState, this.zone);
 
   @override
   final PlayerState playerState;
@@ -242,23 +250,21 @@ class _$SpeedDuelInspectCardPileEvent implements SpeedDuelInspectCardPileEvent {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult hideOverlays(),
-    @required TResult inspectCardPile(PlayerState playerState, Zone zone),
+  TResult when<TResult extends Object?>({
+    required TResult Function() hideOverlays,
+    required TResult Function(PlayerState playerState, Zone zone)
+        inspectCardPile,
   }) {
-    assert(hideOverlays != null);
-    assert(inspectCardPile != null);
     return inspectCardPile(playerState, zone);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult hideOverlays(),
-    TResult inspectCardPile(PlayerState playerState, Zone zone),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? hideOverlays,
+    TResult Function(PlayerState playerState, Zone zone)? inspectCardPile,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (inspectCardPile != null) {
       return inspectCardPile(playerState, zone);
     }
@@ -267,23 +273,21 @@ class _$SpeedDuelInspectCardPileEvent implements SpeedDuelInspectCardPileEvent {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult hideOverlays(SpeedDuelHideOverlaysEvent value),
-    @required TResult inspectCardPile(SpeedDuelInspectCardPileEvent value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(SpeedDuelHideOverlaysEvent value) hideOverlays,
+    required TResult Function(SpeedDuelInspectCardPileEvent value)
+        inspectCardPile,
   }) {
-    assert(hideOverlays != null);
-    assert(inspectCardPile != null);
     return inspectCardPile(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult hideOverlays(SpeedDuelHideOverlaysEvent value),
-    TResult inspectCardPile(SpeedDuelInspectCardPileEvent value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(SpeedDuelHideOverlaysEvent value)? hideOverlays,
+    TResult Function(SpeedDuelInspectCardPileEvent value)? inspectCardPile,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (inspectCardPile != null) {
       return inspectCardPile(this);
     }
@@ -295,9 +299,9 @@ abstract class SpeedDuelInspectCardPileEvent implements SpeedDuelScreenEvent {
   const factory SpeedDuelInspectCardPileEvent(
       PlayerState playerState, Zone zone) = _$SpeedDuelInspectCardPileEvent;
 
-  PlayerState get playerState;
-  Zone get zone;
+  PlayerState get playerState => throw _privateConstructorUsedError;
+  Zone get zone => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $SpeedDuelInspectCardPileEventCopyWith<SpeedDuelInspectCardPileEvent>
-      get copyWith;
+      get copyWith => throw _privateConstructorUsedError;
 }

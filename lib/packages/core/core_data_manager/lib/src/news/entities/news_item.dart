@@ -3,25 +3,25 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 class NewsItem extends Equatable {
-  final String id;
-  final String text;
-  final String authorId;
-  final String authorName;
-  final String authorImageUrl;
-  final DateTime createdAt;
-  final String imageUrl;
+  final String? id;
+  final String? text;
+  final String? authorId;
+  final String? authorName;
+  final String? authorImageUrl;
+  final DateTime? createdAt;
+  final String? imageUrl;
 
   const NewsItem({
-    @required this.id,
-    @required this.text,
-    @required this.authorId,
-    @required this.authorName,
-    @required this.authorImageUrl,
-    @required this.createdAt,
-    @required this.imageUrl,
+    required this.id,
+    required this.text,
+    required this.authorId,
+    required this.authorName,
+    required this.authorImageUrl,
+    required this.createdAt,
+    required this.imageUrl,
   });
 
-  NewsItem copyWith({String text}) {
+  NewsItem copyWith({String? text}) {
     return NewsItem(
       id: id,
       text: text ?? this.text,
@@ -34,7 +34,7 @@ class NewsItem extends Equatable {
   }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         id,
         text,
         authorId,

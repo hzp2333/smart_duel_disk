@@ -26,9 +26,14 @@ class PrivacyPolicyViewModel extends BaseViewModel {
     return _assetBundle.loadString(_assetsProvider.privacyPolicy);
   }
 
-  void onUrlPressed(String url) {
+  Future<bool> onUrlPressed(String url) async {
     logger.info(_tag, 'onUrlPressed($url)');
 
-    _router.launchUrl(url);
+    try {
+      await _router.launchUrl(url);
+      return true;
+    } catch (e) {
+      return false;
+    }
   }
 }

@@ -8,12 +8,12 @@ import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 import 'package:smart_duel_disk/src/di/di.dart';
 
 class CardAnimationContainer extends StatefulWidget {
-  final PlayCard playCard;
+  final PlayCard? playCard;
   final Widget child;
 
   const CardAnimationContainer({
-    @required this.playCard,
-    @required this.child,
+    required this.playCard,
+    required this.child,
   });
 
   @override
@@ -21,10 +21,10 @@ class CardAnimationContainer extends StatefulWidget {
 }
 
 class _CardAnimationContainerState extends State<CardAnimationContainer> with SingleTickerProviderStateMixin {
-  Color _animationColor;
-  AnimationController _animationController;
+  late Color _animationColor;
+  late AnimationController _animationController;
 
-  StreamSubscription<CardAnimation> _cardAnimationSubscription;
+  late StreamSubscription<CardAnimation> _cardAnimationSubscription;
 
   @override
   void initState() {
@@ -45,9 +45,9 @@ class _CardAnimationContainerState extends State<CardAnimationContainer> with Si
   }
 
   Future<void> _onCardAnimation(CardAnimation cardAnimation) async {
-    if (cardAnimation.cardId == widget.playCard.yugiohCard.id &&
-        cardAnimation.copyNumber == widget.playCard.copyNumber &&
-        cardAnimation.duelistId == widget.playCard.duelistId &&
+    if (cardAnimation.cardId == widget.playCard!.yugiohCard.id &&
+        cardAnimation.copyNumber == widget.playCard!.copyNumber &&
+        cardAnimation.duelistId == widget.playCard!.duelistId &&
         mounted) {
       await _playAnimation(cardAnimation);
     }

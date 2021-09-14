@@ -4,11 +4,11 @@ part 'card_image_model.freezed.dart';
 part 'card_image_model.g.dart';
 
 @freezed
-abstract class CardImageModel with _$CardImageModel {
+class CardImageModel with _$CardImageModel {
   const factory CardImageModel({
-    @required @JsonKey(name: 'id') int id,
-    @required @JsonKey(name: 'image_url') String imageUrl,
-    @required @JsonKey(name: 'image_url_small') String imageUrlSmall,
+    @JsonKey(name: 'id') required int id,
+    @JsonKey(name: 'image_url') required String imageUrl,
+    @JsonKey(name: 'image_url_small') required String imageUrlSmall,
   }) = _CardImageModel;
 
   factory CardImageModel.fromJson(Map<String, dynamic> json) => _$CardImageModelFromJson(json);

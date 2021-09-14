@@ -1,14 +1,13 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_shared_preferences/lib/wrapper_shared_preferences.dart';
 
-import '../../../../testing/empty_mocks.dart';
+import '../../../../testing/mocks/shared.mocks.dart';
 
 void main() {
-  DuelStorageProvider _storageProvider;
+  late DuelStorageProvider _storageProvider;
 
-  SharedPreferencesProvider _sharedPreferencesProvider;
+  late MockSharedPreferencesProvider _sharedPreferencesProvider;
 
   const _connectionInfoKey = 'connectionInfo';
   const _onlineDuelRoomKey = 'onlineDuelRoom';
@@ -46,6 +45,9 @@ void main() {
   });
 
   test('When the connection info model is saved, then the connection info is stored', () async {
+    when(_sharedPreferencesProvider.setString(_connectionInfoKey, _connectionInfoJson))
+        .thenAnswer((_) => Future.value(true));
+
     await _storageProvider.saveConnectionInfo(_connectionInfoModel);
 
     verify(_sharedPreferencesProvider.setString(_connectionInfoKey, _connectionInfoJson)).called(1);
@@ -62,6 +64,8 @@ void main() {
   });
 
   test('When whether the online duel room should be used or not is saved, then the value is stored', () async {
+    when(_sharedPreferencesProvider.setBool(_onlineDuelRoomKey, value: true)).thenAnswer((_) => Future.value(true));
+
     await _storageProvider.saveUseOnlineDuelRoom(value: true);
 
     verify(_sharedPreferencesProvider.setBool(_onlineDuelRoomKey, value: true)).called(1);

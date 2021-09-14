@@ -7,8 +7,8 @@ class PopupMenuButtonWithCallback<T> extends StatefulWidget {
   ///
   /// The [itemBuilder] argument must not be null.
   const PopupMenuButtonWithCallback({
-    Key key,
-    @required this.itemBuilder,
+    Key? key,
+    required this.itemBuilder,
     this.initialValue,
     this.onSelected,
     this.onCanceled,
@@ -17,47 +17,47 @@ class PopupMenuButtonWithCallback<T> extends StatefulWidget {
     this.padding = const EdgeInsets.all(8.0),
     this.child,
     this.icon,
+    this.iconSize,
     this.offset = Offset.zero,
     this.enabled = true,
     this.shape,
     this.color,
-    this.captureInheritedThemes = true,
-    @required this.onPressed,
-  })  : assert(itemBuilder != null),
-        assert(offset != null),
-        assert(enabled != null),
-        assert(captureInheritedThemes != null),
-        assert(!(child != null && icon != null), 'You can only pass [child] or [icon], not both.'),
+    this.enableFeedback,
+    required this.onPressed,
+  })  : assert(
+          !(child != null && icon != null),
+          'You can only pass [child] or [icon], not both.',
+        ),
         super(key: key);
 
   /// Called when the button is pressed to create the items to show in the menu.
   final PopupMenuItemBuilder<T> itemBuilder;
 
   /// The value of the menu item, if any, that should be highlighted when the menu opens.
-  final T initialValue;
+  final T? initialValue;
 
   /// Called when the user selects a value from the popup menu created by this button.
   ///
   /// If the popup menu is dismissed without selecting a value, [onCanceled] is
   /// called instead.
-  final PopupMenuItemSelected<T> onSelected;
+  final PopupMenuItemSelected<T>? onSelected;
 
   /// Called when the user dismisses the popup menu without selecting an item.
   ///
   /// If the user selects a value, [onSelected] is called instead.
-  final PopupMenuCanceled onCanceled;
+  final PopupMenuCanceled? onCanceled;
 
   /// Text that describes the action that will occur when the button is pressed.
   ///
   /// This text is displayed when the user long-presses on the button and is
   /// used for accessibility.
-  final String tooltip;
+  final String? tooltip;
 
   /// The z-coordinate at which to place the menu when open. This controls the
   /// size of the shadow below the menu.
   ///
   /// Defaults to 8, the appropriate elevation for popup menus.
-  final double elevation;
+  final double? elevation;
 
   /// Matches IconButton's 8 dps padding by default. In some cases, notably where
   /// this button appears as the trailing element of a list item, it's useful to be able
@@ -66,11 +66,11 @@ class PopupMenuButtonWithCallback<T> extends StatefulWidget {
 
   /// If provided, [child] is the widget used for this button
   /// and the button will utilize an [InkWell] for taps.
-  final Widget child;
+  final Widget? child;
 
   /// If provided, the [icon] is used for this button
   /// and the button will behave like an [IconButton].
-  final Widget icon;
+  final Widget? icon;
 
   /// The offset applied to the Popup Menu Button.
   ///
@@ -98,21 +98,30 @@ class PopupMenuButtonWithCallback<T> extends StatefulWidget {
   /// If [PopupMenuThemeData.shape] is also null, then the default shape for
   /// [MaterialType.card] is used. This default shape is a rectangle with
   /// rounded edges of BorderRadius.circular(2.0).
-  final ShapeBorder shape;
+  final ShapeBorder? shape;
 
   /// If provided, the background color used for the menu.
   ///
   /// If this property is null, then [PopupMenuThemeData.color] is used.
   /// If [PopupMenuThemeData.color] is also null, then
   /// Theme.of(context).cardColor is used.
-  final Color color;
+  final Color? color;
 
-  /// If true (the default) then the menu will be wrapped with copies
-  /// of the [InheritedTheme]s, like [Theme] and [PopupMenuTheme], which
-  /// are defined above the [BuildContext] where the menu is shown.
-  final bool captureInheritedThemes;
+  /// Whether detected gestures should provide acoustic and/or haptic feedback.
+  ///
+  /// For example, on Android a tap will produce a clicking sound and a
+  /// long-press will produce a short vibration, when feedback is enabled.
+  ///
+  /// See also:
+  ///
+  ///  * [Feedback] for providing platform-specific feedback to certain actions.
+  final bool? enableFeedback;
 
-  /// Called when the widget is pressed.
+  /// If provided, the size of the [Icon].
+  ///
+  /// If this property is null, the default size is 24.0 pixels.
+  final double? iconSize;
+
   final VoidCallback onPressed;
 
   @override
@@ -134,21 +143,21 @@ class PopupMenuButtonWithCallbackState<T> extends State<PopupMenuButtonWithCallb
   /// show the menu of the button with `globalKey.currentState.showButtonMenu`.
   void showButtonMenu() {
     final PopupMenuThemeData popupMenuTheme = PopupMenuTheme.of(context);
-    final RenderBox button = context.findRenderObject() as RenderBox;
-    final RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
+    final RenderBox button = context.findRenderObject()! as RenderBox;
+    final RenderBox overlay = Navigator.of(context).overlay!.context.findRenderObject()! as RenderBox;
     final RelativeRect position = RelativeRect.fromRect(
       Rect.fromPoints(
         button.localToGlobal(widget.offset, ancestor: overlay),
-        button.localToGlobal(button.size.bottomRight(Offset.zero), ancestor: overlay),
+        button.localToGlobal(button.size.bottomRight(Offset.zero) + widget.offset, ancestor: overlay),
       ),
       Offset.zero & overlay.size,
     );
     final List<PopupMenuEntry<T>> items = widget.itemBuilder(context);
     // Only show the menu if there is something to show
     if (items.isNotEmpty) {
-      widget.onPressed.call();
+      widget.onPressed();
 
-      showMenu<T>(
+      showMenu<T?>(
         context: context,
         elevation: widget.elevation ?? popupMenuTheme.elevation,
         items: items,
@@ -156,46 +165,31 @@ class PopupMenuButtonWithCallbackState<T> extends State<PopupMenuButtonWithCallb
         position: position,
         shape: widget.shape ?? popupMenuTheme.shape,
         color: widget.color ?? popupMenuTheme.color,
-      ).then<void>((T newValue) {
+      ).then<void>((T? newValue) {
         if (!mounted) return null;
         if (newValue == null) {
-          if (widget.onCanceled != null) widget.onCanceled();
+          widget.onCanceled?.call();
           return null;
         }
-        if (widget.onSelected != null) widget.onSelected(newValue);
+        widget.onSelected?.call(newValue);
       });
     }
   }
 
-  Icon _getIcon(TargetPlatform platform) {
-    assert(platform != null);
-    switch (platform) {
-      case TargetPlatform.android:
-      case TargetPlatform.fuchsia:
-      case TargetPlatform.linux:
-      case TargetPlatform.windows:
-        return const Icon(Icons.more_vert);
-      case TargetPlatform.iOS:
-      case TargetPlatform.macOS:
-        return const Icon(Icons.more_horiz);
-    }
-    return null;
-  }
-
   bool get _canRequestFocus {
-    final NavigationMode mode = MediaQuery.of(context)?.navigationMode ?? NavigationMode.traditional;
+    final NavigationMode mode = MediaQuery.maybeOf(context)?.navigationMode ?? NavigationMode.traditional;
     switch (mode) {
       case NavigationMode.traditional:
         return widget.enabled;
       case NavigationMode.directional:
         return true;
     }
-    assert(false, 'Navigation mode $mode not handled');
-    return null;
   }
 
   @override
   Widget build(BuildContext context) {
+    final bool enableFeedback = widget.enableFeedback ?? PopupMenuTheme.of(context).enableFeedback ?? true;
+
     assert(debugCheckHasMaterialLocalizations(context));
 
     if (widget.child != null) {
@@ -204,16 +198,19 @@ class PopupMenuButtonWithCallbackState<T> extends State<PopupMenuButtonWithCallb
         child: InkWell(
           onTap: widget.enabled ? showButtonMenu : null,
           canRequestFocus: _canRequestFocus,
+          enableFeedback: enableFeedback,
           child: widget.child,
         ),
       );
     }
 
     return IconButton(
-      icon: widget.icon ?? _getIcon(Theme.of(context).platform),
+      icon: widget.icon ?? Icon(Icons.adaptive.more),
       padding: widget.padding,
+      iconSize: widget.iconSize ?? 24.0,
       tooltip: widget.tooltip ?? MaterialLocalizations.of(context).showMenuTooltip,
       onPressed: widget.enabled ? showButtonMenu : null,
+      enableFeedback: enableFeedback,
     );
   }
 }

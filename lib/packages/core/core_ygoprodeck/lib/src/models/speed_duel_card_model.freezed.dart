@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'speed_duel_card_model.dart';
 
@@ -8,6 +8,10 @@ part of 'speed_duel_card_model.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 SpeedDuelCardModel _$SpeedDuelCardModelFromJson(Map<String, dynamic> json) {
   return _SpeedDuelCardModel.fromJson(json);
 }
@@ -16,22 +20,21 @@ SpeedDuelCardModel _$SpeedDuelCardModelFromJson(Map<String, dynamic> json) {
 class _$SpeedDuelCardModelTearOff {
   const _$SpeedDuelCardModelTearOff();
 
-// ignore: unused_element
   _SpeedDuelCardModel call(
-      {@required @JsonKey(name: 'id') int id,
-      @required @JsonKey(name: 'name') String name,
-      @required @JsonKey(name: 'type') String type,
-      @required @JsonKey(name: 'desc') String desc,
-      @required @JsonKey(name: 'race') String race,
-      @required @JsonKey(name: 'card_images') List<CardImageModel> cardImages,
-      @JsonKey(name: 'card_sets') List<CardSetModel> cardSets,
-      @JsonKey(name: 'card_prices') List<CardPriceModel> cardPrices,
-      @JsonKey(name: 'atk') int atk,
-      @JsonKey(name: 'def') int def,
-      @JsonKey(name: 'level') int level,
-      @JsonKey(name: 'attribute') String attribute,
-      @JsonKey(name: 'archetype') String archetype,
-      @JsonKey(name: 'banlist_info') BanListInfoModel banListInfo}) {
+      {@JsonKey(name: 'id') required int id,
+      @JsonKey(name: 'name') required String name,
+      @JsonKey(name: 'type') required String type,
+      @JsonKey(name: 'desc') required String desc,
+      @JsonKey(name: 'race') required String race,
+      @JsonKey(name: 'card_images') required List<CardImageModel> cardImages,
+      @JsonKey(name: 'card_sets') List<CardSetModel>? cardSets,
+      @JsonKey(name: 'card_prices') List<CardPriceModel>? cardPrices,
+      @JsonKey(name: 'atk') int? atk,
+      @JsonKey(name: 'def') int? def,
+      @JsonKey(name: 'level') int? level,
+      @JsonKey(name: 'attribute') String? attribute,
+      @JsonKey(name: 'archetype') String? archetype,
+      @JsonKey(name: 'banlist_info') BanListInfoModel? banListInfo}) {
     return _SpeedDuelCardModel(
       id: id,
       name: name,
@@ -50,50 +53,49 @@ class _$SpeedDuelCardModelTearOff {
     );
   }
 
-// ignore: unused_element
   SpeedDuelCardModel fromJson(Map<String, Object> json) {
     return SpeedDuelCardModel.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $SpeedDuelCardModel = _$SpeedDuelCardModelTearOff();
 
 /// @nodoc
 mixin _$SpeedDuelCardModel {
   @JsonKey(name: 'id')
-  int get id;
+  int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'name')
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @JsonKey(name: 'type')
-  String get type;
+  String get type => throw _privateConstructorUsedError;
   @JsonKey(name: 'desc')
-  String get desc;
+  String get desc => throw _privateConstructorUsedError;
   @JsonKey(name: 'race')
-  String get race;
+  String get race => throw _privateConstructorUsedError;
   @JsonKey(name: 'card_images')
-  List<CardImageModel> get cardImages;
+  List<CardImageModel> get cardImages => throw _privateConstructorUsedError;
   @JsonKey(name: 'card_sets')
-  List<CardSetModel> get cardSets;
+  List<CardSetModel>? get cardSets => throw _privateConstructorUsedError;
   @JsonKey(name: 'card_prices')
-  List<CardPriceModel> get cardPrices;
+  List<CardPriceModel>? get cardPrices => throw _privateConstructorUsedError;
   @JsonKey(name: 'atk')
-  int get atk;
+  int? get atk => throw _privateConstructorUsedError;
   @JsonKey(name: 'def')
-  int get def;
+  int? get def => throw _privateConstructorUsedError;
   @JsonKey(name: 'level')
-  int get level;
+  int? get level => throw _privateConstructorUsedError;
   @JsonKey(name: 'attribute')
-  String get attribute;
+  String? get attribute => throw _privateConstructorUsedError;
   @JsonKey(name: 'archetype')
-  String get archetype;
+  String? get archetype => throw _privateConstructorUsedError;
   @JsonKey(name: 'banlist_info')
-  BanListInfoModel get banListInfo;
+  BanListInfoModel? get banListInfo => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $SpeedDuelCardModelCopyWith<SpeedDuelCardModel> get copyWith;
+  $SpeedDuelCardModelCopyWith<SpeedDuelCardModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -108,16 +110,16 @@ abstract class $SpeedDuelCardModelCopyWith<$Res> {
       @JsonKey(name: 'desc') String desc,
       @JsonKey(name: 'race') String race,
       @JsonKey(name: 'card_images') List<CardImageModel> cardImages,
-      @JsonKey(name: 'card_sets') List<CardSetModel> cardSets,
-      @JsonKey(name: 'card_prices') List<CardPriceModel> cardPrices,
-      @JsonKey(name: 'atk') int atk,
-      @JsonKey(name: 'def') int def,
-      @JsonKey(name: 'level') int level,
-      @JsonKey(name: 'attribute') String attribute,
-      @JsonKey(name: 'archetype') String archetype,
-      @JsonKey(name: 'banlist_info') BanListInfoModel banListInfo});
+      @JsonKey(name: 'card_sets') List<CardSetModel>? cardSets,
+      @JsonKey(name: 'card_prices') List<CardPriceModel>? cardPrices,
+      @JsonKey(name: 'atk') int? atk,
+      @JsonKey(name: 'def') int? def,
+      @JsonKey(name: 'level') int? level,
+      @JsonKey(name: 'attribute') String? attribute,
+      @JsonKey(name: 'archetype') String? archetype,
+      @JsonKey(name: 'banlist_info') BanListInfoModel? banListInfo});
 
-  $BanListInfoModelCopyWith<$Res> get banListInfo;
+  $BanListInfoModelCopyWith<$Res>? get banListInfo;
 }
 
 /// @nodoc
@@ -131,53 +133,88 @@ class _$SpeedDuelCardModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object name = freezed,
-    Object type = freezed,
-    Object desc = freezed,
-    Object race = freezed,
-    Object cardImages = freezed,
-    Object cardSets = freezed,
-    Object cardPrices = freezed,
-    Object atk = freezed,
-    Object def = freezed,
-    Object level = freezed,
-    Object attribute = freezed,
-    Object archetype = freezed,
-    Object banListInfo = freezed,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? type = freezed,
+    Object? desc = freezed,
+    Object? race = freezed,
+    Object? cardImages = freezed,
+    Object? cardSets = freezed,
+    Object? cardPrices = freezed,
+    Object? atk = freezed,
+    Object? def = freezed,
+    Object? level = freezed,
+    Object? attribute = freezed,
+    Object? archetype = freezed,
+    Object? banListInfo = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as int,
-      name: name == freezed ? _value.name : name as String,
-      type: type == freezed ? _value.type : type as String,
-      desc: desc == freezed ? _value.desc : desc as String,
-      race: race == freezed ? _value.race : race as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      desc: desc == freezed
+          ? _value.desc
+          : desc // ignore: cast_nullable_to_non_nullable
+              as String,
+      race: race == freezed
+          ? _value.race
+          : race // ignore: cast_nullable_to_non_nullable
+              as String,
       cardImages: cardImages == freezed
           ? _value.cardImages
-          : cardImages as List<CardImageModel>,
+          : cardImages // ignore: cast_nullable_to_non_nullable
+              as List<CardImageModel>,
       cardSets: cardSets == freezed
           ? _value.cardSets
-          : cardSets as List<CardSetModel>,
+          : cardSets // ignore: cast_nullable_to_non_nullable
+              as List<CardSetModel>?,
       cardPrices: cardPrices == freezed
           ? _value.cardPrices
-          : cardPrices as List<CardPriceModel>,
-      atk: atk == freezed ? _value.atk : atk as int,
-      def: def == freezed ? _value.def : def as int,
-      level: level == freezed ? _value.level : level as int,
-      attribute: attribute == freezed ? _value.attribute : attribute as String,
-      archetype: archetype == freezed ? _value.archetype : archetype as String,
+          : cardPrices // ignore: cast_nullable_to_non_nullable
+              as List<CardPriceModel>?,
+      atk: atk == freezed
+          ? _value.atk
+          : atk // ignore: cast_nullable_to_non_nullable
+              as int?,
+      def: def == freezed
+          ? _value.def
+          : def // ignore: cast_nullable_to_non_nullable
+              as int?,
+      level: level == freezed
+          ? _value.level
+          : level // ignore: cast_nullable_to_non_nullable
+              as int?,
+      attribute: attribute == freezed
+          ? _value.attribute
+          : attribute // ignore: cast_nullable_to_non_nullable
+              as String?,
+      archetype: archetype == freezed
+          ? _value.archetype
+          : archetype // ignore: cast_nullable_to_non_nullable
+              as String?,
       banListInfo: banListInfo == freezed
           ? _value.banListInfo
-          : banListInfo as BanListInfoModel,
+          : banListInfo // ignore: cast_nullable_to_non_nullable
+              as BanListInfoModel?,
     ));
   }
 
   @override
-  $BanListInfoModelCopyWith<$Res> get banListInfo {
+  $BanListInfoModelCopyWith<$Res>? get banListInfo {
     if (_value.banListInfo == null) {
       return null;
     }
-    return $BanListInfoModelCopyWith<$Res>(_value.banListInfo, (value) {
+
+    return $BanListInfoModelCopyWith<$Res>(_value.banListInfo!, (value) {
       return _then(_value.copyWith(banListInfo: value));
     });
   }
@@ -197,17 +234,17 @@ abstract class _$SpeedDuelCardModelCopyWith<$Res>
       @JsonKey(name: 'desc') String desc,
       @JsonKey(name: 'race') String race,
       @JsonKey(name: 'card_images') List<CardImageModel> cardImages,
-      @JsonKey(name: 'card_sets') List<CardSetModel> cardSets,
-      @JsonKey(name: 'card_prices') List<CardPriceModel> cardPrices,
-      @JsonKey(name: 'atk') int atk,
-      @JsonKey(name: 'def') int def,
-      @JsonKey(name: 'level') int level,
-      @JsonKey(name: 'attribute') String attribute,
-      @JsonKey(name: 'archetype') String archetype,
-      @JsonKey(name: 'banlist_info') BanListInfoModel banListInfo});
+      @JsonKey(name: 'card_sets') List<CardSetModel>? cardSets,
+      @JsonKey(name: 'card_prices') List<CardPriceModel>? cardPrices,
+      @JsonKey(name: 'atk') int? atk,
+      @JsonKey(name: 'def') int? def,
+      @JsonKey(name: 'level') int? level,
+      @JsonKey(name: 'attribute') String? attribute,
+      @JsonKey(name: 'archetype') String? archetype,
+      @JsonKey(name: 'banlist_info') BanListInfoModel? banListInfo});
 
   @override
-  $BanListInfoModelCopyWith<$Res> get banListInfo;
+  $BanListInfoModelCopyWith<$Res>? get banListInfo;
 }
 
 /// @nodoc
@@ -223,59 +260,92 @@ class __$SpeedDuelCardModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object name = freezed,
-    Object type = freezed,
-    Object desc = freezed,
-    Object race = freezed,
-    Object cardImages = freezed,
-    Object cardSets = freezed,
-    Object cardPrices = freezed,
-    Object atk = freezed,
-    Object def = freezed,
-    Object level = freezed,
-    Object attribute = freezed,
-    Object archetype = freezed,
-    Object banListInfo = freezed,
+    Object? id = freezed,
+    Object? name = freezed,
+    Object? type = freezed,
+    Object? desc = freezed,
+    Object? race = freezed,
+    Object? cardImages = freezed,
+    Object? cardSets = freezed,
+    Object? cardPrices = freezed,
+    Object? atk = freezed,
+    Object? def = freezed,
+    Object? level = freezed,
+    Object? attribute = freezed,
+    Object? archetype = freezed,
+    Object? banListInfo = freezed,
   }) {
     return _then(_SpeedDuelCardModel(
-      id: id == freezed ? _value.id : id as int,
-      name: name == freezed ? _value.name : name as String,
-      type: type == freezed ? _value.type : type as String,
-      desc: desc == freezed ? _value.desc : desc as String,
-      race: race == freezed ? _value.race : race as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      name: name == freezed
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
+              as String,
+      type: type == freezed
+          ? _value.type
+          : type // ignore: cast_nullable_to_non_nullable
+              as String,
+      desc: desc == freezed
+          ? _value.desc
+          : desc // ignore: cast_nullable_to_non_nullable
+              as String,
+      race: race == freezed
+          ? _value.race
+          : race // ignore: cast_nullable_to_non_nullable
+              as String,
       cardImages: cardImages == freezed
           ? _value.cardImages
-          : cardImages as List<CardImageModel>,
+          : cardImages // ignore: cast_nullable_to_non_nullable
+              as List<CardImageModel>,
       cardSets: cardSets == freezed
           ? _value.cardSets
-          : cardSets as List<CardSetModel>,
+          : cardSets // ignore: cast_nullable_to_non_nullable
+              as List<CardSetModel>?,
       cardPrices: cardPrices == freezed
           ? _value.cardPrices
-          : cardPrices as List<CardPriceModel>,
-      atk: atk == freezed ? _value.atk : atk as int,
-      def: def == freezed ? _value.def : def as int,
-      level: level == freezed ? _value.level : level as int,
-      attribute: attribute == freezed ? _value.attribute : attribute as String,
-      archetype: archetype == freezed ? _value.archetype : archetype as String,
+          : cardPrices // ignore: cast_nullable_to_non_nullable
+              as List<CardPriceModel>?,
+      atk: atk == freezed
+          ? _value.atk
+          : atk // ignore: cast_nullable_to_non_nullable
+              as int?,
+      def: def == freezed
+          ? _value.def
+          : def // ignore: cast_nullable_to_non_nullable
+              as int?,
+      level: level == freezed
+          ? _value.level
+          : level // ignore: cast_nullable_to_non_nullable
+              as int?,
+      attribute: attribute == freezed
+          ? _value.attribute
+          : attribute // ignore: cast_nullable_to_non_nullable
+              as String?,
+      archetype: archetype == freezed
+          ? _value.archetype
+          : archetype // ignore: cast_nullable_to_non_nullable
+              as String?,
       banListInfo: banListInfo == freezed
           ? _value.banListInfo
-          : banListInfo as BanListInfoModel,
+          : banListInfo // ignore: cast_nullable_to_non_nullable
+              as BanListInfoModel?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_SpeedDuelCardModel implements _SpeedDuelCardModel {
   const _$_SpeedDuelCardModel(
-      {@required @JsonKey(name: 'id') this.id,
-      @required @JsonKey(name: 'name') this.name,
-      @required @JsonKey(name: 'type') this.type,
-      @required @JsonKey(name: 'desc') this.desc,
-      @required @JsonKey(name: 'race') this.race,
-      @required @JsonKey(name: 'card_images') this.cardImages,
+      {@JsonKey(name: 'id') required this.id,
+      @JsonKey(name: 'name') required this.name,
+      @JsonKey(name: 'type') required this.type,
+      @JsonKey(name: 'desc') required this.desc,
+      @JsonKey(name: 'race') required this.race,
+      @JsonKey(name: 'card_images') required this.cardImages,
       @JsonKey(name: 'card_sets') this.cardSets,
       @JsonKey(name: 'card_prices') this.cardPrices,
       @JsonKey(name: 'atk') this.atk,
@@ -283,13 +353,7 @@ class _$_SpeedDuelCardModel implements _SpeedDuelCardModel {
       @JsonKey(name: 'level') this.level,
       @JsonKey(name: 'attribute') this.attribute,
       @JsonKey(name: 'archetype') this.archetype,
-      @JsonKey(name: 'banlist_info') this.banListInfo})
-      : assert(id != null),
-        assert(name != null),
-        assert(type != null),
-        assert(desc != null),
-        assert(race != null),
-        assert(cardImages != null);
+      @JsonKey(name: 'banlist_info') this.banListInfo});
 
   factory _$_SpeedDuelCardModel.fromJson(Map<String, dynamic> json) =>
       _$_$_SpeedDuelCardModelFromJson(json);
@@ -314,28 +378,28 @@ class _$_SpeedDuelCardModel implements _SpeedDuelCardModel {
   final List<CardImageModel> cardImages;
   @override
   @JsonKey(name: 'card_sets')
-  final List<CardSetModel> cardSets;
+  final List<CardSetModel>? cardSets;
   @override
   @JsonKey(name: 'card_prices')
-  final List<CardPriceModel> cardPrices;
+  final List<CardPriceModel>? cardPrices;
   @override
   @JsonKey(name: 'atk')
-  final int atk;
+  final int? atk;
   @override
   @JsonKey(name: 'def')
-  final int def;
+  final int? def;
   @override
   @JsonKey(name: 'level')
-  final int level;
+  final int? level;
   @override
   @JsonKey(name: 'attribute')
-  final String attribute;
+  final String? attribute;
   @override
   @JsonKey(name: 'archetype')
-  final String archetype;
+  final String? archetype;
   @override
   @JsonKey(name: 'banlist_info')
-  final BanListInfoModel banListInfo;
+  final BanListInfoModel? banListInfo;
 
   @override
   String toString() {
@@ -413,87 +477,82 @@ class _$_SpeedDuelCardModel implements _SpeedDuelCardModel {
 
 abstract class _SpeedDuelCardModel implements SpeedDuelCardModel {
   const factory _SpeedDuelCardModel(
-      {@required
-      @JsonKey(name: 'id')
-          int id,
-      @required
+      {@JsonKey(name: 'id')
+          required int id,
       @JsonKey(name: 'name')
-          String name,
-      @required
+          required String name,
       @JsonKey(name: 'type')
-          String type,
-      @required
+          required String type,
       @JsonKey(name: 'desc')
-          String desc,
-      @required
+          required String desc,
       @JsonKey(name: 'race')
-          String race,
-      @required
+          required String race,
       @JsonKey(name: 'card_images')
-          List<CardImageModel> cardImages,
+          required List<CardImageModel> cardImages,
       @JsonKey(name: 'card_sets')
-          List<CardSetModel> cardSets,
+          List<CardSetModel>? cardSets,
       @JsonKey(name: 'card_prices')
-          List<CardPriceModel> cardPrices,
+          List<CardPriceModel>? cardPrices,
       @JsonKey(name: 'atk')
-          int atk,
+          int? atk,
       @JsonKey(name: 'def')
-          int def,
+          int? def,
       @JsonKey(name: 'level')
-          int level,
+          int? level,
       @JsonKey(name: 'attribute')
-          String attribute,
+          String? attribute,
       @JsonKey(name: 'archetype')
-          String archetype,
+          String? archetype,
       @JsonKey(name: 'banlist_info')
-          BanListInfoModel banListInfo}) = _$_SpeedDuelCardModel;
+          BanListInfoModel? banListInfo}) = _$_SpeedDuelCardModel;
 
   factory _SpeedDuelCardModel.fromJson(Map<String, dynamic> json) =
       _$_SpeedDuelCardModel.fromJson;
 
   @override
   @JsonKey(name: 'id')
-  int get id;
+  int get id => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'name')
-  String get name;
+  String get name => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'type')
-  String get type;
+  String get type => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'desc')
-  String get desc;
+  String get desc => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'race')
-  String get race;
+  String get race => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'card_images')
-  List<CardImageModel> get cardImages;
+  List<CardImageModel> get cardImages => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'card_sets')
-  List<CardSetModel> get cardSets;
+  List<CardSetModel>? get cardSets => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'card_prices')
-  List<CardPriceModel> get cardPrices;
+  List<CardPriceModel>? get cardPrices => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'atk')
-  int get atk;
+  int? get atk => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'def')
-  int get def;
+  int? get def => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'level')
-  int get level;
+  int? get level => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'attribute')
-  String get attribute;
+  String? get attribute => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'archetype')
-  String get archetype;
+  String? get archetype => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'banlist_info')
-  BanListInfoModel get banListInfo;
+  BanListInfoModel? get banListInfo => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$SpeedDuelCardModelCopyWith<_SpeedDuelCardModel> get copyWith;
+  _$SpeedDuelCardModelCopyWith<_SpeedDuelCardModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }

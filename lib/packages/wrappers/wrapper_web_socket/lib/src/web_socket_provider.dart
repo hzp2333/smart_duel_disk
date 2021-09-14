@@ -5,8 +5,8 @@ import 'package:socket_io_client/socket_io_client.dart';
 
 abstract class WebSocketProvider {
   void init(SmartDuelEventReceiver receiver);
-  String get socketId;
-  void emitEvent(String eventName, Map<String, dynamic> data);
+  String? get socketId;
+  void emitEvent(String eventName, Map<String, dynamic>? data);
   void dispose();
 }
 
@@ -17,10 +17,10 @@ class WebSocketProviderImpl implements WebSocketProvider {
   final Socket _socket;
   final Logger _logger;
 
-  SmartDuelEventReceiver _receiver;
+  SmartDuelEventReceiver? _receiver;
 
   @override
-  String get socketId => _socket.id;
+  String? get socketId => _socket.id;
 
   WebSocketProviderImpl(
     this._socket,
@@ -45,7 +45,7 @@ class WebSocketProviderImpl implements WebSocketProvider {
   }
 
   @override
-  void emitEvent(String eventName, Map<String, dynamic> data) {
+  void emitEvent(String eventName, Map<String, dynamic>? data) {
     _logger.info(_tag, 'emitEvent(eventName: $eventName, data: $data)');
 
     _socket.emit(eventName, data);

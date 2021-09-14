@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:smart_duel_disk/src/localization/strings.al.dart';
-
+import 'package:smart_duel_disk/generated/locale_keys.g.dart';
 import '../../../ui_components.dart';
 
-class GeneralErrorState extends StatelessWidget {
+class GeneralErrorState extends StatelessWidget with ProviderMixin {
   final String description;
   final bool canRetry;
-  final VoidCallback retryAction;
+  final VoidCallback? retryAction;
 
   const GeneralErrorState({
-    @required this.description,
+    required this.description,
     this.canRetry = false,
     this.retryAction,
   });
 
   @override
   Widget build(BuildContext context) {
+    final stringProvider = getStringProvider(context);
+
     return Padding(
       padding: const EdgeInsets.all(AppSizes.screenMargin),
       child: Center(
@@ -36,7 +37,9 @@ class GeneralErrorState extends StatelessWidget {
                     borderRadius: BorderRadius.circular(AppSizes.generalBorderRadius),
                   ),
                 ),
-                child: Text(Strings.generalErrorTryAgain.get()),
+                child: Text(
+                  stringProvider.getString(LocaleKeys.general_error_try_again),
+                ),
               ),
             },
           ],

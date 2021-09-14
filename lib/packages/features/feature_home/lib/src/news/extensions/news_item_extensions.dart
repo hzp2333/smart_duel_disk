@@ -10,7 +10,7 @@ extension NewsItemExtensions on NewsItem {
       authorId: authorId,
       authorName: authorName,
       authorImageUrl: authorImageUrl,
-      createdAt: dateFormatter.formatWithFullMonthName(createdAt),
+      createdAt: dateFormatter.formatWithFullMonthName(createdAt!),
       imageUrl: imageUrl,
     );
   }

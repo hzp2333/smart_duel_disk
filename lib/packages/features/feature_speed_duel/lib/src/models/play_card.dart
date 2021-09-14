@@ -13,18 +13,18 @@ class PlayCard extends Equatable {
   final CardPosition position;
   final int copyNumber;
   final String formattedRaceAndType;
-  final String formattedAttack;
-  final String formattedDefence;
-  final String formattedLevel;
-  final String attributeAssetName;
+  final String? formattedAttack;
+  final String? formattedDefence;
+  final String? formattedLevel;
+  final String? attributeAssetName;
 
   const PlayCard({
-    @required this.yugiohCard,
-    @required this.duelistId,
-    @required this.zoneType,
-    @required this.position,
-    @required this.copyNumber,
-    @required this.formattedRaceAndType,
+    required this.yugiohCard,
+    required this.duelistId,
+    required this.zoneType,
+    required this.position,
+    required this.copyNumber,
+    required this.formattedRaceAndType,
     this.formattedAttack,
     this.formattedDefence,
     this.formattedLevel,
@@ -33,7 +33,7 @@ class PlayCard extends Equatable {
 
   bool get belongsInExtraDeck => yugiohCard.type == CardType.fusionMonster;
 
-  PlayCard copyWith({ZoneType zoneType, CardPosition position}) {
+  PlayCard copyWith({ZoneType? zoneType, CardPosition? position}) {
     return PlayCard(
       yugiohCard: yugiohCard,
       duelistId: duelistId,
@@ -49,7 +49,7 @@ class PlayCard extends Equatable {
   }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         yugiohCard,
         duelistId,
         zoneType,

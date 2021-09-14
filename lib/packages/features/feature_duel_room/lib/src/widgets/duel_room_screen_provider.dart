@@ -11,7 +11,7 @@ class DuelRoomScreenProvider extends StatelessWidget {
   final PreBuiltDeck preBuiltDeck;
 
   const DuelRoomScreenProvider({
-    @required this.preBuiltDeck,
+    required this.preBuiltDeck,
   });
 
   @override

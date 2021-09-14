@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'card_image_model.dart';
 
@@ -8,6 +8,10 @@ part of 'card_image_model.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 CardImageModel _$CardImageModelFromJson(Map<String, dynamic> json) {
   return _CardImageModel.fromJson(json);
 }
@@ -16,11 +20,10 @@ CardImageModel _$CardImageModelFromJson(Map<String, dynamic> json) {
 class _$CardImageModelTearOff {
   const _$CardImageModelTearOff();
 
-// ignore: unused_element
   _CardImageModel call(
-      {@required @JsonKey(name: 'id') int id,
-      @required @JsonKey(name: 'image_url') String imageUrl,
-      @required @JsonKey(name: 'image_url_small') String imageUrlSmall}) {
+      {@JsonKey(name: 'id') required int id,
+      @JsonKey(name: 'image_url') required String imageUrl,
+      @JsonKey(name: 'image_url_small') required String imageUrlSmall}) {
     return _CardImageModel(
       id: id,
       imageUrl: imageUrl,
@@ -28,28 +31,27 @@ class _$CardImageModelTearOff {
     );
   }
 
-// ignore: unused_element
   CardImageModel fromJson(Map<String, Object> json) {
     return CardImageModel.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $CardImageModel = _$CardImageModelTearOff();
 
 /// @nodoc
 mixin _$CardImageModel {
   @JsonKey(name: 'id')
-  int get id;
+  int get id => throw _privateConstructorUsedError;
   @JsonKey(name: 'image_url')
-  String get imageUrl;
+  String get imageUrl => throw _privateConstructorUsedError;
   @JsonKey(name: 'image_url_small')
-  String get imageUrlSmall;
+  String get imageUrlSmall => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CardImageModelCopyWith<CardImageModel> get copyWith;
+  $CardImageModelCopyWith<CardImageModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -74,16 +76,23 @@ class _$CardImageModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object imageUrl = freezed,
-    Object imageUrlSmall = freezed,
+    Object? id = freezed,
+    Object? imageUrl = freezed,
+    Object? imageUrlSmall = freezed,
   }) {
     return _then(_value.copyWith(
-      id: id == freezed ? _value.id : id as int,
-      imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       imageUrlSmall: imageUrlSmall == freezed
           ? _value.imageUrlSmall
-          : imageUrlSmall as String,
+          : imageUrlSmall // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -114,31 +123,34 @@ class __$CardImageModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object id = freezed,
-    Object imageUrl = freezed,
-    Object imageUrlSmall = freezed,
+    Object? id = freezed,
+    Object? imageUrl = freezed,
+    Object? imageUrlSmall = freezed,
   }) {
     return _then(_CardImageModel(
-      id: id == freezed ? _value.id : id as int,
-      imageUrl: imageUrl == freezed ? _value.imageUrl : imageUrl as String,
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      imageUrl: imageUrl == freezed
+          ? _value.imageUrl
+          : imageUrl // ignore: cast_nullable_to_non_nullable
+              as String,
       imageUrlSmall: imageUrlSmall == freezed
           ? _value.imageUrlSmall
-          : imageUrlSmall as String,
+          : imageUrlSmall // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_CardImageModel implements _CardImageModel {
   const _$_CardImageModel(
-      {@required @JsonKey(name: 'id') this.id,
-      @required @JsonKey(name: 'image_url') this.imageUrl,
-      @required @JsonKey(name: 'image_url_small') this.imageUrlSmall})
-      : assert(id != null),
-        assert(imageUrl != null),
-        assert(imageUrlSmall != null);
+      {@JsonKey(name: 'id') required this.id,
+      @JsonKey(name: 'image_url') required this.imageUrl,
+      @JsonKey(name: 'image_url_small') required this.imageUrlSmall});
 
   factory _$_CardImageModel.fromJson(Map<String, dynamic> json) =>
       _$_$_CardImageModelFromJson(json);
@@ -192,9 +204,9 @@ class _$_CardImageModel implements _CardImageModel {
 
 abstract class _CardImageModel implements CardImageModel {
   const factory _CardImageModel(
-          {@required @JsonKey(name: 'id') int id,
-          @required @JsonKey(name: 'image_url') String imageUrl,
-          @required @JsonKey(name: 'image_url_small') String imageUrlSmall}) =
+          {@JsonKey(name: 'id') required int id,
+          @JsonKey(name: 'image_url') required String imageUrl,
+          @JsonKey(name: 'image_url_small') required String imageUrlSmall}) =
       _$_CardImageModel;
 
   factory _CardImageModel.fromJson(Map<String, dynamic> json) =
@@ -202,14 +214,15 @@ abstract class _CardImageModel implements CardImageModel {
 
   @override
   @JsonKey(name: 'id')
-  int get id;
+  int get id => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'image_url')
-  String get imageUrl;
+  String get imageUrl => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'image_url_small')
-  String get imageUrlSmall;
+  String get imageUrlSmall => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$CardImageModelCopyWith<_CardImageModel> get copyWith;
+  _$CardImageModelCopyWith<_CardImageModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }

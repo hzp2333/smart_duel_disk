@@ -11,7 +11,7 @@ class SpeedDuelScreenProvider extends StatelessWidget {
   final DuelRoom duelRoom;
 
   const SpeedDuelScreenProvider({
-    @required this.duelRoom,
+    required this.duelRoom,
   });
 
   @override

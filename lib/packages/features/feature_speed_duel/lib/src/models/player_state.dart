@@ -7,7 +7,7 @@ import 'zone.dart';
 
 @immutable
 class PlayerState extends Equatable {
-  final String duelistId;
+  final String? duelistId;
   final bool isOpponent;
   final Zone hand;
   final Zone fieldZone;
@@ -45,7 +45,7 @@ class PlayerState extends Equatable {
         mainMonsterZone3,
       ];
 
-  Iterable<PlayCard> get cards => [
+  Iterable<PlayCard?> get cards => [
         ...hand.cards,
         ...fieldZone.cards,
         ...mainMonsterZone1.cards,
@@ -61,35 +61,35 @@ class PlayerState extends Equatable {
       ];
 
   const PlayerState({
-    @required this.duelistId,
-    @required this.isOpponent,
-    @required this.hand,
-    @required this.fieldZone,
-    @required this.mainMonsterZone1,
-    @required this.mainMonsterZone2,
-    @required this.mainMonsterZone3,
-    @required this.graveyardZone,
-    @required this.banishedZone,
-    @required this.extraDeckZone,
-    @required this.spellTrapZone1,
-    @required this.spellTrapZone2,
-    @required this.spellTrapZone3,
-    @required this.deckZone,
+    required this.duelistId,
+    required this.isOpponent,
+    required this.hand,
+    required this.fieldZone,
+    required this.mainMonsterZone1,
+    required this.mainMonsterZone2,
+    required this.mainMonsterZone3,
+    required this.graveyardZone,
+    required this.banishedZone,
+    required this.extraDeckZone,
+    required this.spellTrapZone1,
+    required this.spellTrapZone2,
+    required this.spellTrapZone3,
+    required this.deckZone,
   });
 
   PlayerState copyWith({
-    Zone hand,
-    Zone fieldZone,
-    Zone mainMonsterZone1,
-    Zone mainMonsterZone2,
-    Zone mainMonsterZone3,
-    Zone graveyardZone,
-    Zone banishedZone,
-    Zone extraDeckZone,
-    Zone spellTrapZone1,
-    Zone spellTrapZone2,
-    Zone spellTrapZone3,
-    Zone deckZone,
+    Zone? hand,
+    Zone? fieldZone,
+    Zone? mainMonsterZone1,
+    Zone? mainMonsterZone2,
+    Zone? mainMonsterZone3,
+    Zone? graveyardZone,
+    Zone? banishedZone,
+    Zone? extraDeckZone,
+    Zone? spellTrapZone1,
+    Zone? spellTrapZone2,
+    Zone? spellTrapZone3,
+    Zone? deckZone,
   }) {
     return PlayerState(
       duelistId: duelistId,
@@ -110,7 +110,7 @@ class PlayerState extends Equatable {
   }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         duelistId,
         isOpponent,
         hand,

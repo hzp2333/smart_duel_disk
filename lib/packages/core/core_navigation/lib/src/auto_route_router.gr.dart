@@ -5,238 +5,230 @@
 // **************************************************************************
 
 import 'package:auto_route/auto_route.dart' as _i1;
-import '../../../../features/feature_onboarding/lib/feature_onboarding.dart'
-    as _i2;
-import '../../../../features/feature_home/lib/feature_home.dart' as _i3;
-import '../../../../features/feature_deck_builder/lib/feature_deck_builder.dart'
-    as _i4;
-import '../../../../features/feature_yugioh_card_detail/lib/feature_yugioh_card_detail.dart'
-    as _i5;
-import '../../../../features/feature_draw_card/lib/feature_draw_card.dart'
-    as _i6;
-import '../../../../features/feature_privacy_policy/lib/feature_privacy_policy.dart'
-    as _i7;
-import '../../../../features/feature_speed_duel/lib/feature_speed_duel.dart'
-    as _i8;
-import '../../../../features/feature_duel_room/lib/src/widgets/duel_room_screen_provider.dart'
-    as _i9;
-import '../../../../features/feature_user_settings/lib/src/widgets/user_settings_screen_provider.dart'
-    as _i10;
-import '../../../core_data_manager/lib/core_data_manager_interface.dart'
-    as _i11;
-import 'package:flutter/material.dart' as _i12;
-import '../../../core_smart_duel_server/lib/core_smart_duel_server.dart'
+import 'package:flutter/material.dart' as _i2;
+import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart'
+    as _i12;
+import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart'
     as _i13;
+import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/feature_deck_builder.dart'
+    as _i5;
+import 'package:smart_duel_disk/packages/features/feature_draw_card/lib/feature_draw_card.dart'
+    as _i7;
+import 'package:smart_duel_disk/packages/features/feature_duel_room/lib/src/widgets/duel_room_screen_provider.dart'
+    as _i10;
+import 'package:smart_duel_disk/packages/features/feature_home/lib/feature_home.dart'
+    as _i4;
+import 'package:smart_duel_disk/packages/features/feature_onboarding/lib/feature_onboarding.dart'
+    as _i3;
+import 'package:smart_duel_disk/packages/features/feature_privacy_policy/lib/feature_privacy_policy.dart'
+    as _i8;
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature_speed_duel.dart'
+    as _i9;
+import 'package:smart_duel_disk/packages/features/feature_user_settings/lib/src/widgets/user_settings_screen_provider.dart'
+    as _i11;
+import 'package:smart_duel_disk/packages/features/feature_yugioh_card_detail/lib/feature_yugioh_card_detail.dart'
+    as _i6;
 
 class AutoRouteRouter extends _i1.RootStackRouter {
-  AutoRouteRouter();
+  AutoRouteRouter([_i2.GlobalKey<_i2.NavigatorState>? navigatorKey])
+      : super(navigatorKey);
 
   @override
   final Map<String, _i1.PageFactory> pagesMap = {
-    OnboardingRoute.name: (entry) {
-      return _i1.AdaptivePage(
-          entry: entry, child: _i2.OnboardingScreenProvider());
-    },
-    HomeRoute.name: (entry) {
-      return _i1.AdaptivePage(entry: entry, child: _i3.HomeScreenProvider());
-    },
-    DeckBuilderRoute.name: (entry) {
-      var route = entry.routeData.as<DeckBuilderRoute>();
-      return _i1.AdaptivePage(
-          entry: entry,
-          child:
-              _i4.DeckBuilderScreenProvider(preBuiltDeck: route.preBuiltDeck));
-    },
-    YugiohCardDetailRoute.name: (entry) {
-      var route = entry.routeData.as<YugiohCardDetailRoute>();
-      return _i1.AdaptivePage(
-          entry: entry,
-          child: _i5.YugiohCardDetailScreenProvider(
-              yugiohCard: route.yugiohCard, index: route.index));
-    },
-    DrawCardRoute.name: (entry) {
-      var route = entry.routeData.as<DrawCardRoute>();
-      return _i1.CustomPage(
-          entry: entry,
-          child: _i6.DrawCardScreenProvider(
-              cardDrawnCallback: route.cardDrawnCallback),
-          durationInMilliseconds: 0,
-          reverseDurationInMilliseconds: 0);
-    },
-    PrivacyPolicyRoute.name: (entry) {
-      return _i1.AdaptivePage(
-          entry: entry, child: _i7.PrivacyPolicyScreenProvider());
-    },
-    SpeedDuelRoute.name: (entry) {
-      var route = entry.routeData.as<SpeedDuelRoute>();
-      return _i1.AdaptivePage(
-          entry: entry,
-          child: _i8.SpeedDuelScreenProvider(duelRoom: route.duelRoom));
-    },
-    DuelRoomRoute.name: (entry) {
-      var route = entry.routeData.as<DuelRoomRoute>();
-      return _i1.AdaptivePage(
-          entry: entry,
-          child: _i9.DuelRoomScreenProvider(preBuiltDeck: route.preBuiltDeck));
-    },
-    UserSettingsRoute.name: (entry) {
-      return _i1.AdaptivePage(
-          entry: entry,
-          child: _i10.UserSettingsScreenProvider(),
-          fullscreenDialog: true);
-    },
-    DuelTab.name: (entry) {
-      return _i1.AdaptivePage(entry: entry, child: _i3.DuelScreenProvider());
-    },
-    NewsTab.name: (entry) {
-      return _i1.AdaptivePage(entry: entry, child: _i3.NewsScreenProvider());
-    },
-    DeckTab.name: (entry) {
-      return _i1.AdaptivePage(entry: entry, child: _i3.DeckScreenProvider());
-    }
+    OnboardingRoute.name: (routeData) => _i1.AdaptivePage<void>(
+        routeData: routeData,
+        builder: (_) {
+          return _i3.OnboardingScreenProvider();
+        }),
+    HomeRoute.name: (routeData) => _i1.AdaptivePage<void>(
+        routeData: routeData,
+        builder: (_) {
+          return _i4.HomeScreenProvider();
+        }),
+    DeckBuilderRoute.name: (routeData) => _i1.AdaptivePage<void>(
+        routeData: routeData,
+        builder: (data) {
+          final args = data.argsAs<DeckBuilderRouteArgs>(
+              orElse: () => const DeckBuilderRouteArgs());
+          return _i5.DeckBuilderScreenProvider(preBuiltDeck: args.preBuiltDeck);
+        }),
+    YugiohCardDetailRoute.name: (routeData) => _i1.AdaptivePage<void>(
+        routeData: routeData,
+        builder: (data) {
+          final args = data.argsAs<YugiohCardDetailRouteArgs>();
+          return _i6.YugiohCardDetailScreenProvider(
+              yugiohCard: args.yugiohCard, index: args.index);
+        }),
+    DrawCardRoute.name: (routeData) => _i1.CustomPage<void>(
+        routeData: routeData,
+        builder: (data) {
+          final args = data.argsAs<DrawCardRouteArgs>();
+          return _i7.DrawCardScreenProvider(
+              cardDrawnCallback: args.cardDrawnCallback);
+        },
+        durationInMilliseconds: 0,
+        reverseDurationInMilliseconds: 0,
+        opaque: true,
+        barrierDismissible: false),
+    PrivacyPolicyRoute.name: (routeData) => _i1.AdaptivePage<void>(
+        routeData: routeData,
+        builder: (_) {
+          return _i8.PrivacyPolicyScreenProvider();
+        }),
+    SpeedDuelRoute.name: (routeData) => _i1.AdaptivePage<void>(
+        routeData: routeData,
+        builder: (data) {
+          final args = data.argsAs<SpeedDuelRouteArgs>();
+          return _i9.SpeedDuelScreenProvider(duelRoom: args.duelRoom);
+        }),
+    DuelRoomRoute.name: (routeData) => _i1.AdaptivePage<void>(
+        routeData: routeData,
+        builder: (data) {
+          final args = data.argsAs<DuelRoomRouteArgs>();
+          return _i10.DuelRoomScreenProvider(preBuiltDeck: args.preBuiltDeck);
+        }),
+    UserSettingsRoute.name: (routeData) => _i1.AdaptivePage<void>(
+        routeData: routeData,
+        builder: (_) {
+          return _i11.UserSettingsScreenProvider();
+        },
+        fullscreenDialog: true),
+    DuelTab.name: (routeData) => _i1.AdaptivePage<void>(
+        routeData: routeData,
+        builder: (_) {
+          return _i4.DuelScreenProvider();
+        }),
+    NewsTab.name: (routeData) => _i1.AdaptivePage<void>(
+        routeData: routeData,
+        builder: (_) {
+          return _i4.NewsScreenProvider();
+        }),
+    DeckTab.name: (routeData) => _i1.AdaptivePage<void>(
+        routeData: routeData,
+        builder: (_) {
+          return _i4.DeckScreenProvider();
+        })
   };
 
   @override
   List<_i1.RouteConfig> get routes => [
-        _i1.RouteConfig<OnboardingRoute>(OnboardingRoute.name,
-            path: '/',
-            routeBuilder: (match) => OnboardingRoute.fromMatch(match)),
-        _i1.RouteConfig<HomeRoute>(HomeRoute.name,
-            path: '/home',
-            usesTabsRouter: true,
-            routeBuilder: (match) => HomeRoute.fromMatch(match),
-            children: [
-              _i1.RouteConfig<DuelTab>(DuelTab.name,
-                  path: 'duel',
-                  routeBuilder: (match) => DuelTab.fromMatch(match)),
-              _i1.RouteConfig<NewsTab>(NewsTab.name,
-                  path: 'news',
-                  routeBuilder: (match) => NewsTab.fromMatch(match)),
-              _i1.RouteConfig<DeckTab>(DeckTab.name,
-                  path: 'deck',
-                  routeBuilder: (match) => DeckTab.fromMatch(match))
-            ]),
-        _i1.RouteConfig<DeckBuilderRoute>(DeckBuilderRoute.name,
-            path: '/deck-builder',
-            routeBuilder: (match) => DeckBuilderRoute.fromMatch(match)),
-        _i1.RouteConfig<YugiohCardDetailRoute>(YugiohCardDetailRoute.name,
-            path: '/card-detail',
-            routeBuilder: (match) => YugiohCardDetailRoute.fromMatch(match)),
-        _i1.RouteConfig<DrawCardRoute>(DrawCardRoute.name,
-            path: '/draw-card-screen-provider',
-            routeBuilder: (match) => DrawCardRoute.fromMatch(match)),
-        _i1.RouteConfig<PrivacyPolicyRoute>(PrivacyPolicyRoute.name,
-            path: '/privacy-policy',
-            routeBuilder: (match) => PrivacyPolicyRoute.fromMatch(match)),
-        _i1.RouteConfig<SpeedDuelRoute>(SpeedDuelRoute.name,
-            path: '/speed-duel',
-            routeBuilder: (match) => SpeedDuelRoute.fromMatch(match)),
-        _i1.RouteConfig<DuelRoomRoute>(DuelRoomRoute.name,
-            path: '/duel-room',
-            routeBuilder: (match) => DuelRoomRoute.fromMatch(match)),
-        _i1.RouteConfig<UserSettingsRoute>(UserSettingsRoute.name,
-            path: '/user-settings',
-            routeBuilder: (match) => UserSettingsRoute.fromMatch(match))
+        _i1.RouteConfig(OnboardingRoute.name, path: '/'),
+        _i1.RouteConfig(HomeRoute.name, path: '/home', children: [
+          _i1.RouteConfig(DuelTab.name, path: 'duel'),
+          _i1.RouteConfig(NewsTab.name, path: 'news'),
+          _i1.RouteConfig(DeckTab.name, path: 'deck')
+        ]),
+        _i1.RouteConfig(DeckBuilderRoute.name, path: '/deck-builder'),
+        _i1.RouteConfig(YugiohCardDetailRoute.name, path: '/card-detail'),
+        _i1.RouteConfig(DrawCardRoute.name, path: '/draw-card-screen-provider'),
+        _i1.RouteConfig(PrivacyPolicyRoute.name, path: '/privacy-policy'),
+        _i1.RouteConfig(SpeedDuelRoute.name, path: '/speed-duel'),
+        _i1.RouteConfig(DuelRoomRoute.name, path: '/duel-room'),
+        _i1.RouteConfig(UserSettingsRoute.name, path: '/user-settings')
       ];
 }
 
 class OnboardingRoute extends _i1.PageRouteInfo {
   const OnboardingRoute() : super(name, path: '/');
 
-  OnboardingRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
-
   static const String name = 'OnboardingRoute';
 }
 
 class HomeRoute extends _i1.PageRouteInfo {
-  const HomeRoute({List<_i1.PageRouteInfo> children})
+  const HomeRoute({List<_i1.PageRouteInfo>? children})
       : super(name, path: '/home', initialChildren: children);
-
-  HomeRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
 
   static const String name = 'HomeRoute';
 }
 
-class DeckBuilderRoute extends _i1.PageRouteInfo {
-  DeckBuilderRoute({this.preBuiltDeck}) : super(name, path: '/deck-builder');
-
-  DeckBuilderRoute.fromMatch(_i1.RouteMatch match)
-      : preBuiltDeck = null,
-        super.fromMatch(match);
-
-  final _i11.PreBuiltDeck preBuiltDeck;
+class DeckBuilderRoute extends _i1.PageRouteInfo<DeckBuilderRouteArgs> {
+  DeckBuilderRoute({_i12.PreBuiltDeck? preBuiltDeck})
+      : super(name,
+            path: '/deck-builder',
+            args: DeckBuilderRouteArgs(preBuiltDeck: preBuiltDeck));
 
   static const String name = 'DeckBuilderRoute';
 }
 
-class YugiohCardDetailRoute extends _i1.PageRouteInfo {
+class DeckBuilderRouteArgs {
+  const DeckBuilderRouteArgs({this.preBuiltDeck});
+
+  final _i12.PreBuiltDeck? preBuiltDeck;
+}
+
+class YugiohCardDetailRoute
+    extends _i1.PageRouteInfo<YugiohCardDetailRouteArgs> {
   YugiohCardDetailRoute(
-      {@_i12.required this.yugiohCard, @_i12.required this.index})
-      : super(name, path: '/card-detail');
-
-  YugiohCardDetailRoute.fromMatch(_i1.RouteMatch match)
-      : yugiohCard = null,
-        index = null,
-        super.fromMatch(match);
-
-  final _i11.YugiohCard yugiohCard;
-
-  final int index;
+      {required _i12.YugiohCard yugiohCard, required int index})
+      : super(name,
+            path: '/card-detail',
+            args: YugiohCardDetailRouteArgs(
+                yugiohCard: yugiohCard, index: index));
 
   static const String name = 'YugiohCardDetailRoute';
 }
 
-class DrawCardRoute extends _i1.PageRouteInfo {
-  DrawCardRoute({@_i12.required this.cardDrawnCallback})
-      : super(name, path: '/draw-card-screen-provider');
+class YugiohCardDetailRouteArgs {
+  const YugiohCardDetailRouteArgs(
+      {required this.yugiohCard, required this.index});
 
-  DrawCardRoute.fromMatch(_i1.RouteMatch match)
-      : cardDrawnCallback = null,
-        super.fromMatch(match);
+  final _i12.YugiohCard yugiohCard;
 
-  final void Function() cardDrawnCallback;
+  final int index;
+}
+
+class DrawCardRoute extends _i1.PageRouteInfo<DrawCardRouteArgs> {
+  DrawCardRoute({required void Function() cardDrawnCallback})
+      : super(name,
+            path: '/draw-card-screen-provider',
+            args: DrawCardRouteArgs(cardDrawnCallback: cardDrawnCallback));
 
   static const String name = 'DrawCardRoute';
+}
+
+class DrawCardRouteArgs {
+  const DrawCardRouteArgs({required this.cardDrawnCallback});
+
+  final void Function() cardDrawnCallback;
 }
 
 class PrivacyPolicyRoute extends _i1.PageRouteInfo {
   const PrivacyPolicyRoute() : super(name, path: '/privacy-policy');
 
-  PrivacyPolicyRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
-
   static const String name = 'PrivacyPolicyRoute';
 }
 
-class SpeedDuelRoute extends _i1.PageRouteInfo {
-  SpeedDuelRoute({@_i12.required this.duelRoom})
-      : super(name, path: '/speed-duel');
-
-  SpeedDuelRoute.fromMatch(_i1.RouteMatch match)
-      : duelRoom = null,
-        super.fromMatch(match);
-
-  final _i13.DuelRoom duelRoom;
+class SpeedDuelRoute extends _i1.PageRouteInfo<SpeedDuelRouteArgs> {
+  SpeedDuelRoute({required _i13.DuelRoom duelRoom})
+      : super(name,
+            path: '/speed-duel', args: SpeedDuelRouteArgs(duelRoom: duelRoom));
 
   static const String name = 'SpeedDuelRoute';
 }
 
-class DuelRoomRoute extends _i1.PageRouteInfo {
-  DuelRoomRoute({@_i12.required this.preBuiltDeck})
-      : super(name, path: '/duel-room');
+class SpeedDuelRouteArgs {
+  const SpeedDuelRouteArgs({required this.duelRoom});
 
-  DuelRoomRoute.fromMatch(_i1.RouteMatch match)
-      : preBuiltDeck = null,
-        super.fromMatch(match);
+  final _i13.DuelRoom duelRoom;
+}
 
-  final _i11.PreBuiltDeck preBuiltDeck;
+class DuelRoomRoute extends _i1.PageRouteInfo<DuelRoomRouteArgs> {
+  DuelRoomRoute({required _i12.PreBuiltDeck preBuiltDeck})
+      : super(name,
+            path: '/duel-room',
+            args: DuelRoomRouteArgs(preBuiltDeck: preBuiltDeck));
 
   static const String name = 'DuelRoomRoute';
 }
 
+class DuelRoomRouteArgs {
+  const DuelRoomRouteArgs({required this.preBuiltDeck});
+
+  final _i12.PreBuiltDeck preBuiltDeck;
+}
+
 class UserSettingsRoute extends _i1.PageRouteInfo {
   const UserSettingsRoute() : super(name, path: '/user-settings');
-
-  UserSettingsRoute.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
 
   static const String name = 'UserSettingsRoute';
 }
@@ -244,23 +236,17 @@ class UserSettingsRoute extends _i1.PageRouteInfo {
 class DuelTab extends _i1.PageRouteInfo {
   const DuelTab() : super(name, path: 'duel');
 
-  DuelTab.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
-
   static const String name = 'DuelTab';
 }
 
 class NewsTab extends _i1.PageRouteInfo {
   const NewsTab() : super(name, path: 'news');
 
-  NewsTab.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
-
   static const String name = 'NewsTab';
 }
 
 class DeckTab extends _i1.PageRouteInfo {
   const DeckTab() : super(name, path: 'deck');
-
-  DeckTab.fromMatch(_i1.RouteMatch match) : super.fromMatch(match);
 
   static const String name = 'DeckTab';
 }

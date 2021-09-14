@@ -36,7 +36,7 @@ class _Body extends HookWidget {
 
     return Padding(
       padding: const EdgeInsets.all(AppSizes.screenMargin),
-      child: duelRoomState.data.when(
+      child: duelRoomState.data!.when(
         connecting: () => const GeneralLoadingState(),
         connected: () => const ConnectedState(),
         createRoom: (roomName) => CreateRoomState(roomName: roomName),

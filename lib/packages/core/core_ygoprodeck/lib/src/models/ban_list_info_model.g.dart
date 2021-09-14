@@ -8,9 +8,9 @@ part of 'ban_list_info_model.dart';
 
 _$_BanListInfoModel _$_$_BanListInfoModelFromJson(Map<String, dynamic> json) {
   return _$_BanListInfoModel(
-    banOcg: json['ban_ocg'] as String,
-    banGoat: json['ban_goat'] as String,
-    banTcg: json['ban_tcg'] as String,
+    banOcg: json['ban_ocg'] as String?,
+    banGoat: json['ban_goat'] as String?,
+    banTcg: json['ban_tcg'] as String?,
   );
 }
 

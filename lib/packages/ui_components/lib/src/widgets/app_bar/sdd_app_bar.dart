@@ -7,7 +7,7 @@ class SddAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showCloseButton;
 
   const SddAppBar({
-    @required this.title,
+    required this.title,
     this.showBackButton = true,
     this.showCloseButton = false,
   });

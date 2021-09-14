@@ -3,21 +3,18 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
-import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
-import 'package:smart_duel_disk/packages/core/core_messaging/lib/core_messaging.dart';
 import 'package:smart_duel_disk/packages/features/feature_user_settings/lib/src/models/setting_item.dart';
 import 'package:smart_duel_disk/packages/features/feature_user_settings/lib/src/models/user_setting_type.dart';
 import 'package:smart_duel_disk/packages/features/feature_user_settings/lib/src/user_settings_viewmodel.dart';
 
-import '../../../testing/empty_mocks.dart';
+import '../../../testing/mocks/shared.mocks.dart';
 
 void main() {
-  UserSettingsViewModel _viewModel;
+  late UserSettingsViewModel _viewModel;
 
-  DataManager _dataManager;
-  SnackBarService _snackBarService;
-  Logger _logger;
+  late MockDataManager _dataManager;
+  late MockSnackBarService _snackBarService;
+  late MockLogger _logger;
 
   setUp(() {
     _dataManager = MockDataManager();
@@ -48,16 +45,17 @@ void main() {
       });
 
       expect(
-          observable,
-          emits([
-            SwitchSettingItem(
-              title: 'Developer mode',
-              leadingIcon: Icons.developer_mode,
-              type: UserSettingType.developerModeEnabled,
-              value: false,
-              onValueChanged: (_) => Future.value(),
-            ),
-          ]));
+        observable,
+        emits([
+          SwitchSettingItem(
+            title: 'Developer mode',
+            leadingIcon: Icons.developer_mode,
+            type: UserSettingType.developerModeEnabled,
+            value: false,
+            onValueChanged: (_) => Future.value(),
+          ),
+        ]),
+      );
     });
   });
 
@@ -90,27 +88,28 @@ void main() {
       });
 
       expect(
-          observable,
-          emitsInOrder(<StreamMatcher>[
-            emits([
-              SwitchSettingItem(
-                title: 'Developer mode',
-                leadingIcon: Icons.developer_mode,
-                type: UserSettingType.developerModeEnabled,
-                value: false,
-                onValueChanged: (_) => Future.value(),
-              ),
-            ]),
-            emits([
-              SwitchSettingItem(
-                title: 'Developer mode',
-                leadingIcon: Icons.developer_mode,
-                type: UserSettingType.developerModeEnabled,
-                value: true,
-                onValueChanged: (_) => Future.value(),
-              ),
-            ])
-          ]));
+        observable,
+        emitsInOrder(<StreamMatcher>[
+          emits([
+            SwitchSettingItem(
+              title: 'Developer mode',
+              leadingIcon: Icons.developer_mode,
+              type: UserSettingType.developerModeEnabled,
+              value: false,
+              onValueChanged: (_) => Future.value(),
+            ),
+          ]),
+          emits([
+            SwitchSettingItem(
+              title: 'Developer mode',
+              leadingIcon: Icons.developer_mode,
+              type: UserSettingType.developerModeEnabled,
+              value: true,
+              onValueChanged: (_) => Future.value(),
+            ),
+          ])
+        ]),
+      );
     });
   });
 }

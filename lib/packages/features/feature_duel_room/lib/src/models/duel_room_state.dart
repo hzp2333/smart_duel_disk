@@ -4,7 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'duel_room_state.freezed.dart';
 
 @freezed
-abstract class DuelRoomState with _$DuelRoomState {
+class DuelRoomState with _$DuelRoomState {
   const factory DuelRoomState.connecting() = DuelRoomConnecting;
   const factory DuelRoomState.connected() = DuelRoomConnected;
   const factory DuelRoomState.createRoom(String roomName) = DuelRoomCreate;

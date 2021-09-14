@@ -6,7 +6,7 @@ class StatusBarOverrider extends StatelessWidget {
   final bool darkStyle;
 
   const StatusBarOverrider({
-    @required this.child,
+    required this.child,
     this.darkStyle = false,
   });
 

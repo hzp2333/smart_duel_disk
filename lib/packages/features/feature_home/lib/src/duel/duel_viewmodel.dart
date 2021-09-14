@@ -17,14 +17,17 @@ class DuelViewModel extends BaseViewModel {
   final AppRouter _router;
   final DataManager _dataManager;
 
-  final _ipAddress = BehaviorSubject<String>();
-  Stream<String> get ipAddress => _ipAddress.stream.transform(_duelFormValidators.ipAddressValidator);
+  final _ipAddress = BehaviorSubject<String?>();
+  Stream<String?> get ipAddress => _ipAddress.stream.transform(_duelFormValidators.ipAddressValidator);
 
-  final _port = BehaviorSubject<String>();
-  Stream<String> get port => _port.stream.transform(_duelFormValidators.portValidator);
+  final _port = BehaviorSubject<String?>();
+  Stream<String?> get port => _port.stream.transform(_duelFormValidators.portValidator);
 
   Stream<bool> get isFormValid => Rx.combineLatest2(
-      _ipAddress, _port, (String ipAddress, String port) => !ipAddress.isNullOrEmpty && !port.isNullOrEmpty);
+        _ipAddress,
+        _port,
+        (String? ipAddress, String? port) => !ipAddress.isNullOrEmpty && !port.isNullOrEmpty,
+      );
 
   final bool _localDuelRoomAvailable;
   bool get isLocalDuelRoomAvailable => _localDuelRoomAvailable;
@@ -105,10 +108,12 @@ class DuelViewModel extends BaseViewModel {
   Future<void> onEnterLocalDuelRoomPressed() async {
     logger.info(_tag, 'onEnterLocalDuelRoomPressed()');
 
-    await _dataManager.saveConnectionInfo(ConnectionInfo(
-      ipAddress: _ipAddress.value,
-      port: _port.value,
-    ));
+    await _dataManager.saveConnectionInfo(
+      ConnectionInfo(
+        ipAddress: _ipAddress.value,
+        port: _port.value,
+      ),
+    );
 
     await _dataManager.saveUseOnlineDuelRoom(value: false);
 

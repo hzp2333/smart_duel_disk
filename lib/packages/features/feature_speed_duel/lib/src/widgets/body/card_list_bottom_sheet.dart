@@ -10,8 +10,8 @@ class CardListBottomSheet extends StatelessWidget {
   final Zone zone;
 
   const CardListBottomSheet({
-    @required this.playerState,
-    @required this.zone,
+    required this.playerState,
+    required this.zone,
   });
 
   @override

@@ -14,25 +14,20 @@ _$_SpeedDuelCardModel _$_$_SpeedDuelCardModelFromJson(
     type: json['type'] as String,
     desc: json['desc'] as String,
     race: json['race'] as String,
-    cardImages: (json['card_images'] as List)
-        ?.map((e) => e == null
-            ? null
-            : CardImageModel.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    cardSets: (json['card_sets'] as List)
-        ?.map((e) =>
-            e == null ? null : CardSetModel.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    cardPrices: (json['card_prices'] as List)
-        ?.map((e) => e == null
-            ? null
-            : CardPriceModel.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
-    atk: json['atk'] as int,
-    def: json['def'] as int,
-    level: json['level'] as int,
-    attribute: json['attribute'] as String,
-    archetype: json['archetype'] as String,
+    cardImages: (json['card_images'] as List<dynamic>)
+        .map((e) => CardImageModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    cardSets: (json['card_sets'] as List<dynamic>?)
+        ?.map((e) => CardSetModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    cardPrices: (json['card_prices'] as List<dynamic>?)
+        ?.map((e) => CardPriceModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    atk: json['atk'] as int?,
+    def: json['def'] as int?,
+    level: json['level'] as int?,
+    attribute: json['attribute'] as String?,
+    archetype: json['archetype'] as String?,
     banListInfo: json['banlist_info'] == null
         ? null
         : BanListInfoModel.fromJson(

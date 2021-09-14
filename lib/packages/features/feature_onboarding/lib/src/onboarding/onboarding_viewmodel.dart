@@ -12,9 +12,9 @@ class OnboardingViewModel extends BaseViewModel {
   final DataManager _dataManager;
 
   OnboardingViewModel(
-    Logger logger,
     this._router,
     this._dataManager,
+    Logger logger,
   ) : super(logger);
 
   Future<void> onInitiateLinkPressed() async {

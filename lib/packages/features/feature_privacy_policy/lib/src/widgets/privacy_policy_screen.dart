@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
-import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 
 import '../privacy_policy_viewmodel.dart';
 
@@ -37,7 +37,7 @@ class _Body extends StatelessWidget {
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(AppSizes.screenMargin),
             child: HtmlWidget(
-              snapshot.data,
+              snapshot.data!,
               onTapUrl: vm.onUrlPressed,
             ),
           ),

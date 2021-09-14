@@ -2,8 +2,9 @@ import 'dart:async';
 
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
-import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
+import 'package:smart_duel_disk/packages/core/core_localization/lib/core_localization.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/deck_builder/models/deck_builder_state.dart';
@@ -12,9 +13,10 @@ import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/d
 class DeckBuilderViewModel extends BaseViewModel {
   static const _tag = 'DeckBuilderViewModel';
 
-  final PreBuiltDeck _preBuiltDeck;
+  final PreBuiltDeck? _preBuiltDeck;
   final AppRouter _routerHelper;
   final DataManager _dataManager;
+  final StringProvider _stringProvider;
 
   final _deckBuilderState = BehaviorSubject<DeckBuilderState>();
   Stream<DeckBuilderState> get deckBuilderState => _deckBuilderState.stream;
@@ -23,16 +25,16 @@ class DeckBuilderViewModel extends BaseViewModel {
   final _textFilter = BehaviorSubject<String>.seeded('');
   final _preBuiltDeckCardIds = BehaviorSubject<Iterable<int>>();
 
-  StreamSubscription<DeckBuilderState> _filteredCardsSubscription;
+  StreamSubscription<DeckBuilderState>? _filteredCardsSubscription;
 
-  bool get hasPreBuiltDeck => _preBuiltDeck != null;
-  String get preBuiltDeckTitle => _preBuiltDeck.title;
+  String? get preBuiltDeckTitle => _preBuiltDeck == null ? null : _stringProvider.getString(_preBuiltDeck!.titleId);
 
   DeckBuilderViewModel(
-    Logger logger,
     @factoryParam this._preBuiltDeck,
     this._routerHelper,
     this._dataManager,
+    this._stringProvider,
+    Logger logger,
   ) : super(logger);
 
   Future<void> init() async {
@@ -41,7 +43,7 @@ class DeckBuilderViewModel extends BaseViewModel {
     if (_preBuiltDeck == null) {
       _preBuiltDeckCardIds.add([]);
     } else {
-      final preBuiltDeckCardIds = await _dataManager.getPreBuiltDeckCardIds(_preBuiltDeck);
+      final preBuiltDeckCardIds = await _dataManager.getPreBuiltDeckCardIds(_preBuiltDeck!);
       _preBuiltDeckCardIds.add(preBuiltDeckCardIds);
     }
 
@@ -58,9 +60,11 @@ class DeckBuilderViewModel extends BaseViewModel {
       }
 
       final textFilter = filterValue.toLowerCase();
-      final filteredCards = cards.where((card) =>
-          card.name.toLowerCase().contains(textFilter) ||
-          (card.archetype?.toLowerCase()?.contains(textFilter) ?? false));
+      final filteredCards = cards.where(
+        (card) =>
+            card.name.toLowerCase().contains(textFilter) ||
+            (card.archetype?.toLowerCase().contains(textFilter) ?? false),
+      );
 
       if (filteredCards.isEmpty) {
         return const DeckBuilderState.noData();
@@ -119,9 +123,9 @@ class DeckBuilderViewModel extends BaseViewModel {
     _filteredCardsSubscription?.cancel();
     _filteredCardsSubscription = null;
 
-    _deckBuilderState?.close();
-    _yugiohCards?.close();
-    _textFilter?.close();
+    _deckBuilderState.close();
+    _yugiohCards.close();
+    _textFilter.close();
 
     super.dispose();
   }

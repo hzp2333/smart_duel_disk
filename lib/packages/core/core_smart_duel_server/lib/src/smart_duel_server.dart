@@ -10,7 +10,7 @@ abstract class SmartDuelServer {
   Stream<SmartDuelEvent> get globalEvents;
   Stream<SmartDuelEvent> get roomEvents;
   Stream<SmartDuelEvent> get cardEvents;
-  String getDuelistId();
+  String? getDuelistId();
   void emitEvent(SmartDuelEvent event);
   void dispose();
 }
@@ -34,7 +34,7 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
   @override
   Stream<SmartDuelEvent> get cardEvents => _cardEvents.stream;
 
-  WebSocketProvider _socket;
+  WebSocketProvider? _socket;
 
   SmartDuelServerImpl(
     this._webSocketFactory,
@@ -50,11 +50,11 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
     }
 
     _socket = _webSocketFactory.createWebSocketProvider();
-    _socket.init(this);
+    _socket!.init(this);
   }
 
   @override
-  String getDuelistId() {
+  String? getDuelistId() {
     final duelistId = _socket?.socketId;
     _logger.info(_tag, 'Duelist ID: $duelistId');
 
@@ -65,7 +65,7 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
   void emitEvent(SmartDuelEvent event) {
     _logger.info(_tag, 'emitEvent(event: $event)');
 
-    _socket.emitEvent('${event.scope}:${event.action}', event.data?.toJson());
+    _socket!.emitEvent('${event.scope}:${event.action}', event.data?.toJson());
   }
 
   @override
@@ -98,12 +98,12 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
   void _handleRoomEvent(String action, dynamic json) {
     _logger.verbose(_tag, '_handleRoomEvent(action: $action), json: $json');
 
-    SmartDuelEventData data;
+    SmartDuelEventData? data;
     if (json is Map<String, dynamic>) {
       data = RoomEventData.fromJson(json);
     }
 
-    SmartDuelEvent event;
+    SmartDuelEvent? event;
     switch (action) {
       case SmartDuelEventConstants.roomCreateAction:
         event = SmartDuelEvent.createRoom(data);
@@ -128,12 +128,12 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
   void _handleCardEvent(String action, dynamic json) {
     _logger.verbose(_tag, '_handleCardEvent(action: $action), json: $json');
 
-    SmartDuelEventData data;
+    SmartDuelEventData? data;
     if (json is Map<String, dynamic>) {
       data = CardEventData.fromJson(json);
     }
 
-    SmartDuelEvent event;
+    SmartDuelEvent? event;
     switch (action) {
       case SmartDuelEventConstants.cardPlayAction:
         event = SmartDuelEvent.playCard(data);

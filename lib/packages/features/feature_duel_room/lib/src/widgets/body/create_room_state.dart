@@ -8,7 +8,7 @@ class CreateRoomState extends StatelessWidget {
   final String roomName;
 
   const CreateRoomState({
-    @required this.roomName,
+    required this.roomName,
   });
 
   @override

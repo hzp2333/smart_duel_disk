@@ -16,7 +16,7 @@ class DrawCardViewModel extends BaseViewModel {
         );
 
   Future<void> onCardDrawn() {
-    _cardDrawnCallback?.call();
+    _cardDrawnCallback.call();
     return _router.closeScreen();
   }
 }

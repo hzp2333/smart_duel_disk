@@ -20,7 +20,9 @@ class SpeedDuelEventEmitter {
 
   void sendPlayCardEvent(PlayCard card, ZoneType zoneType, CardPosition newPosition) {
     _logger.info(
-        _tag, 'sendPlayCardEvent(card: ${card.yugiohCard.id}, zoneType: $zoneType, newPosition: $newPosition)');
+      _tag,
+      'sendPlayCardEvent(card: ${card.yugiohCard.id}, zoneType: $zoneType, newPosition: $newPosition)',
+    );
 
     _smartDuelServer.emitEvent(
       SmartDuelEvent.playCard(
@@ -67,8 +69,10 @@ class SpeedDuelEventEmitter {
   void sendSurrenderEvent(DuelRoom duelRoom) {
     _logger.info(_tag, 'sendSurrenderEvent(duelRoom: ${duelRoom.roomName})');
 
-    _smartDuelServer.emitEvent(SmartDuelEvent.surrenderRoom(
-      RoomEventData(roomName: duelRoom.roomName),
-    ));
+    _smartDuelServer.emitEvent(
+      SmartDuelEvent.surrenderRoom(
+        RoomEventData(roomName: duelRoom.roomName),
+      ),
+    );
   }
 }

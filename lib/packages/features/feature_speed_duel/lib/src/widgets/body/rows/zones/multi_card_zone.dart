@@ -16,8 +16,8 @@ class MultiCardZone extends StatelessWidget {
   final bool showCardBack;
 
   const MultiCardZone({
-    @required this.zone,
-    @required this.showCardBack,
+    required this.zone,
+    required this.showCardBack,
   });
 
   @override

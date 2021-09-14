@@ -75,7 +75,7 @@ class NewsViewModel extends BaseViewModel {
 
   @override
   void dispose() {
-    _newsState?.close();
+    _newsState.close();
 
     super.dispose();
   }

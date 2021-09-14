@@ -17,7 +17,7 @@ class CreatePlayCardDialogActionsUseCase {
     this._logger,
   );
 
-  Iterable<PlayCardDialogAction> call(PlayCard playCard, Zone newZone) {
+  Iterable<PlayCardDialogAction> call(PlayCard playCard, Zone? newZone) {
     _logger.info(_tag, 'call(playCard: $playCard, newZone: $newZone)');
 
     if (playCard.zoneType.isMultiCardZone && newZone != null) {
@@ -25,19 +25,19 @@ class CreatePlayCardDialogActionsUseCase {
     }
 
     if (playCard.zoneType.isMainMonsterZone) {
-      if (newZone?.zoneType?.isSpellTrapCardZone ?? false) {
-        return _getSpellTrapFieldZoneActions(playCard, newZone);
+      if (newZone?.zoneType.isSpellTrapCardZone ?? false) {
+        return _getSpellTrapFieldZoneActions(playCard);
       }
 
-      return _getMainMonsterZoneActions(playCard, newZone);
+      return _getMainMonsterZoneActions(playCard);
     }
 
     if (playCard.zoneType.isSpellTrapCardZone || playCard.zoneType == ZoneType.field) {
-      if (newZone?.zoneType?.isMainMonsterZone ?? false) {
+      if (newZone?.zoneType.isMainMonsterZone ?? false) {
         return _getSpecialSummonActions();
       }
 
-      return _getSpellTrapFieldZoneActions(playCard, newZone);
+      return _getSpellTrapFieldZoneActions(playCard);
     }
 
     return [];
@@ -57,8 +57,8 @@ class CreatePlayCardDialogActionsUseCase {
     return _getPlaySpellTrapActions();
   }
 
-  Iterable<PlayCardDialogAction> _getMainMonsterZoneActions(PlayCard playCard, Zone newZone) {
-    _logger.verbose(_tag, '_getMainMonsterZoneActions(playCard: $playCard, newZone: $newZone');
+  Iterable<PlayCardDialogAction> _getMainMonsterZoneActions(PlayCard playCard) {
+    _logger.verbose(_tag, '_getMainMonsterZoneActions(playCard: $playCard');
 
     if (playCard.position == CardPosition.faceUp) {
       return [
@@ -88,8 +88,8 @@ class CreatePlayCardDialogActionsUseCase {
     ];
   }
 
-  Iterable<PlayCardDialogAction> _getSpellTrapFieldZoneActions(PlayCard playCard, Zone newZone) {
-    _logger.verbose(_tag, '_getSpellTrapFieldZoneActions(playCard: $playCard, newZone: $newZone');
+  Iterable<PlayCardDialogAction> _getSpellTrapFieldZoneActions(PlayCard playCard) {
+    _logger.verbose(_tag, '_getSpellTrapFieldZoneActions(playCard: $playCard');
 
     if (playCard.zoneType.isMainMonsterZone) {
       return _getPlaySpellTrapActions();

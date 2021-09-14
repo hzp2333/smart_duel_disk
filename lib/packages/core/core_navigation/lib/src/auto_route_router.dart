@@ -15,7 +15,6 @@ import 'package:smart_duel_disk/packages/features/feature_yugioh_card_detail/lib
     AutoRoute<void>(page: OnboardingScreenProvider, initial: true),
     AutoRoute<void>(
       page: HomeScreenProvider,
-      usesTabsRouter: true,
       path: '/home',
       children: [
         AutoRoute<void>(name: 'DuelTab', page: DuelScreenProvider, path: 'duel'),

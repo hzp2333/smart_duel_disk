@@ -80,7 +80,7 @@ class _DuelRoomButton extends HookWidget {
     return IconTitleTileButton(
       icon: Icons.house,
       title: 'Enter Local Duel Room',
-      onPressed: snapshot.data ? vm.onEnterLocalDuelRoomPressed : null,
+      onPressed: snapshot.data! ? vm.onEnterLocalDuelRoomPressed : null,
     );
   }
 }

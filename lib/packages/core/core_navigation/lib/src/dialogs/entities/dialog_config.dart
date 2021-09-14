@@ -6,19 +6,19 @@ class DialogConfig extends Equatable {
   final String title;
   final String description;
   final String positiveButtonText;
-  final String negativeButtonText;
+  final String? negativeButtonText;
   final bool isDismissable;
 
   const DialogConfig({
-    @required this.title,
-    @required this.description,
-    @required this.positiveButtonText,
+    required this.title,
+    required this.description,
+    required this.positiveButtonText,
     this.negativeButtonText,
     this.isDismissable = true,
   });
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [
       title,
       description,

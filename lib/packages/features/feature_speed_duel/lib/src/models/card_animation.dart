@@ -12,10 +12,10 @@ abstract class CardAnimation extends Equatable {
   final Duration animationDuration;
 
   const CardAnimation({
-    @required this.duelistId,
-    @required this.cardId,
-    @required this.copyNumber,
-    @required this.animationColor,
+    required this.duelistId,
+    required this.cardId,
+    required this.copyNumber,
+    required this.animationColor,
     this.waitTime = Duration.zero,
     this.animationDuration = AppDurations.cardAnimationDuration,
   });
@@ -36,9 +36,9 @@ abstract class CardAnimation extends Equatable {
 
 class AttackAnimation extends CardAnimation {
   const AttackAnimation({
-    @required String duelistId,
-    @required int cardId,
-    @required int copyNumber,
+    required String duelistId,
+    required int cardId,
+    required int copyNumber,
     Duration waitTime = Duration.zero,
   }) : super(
           cardId: cardId,

@@ -12,8 +12,8 @@ class YugiohCardDetailScreenProvider extends StatelessWidget {
   final int index;
 
   const YugiohCardDetailScreenProvider({
-    @required this.yugiohCard,
-    @required this.index,
+    required this.yugiohCard,
+    required this.index,
   });
 
   @override

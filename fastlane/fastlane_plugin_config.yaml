@@ -1,0 +1,7 @@
+# Fastlane plugins
+loco:
+  create_pr: true
+  config_file: fastlane/Loco.yml
+  input_directory: assets/translations
+  output_directory: lib/generated
+  string_keys_file: "locale_keys.g.dart"

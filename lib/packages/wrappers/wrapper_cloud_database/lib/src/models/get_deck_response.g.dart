@@ -8,7 +8,7 @@ part of 'get_deck_response.dart';
 
 _$_GetDeckResponse _$_$_GetDeckResponseFromJson(Map<String, dynamic> json) {
   return _$_GetDeckResponse(
-    cardIds: (json['cardIds'] as List)?.map((e) => e as int)?.toList(),
+    cardIds: (json['cardIds'] as List<dynamic>).map((e) => e as int).toList(),
   );
 }
 

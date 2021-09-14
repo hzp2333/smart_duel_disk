@@ -4,15 +4,15 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 
 @immutable
 class SpeedDuelState extends Equatable {
-  final PlayerState userState;
-  final PlayerState opponentState;
+  final PlayerState? userState;
+  final PlayerState? opponentState;
 
   const SpeedDuelState({
-    @required this.userState,
-    @required this.opponentState,
+    required this.userState,
+    required this.opponentState,
   });
 
-  SpeedDuelState copyWith({PlayerState userState, PlayerState opponentState}) {
+  SpeedDuelState copyWith({PlayerState? userState, PlayerState? opponentState}) {
     return SpeedDuelState(
       userState: userState ?? this.userState,
       opponentState: opponentState ?? this.opponentState,
@@ -20,7 +20,7 @@ class SpeedDuelState extends Equatable {
   }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         userState,
         opponentState,
       ];

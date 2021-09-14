@@ -7,7 +7,7 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/usecases/can_card_attack_zone_use_case.dart';
 
 void main() {
-  CanCardAttackZoneUseCase _useCase;
+  late CanCardAttackZoneUseCase _useCase;
 
   const _userId = '123';
   const _opponentId = '456';
@@ -58,7 +58,7 @@ void main() {
 
   group('When the use case is called', () {
     test('and the card initiating the attack is not a monster, then false is returned', () {
-      final result = _useCase(_spellCard, _opponentMonsterZone, _userId);
+      final bool result = _useCase(_spellCard, _opponentMonsterZone, _userId);
 
       expect(result, false);
     });
@@ -66,7 +66,7 @@ void main() {
     test('and the card initiating the attack is not in face-up attack position, then false is returned', () {
       final monsterInDefence = _monsterCard.copyWith(position: CardPosition.faceUpDefence);
 
-      final result = _useCase(monsterInDefence, _opponentMonsterZone, _userId);
+      final bool result = _useCase(monsterInDefence, _opponentMonsterZone, _userId);
 
       expect(result, false);
     });
@@ -74,31 +74,31 @@ void main() {
     test('and the card initiating the attack is not in a main monster zone, then false is returned', () {
       final monsterInHand = _monsterCard.copyWith(zoneType: ZoneType.hand);
 
-      final result = _useCase(monsterInHand, _opponentMonsterZone, _userId);
+      final bool result = _useCase(monsterInHand, _opponentMonsterZone, _userId);
 
       expect(result, false);
     });
 
     test('and the targetted zone does not belong to an opponent, then false is returned', () {
-      final result = _useCase(_monsterCard, _userMonsterZone, _userId);
+      final bool result = _useCase(_monsterCard, _userMonsterZone, _userId);
 
       expect(result, false);
     });
 
     test('and the targetted zone is the hand zone of the opponent, then true is returned', () {
-      final result = _useCase(_monsterCard, _opponentHandZone, _userId);
+      final bool result = _useCase(_monsterCard, _opponentHandZone, _userId);
 
       expect(result, true);
     });
 
     test('and the targetted zone is not a monster zone of an opponent, then false is returned', () {
-      final result = _useCase(_monsterCard, _opponentSpellTrapZone, _userId);
+      final bool result = _useCase(_monsterCard, _opponentSpellTrapZone, _userId);
 
       expect(result, false);
     });
 
     test('and there is not a monster in the targetted zone of the opponent, then false is returned', () {
-      final result = _useCase(_monsterCard, _opponentMonsterZone, _userId);
+      final bool result = _useCase(_monsterCard, _opponentMonsterZone, _userId);
 
       expect(result, false);
     });
@@ -106,7 +106,7 @@ void main() {
     test('and there is a monster in the targetted zone of the opponent, then true is returned', () {
       final targettedZone = _opponentMonsterZone.copyWith(cards: [_monsterCard]);
 
-      final result = _useCase(_monsterCard, targettedZone, _userId);
+      final bool result = _useCase(_monsterCard, targettedZone, _userId);
 
       expect(result, true);
     });

@@ -4,11 +4,11 @@ import 'package:shared_preferences/shared_preferences.dart';
 abstract class SharedPreferencesProvider {
   bool containsKey(String key);
   bool getBool(String key, {bool defaultValue = false});
-  int getInt(String key);
-  double getDouble(String key);
-  String getString(String key);
-  List<String> getStringList(String key);
-  Future<bool> setBool(String key, {bool value});
+  int? getInt(String key);
+  double? getDouble(String key);
+  String? getString(String key);
+  List<String>? getStringList(String key);
+  Future<bool> setBool(String key, {bool? value});
   Future<bool> setInt(String key, int value);
   Future<bool> setDouble(String key, double value);
   Future<bool> setString(String key, String value);
@@ -32,19 +32,19 @@ class SharedPreferencesProviderImpl implements SharedPreferencesProvider {
   bool getBool(String key, {bool defaultValue = false}) => _sharedPreferences.getBool(key) ?? defaultValue;
 
   @override
-  int getInt(String key) => _sharedPreferences.getInt(key);
+  int? getInt(String key) => _sharedPreferences.getInt(key);
 
   @override
-  double getDouble(String key) => _sharedPreferences.getDouble(key);
+  double? getDouble(String key) => _sharedPreferences.getDouble(key);
 
   @override
-  String getString(String key) => _sharedPreferences.getString(key);
+  String? getString(String key) => _sharedPreferences.getString(key);
 
   @override
-  List<String> getStringList(String key) => _sharedPreferences.getStringList(key);
+  List<String>? getStringList(String key) => _sharedPreferences.getStringList(key);
 
   @override
-  Future<bool> setBool(String key, {bool value}) => _sharedPreferences.setBool(key, value);
+  Future<bool> setBool(String key, {bool? value}) => _sharedPreferences.setBool(key, value!);
 
   @override
   Future<bool> setInt(String key, int value) => _sharedPreferences.setInt(key, value);

@@ -4,7 +4,7 @@ class BorderedText extends StatelessWidget {
   final String text;
 
   const BorderedText({
-    @required this.text,
+    required this.text,
   });
 
   @override

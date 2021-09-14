@@ -9,22 +9,22 @@ part 'speed_duel_card_model.freezed.dart';
 part 'speed_duel_card_model.g.dart';
 
 @freezed
-abstract class SpeedDuelCardModel with _$SpeedDuelCardModel {
+class SpeedDuelCardModel with _$SpeedDuelCardModel {
   const factory SpeedDuelCardModel({
-    @required @JsonKey(name: 'id') int id,
-    @required @JsonKey(name: 'name') String name,
-    @required @JsonKey(name: 'type') String type,
-    @required @JsonKey(name: 'desc') String desc,
-    @required @JsonKey(name: 'race') String race,
-    @required @JsonKey(name: 'card_images') List<CardImageModel> cardImages,
-    @JsonKey(name: 'card_sets') List<CardSetModel> cardSets,
-    @JsonKey(name: 'card_prices') List<CardPriceModel> cardPrices,
-    @JsonKey(name: 'atk') int atk,
-    @JsonKey(name: 'def') int def,
-    @JsonKey(name: 'level') int level,
-    @JsonKey(name: 'attribute') String attribute,
-    @JsonKey(name: 'archetype') String archetype,
-    @JsonKey(name: 'banlist_info') BanListInfoModel banListInfo,
+    @JsonKey(name: 'id') required int id,
+    @JsonKey(name: 'name') required String name,
+    @JsonKey(name: 'type') required String type,
+    @JsonKey(name: 'desc') required String desc,
+    @JsonKey(name: 'race') required String race,
+    @JsonKey(name: 'card_images') required List<CardImageModel> cardImages,
+    @JsonKey(name: 'card_sets') List<CardSetModel>? cardSets,
+    @JsonKey(name: 'card_prices') List<CardPriceModel>? cardPrices,
+    @JsonKey(name: 'atk') int? atk,
+    @JsonKey(name: 'def') int? def,
+    @JsonKey(name: 'level') int? level,
+    @JsonKey(name: 'attribute') String? attribute,
+    @JsonKey(name: 'archetype') String? archetype,
+    @JsonKey(name: 'banlist_info') BanListInfoModel? banListInfo,
   }) = _SpeedDuelCardModel;
 
   factory SpeedDuelCardModel.fromJson(Map<String, dynamic> json) => _$SpeedDuelCardModelFromJson(json);

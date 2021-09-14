@@ -9,7 +9,7 @@ class SingleCardZone extends StatelessWidget {
   final Zone zone;
 
   const SingleCardZone({
-    @required this.zone,
+    required this.zone,
   });
 
   @override

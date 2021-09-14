@@ -10,15 +10,15 @@ class CardDragTarget extends StatelessWidget {
   final Widget child;
 
   const CardDragTarget({
-    @required this.zone,
-    @required this.child,
+    required this.zone,
+    required this.child,
   });
 
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<SpeedDuelViewModel>(context);
     return DragTarget<PlayCard>(
-      onWillAccept: (card) => vm.onWillZoneAcceptCard(card, zone),
+      onWillAccept: (card) => vm.onWillZoneAcceptCard(card, zone)!,
       onAccept: (card) => vm.onZoneAcceptsCard(card, zone),
       builder: (_, __, ___) => child,
     );

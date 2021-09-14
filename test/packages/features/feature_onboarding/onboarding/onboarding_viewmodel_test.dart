@@ -1,28 +1,25 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
-import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
-import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/features/feature_onboarding/lib/src/onboarding/onboarding_viewmodel.dart';
 
-import '../../../../testing/empty_mocks.dart';
+import '../../../../testing/mocks/shared.mocks.dart';
 
 void main() {
-  OnboardingViewModel _viewModel;
+  late OnboardingViewModel _viewModel;
 
-  Logger _logger;
-  AppRouter _router;
-  DataManager _dataManager;
+  late MockAppRouter _router;
+  late MockDataManager _dataManager;
+  late MockLogger _logger;
 
   setUp(() {
-    _logger = MockLogger();
     _router = MockAppRouter();
     _dataManager = MockDataManager();
+    _logger = MockLogger();
 
     _viewModel = OnboardingViewModel(
-      _logger,
       _router,
       _dataManager,
+      _logger,
     );
   });
 

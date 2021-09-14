@@ -41,16 +41,16 @@ class PlayCardDialog extends StatelessWidget {
 }
 
 class _DialogBody extends StatelessWidget {
-  final PlayCard playCard;
+  final PlayCard? playCard;
 
   const _DialogBody({
-    @required this.playCard,
+    required this.playCard,
   });
 
   @override
   Widget build(BuildContext context) {
     final showSecondRow =
-        playCard.formattedLevel != null || (playCard.formattedAttack != null && playCard.formattedDefence != null);
+        playCard!.formattedLevel != null || (playCard!.formattedAttack != null && playCard!.formattedDefence != null);
 
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -71,10 +71,10 @@ class _DialogBody extends StatelessWidget {
 }
 
 class _FirstRow extends StatelessWidget {
-  final PlayCard playCard;
+  final PlayCard? playCard;
 
   const _FirstRow({
-    @required this.playCard,
+    required this.playCard,
   });
 
   @override
@@ -83,12 +83,12 @@ class _FirstRow extends StatelessWidget {
       children: [
         Expanded(
           child: Text(
-            playCard.yugiohCard.name,
+            playCard!.yugiohCard.name,
             style: TextStyles.cardDialogBigText,
           ),
         ),
         ImageAssetProvider(
-          assetName: playCard.attributeAssetName,
+          assetName: playCard!.attributeAssetName,
           size: AppSizes.iconSize24,
         ),
       ],
@@ -97,22 +97,22 @@ class _FirstRow extends StatelessWidget {
 }
 
 class _SecondRow extends StatelessWidget {
-  final PlayCard playCard;
+  final PlayCard? playCard;
 
   const _SecondRow({
-    @required this.playCard,
+    required this.playCard,
   });
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
-        if (playCard.formattedLevel != null) ...{
+        if (playCard!.formattedLevel != null) ...{
           Expanded(
             child: _MonsterLevel(playCard: playCard),
           ),
         },
-        if (playCard.formattedAttack != null && playCard.formattedDefence != null) ...{
+        if (playCard!.formattedAttack != null && playCard!.formattedDefence != null) ...{
           Expanded(
             flex: 2,
             child: _MonsterAttackAndDefence(playCard: playCard),
@@ -124,10 +124,10 @@ class _SecondRow extends StatelessWidget {
 }
 
 class _MonsterLevel extends StatelessWidget {
-  final PlayCard playCard;
+  final PlayCard? playCard;
 
   const _MonsterLevel({
-    @required this.playCard,
+    required this.playCard,
   });
 
   @override
@@ -143,7 +143,7 @@ class _MonsterLevel extends StatelessWidget {
         ),
         const SizedBox(width: 4),
         Text(
-          playCard.formattedLevel,
+          playCard!.formattedLevel!,
           style: TextStyles.cardDialogBigText,
         ),
       ],
@@ -152,10 +152,10 @@ class _MonsterLevel extends StatelessWidget {
 }
 
 class _MonsterAttackAndDefence extends StatelessWidget {
-  final PlayCard playCard;
+  final PlayCard? playCard;
 
   const _MonsterAttackAndDefence({
-    @required this.playCard,
+    required this.playCard,
   });
 
   @override
@@ -163,12 +163,12 @@ class _MonsterAttackAndDefence extends StatelessWidget {
     return Row(
       children: [
         Text(
-          playCard.formattedAttack,
+          playCard!.formattedAttack!,
           style: TextStyles.cardDialogBigText,
         ),
         const SizedBox(width: AppSizes.screenMargin),
         Text(
-          playCard.formattedDefence,
+          playCard!.formattedDefence!,
           style: TextStyles.cardDialogBigText,
         ),
       ],
@@ -177,26 +177,26 @@ class _MonsterAttackAndDefence extends StatelessWidget {
 }
 
 class _ThirdRow extends StatelessWidget {
-  final PlayCard playCard;
+  final PlayCard? playCard;
 
   const _ThirdRow({
-    @required this.playCard,
+    required this.playCard,
   });
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      playCard.formattedRaceAndType,
+      playCard!.formattedRaceAndType,
       style: TextStyle(color: AppColors.cardDialogAccent),
     );
   }
 }
 
 class _CardDescription extends StatelessWidget {
-  final PlayCard playCard;
+  final PlayCard? playCard;
 
   const _CardDescription({
-    @required this.playCard,
+    required this.playCard,
   });
 
   @override
@@ -207,7 +207,7 @@ class _CardDescription extends StatelessWidget {
       ),
       child: SingleChildScrollView(
         child: Text(
-          playCard.yugiohCard.description,
+          playCard!.yugiohCard.description,
           textAlign: TextAlign.start,
         ),
       ),
@@ -216,10 +216,10 @@ class _CardDescription extends StatelessWidget {
 }
 
 class _ActionsRow extends StatelessWidget {
-  final Iterable<PlayCardDialogAction> actions;
+  final Iterable<PlayCardDialogAction>? actions;
 
   const _ActionsRow({
-    @required this.actions,
+    required this.actions,
   });
 
   @override
@@ -228,22 +228,23 @@ class _ActionsRow extends StatelessWidget {
       color: Colors.transparent,
       child: Row(
         mainAxisSize: MainAxisSize.min,
-        children: actions.map((action) => _ActionItem(action: action)).toList(),
+        children: actions!.map((action) => _ActionItem(action: action)).toList(),
       ),
     );
   }
 }
 
-class _ActionItem extends StatelessWidget {
+class _ActionItem extends StatelessWidget with ProviderMixin {
   final PlayCardDialogAction action;
 
   const _ActionItem({
-    @required this.action,
+    required this.action,
   });
 
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<PlayCardDialogViewModel>(context);
+    final stringProvider = getStringProvider(context);
 
     return InkWell(
       onTap: () => vm.onPlayCardDialogActionPressed(action.type),
@@ -261,7 +262,7 @@ class _ActionItem extends StatelessWidget {
             Icon(action.icon),
             const SizedBox(height: AppSizes.iconTitleTileSeparator),
             Text(
-              action.name,
+              stringProvider.getString(action.name),
               style: const TextStyle(color: Colors.white),
             ),
           ],
@@ -270,26 +271,3 @@ class _ActionItem extends StatelessWidget {
     );
   }
 }
-
-// class _ActionItem extends StatelessWidget {
-//   final PlayCardDialogAction action;
-
-//   const _ActionItem({
-//     @required this.action,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final vm = Provider.of<PlayCardDialogViewModel>(context);
-
-//     return TextButton(
-//       onPressed: () => vm.onPlayCardDialogActionPressed(action.type),
-//       child: Text(
-//         action.name,
-//         style: const TextStyle(
-//           color: Colors.white,
-//         ),
-//       ),
-//     );
-//   }
-// }

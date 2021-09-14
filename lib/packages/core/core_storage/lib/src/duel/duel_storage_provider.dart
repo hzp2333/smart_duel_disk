@@ -1,16 +1,15 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_shared_preferences/lib/wrapper_shared_preferences.dart';
 
 import 'models/connection_info_model.dart';
 
 abstract class DuelStorageProvider {
-  ConnectionInfoModel getConnectionInfo();
+  ConnectionInfoModel? getConnectionInfo();
   Future<void> saveConnectionInfo(ConnectionInfoModel connectionInfo);
   bool useOnlineDuelRoom();
-  Future<void> saveUseOnlineDuelRoom({@required bool value});
+  Future<void> saveUseOnlineDuelRoom({required bool? value});
 }
 
 @LazySingleton(as: DuelStorageProvider)
@@ -25,7 +24,7 @@ class DuelStorageProviderImpl implements DuelStorageProvider {
   );
 
   @override
-  ConnectionInfoModel getConnectionInfo() {
+  ConnectionInfoModel? getConnectionInfo() {
     final connectionInfo = _sharedPreferencesProvider.getString(_connectionInfoKey);
     if (connectionInfo == null) {
       return null;
@@ -45,7 +44,7 @@ class DuelStorageProviderImpl implements DuelStorageProvider {
   }
 
   @override
-  Future<void> saveUseOnlineDuelRoom({bool value}) async {
+  Future<void> saveUseOnlineDuelRoom({bool? value}) async {
     await _sharedPreferencesProvider.setBool(_onlineDuelRoomKey, value: value);
   }
 }

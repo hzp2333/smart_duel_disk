@@ -7,8 +7,8 @@ abstract class DeckAction extends Equatable {
   final IconData icon;
 
   const DeckAction({
-    @required this.title,
-    @required this.icon,
+    required this.title,
+    required this.icon,
   });
 
   @override

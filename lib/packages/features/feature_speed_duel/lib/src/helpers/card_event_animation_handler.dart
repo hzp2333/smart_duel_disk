@@ -22,25 +22,31 @@ class CardEventAnimationHandler {
 
   Future<void> onAttackCardEvent(PlayCard attackingCard, Zone targetZone) async {
     _logger.info(
-        _tag, 'onAttackCardEvent(attackingCard: ${attackingCard.yugiohCard.id}, targetZone: ${targetZone.zoneType})');
+      _tag,
+      'onAttackCardEvent(attackingCard: ${attackingCard.yugiohCard.id}, targetZone: ${targetZone.zoneType})',
+    );
 
     await _delayProvider.delay(AppDurations.preCardAnimationDelay);
 
-    _cardAnimations.add(AttackAnimation(
-      duelistId: attackingCard.duelistId,
-      cardId: attackingCard.yugiohCard.id,
-      copyNumber: attackingCard.copyNumber,
-    ));
+    _cardAnimations.add(
+      AttackAnimation(
+        duelistId: attackingCard.duelistId,
+        cardId: attackingCard.yugiohCard.id,
+        copyNumber: attackingCard.copyNumber,
+      ),
+    );
 
     if (targetZone.zoneType.isMainMonsterZone) {
-      final targettedCard = targetZone.cards.first;
+      final targettedCard = targetZone.cards.first!;
 
-      _cardAnimations.add(AttackAnimation(
-        duelistId: targettedCard.duelistId,
-        cardId: targettedCard.yugiohCard.id,
-        copyNumber: targettedCard.copyNumber,
-        waitTime: AppDurations.cardAnimationDuration * 2,
-      ));
+      _cardAnimations.add(
+        AttackAnimation(
+          duelistId: targettedCard.duelistId,
+          cardId: targettedCard.yugiohCard.id,
+          copyNumber: targettedCard.copyNumber,
+          waitTime: AppDurations.cardAnimationDuration * 2,
+        ),
+      );
     }
   }
 

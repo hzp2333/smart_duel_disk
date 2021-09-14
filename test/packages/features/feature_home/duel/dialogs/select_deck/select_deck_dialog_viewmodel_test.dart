@@ -1,19 +1,17 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
-import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
-import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/duel/dialogs/select_deck/select_deck_dialog_viewmodel.dart';
 
-import '../../../../../../testing/empty_mocks.dart';
+import '../../../../../../testing/mocks/shared.mocks.dart';
 
 void main() {
-  SelectDeckDialogViewModel _selectDeckDialogViewModel;
+  late SelectDeckDialogViewModel _selectDeckDialogViewModel;
 
-  Logger _logger;
-  AppRouter _router;
-  DataManager _dataManager;
-  DialogService _dialogService;
+  late MockAppRouter _router;
+  late MockDataManager _dataManager;
+  late MockDialogService _dialogService;
+  late MockLogger _logger;
 
   final _preBuiltDecks = [KaibaDeck(), MaiDeck(), YugiDeck()];
 
@@ -26,10 +24,10 @@ void main() {
     when(_dataManager.getPreBuiltDecks()).thenReturn(_preBuiltDecks);
 
     _selectDeckDialogViewModel = SelectDeckDialogViewModel(
-      _logger,
       _router,
       _dataManager,
       _dialogService,
+      _logger,
     );
   });
 

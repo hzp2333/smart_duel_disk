@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'duel_room_state.dart';
 
@@ -9,40 +9,37 @@ part of 'duel_room_state.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$DuelRoomStateTearOff {
   const _$DuelRoomStateTearOff();
 
-// ignore: unused_element
   DuelRoomConnecting connecting() {
     return const DuelRoomConnecting();
   }
 
-// ignore: unused_element
   DuelRoomConnected connected() {
     return const DuelRoomConnected();
   }
 
-// ignore: unused_element
   DuelRoomCreate createRoom(String roomName) {
     return DuelRoomCreate(
       roomName,
     );
   }
 
-// ignore: unused_element
   DuelRoomJoin joinRoom(String roomName) {
     return DuelRoomJoin(
       roomName,
     );
   }
 
-// ignore: unused_element
   DuelRoomReady ready() {
     return const DuelRoomReady();
   }
 
-// ignore: unused_element
   DuelRoomError error(String errorMessage, void Function() retryAction) {
     return DuelRoomError(
       errorMessage,
@@ -52,49 +49,53 @@ class _$DuelRoomStateTearOff {
 }
 
 /// @nodoc
-// ignore: unused_element
 const $DuelRoomState = _$DuelRoomStateTearOff();
 
 /// @nodoc
 mixin _$DuelRoomState {
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult connecting(),
-    @required TResult connected(),
-    @required TResult createRoom(String roomName),
-    @required TResult joinRoom(String roomName),
-    @required TResult ready(),
-    @required TResult error(String errorMessage, void Function() retryAction),
-  });
+  TResult when<TResult extends Object?>({
+    required TResult Function() connecting,
+    required TResult Function() connected,
+    required TResult Function(String roomName) createRoom,
+    required TResult Function(String roomName) joinRoom,
+    required TResult Function() ready,
+    required TResult Function(String errorMessage, void Function() retryAction)
+        error,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult connecting(),
-    TResult connected(),
-    TResult createRoom(String roomName),
-    TResult joinRoom(String roomName),
-    TResult ready(),
-    TResult error(String errorMessage, void Function() retryAction),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? connecting,
+    TResult Function()? connected,
+    TResult Function(String roomName)? createRoom,
+    TResult Function(String roomName)? joinRoom,
+    TResult Function()? ready,
+    TResult Function(String errorMessage, void Function() retryAction)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult connecting(DuelRoomConnecting value),
-    @required TResult connected(DuelRoomConnected value),
-    @required TResult createRoom(DuelRoomCreate value),
-    @required TResult joinRoom(DuelRoomJoin value),
-    @required TResult ready(DuelRoomReady value),
-    @required TResult error(DuelRoomError value),
-  });
+  TResult map<TResult extends Object?>({
+    required TResult Function(DuelRoomConnecting value) connecting,
+    required TResult Function(DuelRoomConnected value) connected,
+    required TResult Function(DuelRoomCreate value) createRoom,
+    required TResult Function(DuelRoomJoin value) joinRoom,
+    required TResult Function(DuelRoomReady value) ready,
+    required TResult Function(DuelRoomError value) error,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult connecting(DuelRoomConnecting value),
-    TResult connected(DuelRoomConnected value),
-    TResult createRoom(DuelRoomCreate value),
-    TResult joinRoom(DuelRoomJoin value),
-    TResult ready(DuelRoomReady value),
-    TResult error(DuelRoomError value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DuelRoomConnecting value)? connecting,
+    TResult Function(DuelRoomConnected value)? connected,
+    TResult Function(DuelRoomCreate value)? createRoom,
+    TResult Function(DuelRoomJoin value)? joinRoom,
+    TResult Function(DuelRoomReady value)? ready,
+    TResult Function(DuelRoomError value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -134,6 +135,7 @@ class _$DuelRoomConnectingCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$DuelRoomConnecting
     with DiagnosticableTreeMixin
     implements DuelRoomConnecting {
@@ -160,35 +162,29 @@ class _$DuelRoomConnecting
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult connecting(),
-    @required TResult connected(),
-    @required TResult createRoom(String roomName),
-    @required TResult joinRoom(String roomName),
-    @required TResult ready(),
-    @required TResult error(String errorMessage, void Function() retryAction),
+  TResult when<TResult extends Object?>({
+    required TResult Function() connecting,
+    required TResult Function() connected,
+    required TResult Function(String roomName) createRoom,
+    required TResult Function(String roomName) joinRoom,
+    required TResult Function() ready,
+    required TResult Function(String errorMessage, void Function() retryAction)
+        error,
   }) {
-    assert(connecting != null);
-    assert(connected != null);
-    assert(createRoom != null);
-    assert(joinRoom != null);
-    assert(ready != null);
-    assert(error != null);
     return connecting();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult connecting(),
-    TResult connected(),
-    TResult createRoom(String roomName),
-    TResult joinRoom(String roomName),
-    TResult ready(),
-    TResult error(String errorMessage, void Function() retryAction),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? connecting,
+    TResult Function()? connected,
+    TResult Function(String roomName)? createRoom,
+    TResult Function(String roomName)? joinRoom,
+    TResult Function()? ready,
+    TResult Function(String errorMessage, void Function() retryAction)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (connecting != null) {
       return connecting();
     }
@@ -197,35 +193,28 @@ class _$DuelRoomConnecting
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult connecting(DuelRoomConnecting value),
-    @required TResult connected(DuelRoomConnected value),
-    @required TResult createRoom(DuelRoomCreate value),
-    @required TResult joinRoom(DuelRoomJoin value),
-    @required TResult ready(DuelRoomReady value),
-    @required TResult error(DuelRoomError value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(DuelRoomConnecting value) connecting,
+    required TResult Function(DuelRoomConnected value) connected,
+    required TResult Function(DuelRoomCreate value) createRoom,
+    required TResult Function(DuelRoomJoin value) joinRoom,
+    required TResult Function(DuelRoomReady value) ready,
+    required TResult Function(DuelRoomError value) error,
   }) {
-    assert(connecting != null);
-    assert(connected != null);
-    assert(createRoom != null);
-    assert(joinRoom != null);
-    assert(ready != null);
-    assert(error != null);
     return connecting(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult connecting(DuelRoomConnecting value),
-    TResult connected(DuelRoomConnected value),
-    TResult createRoom(DuelRoomCreate value),
-    TResult joinRoom(DuelRoomJoin value),
-    TResult ready(DuelRoomReady value),
-    TResult error(DuelRoomError value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DuelRoomConnecting value)? connecting,
+    TResult Function(DuelRoomConnected value)? connected,
+    TResult Function(DuelRoomCreate value)? createRoom,
+    TResult Function(DuelRoomJoin value)? joinRoom,
+    TResult Function(DuelRoomReady value)? ready,
+    TResult Function(DuelRoomError value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (connecting != null) {
       return connecting(this);
     }
@@ -257,6 +246,7 @@ class _$DuelRoomConnectedCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$DuelRoomConnected
     with DiagnosticableTreeMixin
     implements DuelRoomConnected {
@@ -283,35 +273,29 @@ class _$DuelRoomConnected
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult connecting(),
-    @required TResult connected(),
-    @required TResult createRoom(String roomName),
-    @required TResult joinRoom(String roomName),
-    @required TResult ready(),
-    @required TResult error(String errorMessage, void Function() retryAction),
+  TResult when<TResult extends Object?>({
+    required TResult Function() connecting,
+    required TResult Function() connected,
+    required TResult Function(String roomName) createRoom,
+    required TResult Function(String roomName) joinRoom,
+    required TResult Function() ready,
+    required TResult Function(String errorMessage, void Function() retryAction)
+        error,
   }) {
-    assert(connecting != null);
-    assert(connected != null);
-    assert(createRoom != null);
-    assert(joinRoom != null);
-    assert(ready != null);
-    assert(error != null);
     return connected();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult connecting(),
-    TResult connected(),
-    TResult createRoom(String roomName),
-    TResult joinRoom(String roomName),
-    TResult ready(),
-    TResult error(String errorMessage, void Function() retryAction),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? connecting,
+    TResult Function()? connected,
+    TResult Function(String roomName)? createRoom,
+    TResult Function(String roomName)? joinRoom,
+    TResult Function()? ready,
+    TResult Function(String errorMessage, void Function() retryAction)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (connected != null) {
       return connected();
     }
@@ -320,35 +304,28 @@ class _$DuelRoomConnected
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult connecting(DuelRoomConnecting value),
-    @required TResult connected(DuelRoomConnected value),
-    @required TResult createRoom(DuelRoomCreate value),
-    @required TResult joinRoom(DuelRoomJoin value),
-    @required TResult ready(DuelRoomReady value),
-    @required TResult error(DuelRoomError value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(DuelRoomConnecting value) connecting,
+    required TResult Function(DuelRoomConnected value) connected,
+    required TResult Function(DuelRoomCreate value) createRoom,
+    required TResult Function(DuelRoomJoin value) joinRoom,
+    required TResult Function(DuelRoomReady value) ready,
+    required TResult Function(DuelRoomError value) error,
   }) {
-    assert(connecting != null);
-    assert(connected != null);
-    assert(createRoom != null);
-    assert(joinRoom != null);
-    assert(ready != null);
-    assert(error != null);
     return connected(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult connecting(DuelRoomConnecting value),
-    TResult connected(DuelRoomConnected value),
-    TResult createRoom(DuelRoomCreate value),
-    TResult joinRoom(DuelRoomJoin value),
-    TResult ready(DuelRoomReady value),
-    TResult error(DuelRoomError value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DuelRoomConnecting value)? connecting,
+    TResult Function(DuelRoomConnected value)? connected,
+    TResult Function(DuelRoomCreate value)? createRoom,
+    TResult Function(DuelRoomJoin value)? joinRoom,
+    TResult Function(DuelRoomReady value)? ready,
+    TResult Function(DuelRoomError value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (connected != null) {
       return connected(this);
     }
@@ -381,17 +358,21 @@ class _$DuelRoomCreateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object roomName = freezed,
+    Object? roomName = freezed,
   }) {
     return _then(DuelRoomCreate(
-      roomName == freezed ? _value.roomName : roomName as String,
+      roomName == freezed
+          ? _value.roomName
+          : roomName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
+
 class _$DuelRoomCreate with DiagnosticableTreeMixin implements DuelRoomCreate {
-  const _$DuelRoomCreate(this.roomName) : assert(roomName != null);
+  const _$DuelRoomCreate(this.roomName);
 
   @override
   final String roomName;
@@ -429,35 +410,29 @@ class _$DuelRoomCreate with DiagnosticableTreeMixin implements DuelRoomCreate {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult connecting(),
-    @required TResult connected(),
-    @required TResult createRoom(String roomName),
-    @required TResult joinRoom(String roomName),
-    @required TResult ready(),
-    @required TResult error(String errorMessage, void Function() retryAction),
+  TResult when<TResult extends Object?>({
+    required TResult Function() connecting,
+    required TResult Function() connected,
+    required TResult Function(String roomName) createRoom,
+    required TResult Function(String roomName) joinRoom,
+    required TResult Function() ready,
+    required TResult Function(String errorMessage, void Function() retryAction)
+        error,
   }) {
-    assert(connecting != null);
-    assert(connected != null);
-    assert(createRoom != null);
-    assert(joinRoom != null);
-    assert(ready != null);
-    assert(error != null);
     return createRoom(roomName);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult connecting(),
-    TResult connected(),
-    TResult createRoom(String roomName),
-    TResult joinRoom(String roomName),
-    TResult ready(),
-    TResult error(String errorMessage, void Function() retryAction),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? connecting,
+    TResult Function()? connected,
+    TResult Function(String roomName)? createRoom,
+    TResult Function(String roomName)? joinRoom,
+    TResult Function()? ready,
+    TResult Function(String errorMessage, void Function() retryAction)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (createRoom != null) {
       return createRoom(roomName);
     }
@@ -466,35 +441,28 @@ class _$DuelRoomCreate with DiagnosticableTreeMixin implements DuelRoomCreate {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult connecting(DuelRoomConnecting value),
-    @required TResult connected(DuelRoomConnected value),
-    @required TResult createRoom(DuelRoomCreate value),
-    @required TResult joinRoom(DuelRoomJoin value),
-    @required TResult ready(DuelRoomReady value),
-    @required TResult error(DuelRoomError value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(DuelRoomConnecting value) connecting,
+    required TResult Function(DuelRoomConnected value) connected,
+    required TResult Function(DuelRoomCreate value) createRoom,
+    required TResult Function(DuelRoomJoin value) joinRoom,
+    required TResult Function(DuelRoomReady value) ready,
+    required TResult Function(DuelRoomError value) error,
   }) {
-    assert(connecting != null);
-    assert(connected != null);
-    assert(createRoom != null);
-    assert(joinRoom != null);
-    assert(ready != null);
-    assert(error != null);
     return createRoom(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult connecting(DuelRoomConnecting value),
-    TResult connected(DuelRoomConnected value),
-    TResult createRoom(DuelRoomCreate value),
-    TResult joinRoom(DuelRoomJoin value),
-    TResult ready(DuelRoomReady value),
-    TResult error(DuelRoomError value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DuelRoomConnecting value)? connecting,
+    TResult Function(DuelRoomConnected value)? connected,
+    TResult Function(DuelRoomCreate value)? createRoom,
+    TResult Function(DuelRoomJoin value)? joinRoom,
+    TResult Function(DuelRoomReady value)? ready,
+    TResult Function(DuelRoomError value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (createRoom != null) {
       return createRoom(this);
     }
@@ -505,9 +473,10 @@ class _$DuelRoomCreate with DiagnosticableTreeMixin implements DuelRoomCreate {
 abstract class DuelRoomCreate implements DuelRoomState {
   const factory DuelRoomCreate(String roomName) = _$DuelRoomCreate;
 
-  String get roomName;
+  String get roomName => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $DuelRoomCreateCopyWith<DuelRoomCreate> get copyWith;
+  $DuelRoomCreateCopyWith<DuelRoomCreate> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -530,17 +499,21 @@ class _$DuelRoomJoinCopyWithImpl<$Res> extends _$DuelRoomStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object roomName = freezed,
+    Object? roomName = freezed,
   }) {
     return _then(DuelRoomJoin(
-      roomName == freezed ? _value.roomName : roomName as String,
+      roomName == freezed
+          ? _value.roomName
+          : roomName // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
 /// @nodoc
+
 class _$DuelRoomJoin with DiagnosticableTreeMixin implements DuelRoomJoin {
-  const _$DuelRoomJoin(this.roomName) : assert(roomName != null);
+  const _$DuelRoomJoin(this.roomName);
 
   @override
   final String roomName;
@@ -578,35 +551,29 @@ class _$DuelRoomJoin with DiagnosticableTreeMixin implements DuelRoomJoin {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult connecting(),
-    @required TResult connected(),
-    @required TResult createRoom(String roomName),
-    @required TResult joinRoom(String roomName),
-    @required TResult ready(),
-    @required TResult error(String errorMessage, void Function() retryAction),
+  TResult when<TResult extends Object?>({
+    required TResult Function() connecting,
+    required TResult Function() connected,
+    required TResult Function(String roomName) createRoom,
+    required TResult Function(String roomName) joinRoom,
+    required TResult Function() ready,
+    required TResult Function(String errorMessage, void Function() retryAction)
+        error,
   }) {
-    assert(connecting != null);
-    assert(connected != null);
-    assert(createRoom != null);
-    assert(joinRoom != null);
-    assert(ready != null);
-    assert(error != null);
     return joinRoom(roomName);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult connecting(),
-    TResult connected(),
-    TResult createRoom(String roomName),
-    TResult joinRoom(String roomName),
-    TResult ready(),
-    TResult error(String errorMessage, void Function() retryAction),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? connecting,
+    TResult Function()? connected,
+    TResult Function(String roomName)? createRoom,
+    TResult Function(String roomName)? joinRoom,
+    TResult Function()? ready,
+    TResult Function(String errorMessage, void Function() retryAction)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (joinRoom != null) {
       return joinRoom(roomName);
     }
@@ -615,35 +582,28 @@ class _$DuelRoomJoin with DiagnosticableTreeMixin implements DuelRoomJoin {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult connecting(DuelRoomConnecting value),
-    @required TResult connected(DuelRoomConnected value),
-    @required TResult createRoom(DuelRoomCreate value),
-    @required TResult joinRoom(DuelRoomJoin value),
-    @required TResult ready(DuelRoomReady value),
-    @required TResult error(DuelRoomError value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(DuelRoomConnecting value) connecting,
+    required TResult Function(DuelRoomConnected value) connected,
+    required TResult Function(DuelRoomCreate value) createRoom,
+    required TResult Function(DuelRoomJoin value) joinRoom,
+    required TResult Function(DuelRoomReady value) ready,
+    required TResult Function(DuelRoomError value) error,
   }) {
-    assert(connecting != null);
-    assert(connected != null);
-    assert(createRoom != null);
-    assert(joinRoom != null);
-    assert(ready != null);
-    assert(error != null);
     return joinRoom(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult connecting(DuelRoomConnecting value),
-    TResult connected(DuelRoomConnected value),
-    TResult createRoom(DuelRoomCreate value),
-    TResult joinRoom(DuelRoomJoin value),
-    TResult ready(DuelRoomReady value),
-    TResult error(DuelRoomError value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DuelRoomConnecting value)? connecting,
+    TResult Function(DuelRoomConnected value)? connected,
+    TResult Function(DuelRoomCreate value)? createRoom,
+    TResult Function(DuelRoomJoin value)? joinRoom,
+    TResult Function(DuelRoomReady value)? ready,
+    TResult Function(DuelRoomError value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (joinRoom != null) {
       return joinRoom(this);
     }
@@ -654,9 +614,10 @@ class _$DuelRoomJoin with DiagnosticableTreeMixin implements DuelRoomJoin {
 abstract class DuelRoomJoin implements DuelRoomState {
   const factory DuelRoomJoin(String roomName) = _$DuelRoomJoin;
 
-  String get roomName;
+  String get roomName => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $DuelRoomJoinCopyWith<DuelRoomJoin> get copyWith;
+  $DuelRoomJoinCopyWith<DuelRoomJoin> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -679,6 +640,7 @@ class _$DuelRoomReadyCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$DuelRoomReady with DiagnosticableTreeMixin implements DuelRoomReady {
   const _$DuelRoomReady();
 
@@ -703,35 +665,29 @@ class _$DuelRoomReady with DiagnosticableTreeMixin implements DuelRoomReady {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult connecting(),
-    @required TResult connected(),
-    @required TResult createRoom(String roomName),
-    @required TResult joinRoom(String roomName),
-    @required TResult ready(),
-    @required TResult error(String errorMessage, void Function() retryAction),
+  TResult when<TResult extends Object?>({
+    required TResult Function() connecting,
+    required TResult Function() connected,
+    required TResult Function(String roomName) createRoom,
+    required TResult Function(String roomName) joinRoom,
+    required TResult Function() ready,
+    required TResult Function(String errorMessage, void Function() retryAction)
+        error,
   }) {
-    assert(connecting != null);
-    assert(connected != null);
-    assert(createRoom != null);
-    assert(joinRoom != null);
-    assert(ready != null);
-    assert(error != null);
     return ready();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult connecting(),
-    TResult connected(),
-    TResult createRoom(String roomName),
-    TResult joinRoom(String roomName),
-    TResult ready(),
-    TResult error(String errorMessage, void Function() retryAction),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? connecting,
+    TResult Function()? connected,
+    TResult Function(String roomName)? createRoom,
+    TResult Function(String roomName)? joinRoom,
+    TResult Function()? ready,
+    TResult Function(String errorMessage, void Function() retryAction)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (ready != null) {
       return ready();
     }
@@ -740,35 +696,28 @@ class _$DuelRoomReady with DiagnosticableTreeMixin implements DuelRoomReady {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult connecting(DuelRoomConnecting value),
-    @required TResult connected(DuelRoomConnected value),
-    @required TResult createRoom(DuelRoomCreate value),
-    @required TResult joinRoom(DuelRoomJoin value),
-    @required TResult ready(DuelRoomReady value),
-    @required TResult error(DuelRoomError value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(DuelRoomConnecting value) connecting,
+    required TResult Function(DuelRoomConnected value) connected,
+    required TResult Function(DuelRoomCreate value) createRoom,
+    required TResult Function(DuelRoomJoin value) joinRoom,
+    required TResult Function(DuelRoomReady value) ready,
+    required TResult Function(DuelRoomError value) error,
   }) {
-    assert(connecting != null);
-    assert(connected != null);
-    assert(createRoom != null);
-    assert(joinRoom != null);
-    assert(ready != null);
-    assert(error != null);
     return ready(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult connecting(DuelRoomConnecting value),
-    TResult connected(DuelRoomConnected value),
-    TResult createRoom(DuelRoomCreate value),
-    TResult joinRoom(DuelRoomJoin value),
-    TResult ready(DuelRoomReady value),
-    TResult error(DuelRoomError value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DuelRoomConnecting value)? connecting,
+    TResult Function(DuelRoomConnected value)? connected,
+    TResult Function(DuelRoomCreate value)? createRoom,
+    TResult Function(DuelRoomJoin value)? joinRoom,
+    TResult Function(DuelRoomReady value)? ready,
+    TResult Function(DuelRoomError value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (ready != null) {
       return ready(this);
     }
@@ -801,23 +750,26 @@ class _$DuelRoomErrorCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object errorMessage = freezed,
-    Object retryAction = freezed,
+    Object? errorMessage = freezed,
+    Object? retryAction = freezed,
   }) {
     return _then(DuelRoomError(
-      errorMessage == freezed ? _value.errorMessage : errorMessage as String,
+      errorMessage == freezed
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
       retryAction == freezed
           ? _value.retryAction
-          : retryAction as void Function(),
+          : retryAction // ignore: cast_nullable_to_non_nullable
+              as void Function(),
     ));
   }
 }
 
 /// @nodoc
+
 class _$DuelRoomError with DiagnosticableTreeMixin implements DuelRoomError {
-  const _$DuelRoomError(this.errorMessage, this.retryAction)
-      : assert(errorMessage != null),
-        assert(retryAction != null);
+  const _$DuelRoomError(this.errorMessage, this.retryAction);
 
   @override
   final String errorMessage;
@@ -863,35 +815,29 @@ class _$DuelRoomError with DiagnosticableTreeMixin implements DuelRoomError {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult connecting(),
-    @required TResult connected(),
-    @required TResult createRoom(String roomName),
-    @required TResult joinRoom(String roomName),
-    @required TResult ready(),
-    @required TResult error(String errorMessage, void Function() retryAction),
+  TResult when<TResult extends Object?>({
+    required TResult Function() connecting,
+    required TResult Function() connected,
+    required TResult Function(String roomName) createRoom,
+    required TResult Function(String roomName) joinRoom,
+    required TResult Function() ready,
+    required TResult Function(String errorMessage, void Function() retryAction)
+        error,
   }) {
-    assert(connecting != null);
-    assert(connected != null);
-    assert(createRoom != null);
-    assert(joinRoom != null);
-    assert(ready != null);
-    assert(error != null);
     return error(errorMessage, retryAction);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult connecting(),
-    TResult connected(),
-    TResult createRoom(String roomName),
-    TResult joinRoom(String roomName),
-    TResult ready(),
-    TResult error(String errorMessage, void Function() retryAction),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? connecting,
+    TResult Function()? connected,
+    TResult Function(String roomName)? createRoom,
+    TResult Function(String roomName)? joinRoom,
+    TResult Function()? ready,
+    TResult Function(String errorMessage, void Function() retryAction)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (error != null) {
       return error(errorMessage, retryAction);
     }
@@ -900,35 +846,28 @@ class _$DuelRoomError with DiagnosticableTreeMixin implements DuelRoomError {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult connecting(DuelRoomConnecting value),
-    @required TResult connected(DuelRoomConnected value),
-    @required TResult createRoom(DuelRoomCreate value),
-    @required TResult joinRoom(DuelRoomJoin value),
-    @required TResult ready(DuelRoomReady value),
-    @required TResult error(DuelRoomError value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(DuelRoomConnecting value) connecting,
+    required TResult Function(DuelRoomConnected value) connected,
+    required TResult Function(DuelRoomCreate value) createRoom,
+    required TResult Function(DuelRoomJoin value) joinRoom,
+    required TResult Function(DuelRoomReady value) ready,
+    required TResult Function(DuelRoomError value) error,
   }) {
-    assert(connecting != null);
-    assert(connected != null);
-    assert(createRoom != null);
-    assert(joinRoom != null);
-    assert(ready != null);
-    assert(error != null);
     return error(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult connecting(DuelRoomConnecting value),
-    TResult connected(DuelRoomConnected value),
-    TResult createRoom(DuelRoomCreate value),
-    TResult joinRoom(DuelRoomJoin value),
-    TResult ready(DuelRoomReady value),
-    TResult error(DuelRoomError value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(DuelRoomConnecting value)? connecting,
+    TResult Function(DuelRoomConnected value)? connected,
+    TResult Function(DuelRoomCreate value)? createRoom,
+    TResult Function(DuelRoomJoin value)? joinRoom,
+    TResult Function(DuelRoomReady value)? ready,
+    TResult Function(DuelRoomError value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (error != null) {
       return error(this);
     }
@@ -940,8 +879,9 @@ abstract class DuelRoomError implements DuelRoomState {
   const factory DuelRoomError(
       String errorMessage, void Function() retryAction) = _$DuelRoomError;
 
-  String get errorMessage;
-  void Function() get retryAction;
+  String get errorMessage => throw _privateConstructorUsedError;
+  void Function() get retryAction => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $DuelRoomErrorCopyWith<DuelRoomError> get copyWith;
+  $DuelRoomErrorCopyWith<DuelRoomError> get copyWith =>
+      throw _privateConstructorUsedError;
 }

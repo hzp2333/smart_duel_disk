@@ -31,19 +31,20 @@ class SelectDeckDialog extends StatelessWidget {
   }
 }
 
-class _DeckListItem extends StatelessWidget {
+class _DeckListItem extends StatelessWidget with ProviderMixin {
   final PreBuiltDeck deck;
 
   const _DeckListItem({
-    @required this.deck,
+    required this.deck,
   });
 
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<SelectDeckDialogViewModel>(context);
+    final stringProvider = getStringProvider(context);
 
     return ListTile(
-      title: Text(deck.title),
+      title: Text(stringProvider.getString(deck.titleId)),
       onTap: () => vm.onDeckSelected(deck),
       trailing: const Icon(Icons.chevron_right),
       horizontalTitleGap: 0,

@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'play_card_dialog_action_type.dart';
 
@@ -9,112 +9,111 @@ part of 'play_card_dialog_action_type.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$PlayCardDialogActionTypeTearOff {
   const _$PlayCardDialogActionTypeTearOff();
 
-// ignore: unused_element
   PlayCardDialogSummonAction summon() {
     return const PlayCardDialogSummonAction();
   }
 
-// ignore: unused_element
   PlayCardDialogActivateAction activate() {
     return const PlayCardDialogActivateAction();
   }
 
-// ignore: unused_element
   PlayCardDialogToAttackAction toAttack() {
     return const PlayCardDialogToAttackAction();
   }
 
-// ignore: unused_element
   PlayCardDialogToDefenceAction toDefence() {
     return const PlayCardDialogToDefenceAction();
   }
 
-// ignore: unused_element
   PlayCardDialogFlipAction flip() {
     return const PlayCardDialogFlipAction();
   }
 
-// ignore: unused_element
   PlayCardDialogSetAction set() {
     return const PlayCardDialogSetAction();
   }
 
-// ignore: unused_element
   PlayCardDialogSummonAttackAction summonAttack() {
     return const PlayCardDialogSummonAttackAction();
   }
 
-// ignore: unused_element
   PlayCardDialogSummonDefenceAction summonDefence() {
     return const PlayCardDialogSummonDefenceAction();
   }
 
-// ignore: unused_element
   PlayCardDialogDestroyAction destroy() {
     return const PlayCardDialogDestroyAction();
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $PlayCardDialogActionType = _$PlayCardDialogActionTypeTearOff();
 
 /// @nodoc
 mixin _$PlayCardDialogActionType {
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult summon(),
-    @required TResult activate(),
-    @required TResult toAttack(),
-    @required TResult toDefence(),
-    @required TResult flip(),
-    @required TResult set(),
-    @required TResult summonAttack(),
-    @required TResult summonDefence(),
-    @required TResult destroy(),
-  });
+  TResult when<TResult extends Object?>({
+    required TResult Function() summon,
+    required TResult Function() activate,
+    required TResult Function() toAttack,
+    required TResult Function() toDefence,
+    required TResult Function() flip,
+    required TResult Function() set,
+    required TResult Function() summonAttack,
+    required TResult Function() summonDefence,
+    required TResult Function() destroy,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult summon(),
-    TResult activate(),
-    TResult toAttack(),
-    TResult toDefence(),
-    TResult flip(),
-    TResult set(),
-    TResult summonAttack(),
-    TResult summonDefence(),
-    TResult destroy(),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult summon(PlayCardDialogSummonAction value),
-    @required TResult activate(PlayCardDialogActivateAction value),
-    @required TResult toAttack(PlayCardDialogToAttackAction value),
-    @required TResult toDefence(PlayCardDialogToDefenceAction value),
-    @required TResult flip(PlayCardDialogFlipAction value),
-    @required TResult set(PlayCardDialogSetAction value),
-    @required TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    @required TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    @required TResult destroy(PlayCardDialogDestroyAction value),
-  });
+  TResult map<TResult extends Object?>({
+    required TResult Function(PlayCardDialogSummonAction value) summon,
+    required TResult Function(PlayCardDialogActivateAction value) activate,
+    required TResult Function(PlayCardDialogToAttackAction value) toAttack,
+    required TResult Function(PlayCardDialogToDefenceAction value) toDefence,
+    required TResult Function(PlayCardDialogFlipAction value) flip,
+    required TResult Function(PlayCardDialogSetAction value) set,
+    required TResult Function(PlayCardDialogSummonAttackAction value)
+        summonAttack,
+    required TResult Function(PlayCardDialogSummonDefenceAction value)
+        summonDefence,
+    required TResult Function(PlayCardDialogDestroyAction value) destroy,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult summon(PlayCardDialogSummonAction value),
-    TResult activate(PlayCardDialogActivateAction value),
-    TResult toAttack(PlayCardDialogToAttackAction value),
-    TResult toDefence(PlayCardDialogToDefenceAction value),
-    TResult flip(PlayCardDialogFlipAction value),
-    TResult set(PlayCardDialogSetAction value),
-    TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    TResult destroy(PlayCardDialogDestroyAction value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -155,6 +154,7 @@ class _$PlayCardDialogSummonActionCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
   const _$PlayCardDialogSummonAction();
 
@@ -173,44 +173,34 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult summon(),
-    @required TResult activate(),
-    @required TResult toAttack(),
-    @required TResult toDefence(),
-    @required TResult flip(),
-    @required TResult set(),
-    @required TResult summonAttack(),
-    @required TResult summonDefence(),
-    @required TResult destroy(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() summon,
+    required TResult Function() activate,
+    required TResult Function() toAttack,
+    required TResult Function() toDefence,
+    required TResult Function() flip,
+    required TResult Function() set,
+    required TResult Function() summonAttack,
+    required TResult Function() summonDefence,
+    required TResult Function() destroy,
   }) {
-    assert(summon != null);
-    assert(activate != null);
-    assert(toAttack != null);
-    assert(toDefence != null);
-    assert(flip != null);
-    assert(set != null);
-    assert(summonAttack != null);
-    assert(summonDefence != null);
-    assert(destroy != null);
     return summon();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult summon(),
-    TResult activate(),
-    TResult toAttack(),
-    TResult toDefence(),
-    TResult flip(),
-    TResult set(),
-    TResult summonAttack(),
-    TResult summonDefence(),
-    TResult destroy(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (summon != null) {
       return summon();
     }
@@ -219,44 +209,36 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult summon(PlayCardDialogSummonAction value),
-    @required TResult activate(PlayCardDialogActivateAction value),
-    @required TResult toAttack(PlayCardDialogToAttackAction value),
-    @required TResult toDefence(PlayCardDialogToDefenceAction value),
-    @required TResult flip(PlayCardDialogFlipAction value),
-    @required TResult set(PlayCardDialogSetAction value),
-    @required TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    @required TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    @required TResult destroy(PlayCardDialogDestroyAction value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(PlayCardDialogSummonAction value) summon,
+    required TResult Function(PlayCardDialogActivateAction value) activate,
+    required TResult Function(PlayCardDialogToAttackAction value) toAttack,
+    required TResult Function(PlayCardDialogToDefenceAction value) toDefence,
+    required TResult Function(PlayCardDialogFlipAction value) flip,
+    required TResult Function(PlayCardDialogSetAction value) set,
+    required TResult Function(PlayCardDialogSummonAttackAction value)
+        summonAttack,
+    required TResult Function(PlayCardDialogSummonDefenceAction value)
+        summonDefence,
+    required TResult Function(PlayCardDialogDestroyAction value) destroy,
   }) {
-    assert(summon != null);
-    assert(activate != null);
-    assert(toAttack != null);
-    assert(toDefence != null);
-    assert(flip != null);
-    assert(set != null);
-    assert(summonAttack != null);
-    assert(summonDefence != null);
-    assert(destroy != null);
     return summon(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult summon(PlayCardDialogSummonAction value),
-    TResult activate(PlayCardDialogActivateAction value),
-    TResult toAttack(PlayCardDialogToAttackAction value),
-    TResult toDefence(PlayCardDialogToDefenceAction value),
-    TResult flip(PlayCardDialogFlipAction value),
-    TResult set(PlayCardDialogSetAction value),
-    TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    TResult destroy(PlayCardDialogDestroyAction value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (summon != null) {
       return summon(this);
     }
@@ -291,6 +273,7 @@ class _$PlayCardDialogActivateActionCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
   const _$PlayCardDialogActivateAction();
 
@@ -309,44 +292,34 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult summon(),
-    @required TResult activate(),
-    @required TResult toAttack(),
-    @required TResult toDefence(),
-    @required TResult flip(),
-    @required TResult set(),
-    @required TResult summonAttack(),
-    @required TResult summonDefence(),
-    @required TResult destroy(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() summon,
+    required TResult Function() activate,
+    required TResult Function() toAttack,
+    required TResult Function() toDefence,
+    required TResult Function() flip,
+    required TResult Function() set,
+    required TResult Function() summonAttack,
+    required TResult Function() summonDefence,
+    required TResult Function() destroy,
   }) {
-    assert(summon != null);
-    assert(activate != null);
-    assert(toAttack != null);
-    assert(toDefence != null);
-    assert(flip != null);
-    assert(set != null);
-    assert(summonAttack != null);
-    assert(summonDefence != null);
-    assert(destroy != null);
     return activate();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult summon(),
-    TResult activate(),
-    TResult toAttack(),
-    TResult toDefence(),
-    TResult flip(),
-    TResult set(),
-    TResult summonAttack(),
-    TResult summonDefence(),
-    TResult destroy(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (activate != null) {
       return activate();
     }
@@ -355,44 +328,36 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult summon(PlayCardDialogSummonAction value),
-    @required TResult activate(PlayCardDialogActivateAction value),
-    @required TResult toAttack(PlayCardDialogToAttackAction value),
-    @required TResult toDefence(PlayCardDialogToDefenceAction value),
-    @required TResult flip(PlayCardDialogFlipAction value),
-    @required TResult set(PlayCardDialogSetAction value),
-    @required TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    @required TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    @required TResult destroy(PlayCardDialogDestroyAction value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(PlayCardDialogSummonAction value) summon,
+    required TResult Function(PlayCardDialogActivateAction value) activate,
+    required TResult Function(PlayCardDialogToAttackAction value) toAttack,
+    required TResult Function(PlayCardDialogToDefenceAction value) toDefence,
+    required TResult Function(PlayCardDialogFlipAction value) flip,
+    required TResult Function(PlayCardDialogSetAction value) set,
+    required TResult Function(PlayCardDialogSummonAttackAction value)
+        summonAttack,
+    required TResult Function(PlayCardDialogSummonDefenceAction value)
+        summonDefence,
+    required TResult Function(PlayCardDialogDestroyAction value) destroy,
   }) {
-    assert(summon != null);
-    assert(activate != null);
-    assert(toAttack != null);
-    assert(toDefence != null);
-    assert(flip != null);
-    assert(set != null);
-    assert(summonAttack != null);
-    assert(summonDefence != null);
-    assert(destroy != null);
     return activate(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult summon(PlayCardDialogSummonAction value),
-    TResult activate(PlayCardDialogActivateAction value),
-    TResult toAttack(PlayCardDialogToAttackAction value),
-    TResult toDefence(PlayCardDialogToDefenceAction value),
-    TResult flip(PlayCardDialogFlipAction value),
-    TResult set(PlayCardDialogSetAction value),
-    TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    TResult destroy(PlayCardDialogDestroyAction value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (activate != null) {
       return activate(this);
     }
@@ -428,6 +393,7 @@ class _$PlayCardDialogToAttackActionCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
   const _$PlayCardDialogToAttackAction();
 
@@ -446,44 +412,34 @@ class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult summon(),
-    @required TResult activate(),
-    @required TResult toAttack(),
-    @required TResult toDefence(),
-    @required TResult flip(),
-    @required TResult set(),
-    @required TResult summonAttack(),
-    @required TResult summonDefence(),
-    @required TResult destroy(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() summon,
+    required TResult Function() activate,
+    required TResult Function() toAttack,
+    required TResult Function() toDefence,
+    required TResult Function() flip,
+    required TResult Function() set,
+    required TResult Function() summonAttack,
+    required TResult Function() summonDefence,
+    required TResult Function() destroy,
   }) {
-    assert(summon != null);
-    assert(activate != null);
-    assert(toAttack != null);
-    assert(toDefence != null);
-    assert(flip != null);
-    assert(set != null);
-    assert(summonAttack != null);
-    assert(summonDefence != null);
-    assert(destroy != null);
     return toAttack();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult summon(),
-    TResult activate(),
-    TResult toAttack(),
-    TResult toDefence(),
-    TResult flip(),
-    TResult set(),
-    TResult summonAttack(),
-    TResult summonDefence(),
-    TResult destroy(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (toAttack != null) {
       return toAttack();
     }
@@ -492,44 +448,36 @@ class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult summon(PlayCardDialogSummonAction value),
-    @required TResult activate(PlayCardDialogActivateAction value),
-    @required TResult toAttack(PlayCardDialogToAttackAction value),
-    @required TResult toDefence(PlayCardDialogToDefenceAction value),
-    @required TResult flip(PlayCardDialogFlipAction value),
-    @required TResult set(PlayCardDialogSetAction value),
-    @required TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    @required TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    @required TResult destroy(PlayCardDialogDestroyAction value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(PlayCardDialogSummonAction value) summon,
+    required TResult Function(PlayCardDialogActivateAction value) activate,
+    required TResult Function(PlayCardDialogToAttackAction value) toAttack,
+    required TResult Function(PlayCardDialogToDefenceAction value) toDefence,
+    required TResult Function(PlayCardDialogFlipAction value) flip,
+    required TResult Function(PlayCardDialogSetAction value) set,
+    required TResult Function(PlayCardDialogSummonAttackAction value)
+        summonAttack,
+    required TResult Function(PlayCardDialogSummonDefenceAction value)
+        summonDefence,
+    required TResult Function(PlayCardDialogDestroyAction value) destroy,
   }) {
-    assert(summon != null);
-    assert(activate != null);
-    assert(toAttack != null);
-    assert(toDefence != null);
-    assert(flip != null);
-    assert(set != null);
-    assert(summonAttack != null);
-    assert(summonDefence != null);
-    assert(destroy != null);
     return toAttack(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult summon(PlayCardDialogSummonAction value),
-    TResult activate(PlayCardDialogActivateAction value),
-    TResult toAttack(PlayCardDialogToAttackAction value),
-    TResult toDefence(PlayCardDialogToDefenceAction value),
-    TResult flip(PlayCardDialogFlipAction value),
-    TResult set(PlayCardDialogSetAction value),
-    TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    TResult destroy(PlayCardDialogDestroyAction value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (toAttack != null) {
       return toAttack(this);
     }
@@ -565,6 +513,7 @@ class _$PlayCardDialogToDefenceActionCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$PlayCardDialogToDefenceAction implements PlayCardDialogToDefenceAction {
   const _$PlayCardDialogToDefenceAction();
 
@@ -583,44 +532,34 @@ class _$PlayCardDialogToDefenceAction implements PlayCardDialogToDefenceAction {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult summon(),
-    @required TResult activate(),
-    @required TResult toAttack(),
-    @required TResult toDefence(),
-    @required TResult flip(),
-    @required TResult set(),
-    @required TResult summonAttack(),
-    @required TResult summonDefence(),
-    @required TResult destroy(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() summon,
+    required TResult Function() activate,
+    required TResult Function() toAttack,
+    required TResult Function() toDefence,
+    required TResult Function() flip,
+    required TResult Function() set,
+    required TResult Function() summonAttack,
+    required TResult Function() summonDefence,
+    required TResult Function() destroy,
   }) {
-    assert(summon != null);
-    assert(activate != null);
-    assert(toAttack != null);
-    assert(toDefence != null);
-    assert(flip != null);
-    assert(set != null);
-    assert(summonAttack != null);
-    assert(summonDefence != null);
-    assert(destroy != null);
     return toDefence();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult summon(),
-    TResult activate(),
-    TResult toAttack(),
-    TResult toDefence(),
-    TResult flip(),
-    TResult set(),
-    TResult summonAttack(),
-    TResult summonDefence(),
-    TResult destroy(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (toDefence != null) {
       return toDefence();
     }
@@ -629,44 +568,36 @@ class _$PlayCardDialogToDefenceAction implements PlayCardDialogToDefenceAction {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult summon(PlayCardDialogSummonAction value),
-    @required TResult activate(PlayCardDialogActivateAction value),
-    @required TResult toAttack(PlayCardDialogToAttackAction value),
-    @required TResult toDefence(PlayCardDialogToDefenceAction value),
-    @required TResult flip(PlayCardDialogFlipAction value),
-    @required TResult set(PlayCardDialogSetAction value),
-    @required TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    @required TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    @required TResult destroy(PlayCardDialogDestroyAction value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(PlayCardDialogSummonAction value) summon,
+    required TResult Function(PlayCardDialogActivateAction value) activate,
+    required TResult Function(PlayCardDialogToAttackAction value) toAttack,
+    required TResult Function(PlayCardDialogToDefenceAction value) toDefence,
+    required TResult Function(PlayCardDialogFlipAction value) flip,
+    required TResult Function(PlayCardDialogSetAction value) set,
+    required TResult Function(PlayCardDialogSummonAttackAction value)
+        summonAttack,
+    required TResult Function(PlayCardDialogSummonDefenceAction value)
+        summonDefence,
+    required TResult Function(PlayCardDialogDestroyAction value) destroy,
   }) {
-    assert(summon != null);
-    assert(activate != null);
-    assert(toAttack != null);
-    assert(toDefence != null);
-    assert(flip != null);
-    assert(set != null);
-    assert(summonAttack != null);
-    assert(summonDefence != null);
-    assert(destroy != null);
     return toDefence(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult summon(PlayCardDialogSummonAction value),
-    TResult activate(PlayCardDialogActivateAction value),
-    TResult toAttack(PlayCardDialogToAttackAction value),
-    TResult toDefence(PlayCardDialogToDefenceAction value),
-    TResult flip(PlayCardDialogFlipAction value),
-    TResult set(PlayCardDialogSetAction value),
-    TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    TResult destroy(PlayCardDialogDestroyAction value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (toDefence != null) {
       return toDefence(this);
     }
@@ -701,6 +632,7 @@ class _$PlayCardDialogFlipActionCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$PlayCardDialogFlipAction implements PlayCardDialogFlipAction {
   const _$PlayCardDialogFlipAction();
 
@@ -719,44 +651,34 @@ class _$PlayCardDialogFlipAction implements PlayCardDialogFlipAction {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult summon(),
-    @required TResult activate(),
-    @required TResult toAttack(),
-    @required TResult toDefence(),
-    @required TResult flip(),
-    @required TResult set(),
-    @required TResult summonAttack(),
-    @required TResult summonDefence(),
-    @required TResult destroy(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() summon,
+    required TResult Function() activate,
+    required TResult Function() toAttack,
+    required TResult Function() toDefence,
+    required TResult Function() flip,
+    required TResult Function() set,
+    required TResult Function() summonAttack,
+    required TResult Function() summonDefence,
+    required TResult Function() destroy,
   }) {
-    assert(summon != null);
-    assert(activate != null);
-    assert(toAttack != null);
-    assert(toDefence != null);
-    assert(flip != null);
-    assert(set != null);
-    assert(summonAttack != null);
-    assert(summonDefence != null);
-    assert(destroy != null);
     return flip();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult summon(),
-    TResult activate(),
-    TResult toAttack(),
-    TResult toDefence(),
-    TResult flip(),
-    TResult set(),
-    TResult summonAttack(),
-    TResult summonDefence(),
-    TResult destroy(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (flip != null) {
       return flip();
     }
@@ -765,44 +687,36 @@ class _$PlayCardDialogFlipAction implements PlayCardDialogFlipAction {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult summon(PlayCardDialogSummonAction value),
-    @required TResult activate(PlayCardDialogActivateAction value),
-    @required TResult toAttack(PlayCardDialogToAttackAction value),
-    @required TResult toDefence(PlayCardDialogToDefenceAction value),
-    @required TResult flip(PlayCardDialogFlipAction value),
-    @required TResult set(PlayCardDialogSetAction value),
-    @required TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    @required TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    @required TResult destroy(PlayCardDialogDestroyAction value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(PlayCardDialogSummonAction value) summon,
+    required TResult Function(PlayCardDialogActivateAction value) activate,
+    required TResult Function(PlayCardDialogToAttackAction value) toAttack,
+    required TResult Function(PlayCardDialogToDefenceAction value) toDefence,
+    required TResult Function(PlayCardDialogFlipAction value) flip,
+    required TResult Function(PlayCardDialogSetAction value) set,
+    required TResult Function(PlayCardDialogSummonAttackAction value)
+        summonAttack,
+    required TResult Function(PlayCardDialogSummonDefenceAction value)
+        summonDefence,
+    required TResult Function(PlayCardDialogDestroyAction value) destroy,
   }) {
-    assert(summon != null);
-    assert(activate != null);
-    assert(toAttack != null);
-    assert(toDefence != null);
-    assert(flip != null);
-    assert(set != null);
-    assert(summonAttack != null);
-    assert(summonDefence != null);
-    assert(destroy != null);
     return flip(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult summon(PlayCardDialogSummonAction value),
-    TResult activate(PlayCardDialogActivateAction value),
-    TResult toAttack(PlayCardDialogToAttackAction value),
-    TResult toDefence(PlayCardDialogToDefenceAction value),
-    TResult flip(PlayCardDialogFlipAction value),
-    TResult set(PlayCardDialogSetAction value),
-    TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    TResult destroy(PlayCardDialogDestroyAction value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (flip != null) {
       return flip(this);
     }
@@ -834,6 +748,7 @@ class _$PlayCardDialogSetActionCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
   const _$PlayCardDialogSetAction();
 
@@ -852,44 +767,34 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult summon(),
-    @required TResult activate(),
-    @required TResult toAttack(),
-    @required TResult toDefence(),
-    @required TResult flip(),
-    @required TResult set(),
-    @required TResult summonAttack(),
-    @required TResult summonDefence(),
-    @required TResult destroy(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() summon,
+    required TResult Function() activate,
+    required TResult Function() toAttack,
+    required TResult Function() toDefence,
+    required TResult Function() flip,
+    required TResult Function() set,
+    required TResult Function() summonAttack,
+    required TResult Function() summonDefence,
+    required TResult Function() destroy,
   }) {
-    assert(summon != null);
-    assert(activate != null);
-    assert(toAttack != null);
-    assert(toDefence != null);
-    assert(flip != null);
-    assert(set != null);
-    assert(summonAttack != null);
-    assert(summonDefence != null);
-    assert(destroy != null);
     return set();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult summon(),
-    TResult activate(),
-    TResult toAttack(),
-    TResult toDefence(),
-    TResult flip(),
-    TResult set(),
-    TResult summonAttack(),
-    TResult summonDefence(),
-    TResult destroy(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (set != null) {
       return set();
     }
@@ -898,44 +803,36 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult summon(PlayCardDialogSummonAction value),
-    @required TResult activate(PlayCardDialogActivateAction value),
-    @required TResult toAttack(PlayCardDialogToAttackAction value),
-    @required TResult toDefence(PlayCardDialogToDefenceAction value),
-    @required TResult flip(PlayCardDialogFlipAction value),
-    @required TResult set(PlayCardDialogSetAction value),
-    @required TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    @required TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    @required TResult destroy(PlayCardDialogDestroyAction value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(PlayCardDialogSummonAction value) summon,
+    required TResult Function(PlayCardDialogActivateAction value) activate,
+    required TResult Function(PlayCardDialogToAttackAction value) toAttack,
+    required TResult Function(PlayCardDialogToDefenceAction value) toDefence,
+    required TResult Function(PlayCardDialogFlipAction value) flip,
+    required TResult Function(PlayCardDialogSetAction value) set,
+    required TResult Function(PlayCardDialogSummonAttackAction value)
+        summonAttack,
+    required TResult Function(PlayCardDialogSummonDefenceAction value)
+        summonDefence,
+    required TResult Function(PlayCardDialogDestroyAction value) destroy,
   }) {
-    assert(summon != null);
-    assert(activate != null);
-    assert(toAttack != null);
-    assert(toDefence != null);
-    assert(flip != null);
-    assert(set != null);
-    assert(summonAttack != null);
-    assert(summonDefence != null);
-    assert(destroy != null);
     return set(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult summon(PlayCardDialogSummonAction value),
-    TResult activate(PlayCardDialogActivateAction value),
-    TResult toAttack(PlayCardDialogToAttackAction value),
-    TResult toDefence(PlayCardDialogToDefenceAction value),
-    TResult flip(PlayCardDialogFlipAction value),
-    TResult set(PlayCardDialogSetAction value),
-    TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    TResult destroy(PlayCardDialogDestroyAction value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (set != null) {
       return set(this);
     }
@@ -970,6 +867,7 @@ class _$PlayCardDialogSummonAttackActionCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$PlayCardDialogSummonAttackAction
     implements PlayCardDialogSummonAttackAction {
   const _$PlayCardDialogSummonAttackAction();
@@ -990,44 +888,34 @@ class _$PlayCardDialogSummonAttackAction
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult summon(),
-    @required TResult activate(),
-    @required TResult toAttack(),
-    @required TResult toDefence(),
-    @required TResult flip(),
-    @required TResult set(),
-    @required TResult summonAttack(),
-    @required TResult summonDefence(),
-    @required TResult destroy(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() summon,
+    required TResult Function() activate,
+    required TResult Function() toAttack,
+    required TResult Function() toDefence,
+    required TResult Function() flip,
+    required TResult Function() set,
+    required TResult Function() summonAttack,
+    required TResult Function() summonDefence,
+    required TResult Function() destroy,
   }) {
-    assert(summon != null);
-    assert(activate != null);
-    assert(toAttack != null);
-    assert(toDefence != null);
-    assert(flip != null);
-    assert(set != null);
-    assert(summonAttack != null);
-    assert(summonDefence != null);
-    assert(destroy != null);
     return summonAttack();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult summon(),
-    TResult activate(),
-    TResult toAttack(),
-    TResult toDefence(),
-    TResult flip(),
-    TResult set(),
-    TResult summonAttack(),
-    TResult summonDefence(),
-    TResult destroy(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (summonAttack != null) {
       return summonAttack();
     }
@@ -1036,44 +924,36 @@ class _$PlayCardDialogSummonAttackAction
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult summon(PlayCardDialogSummonAction value),
-    @required TResult activate(PlayCardDialogActivateAction value),
-    @required TResult toAttack(PlayCardDialogToAttackAction value),
-    @required TResult toDefence(PlayCardDialogToDefenceAction value),
-    @required TResult flip(PlayCardDialogFlipAction value),
-    @required TResult set(PlayCardDialogSetAction value),
-    @required TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    @required TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    @required TResult destroy(PlayCardDialogDestroyAction value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(PlayCardDialogSummonAction value) summon,
+    required TResult Function(PlayCardDialogActivateAction value) activate,
+    required TResult Function(PlayCardDialogToAttackAction value) toAttack,
+    required TResult Function(PlayCardDialogToDefenceAction value) toDefence,
+    required TResult Function(PlayCardDialogFlipAction value) flip,
+    required TResult Function(PlayCardDialogSetAction value) set,
+    required TResult Function(PlayCardDialogSummonAttackAction value)
+        summonAttack,
+    required TResult Function(PlayCardDialogSummonDefenceAction value)
+        summonDefence,
+    required TResult Function(PlayCardDialogDestroyAction value) destroy,
   }) {
-    assert(summon != null);
-    assert(activate != null);
-    assert(toAttack != null);
-    assert(toDefence != null);
-    assert(flip != null);
-    assert(set != null);
-    assert(summonAttack != null);
-    assert(summonDefence != null);
-    assert(destroy != null);
     return summonAttack(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult summon(PlayCardDialogSummonAction value),
-    TResult activate(PlayCardDialogActivateAction value),
-    TResult toAttack(PlayCardDialogToAttackAction value),
-    TResult toDefence(PlayCardDialogToDefenceAction value),
-    TResult flip(PlayCardDialogFlipAction value),
-    TResult set(PlayCardDialogSetAction value),
-    TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    TResult destroy(PlayCardDialogDestroyAction value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (summonAttack != null) {
       return summonAttack(this);
     }
@@ -1110,6 +990,7 @@ class _$PlayCardDialogSummonDefenceActionCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$PlayCardDialogSummonDefenceAction
     implements PlayCardDialogSummonDefenceAction {
   const _$PlayCardDialogSummonDefenceAction();
@@ -1130,44 +1011,34 @@ class _$PlayCardDialogSummonDefenceAction
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult summon(),
-    @required TResult activate(),
-    @required TResult toAttack(),
-    @required TResult toDefence(),
-    @required TResult flip(),
-    @required TResult set(),
-    @required TResult summonAttack(),
-    @required TResult summonDefence(),
-    @required TResult destroy(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() summon,
+    required TResult Function() activate,
+    required TResult Function() toAttack,
+    required TResult Function() toDefence,
+    required TResult Function() flip,
+    required TResult Function() set,
+    required TResult Function() summonAttack,
+    required TResult Function() summonDefence,
+    required TResult Function() destroy,
   }) {
-    assert(summon != null);
-    assert(activate != null);
-    assert(toAttack != null);
-    assert(toDefence != null);
-    assert(flip != null);
-    assert(set != null);
-    assert(summonAttack != null);
-    assert(summonDefence != null);
-    assert(destroy != null);
     return summonDefence();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult summon(),
-    TResult activate(),
-    TResult toAttack(),
-    TResult toDefence(),
-    TResult flip(),
-    TResult set(),
-    TResult summonAttack(),
-    TResult summonDefence(),
-    TResult destroy(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (summonDefence != null) {
       return summonDefence();
     }
@@ -1176,44 +1047,36 @@ class _$PlayCardDialogSummonDefenceAction
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult summon(PlayCardDialogSummonAction value),
-    @required TResult activate(PlayCardDialogActivateAction value),
-    @required TResult toAttack(PlayCardDialogToAttackAction value),
-    @required TResult toDefence(PlayCardDialogToDefenceAction value),
-    @required TResult flip(PlayCardDialogFlipAction value),
-    @required TResult set(PlayCardDialogSetAction value),
-    @required TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    @required TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    @required TResult destroy(PlayCardDialogDestroyAction value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(PlayCardDialogSummonAction value) summon,
+    required TResult Function(PlayCardDialogActivateAction value) activate,
+    required TResult Function(PlayCardDialogToAttackAction value) toAttack,
+    required TResult Function(PlayCardDialogToDefenceAction value) toDefence,
+    required TResult Function(PlayCardDialogFlipAction value) flip,
+    required TResult Function(PlayCardDialogSetAction value) set,
+    required TResult Function(PlayCardDialogSummonAttackAction value)
+        summonAttack,
+    required TResult Function(PlayCardDialogSummonDefenceAction value)
+        summonDefence,
+    required TResult Function(PlayCardDialogDestroyAction value) destroy,
   }) {
-    assert(summon != null);
-    assert(activate != null);
-    assert(toAttack != null);
-    assert(toDefence != null);
-    assert(flip != null);
-    assert(set != null);
-    assert(summonAttack != null);
-    assert(summonDefence != null);
-    assert(destroy != null);
     return summonDefence(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult summon(PlayCardDialogSummonAction value),
-    TResult activate(PlayCardDialogActivateAction value),
-    TResult toAttack(PlayCardDialogToAttackAction value),
-    TResult toDefence(PlayCardDialogToDefenceAction value),
-    TResult flip(PlayCardDialogFlipAction value),
-    TResult set(PlayCardDialogSetAction value),
-    TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    TResult destroy(PlayCardDialogDestroyAction value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (summonDefence != null) {
       return summonDefence(this);
     }
@@ -1249,6 +1112,7 @@ class _$PlayCardDialogDestroyActionCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$PlayCardDialogDestroyAction implements PlayCardDialogDestroyAction {
   const _$PlayCardDialogDestroyAction();
 
@@ -1267,44 +1131,34 @@ class _$PlayCardDialogDestroyAction implements PlayCardDialogDestroyAction {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>({
-    @required TResult summon(),
-    @required TResult activate(),
-    @required TResult toAttack(),
-    @required TResult toDefence(),
-    @required TResult flip(),
-    @required TResult set(),
-    @required TResult summonAttack(),
-    @required TResult summonDefence(),
-    @required TResult destroy(),
+  TResult when<TResult extends Object?>({
+    required TResult Function() summon,
+    required TResult Function() activate,
+    required TResult Function() toAttack,
+    required TResult Function() toDefence,
+    required TResult Function() flip,
+    required TResult Function() set,
+    required TResult Function() summonAttack,
+    required TResult Function() summonDefence,
+    required TResult Function() destroy,
   }) {
-    assert(summon != null);
-    assert(activate != null);
-    assert(toAttack != null);
-    assert(toDefence != null);
-    assert(flip != null);
-    assert(set != null);
-    assert(summonAttack != null);
-    assert(summonDefence != null);
-    assert(destroy != null);
     return destroy();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>({
-    TResult summon(),
-    TResult activate(),
-    TResult toAttack(),
-    TResult toDefence(),
-    TResult flip(),
-    TResult set(),
-    TResult summonAttack(),
-    TResult summonDefence(),
-    TResult destroy(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (destroy != null) {
       return destroy();
     }
@@ -1313,44 +1167,36 @@ class _$PlayCardDialogDestroyAction implements PlayCardDialogDestroyAction {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>({
-    @required TResult summon(PlayCardDialogSummonAction value),
-    @required TResult activate(PlayCardDialogActivateAction value),
-    @required TResult toAttack(PlayCardDialogToAttackAction value),
-    @required TResult toDefence(PlayCardDialogToDefenceAction value),
-    @required TResult flip(PlayCardDialogFlipAction value),
-    @required TResult set(PlayCardDialogSetAction value),
-    @required TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    @required TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    @required TResult destroy(PlayCardDialogDestroyAction value),
+  TResult map<TResult extends Object?>({
+    required TResult Function(PlayCardDialogSummonAction value) summon,
+    required TResult Function(PlayCardDialogActivateAction value) activate,
+    required TResult Function(PlayCardDialogToAttackAction value) toAttack,
+    required TResult Function(PlayCardDialogToDefenceAction value) toDefence,
+    required TResult Function(PlayCardDialogFlipAction value) flip,
+    required TResult Function(PlayCardDialogSetAction value) set,
+    required TResult Function(PlayCardDialogSummonAttackAction value)
+        summonAttack,
+    required TResult Function(PlayCardDialogSummonDefenceAction value)
+        summonDefence,
+    required TResult Function(PlayCardDialogDestroyAction value) destroy,
   }) {
-    assert(summon != null);
-    assert(activate != null);
-    assert(toAttack != null);
-    assert(toDefence != null);
-    assert(flip != null);
-    assert(set != null);
-    assert(summonAttack != null);
-    assert(summonDefence != null);
-    assert(destroy != null);
     return destroy(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>({
-    TResult summon(PlayCardDialogSummonAction value),
-    TResult activate(PlayCardDialogActivateAction value),
-    TResult toAttack(PlayCardDialogToAttackAction value),
-    TResult toDefence(PlayCardDialogToDefenceAction value),
-    TResult flip(PlayCardDialogFlipAction value),
-    TResult set(PlayCardDialogSetAction value),
-    TResult summonAttack(PlayCardDialogSummonAttackAction value),
-    TResult summonDefence(PlayCardDialogSummonDefenceAction value),
-    TResult destroy(PlayCardDialogDestroyAction value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (destroy != null) {
       return destroy(this);
     }

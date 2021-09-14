@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
-import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
+import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
 class TextFieldWithValidation extends HookWidget {
   final String label;
   final String hint;
-  final Stream<String> textStream;
+  final Stream<String?> textStream;
   final TextChangedCallback onChanged;
   final TextChangedCallback onSubmitted;
   final TextInputType textInputType;
 
   const TextFieldWithValidation({
-    @required this.label,
-    @required this.hint,
-    @required this.textStream,
-    @required this.onChanged,
-    @required this.onSubmitted,
+    required this.label,
+    required this.hint,
+    required this.textStream,
+    required this.onChanged,
+    required this.onSubmitted,
     this.textInputType = TextInputType.text,
   });
 
@@ -25,7 +25,7 @@ class TextFieldWithValidation extends HookWidget {
     final controller = useTextEditingController();
     final snapshot = useStream(textStream);
     if (snapshot.data != null && controller.text.isNullOrEmpty) {
-      controller.text = snapshot.data;
+      controller.text = snapshot.data!;
     }
 
     final hasFocus = useState(false);

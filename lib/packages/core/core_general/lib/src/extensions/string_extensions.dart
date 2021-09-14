@@ -1,17 +1,17 @@
-extension StringExtensions on String {
+extension StringExtensions on String? {
   bool get isNullOrEmpty {
-    return this == null || isEmpty;
+    return this == null || this!.isEmpty;
   }
 
-  String capitalizeFirstLetter() {
+  String? capitalizeFirstLetter() {
     if (isNullOrEmpty) {
       return this;
     }
 
-    if (length == 1) {
-      return toUpperCase();
+    if (this!.length == 1) {
+      return this!.toUpperCase();
     }
 
-    return '${this[0].toUpperCase()}${substring(1)}';
+    return '${this![0].toUpperCase()}${this!.substring(1)}';
   }
 }

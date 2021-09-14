@@ -1,5 +1,6 @@
 library ui_components;
 
+export 'src/base/provider_mixin.dart';
 export 'src/primitives/app_colors.dart';
 export 'src/primitives/app_durations.dart';
 export 'src/primitives/app_elevations.dart';

@@ -15,7 +15,7 @@ class FirebaseCloudDatabaseProvider extends CloudDatabaseProvider {
   @override
   Future<Iterable<int>> getPreBuiltDeckCardIds(String deckId) async {
     final response = await _firebaseFirestore.collection('pre_built_decks').doc(deckId).get();
-    final getDeckResponse = GetDeckResponse.fromJson(response.data());
+    final getDeckResponse = GetDeckResponse.fromJson(response.data()!);
 
     return getDeckResponse.cardIds;
   }

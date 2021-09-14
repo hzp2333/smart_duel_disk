@@ -8,11 +8,11 @@ import 'smart_duel_event_constants.dart';
 class SmartDuelEvent extends Equatable {
   final String scope;
   final String action;
-  final SmartDuelEventData data;
+  final SmartDuelEventData? data;
 
   const SmartDuelEvent._({
-    @required this.scope,
-    @required this.action,
+    required this.scope,
+    required this.action,
     this.data,
   });
 
@@ -23,7 +23,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.playCard(SmartDuelEventData data) {
+  factory SmartDuelEvent.playCard(SmartDuelEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.cardScope,
       action: SmartDuelEventConstants.cardPlayAction,
@@ -31,7 +31,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.removeCard(SmartDuelEventData data) {
+  factory SmartDuelEvent.removeCard(SmartDuelEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.cardScope,
       action: SmartDuelEventConstants.cardRemoveAction,
@@ -39,7 +39,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.attackCard(SmartDuelEventData data) {
+  factory SmartDuelEvent.attackCard(SmartDuelEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.cardScope,
       action: SmartDuelEventConstants.cardAttackAction,
@@ -47,7 +47,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.createRoom([SmartDuelEventData data]) {
+  factory SmartDuelEvent.createRoom([SmartDuelEventData? data]) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.roomScope,
       action: SmartDuelEventConstants.roomCreateAction,
@@ -55,7 +55,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.closeRoom(SmartDuelEventData data) {
+  factory SmartDuelEvent.closeRoom(SmartDuelEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.roomScope,
       action: SmartDuelEventConstants.roomCloseAction,
@@ -63,7 +63,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.joinRoom(SmartDuelEventData data) {
+  factory SmartDuelEvent.joinRoom(SmartDuelEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.roomScope,
       action: SmartDuelEventConstants.roomJoinAction,
@@ -71,7 +71,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.startRoom(SmartDuelEventData data) {
+  factory SmartDuelEvent.startRoom(SmartDuelEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.roomScope,
       action: SmartDuelEventConstants.roomStartAction,
@@ -88,7 +88,7 @@ class SmartDuelEvent extends Equatable {
   }
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         scope,
         action,
         data,

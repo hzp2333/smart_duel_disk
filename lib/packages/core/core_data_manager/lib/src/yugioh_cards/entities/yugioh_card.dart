@@ -14,20 +14,20 @@ class YugiohCard extends Equatable {
   final CardRace race;
   final String imageSmallUrl;
   final String imageLargeUrl;
-  final int atk;
-  final int def;
-  final int level;
-  final CardAttribute attribute;
-  final String archetype;
+  final int? atk;
+  final int? def;
+  final int? level;
+  final CardAttribute? attribute;
+  final String? archetype;
 
   const YugiohCard({
-    @required this.id,
-    @required this.name,
-    @required this.type,
-    @required this.description,
-    @required this.race,
-    @required this.imageSmallUrl,
-    @required this.imageLargeUrl,
+    required this.id,
+    required this.name,
+    required this.type,
+    required this.description,
+    required this.race,
+    required this.imageSmallUrl,
+    required this.imageLargeUrl,
     this.atk,
     this.def,
     this.level,
@@ -36,7 +36,7 @@ class YugiohCard extends Equatable {
   });
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         id,
         name,
         type,

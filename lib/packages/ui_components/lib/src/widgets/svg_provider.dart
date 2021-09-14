@@ -3,11 +3,11 @@ import 'package:flutter_svg/svg.dart';
 
 class SvgAssetProvider extends StatelessWidget {
   final String assetName;
-  final Color color;
-  final double size;
+  final Color? color;
+  final double? size;
 
   const SvgAssetProvider({
-    @required this.assetName,
+    required this.assetName,
     this.color,
     this.size,
   });

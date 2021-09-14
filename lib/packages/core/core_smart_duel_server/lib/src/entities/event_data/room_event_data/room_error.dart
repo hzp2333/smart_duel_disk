@@ -8,7 +8,7 @@ enum RoomError {
   unknown,
 }
 
-extension RoomErrorExtensions on RoomError {
+extension RoomErrorExtensions on RoomError? {
   String get stringValue {
     switch (this) {
       case RoomError.roomNotFound:

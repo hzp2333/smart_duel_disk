@@ -10,7 +10,7 @@ class PlayCardDialogProvider extends StatelessWidget {
   final PlayCardDialogParameters parameters;
 
   const PlayCardDialogProvider({
-    @required this.parameters,
+    required this.parameters,
   });
 
   @override

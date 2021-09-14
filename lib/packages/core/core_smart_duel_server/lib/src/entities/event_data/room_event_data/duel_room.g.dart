@@ -8,10 +8,10 @@ part of 'duel_room.dart';
 
 DuelRoom _$DuelRoomFromJson(Map<String, dynamic> json) {
   return DuelRoom(
-    roomName: json['roomName'] as String,
-    duelists: (json['duelists'] as List)?.map(
-        (e) => e == null ? null : Duelist.fromJson(e as Map<String, dynamic>)),
-    duelistLimit: json['duelistLimit'] as int,
+    roomName: json['roomName'] as String?,
+    duelists: (json['duelists'] as List<dynamic>?)
+        ?.map((e) => Duelist.fromJson(e as Map<String, dynamic>)),
+    duelistLimit: json['duelistLimit'] as int?,
   );
 }
 

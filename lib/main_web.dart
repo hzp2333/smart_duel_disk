@@ -9,7 +9,7 @@ Future<void> main() async {
   AppConfig appConfig;
   try {
     final dotEnv = DotEnv();
-    await dotEnv.load(_secretsFilePath);
+    await dotEnv.load(fileName: _secretsFilePath);
     appConfig = AppConfig.release(dotEnv);
   } catch (e) {
     appConfig = AppConfig.develop();

@@ -11,7 +11,7 @@ class MoveCardUseCase {
     PlayerState playerState,
     PlayCard card,
     CardPosition position, {
-    Zone newZone,
+    Zone? newZone,
   }) {
     final playerZones = playerState.zones.toList();
     final oldZone = playerZones.firstWhere((zone) => zone.zoneType == card.zoneType);

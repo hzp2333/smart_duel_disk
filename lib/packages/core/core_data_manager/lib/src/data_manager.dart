@@ -65,7 +65,7 @@ class DataManagerImpl implements DataManager {
   //region Duel
 
   @override
-  ConnectionInfo getConnectionInfo({bool forceLocalInfo = false}) {
+  ConnectionInfo? getConnectionInfo({bool forceLocalInfo = false}) {
     return _duelDataManager.getConnectionInfo(forceLocalInfo: forceLocalInfo);
   }
 
@@ -80,7 +80,7 @@ class DataManagerImpl implements DataManager {
   }
 
   @override
-  Future<void> saveUseOnlineDuelRoom({bool value}) {
+  Future<void> saveUseOnlineDuelRoom({bool? value}) {
     return _duelDataManager.saveUseOnlineDuelRoom(value: value);
   }
 
@@ -99,7 +99,7 @@ class DataManagerImpl implements DataManager {
   }
 
   @override
-  Future<void> saveDeveloperModeEnabled({bool value}) {
+  Future<void> saveDeveloperModeEnabled({bool? value}) {
     return _settingsDataManager.saveDeveloperModeEnabled(value: value);
   }
 

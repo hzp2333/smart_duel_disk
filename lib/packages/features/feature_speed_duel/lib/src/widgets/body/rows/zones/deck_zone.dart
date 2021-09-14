@@ -13,7 +13,7 @@ class DeckZone extends StatelessWidget {
   final Zone zone;
 
   const DeckZone({
-    @required this.zone,
+    required this.zone,
   });
 
   @override
@@ -57,8 +57,8 @@ class _DeckZoneMenuItem extends StatelessWidget {
   final IconData icon;
 
   const _DeckZoneMenuItem({
-    @required this.title,
-    @required this.icon,
+    required this.title,
+    required this.icon,
   });
 
   @override

@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone_type.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
-import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 
 class ZoneBackground extends StatelessWidget {
   final ZoneType zoneType;
-  final Widget card;
+  final Widget? card;
 
   const ZoneBackground({
-    @required this.zoneType,
+    required this.zoneType,
     this.card,
   });
 
@@ -44,7 +44,7 @@ class ZoneBackground extends StatelessWidget {
           ),
         ),
         if (card != null) ...{
-          card,
+          card!,
         },
       ],
     );

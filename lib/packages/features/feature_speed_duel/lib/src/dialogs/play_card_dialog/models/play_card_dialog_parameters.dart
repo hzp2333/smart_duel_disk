@@ -5,18 +5,18 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 
 @immutable
 class PlayCardDialogParameters extends Equatable {
-  final PlayCard playCard;
-  final Zone newZone;
+  final PlayCard? playCard;
+  final Zone? newZone;
   final bool showActions;
 
   const PlayCardDialogParameters({
-    @required this.playCard,
-    @required this.newZone,
-    @required this.showActions,
+    required this.playCard,
+    required this.newZone,
+    required this.showActions,
   });
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         playCard,
         newZone,
         showActions,

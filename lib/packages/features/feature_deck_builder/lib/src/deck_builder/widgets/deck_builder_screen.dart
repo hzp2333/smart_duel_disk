@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_duel_disk/generated/locale_keys.g.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart';
 import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/deck_builder/models/deck_builder_state.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
-import 'package:smart_duel_disk/src/localization/strings.al.dart';
 
 import 'widgets/card_grid.dart';
 
@@ -34,21 +34,22 @@ class _DeckBuilderScreenState extends State<DeckBuilderScreen> {
   }
 }
 
-class _AppBar extends StatelessWidget implements PreferredSizeWidget {
+class _AppBar extends StatelessWidget with ProviderMixin implements PreferredSizeWidget {
   const _AppBar();
 
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<DeckBuilderViewModel>(context);
+    final stringProvider = getStringProvider(context);
 
     return AppBar(
       elevation: 0,
       backgroundColor: AppColors.primaryBackgroundColor,
       leading: const BackButton(color: AppColors.primaryIconColor),
-      title: vm.hasPreBuiltDeck
-          ? Text(vm.preBuiltDeckTitle)
+      title: vm.preBuiltDeckTitle != null
+          ? Text(vm.preBuiltDeckTitle!)
           : TextFieldWithoutValidation(
-              hintText: Strings.deckBuilderSearchHint.get(),
+              hintText: stringProvider.getString(LocaleKeys.deck_builder_search_hint),
               onChanged: vm.onTextFilterChanged,
               onClearPressed: vm.onClearTextFilterPressed,
             ),
@@ -72,7 +73,7 @@ class _Body extends StatelessWidget {
         stream: vm.deckBuilderState,
         initialData: const DeckBuilderState.loading(),
         builder: (context, snapshot) {
-          return snapshot.data.when(
+          return snapshot.data!.when(
             (cards, isPreBuilt) => isPreBuilt ? _PreBuiltDeckBody(yugiohCards: cards) : CardGrid(yugiohCards: cards),
             loading: () => const _LoadingBody(),
             noData: () => const _NoCardsBody(),
@@ -88,10 +89,14 @@ class _PreBuiltDeckBody extends StatelessWidget {
   final Map<String, Iterable<YugiohCard>> cardTypeSections;
 
   _PreBuiltDeckBody({
-    @required Iterable<YugiohCard> yugiohCards,
+    required Iterable<YugiohCard> yugiohCards,
   }) : cardTypeSections = {
-          'Monster cards': yugiohCards.where((card) =>
-              card.type != CardType.fusionMonster && card.type != CardType.spellCard && card.type != CardType.trapCard),
+          'Monster cards': yugiohCards.where(
+            (card) =>
+                card.type != CardType.fusionMonster &&
+                card.type != CardType.spellCard &&
+                card.type != CardType.trapCard,
+          ),
           'Spell cards': yugiohCards.where((card) => card.type == CardType.spellCard),
           'Trap cards': yugiohCards.where((card) => card.type == CardType.trapCard),
           'Extra deck': yugiohCards.where((card) => card.type == CardType.fusionMonster),
@@ -121,8 +126,8 @@ class _PreBuiltDeckSection extends StatelessWidget {
   final Iterable<YugiohCard> yugiohCards;
 
   const _PreBuiltDeckSection({
-    @required this.title,
-    @required this.yugiohCards,
+    required this.title,
+    required this.yugiohCards,
   });
 
   @override
@@ -153,26 +158,29 @@ class _LoadingBody extends StatelessWidget {
   }
 }
 
-class _NoCardsBody extends StatelessWidget {
+class _NoCardsBody extends StatelessWidget with ProviderMixin {
   const _NoCardsBody();
 
   @override
   Widget build(BuildContext context) {
+    final stringProvider = getStringProvider(context);
+
     return GeneralErrorState(
-      description: Strings.deckBuilderNoDataErrorDescription.get(),
+      description: stringProvider.getString(LocaleKeys.deck_builder_no_data_error_description),
     );
   }
 }
 
-class _ErrorBody extends StatelessWidget {
+class _ErrorBody extends StatelessWidget with ProviderMixin {
   const _ErrorBody();
 
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<DeckBuilderViewModel>(context);
+    final stringProvider = getStringProvider(context);
 
     return GeneralErrorState(
-      description: Strings.deckBuilderGeneralErrorDescription.get(),
+      description: stringProvider.getString(LocaleKeys.deck_builder_general_error_description),
       canRetry: true,
       retryAction: vm.onRetryPressed,
     );

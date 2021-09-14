@@ -8,15 +8,15 @@ import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigatio
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/duel/duel_viewmodel.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/duel/mixins/duel_form_validators.dart';
 
-import '../../../../testing/empty_mocks.dart';
+import '../../../../testing/mocks/shared.mocks.dart';
 
 void main() {
-  DuelViewModel _viewModel;
+  late DuelViewModel _viewModel;
 
-  DuelFormValidators _duelFormValidators;
-  AppRouter _router;
-  DataManager _dataManager;
-  Logger _logger;
+  late DuelFormValidators _duelFormValidators;
+  late AppRouter _router;
+  late DataManager _dataManager;
+  late Logger _logger;
 
   const _ipAddress = '192.168.0.106';
   const _port = '8080';
@@ -31,13 +31,17 @@ void main() {
     _dataManager = MockDataManager();
     _logger = MockLogger();
 
+    when(_router.showSelectDeckDialog()).thenAnswer((_) => Future.value());
+
+    when(_dataManager.isDeveloperModeEnabled()).thenReturn(true);
+
     when(_dataManager.getConnectionInfo(forceLocalInfo: true)).thenReturn(_connectionInfo);
 
     when(_duelFormValidators.ipAddressValidator)
-        .thenReturn(StreamTransformer<String, String>.fromHandlers(handleData: (input, sink) => sink.add(input)));
+        .thenReturn(StreamTransformer<String?, String?>.fromHandlers(handleData: (input, sink) => sink.add(input)));
 
     when(_duelFormValidators.portValidator)
-        .thenReturn(StreamTransformer<String, String>.fromHandlers(handleData: (input, sink) => sink.add(input)));
+        .thenReturn(StreamTransformer<String?, String?>.fromHandlers(handleData: (input, sink) => sink.add(input)));
 
     _viewModel = DuelViewModel(
       _duelFormValidators,
@@ -81,12 +85,16 @@ void main() {
 
   group('When onEnterOnlineDuelRoomPressed is called', () {
     test('then the online duel room will be used', () async {
+      _viewModel.init();
+
       await _viewModel.onEnterOnlineDuelRoomPressed();
 
       verify(_dataManager.saveUseOnlineDuelRoom(value: true)).called(1);
     });
 
     test('then the select deck dialog is shown', () async {
+      _viewModel.init();
+
       await _viewModel.onEnterOnlineDuelRoomPressed();
 
       verify(_router.showSelectDeckDialog()).called(1);
@@ -94,11 +102,12 @@ void main() {
 
     group('and the selected deck is null', () {
       test('then the duel room screen is not opened', () async {
-        when(_router.showSelectDeckDialog()).thenAnswer((_) => Future.value());
+        _viewModel.init();
 
         await _viewModel.onEnterOnlineDuelRoomPressed();
 
-        verifyNever(_router.showDuelRoom(any));
+        verify(_router.showSelectDeckDialog()).called(1);
+        verifyNoMoreInteractions(_router);
       });
     });
 
@@ -106,6 +115,7 @@ void main() {
       test('then the duel room screen is opened with the selected deck', () async {
         final deck = KaibaDeck();
         when(_router.showSelectDeckDialog()).thenAnswer((_) => Future.value(deck));
+        _viewModel.init();
 
         await _viewModel.onEnterOnlineDuelRoomPressed();
 
@@ -124,12 +134,16 @@ void main() {
     });
 
     test('then the local duel room will be used', () async {
+      _viewModel.init();
+
       await _viewModel.onEnterLocalDuelRoomPressed();
 
       verify(_dataManager.saveUseOnlineDuelRoom(value: false)).called(1);
     });
 
     test('then the select deck dialog is shown', () async {
+      _viewModel.init();
+
       await _viewModel.onEnterLocalDuelRoomPressed();
 
       verify(_router.showSelectDeckDialog()).called(1);
@@ -137,11 +151,12 @@ void main() {
 
     group('and the selected deck is null', () {
       test('then the duel room screen is not opened', () async {
-        when(_router.showSelectDeckDialog()).thenAnswer((_) => Future.value());
+        _viewModel.init();
 
         await _viewModel.onEnterLocalDuelRoomPressed();
 
-        verifyNever(_router.showDuelRoom(any));
+        verify(_router.showSelectDeckDialog()).called(1);
+        verifyNoMoreInteractions(_router);
       });
     });
 
@@ -149,6 +164,7 @@ void main() {
       test('then the duel room screen is opened with the selected deck', () async {
         final deck = KaibaDeck();
         when(_router.showSelectDeckDialog()).thenAnswer((_) => Future.value(deck));
+        _viewModel.init();
 
         await _viewModel.onEnterLocalDuelRoomPressed();
 

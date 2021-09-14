@@ -14,7 +14,7 @@ class DrawCardScreen extends StatefulWidget {
 class _DrawCardScreenState extends State<DrawCardScreen> {
   static const _animationDuration = Duration(milliseconds: 500);
 
-  Widget _cardImage;
+  Widget? _cardImage;
 
   bool _isAnimating = true;
   bool _isAnimationStarted = false;
@@ -30,7 +30,7 @@ class _DrawCardScreenState extends State<DrawCardScreen> {
   }
 
   void _startAnimation() {
-    Future.delayed(const Duration(), () {
+    Future.delayed(Duration.zero, () {
       setState(() => _isAnimationStarted = true);
       Future.delayed(_animationDuration, () {
         setState(() => _isAnimating = false);
@@ -80,7 +80,7 @@ class _CardDragTarget extends StatelessWidget {
   final VoidCallback onCardDrawn;
 
   const _CardDragTarget({
-    @required this.onCardDrawn,
+    required this.onCardDrawn,
   });
 
   @override
@@ -94,10 +94,10 @@ class _CardDragTarget extends StatelessWidget {
 }
 
 class _CardDraggable extends StatelessWidget {
-  final Widget cardImage;
+  final Widget? cardImage;
 
   const _CardDraggable({
-    @required this.cardImage,
+    required this.cardImage,
   });
 
   @override
@@ -107,9 +107,9 @@ class _CardDraggable extends StatelessWidget {
       maxSimultaneousDrags: 1,
       childWhenDragging: const SizedBox.shrink(),
       onDragStarted: HapticFeedback.heavyImpact,
-      feedback: cardImage,
+      feedback: cardImage!,
       data: '',
-      child: cardImage,
+      child: cardImage!,
     );
   }
 }
@@ -118,7 +118,7 @@ class _CardImage extends StatelessWidget {
   final String imageAssetId;
 
   const _CardImage({
-    @required this.imageAssetId,
+    required this.imageAssetId,
   });
 
   @override

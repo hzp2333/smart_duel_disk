@@ -11,9 +11,9 @@ class TextFieldWithoutValidation extends HookWidget {
   final VoidCallback onClearPressed;
 
   const TextFieldWithoutValidation({
-    @required this.hintText,
-    @required this.onChanged,
-    @required this.onClearPressed,
+    required this.hintText,
+    required this.onChanged,
+    required this.onClearPressed,
   });
 
   @override
@@ -43,17 +43,17 @@ class TextFieldWithoutValidation extends HookWidget {
 }
 
 class _ClearButton extends HookWidget {
-  final TextEditingController controller;
+  final TextEditingController? controller;
   final VoidCallback onClearPressed;
 
   const _ClearButton({
-    @required this.controller,
-    @required this.onClearPressed,
+    required this.controller,
+    required this.onClearPressed,
   });
 
   @override
   Widget build(BuildContext context) {
-    final controllerValue = useValueListenable(controller);
+    final controllerValue = useValueListenable(controller!);
 
     if (controllerValue.text.isNullOrEmpty) {
       return const SizedBox.shrink();
@@ -65,7 +65,7 @@ class _ClearButton extends HookWidget {
         color: AppColors.primaryIconColor,
       ),
       onPressed: () {
-        controller.clear();
+        controller!.clear();
         onClearPressed();
       },
     );

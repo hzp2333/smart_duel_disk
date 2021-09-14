@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_config/lib/core_config.dart';
 import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart';
@@ -7,10 +6,10 @@ import 'entities/connection_info.dart';
 import 'entities/deck_action.dart';
 
 abstract class DuelDataManager {
-  ConnectionInfo getConnectionInfo({bool forceLocalInfo = false});
+  ConnectionInfo? getConnectionInfo({bool forceLocalInfo = false});
   Future<void> saveConnectionInfo(ConnectionInfo connectionInfo);
   bool useOnlineDuelRoom();
-  Future<void> saveUseOnlineDuelRoom({@required bool value});
+  Future<void> saveUseOnlineDuelRoom({required bool? value});
   Iterable<DeckAction> getDeckActions();
 }
 
@@ -33,7 +32,7 @@ class DuelDataManagerImpl implements DuelDataManager {
         ];
 
   @override
-  ConnectionInfo getConnectionInfo({bool forceLocalInfo = false}) {
+  ConnectionInfo? getConnectionInfo({bool forceLocalInfo = false}) {
     return useOnlineDuelRoom() && !forceLocalInfo ? _getOnlineConnectionInfo() : _getLocalConnectionInfo();
   }
 
@@ -44,7 +43,7 @@ class DuelDataManagerImpl implements DuelDataManager {
     );
   }
 
-  ConnectionInfo _getLocalConnectionInfo() {
+  ConnectionInfo? _getLocalConnectionInfo() {
     final model = _duelStorageProvider.getConnectionInfo();
     if (model == null) {
       return null;
@@ -59,8 +58,8 @@ class DuelDataManagerImpl implements DuelDataManager {
   @override
   Future<void> saveConnectionInfo(ConnectionInfo connectionInfo) {
     final model = ConnectionInfoModel(
-      ipAddress: connectionInfo.ipAddress,
-      port: connectionInfo.port,
+      ipAddress: connectionInfo.ipAddress!,
+      port: connectionInfo.port!,
     );
 
     return _duelStorageProvider.saveConnectionInfo(model);
@@ -72,7 +71,7 @@ class DuelDataManagerImpl implements DuelDataManager {
   }
 
   @override
-  Future<void> saveUseOnlineDuelRoom({bool value}) {
+  Future<void> saveUseOnlineDuelRoom({bool? value}) {
     return _duelStorageProvider.saveUseOnlineDuelRoom(value: value);
   }
 

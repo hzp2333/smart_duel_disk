@@ -15,20 +15,20 @@ import '../core_navigation.dart';
 
 abstract class AppRouter {
   Future<void> closeScreen();
-  Future<bool> showDialog(DialogConfig dialogConfig);
+  Future<bool?> showDialog(DialogConfig dialogConfig);
   Future<void> launchUrl(String url);
 
   Future<void> showHome();
-  Future<void> showNewsDetails(String newsItemId, String newsItemAuthorId);
+  Future<void> showNewsDetails(String? newsItemId, String? newsItemAuthorId);
   Future<void> showYoutube();
   Future<void> showTwitter();
   Future<void> showDiscord();
-  Future<void> showDeckBuilder({PreBuiltDeck preBuiltDeck});
+  Future<void> showDeckBuilder({PreBuiltDeck? preBuiltDeck});
   Future<void> showSpeedDuel(DuelRoom duelRoom);
-  Future<PreBuiltDeck> showSelectDeckDialog();
+  Future<PreBuiltDeck?> showSelectDeckDialog();
   Future<void> showYugiohCardDetail(YugiohCard yugiohCard, int index);
   Future<void> showDrawCard(VoidCallback cardDrawnCallback);
-  Future<CardPosition> showPlayCardDialog(PlayCard playCard, {Zone newZone, bool showActions = false});
+  Future<CardPosition?> showPlayCardDialog(PlayCard? playCard, {Zone? newZone, bool showActions = false});
   Future<void> showDuelRoom(PreBuiltDeck preBuiltDeck);
   Future<void> showUserSettings();
 }
@@ -57,18 +57,13 @@ class AppRouterImpl implements AppRouter {
   }
 
   @override
-  Future<bool> showDialog(DialogConfig dialogConfig) {
+  Future<bool?> showDialog(DialogConfig dialogConfig) {
     return _dialogService.showAlertDialog(dialogConfig);
   }
 
   @override
   Future<void> launchUrl(String url) async {
-    try {
-      await _urlLauncherProvider.launchUrl(url);
-    } catch (exception) {
-      // TODO: use Logger
-      debugPrint(exception.toString());
-    }
+    await _urlLauncherProvider.launchUrl(url);
   }
 
   //region Home
@@ -83,9 +78,9 @@ class AppRouterImpl implements AppRouter {
   //region News
 
   @override
-  Future<void> showNewsDetails(String newsItemId, String newsItemAuthorId) async {
+  Future<void> showNewsDetails(String? newsItemId, String? newsItemAuthorId) async {
     try {
-      final url = _appConfig.tweetUrl.replaceAll('{0}', newsItemAuthorId).replaceAll('{1}', newsItemId);
+      final url = _appConfig.tweetUrl.replaceAll('{0}', newsItemAuthorId!).replaceAll('{1}', newsItemId!);
       await _urlLauncherProvider.launchUrl(url);
     } catch (exception) {
       debugPrint(exception.toString());
@@ -124,7 +119,7 @@ class AppRouterImpl implements AppRouter {
   //region Deck
 
   @override
-  Future<void> showDeckBuilder({PreBuiltDeck preBuiltDeck}) {
+  Future<void> showDeckBuilder({PreBuiltDeck? preBuiltDeck}) {
     return _router.navigate(DeckBuilderRoute(preBuiltDeck: preBuiltDeck));
   }
 
@@ -138,7 +133,7 @@ class AppRouterImpl implements AppRouter {
   }
 
   @override
-  Future<PreBuiltDeck> showSelectDeckDialog() {
+  Future<PreBuiltDeck?> showSelectDeckDialog() {
     final selectDeckDialog = _duelDialogProvider.createSelectDeckDialog();
     return _dialogService.showCustomDialog(selectDeckDialog);
   }
@@ -162,7 +157,7 @@ class AppRouterImpl implements AppRouter {
   }
 
   @override
-  Future<CardPosition> showPlayCardDialog(PlayCard playCard, {Zone newZone, bool showActions = false}) {
+  Future<CardPosition?> showPlayCardDialog(PlayCard? playCard, {Zone? newZone, bool showActions = false}) {
     final parameters = PlayCardDialogParameters(
       playCard: playCard,
       newZone: newZone,
@@ -170,7 +165,6 @@ class AppRouterImpl implements AppRouter {
     );
 
     final playCardDialog = _speedDuelDialogProvider.createPlayCardDialog(parameters);
-
     return _dialogService.showCustomDialog(playCardDialog);
   }
 

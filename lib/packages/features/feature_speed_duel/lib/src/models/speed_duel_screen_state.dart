@@ -4,7 +4,7 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 part 'speed_duel_screen_state.freezed.dart';
 
 @freezed
-abstract class SpeedDuelScreenState with _$SpeedDuelScreenState {
+class SpeedDuelScreenState with _$SpeedDuelScreenState {
   const factory SpeedDuelScreenState(SpeedDuelState state) = SpeedDuelData;
   const factory SpeedDuelScreenState.loading() = SpeedDuelLoading;
   const factory SpeedDuelScreenState.error() = SpeedDuelError;

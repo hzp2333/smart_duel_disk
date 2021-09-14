@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'card_price_model.dart';
 
@@ -8,6 +8,10 @@ part of 'card_price_model.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 CardPriceModel _$CardPriceModelFromJson(Map<String, dynamic> json) {
   return _CardPriceModel.fromJson(json);
 }
@@ -16,23 +20,12 @@ CardPriceModel _$CardPriceModelFromJson(Map<String, dynamic> json) {
 class _$CardPriceModelTearOff {
   const _$CardPriceModelTearOff();
 
-// ignore: unused_element
   _CardPriceModel call(
-      {@required
-      @JsonKey(name: 'cardmarket_price')
-          String cardmarketPrice,
-      @required
-      @JsonKey(name: 'tcgplayer_price')
-          String tcgplayerPrice,
-      @required
-      @JsonKey(name: 'ebay_price')
-          String ebayPrice,
-      @required
-      @JsonKey(name: 'amazon_price')
-          String amazonPrice,
-      @required
-      @JsonKey(name: 'coolstuffinc_price')
-          String coolstuffincPrice}) {
+      {@JsonKey(name: 'cardmarket_price') required String cardmarketPrice,
+      @JsonKey(name: 'tcgplayer_price') required String tcgplayerPrice,
+      @JsonKey(name: 'ebay_price') required String ebayPrice,
+      @JsonKey(name: 'amazon_price') required String amazonPrice,
+      @JsonKey(name: 'coolstuffinc_price') required String coolstuffincPrice}) {
     return _CardPriceModel(
       cardmarketPrice: cardmarketPrice,
       tcgplayerPrice: tcgplayerPrice,
@@ -42,32 +35,31 @@ class _$CardPriceModelTearOff {
     );
   }
 
-// ignore: unused_element
   CardPriceModel fromJson(Map<String, Object> json) {
     return CardPriceModel.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $CardPriceModel = _$CardPriceModelTearOff();
 
 /// @nodoc
 mixin _$CardPriceModel {
   @JsonKey(name: 'cardmarket_price')
-  String get cardmarketPrice;
+  String get cardmarketPrice => throw _privateConstructorUsedError;
   @JsonKey(name: 'tcgplayer_price')
-  String get tcgplayerPrice;
+  String get tcgplayerPrice => throw _privateConstructorUsedError;
   @JsonKey(name: 'ebay_price')
-  String get ebayPrice;
+  String get ebayPrice => throw _privateConstructorUsedError;
   @JsonKey(name: 'amazon_price')
-  String get amazonPrice;
+  String get amazonPrice => throw _privateConstructorUsedError;
   @JsonKey(name: 'coolstuffinc_price')
-  String get coolstuffincPrice;
+  String get coolstuffincPrice => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CardPriceModelCopyWith<CardPriceModel> get copyWith;
+  $CardPriceModelCopyWith<CardPriceModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -94,25 +86,33 @@ class _$CardPriceModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object cardmarketPrice = freezed,
-    Object tcgplayerPrice = freezed,
-    Object ebayPrice = freezed,
-    Object amazonPrice = freezed,
-    Object coolstuffincPrice = freezed,
+    Object? cardmarketPrice = freezed,
+    Object? tcgplayerPrice = freezed,
+    Object? ebayPrice = freezed,
+    Object? amazonPrice = freezed,
+    Object? coolstuffincPrice = freezed,
   }) {
     return _then(_value.copyWith(
       cardmarketPrice: cardmarketPrice == freezed
           ? _value.cardmarketPrice
-          : cardmarketPrice as String,
+          : cardmarketPrice // ignore: cast_nullable_to_non_nullable
+              as String,
       tcgplayerPrice: tcgplayerPrice == freezed
           ? _value.tcgplayerPrice
-          : tcgplayerPrice as String,
-      ebayPrice: ebayPrice == freezed ? _value.ebayPrice : ebayPrice as String,
-      amazonPrice:
-          amazonPrice == freezed ? _value.amazonPrice : amazonPrice as String,
+          : tcgplayerPrice // ignore: cast_nullable_to_non_nullable
+              as String,
+      ebayPrice: ebayPrice == freezed
+          ? _value.ebayPrice
+          : ebayPrice // ignore: cast_nullable_to_non_nullable
+              as String,
+      amazonPrice: amazonPrice == freezed
+          ? _value.amazonPrice
+          : amazonPrice // ignore: cast_nullable_to_non_nullable
+              as String,
       coolstuffincPrice: coolstuffincPrice == freezed
           ? _value.coolstuffincPrice
-          : coolstuffincPrice as String,
+          : coolstuffincPrice // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -145,44 +145,46 @@ class __$CardPriceModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object cardmarketPrice = freezed,
-    Object tcgplayerPrice = freezed,
-    Object ebayPrice = freezed,
-    Object amazonPrice = freezed,
-    Object coolstuffincPrice = freezed,
+    Object? cardmarketPrice = freezed,
+    Object? tcgplayerPrice = freezed,
+    Object? ebayPrice = freezed,
+    Object? amazonPrice = freezed,
+    Object? coolstuffincPrice = freezed,
   }) {
     return _then(_CardPriceModel(
       cardmarketPrice: cardmarketPrice == freezed
           ? _value.cardmarketPrice
-          : cardmarketPrice as String,
+          : cardmarketPrice // ignore: cast_nullable_to_non_nullable
+              as String,
       tcgplayerPrice: tcgplayerPrice == freezed
           ? _value.tcgplayerPrice
-          : tcgplayerPrice as String,
-      ebayPrice: ebayPrice == freezed ? _value.ebayPrice : ebayPrice as String,
-      amazonPrice:
-          amazonPrice == freezed ? _value.amazonPrice : amazonPrice as String,
+          : tcgplayerPrice // ignore: cast_nullable_to_non_nullable
+              as String,
+      ebayPrice: ebayPrice == freezed
+          ? _value.ebayPrice
+          : ebayPrice // ignore: cast_nullable_to_non_nullable
+              as String,
+      amazonPrice: amazonPrice == freezed
+          ? _value.amazonPrice
+          : amazonPrice // ignore: cast_nullable_to_non_nullable
+              as String,
       coolstuffincPrice: coolstuffincPrice == freezed
           ? _value.coolstuffincPrice
-          : coolstuffincPrice as String,
+          : coolstuffincPrice // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_CardPriceModel implements _CardPriceModel {
   const _$_CardPriceModel(
-      {@required @JsonKey(name: 'cardmarket_price') this.cardmarketPrice,
-      @required @JsonKey(name: 'tcgplayer_price') this.tcgplayerPrice,
-      @required @JsonKey(name: 'ebay_price') this.ebayPrice,
-      @required @JsonKey(name: 'amazon_price') this.amazonPrice,
-      @required @JsonKey(name: 'coolstuffinc_price') this.coolstuffincPrice})
-      : assert(cardmarketPrice != null),
-        assert(tcgplayerPrice != null),
-        assert(ebayPrice != null),
-        assert(amazonPrice != null),
-        assert(coolstuffincPrice != null);
+      {@JsonKey(name: 'cardmarket_price') required this.cardmarketPrice,
+      @JsonKey(name: 'tcgplayer_price') required this.tcgplayerPrice,
+      @JsonKey(name: 'ebay_price') required this.ebayPrice,
+      @JsonKey(name: 'amazon_price') required this.amazonPrice,
+      @JsonKey(name: 'coolstuffinc_price') required this.coolstuffincPrice});
 
   factory _$_CardPriceModel.fromJson(Map<String, dynamic> json) =>
       _$_$_CardPriceModelFromJson(json);
@@ -251,41 +253,37 @@ class _$_CardPriceModel implements _CardPriceModel {
 
 abstract class _CardPriceModel implements CardPriceModel {
   const factory _CardPriceModel(
-      {@required
-      @JsonKey(name: 'cardmarket_price')
-          String cardmarketPrice,
-      @required
+      {@JsonKey(name: 'cardmarket_price')
+          required String cardmarketPrice,
       @JsonKey(name: 'tcgplayer_price')
-          String tcgplayerPrice,
-      @required
+          required String tcgplayerPrice,
       @JsonKey(name: 'ebay_price')
-          String ebayPrice,
-      @required
+          required String ebayPrice,
       @JsonKey(name: 'amazon_price')
-          String amazonPrice,
-      @required
+          required String amazonPrice,
       @JsonKey(name: 'coolstuffinc_price')
-          String coolstuffincPrice}) = _$_CardPriceModel;
+          required String coolstuffincPrice}) = _$_CardPriceModel;
 
   factory _CardPriceModel.fromJson(Map<String, dynamic> json) =
       _$_CardPriceModel.fromJson;
 
   @override
   @JsonKey(name: 'cardmarket_price')
-  String get cardmarketPrice;
+  String get cardmarketPrice => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'tcgplayer_price')
-  String get tcgplayerPrice;
+  String get tcgplayerPrice => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'ebay_price')
-  String get ebayPrice;
+  String get ebayPrice => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'amazon_price')
-  String get amazonPrice;
+  String get amazonPrice => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'coolstuffinc_price')
-  String get coolstuffincPrice;
+  String get coolstuffincPrice => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$CardPriceModelCopyWith<_CardPriceModel> get copyWith;
+  _$CardPriceModelCopyWith<_CardPriceModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }

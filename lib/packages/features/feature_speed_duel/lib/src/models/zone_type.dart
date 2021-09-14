@@ -13,7 +13,7 @@ enum ZoneType {
   deck,
 }
 
-ZoneType parseZoneType(String zoneType) {
+ZoneType? parseZoneType(String? zoneType) {
   switch (zoneType) {
     case 'hand':
       return ZoneType.hand;

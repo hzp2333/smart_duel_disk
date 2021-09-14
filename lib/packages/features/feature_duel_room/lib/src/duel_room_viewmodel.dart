@@ -16,7 +16,7 @@ import 'models/duel_room_state.dart';
 class DuelRoomViewModel extends BaseViewModel {
   static const _tag = 'DuelRoomViewModel';
 
-  final PreBuiltDeck _preBuiltDeck;
+  late final PreBuiltDeck? _preBuiltDeck;
   final AppRouter _router;
   final SmartDuelServer _smartDuelServer;
   final DataManager _dataManager;
@@ -29,17 +29,17 @@ class DuelRoomViewModel extends BaseViewModel {
   final _duelRoomState = BehaviorSubject<DuelRoomState>.seeded(const DuelRoomConnecting());
   Stream<DuelRoomState> get roomState => _duelRoomState.stream;
 
-  StreamSubscription<SmartDuelEvent> _smartDuelEventSubscription;
+  StreamSubscription<SmartDuelEvent>? _smartDuelEventSubscription;
   bool _startedDuelSuccessfully = false;
 
   DuelRoomViewModel(
-    Logger logger,
     @factoryParam this._preBuiltDeck,
     this._router,
     this._smartDuelServer,
     this._dataManager,
     this._snackBarService,
     this._clipboardProvider,
+    Logger logger,
   ) : super(logger) {
     _init();
   }
@@ -96,11 +96,15 @@ class DuelRoomViewModel extends BaseViewModel {
   Future<void> onCreateRoomPressed() async {
     logger.info(_tag, 'onCreateRoomPressed()');
 
-    final deckList = await _dataManager.getPreBuiltDeckCardIds(_preBuiltDeck);
+    final deckList = await _dataManager.getPreBuiltDeckCardIds(_preBuiltDeck!);
 
-    _smartDuelServer.emitEvent(SmartDuelEvent.createRoom(RoomEventData(
-      deckList: deckList,
-    )));
+    _smartDuelServer.emitEvent(
+      SmartDuelEvent.createRoom(
+        RoomEventData(
+          deckList: deckList,
+        ),
+      ),
+    );
   }
 
   void onCopyRoomCodePressed() {
@@ -118,26 +122,34 @@ class DuelRoomViewModel extends BaseViewModel {
 
     final state = _duelRoomState.value;
     if (state is DuelRoomCreate) {
-      _smartDuelServer.emitEvent(SmartDuelEvent.closeRoom(RoomEventData(
-        roomName: state.roomName,
-      )));
+      _smartDuelServer.emitEvent(
+        SmartDuelEvent.closeRoom(
+          RoomEventData(
+            roomName: state.roomName,
+          ),
+        ),
+      );
     }
   }
 
   Future<void> onJoinRoomPressed() async {
     logger.info(_tag, 'onJoinRoomPressed()');
 
-    if (_roomName.value.isNullOrEmpty) {
+    if (_roomName.valueOrNull.isNullOrEmpty) {
       _snackBarService.showSnackBar('Room name is required');
       return;
     }
 
-    final deckList = await _dataManager.getPreBuiltDeckCardIds(_preBuiltDeck);
+    final deckList = await _dataManager.getPreBuiltDeckCardIds(_preBuiltDeck!);
 
-    _smartDuelServer.emitEvent(SmartDuelEvent.joinRoom(RoomEventData(
-      roomName: _roomName.value,
-      deckList: deckList,
-    )));
+    _smartDuelServer.emitEvent(
+      SmartDuelEvent.joinRoom(
+        RoomEventData(
+          roomName: _roomName.value,
+          deckList: deckList,
+        ),
+      ),
+    );
   }
 
   //endregion
@@ -225,13 +237,13 @@ class DuelRoomViewModel extends BaseViewModel {
   void _handleCreateRoomEvent(RoomEventData data) {
     logger.verbose(_tag, '_handleCreateRoomEvent(data: $data)');
 
-    final roomName = data?.roomName;
+    final roomName = data.roomName;
     if (roomName == null) {
       _duelRoomState.add(DuelRoomError('room name not found', _resetSmartDuelServerConnection));
       return;
     }
 
-    _duelRoomState.add(DuelRoomCreate(data.roomName));
+    _duelRoomState.add(DuelRoomCreate(data.roomName!));
   }
 
   void _handleCloseRoomEvent(RoomEventData data) {

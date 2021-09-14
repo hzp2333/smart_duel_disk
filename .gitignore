@@ -26,3 +26,4 @@ ios/Runner/GoogleService-Info.plist
 ios/Flutter/.last_build_id
 *.env
 .idea
+fastlane/report.xml

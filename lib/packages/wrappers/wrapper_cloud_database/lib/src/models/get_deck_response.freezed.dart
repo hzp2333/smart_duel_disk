@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'get_deck_response.dart';
 
@@ -8,6 +8,10 @@ part of 'get_deck_response.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 GetDeckResponse _$GetDeckResponseFromJson(Map<String, dynamic> json) {
   return _GetDeckResponse.fromJson(json);
 }
@@ -16,30 +20,28 @@ GetDeckResponse _$GetDeckResponseFromJson(Map<String, dynamic> json) {
 class _$GetDeckResponseTearOff {
   const _$GetDeckResponseTearOff();
 
-// ignore: unused_element
-  _GetDeckResponse call({@required List<int> cardIds}) {
+  _GetDeckResponse call({required List<int> cardIds}) {
     return _GetDeckResponse(
       cardIds: cardIds,
     );
   }
 
-// ignore: unused_element
   GetDeckResponse fromJson(Map<String, Object> json) {
     return GetDeckResponse.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $GetDeckResponse = _$GetDeckResponseTearOff();
 
 /// @nodoc
 mixin _$GetDeckResponse {
-  List<int> get cardIds;
+  List<int> get cardIds => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $GetDeckResponseCopyWith<GetDeckResponse> get copyWith;
+  $GetDeckResponseCopyWith<GetDeckResponse> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -61,10 +63,13 @@ class _$GetDeckResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object cardIds = freezed,
+    Object? cardIds = freezed,
   }) {
     return _then(_value.copyWith(
-      cardIds: cardIds == freezed ? _value.cardIds : cardIds as List<int>,
+      cardIds: cardIds == freezed
+          ? _value.cardIds
+          : cardIds // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ));
   }
 }
@@ -92,19 +97,21 @@ class __$GetDeckResponseCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object cardIds = freezed,
+    Object? cardIds = freezed,
   }) {
     return _then(_GetDeckResponse(
-      cardIds: cardIds == freezed ? _value.cardIds : cardIds as List<int>,
+      cardIds: cardIds == freezed
+          ? _value.cardIds
+          : cardIds // ignore: cast_nullable_to_non_nullable
+              as List<int>,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_GetDeckResponse implements _GetDeckResponse {
-  const _$_GetDeckResponse({@required this.cardIds}) : assert(cardIds != null);
+  const _$_GetDeckResponse({required this.cardIds});
 
   factory _$_GetDeckResponse.fromJson(Map<String, dynamic> json) =>
       _$_$_GetDeckResponseFromJson(json);
@@ -141,15 +148,16 @@ class _$_GetDeckResponse implements _GetDeckResponse {
 }
 
 abstract class _GetDeckResponse implements GetDeckResponse {
-  const factory _GetDeckResponse({@required List<int> cardIds}) =
+  const factory _GetDeckResponse({required List<int> cardIds}) =
       _$_GetDeckResponse;
 
   factory _GetDeckResponse.fromJson(Map<String, dynamic> json) =
       _$_GetDeckResponse.fromJson;
 
   @override
-  List<int> get cardIds;
+  List<int> get cardIds => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$GetDeckResponseCopyWith<_GetDeckResponse> get copyWith;
+  _$GetDeckResponseCopyWith<_GetDeckResponse> get copyWith =>
+      throw _privateConstructorUsedError;
 }

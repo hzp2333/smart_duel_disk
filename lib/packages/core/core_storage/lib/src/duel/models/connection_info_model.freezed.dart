@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'connection_info_model.dart';
 
@@ -8,6 +8,10 @@ part of 'connection_info_model.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 ConnectionInfoModel _$ConnectionInfoModelFromJson(Map<String, dynamic> json) {
   return _ConnectionInfoModel.fromJson(json);
 }
@@ -16,33 +20,30 @@ ConnectionInfoModel _$ConnectionInfoModelFromJson(Map<String, dynamic> json) {
 class _$ConnectionInfoModelTearOff {
   const _$ConnectionInfoModelTearOff();
 
-// ignore: unused_element
-  _ConnectionInfoModel call(
-      {@required String ipAddress, @required String port}) {
+  _ConnectionInfoModel call({required String ipAddress, required String port}) {
     return _ConnectionInfoModel(
       ipAddress: ipAddress,
       port: port,
     );
   }
 
-// ignore: unused_element
   ConnectionInfoModel fromJson(Map<String, Object> json) {
     return ConnectionInfoModel.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $ConnectionInfoModel = _$ConnectionInfoModelTearOff();
 
 /// @nodoc
 mixin _$ConnectionInfoModel {
-  String get ipAddress;
-  String get port;
+  String get ipAddress => throw _privateConstructorUsedError;
+  String get port => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $ConnectionInfoModelCopyWith<ConnectionInfoModel> get copyWith;
+  $ConnectionInfoModelCopyWith<ConnectionInfoModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -64,12 +65,18 @@ class _$ConnectionInfoModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object ipAddress = freezed,
-    Object port = freezed,
+    Object? ipAddress = freezed,
+    Object? port = freezed,
   }) {
     return _then(_value.copyWith(
-      ipAddress: ipAddress == freezed ? _value.ipAddress : ipAddress as String,
-      port: port == freezed ? _value.port : port as String,
+      ipAddress: ipAddress == freezed
+          ? _value.ipAddress
+          : ipAddress // ignore: cast_nullable_to_non_nullable
+              as String,
+      port: port == freezed
+          ? _value.port
+          : port // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -97,23 +104,26 @@ class __$ConnectionInfoModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object ipAddress = freezed,
-    Object port = freezed,
+    Object? ipAddress = freezed,
+    Object? port = freezed,
   }) {
     return _then(_ConnectionInfoModel(
-      ipAddress: ipAddress == freezed ? _value.ipAddress : ipAddress as String,
-      port: port == freezed ? _value.port : port as String,
+      ipAddress: ipAddress == freezed
+          ? _value.ipAddress
+          : ipAddress // ignore: cast_nullable_to_non_nullable
+              as String,
+      port: port == freezed
+          ? _value.port
+          : port // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_ConnectionInfoModel implements _ConnectionInfoModel {
-  const _$_ConnectionInfoModel({@required this.ipAddress, @required this.port})
-      : assert(ipAddress != null),
-        assert(port != null);
+  const _$_ConnectionInfoModel({required this.ipAddress, required this.port});
 
   factory _$_ConnectionInfoModel.fromJson(Map<String, dynamic> json) =>
       _$_$_ConnectionInfoModelFromJson(json);
@@ -159,17 +169,18 @@ class _$_ConnectionInfoModel implements _ConnectionInfoModel {
 
 abstract class _ConnectionInfoModel implements ConnectionInfoModel {
   const factory _ConnectionInfoModel(
-      {@required String ipAddress,
-      @required String port}) = _$_ConnectionInfoModel;
+      {required String ipAddress,
+      required String port}) = _$_ConnectionInfoModel;
 
   factory _ConnectionInfoModel.fromJson(Map<String, dynamic> json) =
       _$_ConnectionInfoModel.fromJson;
 
   @override
-  String get ipAddress;
+  String get ipAddress => throw _privateConstructorUsedError;
   @override
-  String get port;
+  String get port => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$ConnectionInfoModelCopyWith<_ConnectionInfoModel> get copyWith;
+  _$ConnectionInfoModelCopyWith<_ConnectionInfoModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }

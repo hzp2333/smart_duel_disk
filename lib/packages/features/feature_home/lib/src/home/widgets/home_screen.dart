@@ -1,40 +1,57 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
-import 'package:smart_duel_disk/packages/features/feature_home/lib/src/home/models/home_tab.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
-import 'package:smart_duel_disk/src/localization/strings.al.dart';
 
 import '../home_viewmodel.dart';
+import '../models/home_tab.dart';
 
-class HomeScreen extends StatelessWidget {
-  static final _tabs = List<HomeTab>.unmodifiable(<HomeTab>[
-    HomeTab(title: Strings.homeTabNews.get(), icon: Icons.wysiwyg_outlined, page: const NewsTab()),
-    HomeTab(title: Strings.homeTabDeck.get(), icon: Icons.account_balance_wallet_outlined, page: const DeckTab()),
-    HomeTab(title: Strings.homeTabDuel.get(), icon: Icons.sports_esports, page: const DuelTab()),
-  ]);
-
+class HomeScreen extends StatefulWidget {
   const HomeScreen();
 
   @override
-  Widget build(BuildContext context) {
-    return AutoTabsRouter(
-      routes: _tabs.map((tab) => tab.page).toList(),
-      builder: (context, child, animation) {
-        final tabsRouter = context.tabsRouter;
+  State<HomeScreen> createState() => _HomeScreenState();
+}
 
-        return Scaffold(
-          appBar: const _AppBar(),
-          backgroundColor: AppColors.primaryBackgroundColor,
-          body: FadeTransition(
-            opacity: animation,
-            child: child,
-          ),
-          bottomNavigationBar: _BottomNavigationBar(
-            tabs: _tabs,
-            tabsRouter: tabsRouter,
-          ),
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    final vm = Provider.of<HomeViewModel>(context, listen: false);
+    vm.init();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final vm = Provider.of<HomeViewModel>(context);
+
+    return StreamBuilder<Iterable<HomeTab>>(
+      stream: vm.homeTabs,
+      builder: (context, snapshot) {
+        final tabs = snapshot.data;
+        if (tabs == null) {
+          return const SizedBox.shrink();
+        }
+
+        return AutoTabsRouter(
+          routes: tabs.map((tab) => tab.page).toList(),
+          builder: (context, child, animation) {
+            final tabsRouter = context.tabsRouter;
+
+            return Scaffold(
+              appBar: const _AppBar(),
+              backgroundColor: AppColors.primaryBackgroundColor,
+              body: FadeTransition(
+                opacity: animation,
+                child: child,
+              ),
+              bottomNavigationBar: _BottomNavigationBar(
+                tabs: tabs,
+                tabsRouter: tabsRouter,
+              ),
+            );
+          },
         );
       },
     );
@@ -66,12 +83,12 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
 }
 
 class _BottomNavigationBar extends StatelessWidget {
-  final List<HomeTab> tabs;
+  final Iterable<HomeTab> tabs;
   final TabsRouter tabsRouter;
 
   const _BottomNavigationBar({
-    @required this.tabs,
-    @required this.tabsRouter,
+    required this.tabs,
+    required this.tabsRouter,
   });
 
   Color _getTabColor(int index) {
@@ -86,18 +103,21 @@ class _BottomNavigationBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: tabs
+            .toList()
             .asMap()
-            .map((index, tab) => MapEntry(
-                  index,
-                  Expanded(
-                    child: _BottomNavigationBarItem(
-                      text: tab.title,
-                      icon: tab.icon,
-                      color: _getTabColor(index),
-                      onPressed: () => tabsRouter.setActiveIndex(index),
-                    ),
+            .map(
+              (index, tab) => MapEntry(
+                index,
+                Expanded(
+                  child: _BottomNavigationBarItem(
+                    titleId: tab.titleId,
+                    icon: tab.icon,
+                    color: _getTabColor(index),
+                    onPressed: () => tabsRouter.setActiveIndex(index),
                   ),
-                ))
+                ),
+              ),
+            )
             .values
             .toList(),
       ),
@@ -105,21 +125,23 @@ class _BottomNavigationBar extends StatelessWidget {
   }
 }
 
-class _BottomNavigationBarItem extends StatelessWidget {
-  final String text;
+class _BottomNavigationBarItem extends StatelessWidget with ProviderMixin {
+  final String titleId;
   final IconData icon;
   final Color color;
   final VoidCallback onPressed;
 
   const _BottomNavigationBarItem({
-    @required this.text,
-    @required this.icon,
-    @required this.color,
-    @required this.onPressed,
+    required this.titleId,
+    required this.icon,
+    required this.color,
+    required this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
+    final stringProvider = getStringProvider(context);
+
     return SizedBox(
       height: AppSizes.tabBarItemHeight,
       child: InkWell(
@@ -136,7 +158,7 @@ class _BottomNavigationBarItem extends StatelessWidget {
               color: color,
             ),
             Text(
-              text,
+              stringProvider.getString(titleId),
               style: TextStyle(
                 color: color,
               ),

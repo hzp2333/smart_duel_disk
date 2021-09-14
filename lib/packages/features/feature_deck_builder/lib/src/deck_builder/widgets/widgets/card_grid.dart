@@ -12,7 +12,7 @@ class CardGrid extends StatelessWidget {
   final ScrollPhysics scrollPhysics;
 
   const CardGrid({
-    @required this.yugiohCards,
+    required this.yugiohCards,
     this.scrollPhysics = const ClampingScrollPhysics(),
   });
 
@@ -46,8 +46,8 @@ class _GridCard extends StatelessWidget {
   final int index;
 
   const _GridCard({
-    @required this.yugiohCard,
-    @required this.index,
+    required this.yugiohCard,
+    required this.index,
   });
 
   @override
@@ -57,7 +57,7 @@ class _GridCard extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        final currentFocus = WidgetsBinding.instance.focusManager.primaryFocus;
+        final currentFocus = WidgetsBinding.instance!.focusManager.primaryFocus;
         if (currentFocus != null) {
           currentFocus.unfocus();
         }

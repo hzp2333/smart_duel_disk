@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'news_state.dart';
 
@@ -9,60 +9,63 @@ part of 'news_state.dart';
 
 T _$identity<T>(T value) => value;
 
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 /// @nodoc
 class _$NewsStateTearOff {
   const _$NewsStateTearOff();
 
-// ignore: unused_element
   Data call(Iterable<NewsListItem> news) {
     return Data(
       news,
     );
   }
 
-// ignore: unused_element
   Loading loading() {
     return const Loading();
   }
 
-// ignore: unused_element
   Error error() {
     return const Error();
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $NewsState = _$NewsStateTearOff();
 
 /// @nodoc
 mixin _$NewsState {
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(Iterable<NewsListItem> news), {
-    @required TResult loading(),
-    @required TResult error(),
-  });
+  TResult when<TResult extends Object?>(
+    TResult Function(Iterable<NewsListItem> news) $default, {
+    required TResult Function() loading,
+    required TResult Function() error,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(Iterable<NewsListItem> news), {
-    TResult loading(),
-    TResult error(),
-    @required TResult orElse(),
-  });
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(Iterable<NewsListItem> news)? $default, {
+    TResult Function()? loading,
+    TResult Function()? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(Data value), {
-    @required TResult loading(Loading value),
-    @required TResult error(Error value),
-  });
+  TResult map<TResult extends Object?>(
+    TResult Function(Data value) $default, {
+    required TResult Function(Loading value) loading,
+    required TResult Function(Error value) error,
+  }) =>
+      throw _privateConstructorUsedError;
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(Data value), {
-    TResult loading(Loading value),
-    TResult error(Error value),
-    @required TResult orElse(),
-  });
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(Data value)? $default, {
+    TResult Function(Loading value)? loading,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
+  }) =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -98,17 +101,21 @@ class _$DataCopyWithImpl<$Res> extends _$NewsStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object news = freezed,
+    Object? news = freezed,
   }) {
     return _then(Data(
-      news == freezed ? _value.news : news as Iterable<NewsListItem>,
+      news == freezed
+          ? _value.news
+          : news // ignore: cast_nullable_to_non_nullable
+              as Iterable<NewsListItem>,
     ));
   }
 }
 
 /// @nodoc
+
 class _$Data implements Data {
-  const _$Data(this.news) : assert(news != null);
+  const _$Data(this.news);
 
   @override
   final Iterable<NewsListItem> news;
@@ -137,26 +144,22 @@ class _$Data implements Data {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(Iterable<NewsListItem> news), {
-    @required TResult loading(),
-    @required TResult error(),
+  TResult when<TResult extends Object?>(
+    TResult Function(Iterable<NewsListItem> news) $default, {
+    required TResult Function() loading,
+    required TResult Function() error,
   }) {
-    assert($default != null);
-    assert(loading != null);
-    assert(error != null);
     return $default(news);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(Iterable<NewsListItem> news), {
-    TResult loading(),
-    TResult error(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(Iterable<NewsListItem> news)? $default, {
+    TResult Function()? loading,
+    TResult Function()? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if ($default != null) {
       return $default(news);
     }
@@ -165,26 +168,22 @@ class _$Data implements Data {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(Data value), {
-    @required TResult loading(Loading value),
-    @required TResult error(Error value),
+  TResult map<TResult extends Object?>(
+    TResult Function(Data value) $default, {
+    required TResult Function(Loading value) loading,
+    required TResult Function(Error value) error,
   }) {
-    assert($default != null);
-    assert(loading != null);
-    assert(error != null);
     return $default(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(Data value), {
-    TResult loading(Loading value),
-    TResult error(Error value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(Data value)? $default, {
+    TResult Function(Loading value)? loading,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if ($default != null) {
       return $default(this);
     }
@@ -195,9 +194,9 @@ class _$Data implements Data {
 abstract class Data implements NewsState {
   const factory Data(Iterable<NewsListItem> news) = _$Data;
 
-  Iterable<NewsListItem> get news;
+  Iterable<NewsListItem> get news => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $DataCopyWith<Data> get copyWith;
+  $DataCopyWith<Data> get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -217,6 +216,7 @@ class _$LoadingCopyWithImpl<$Res> extends _$NewsStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$Loading implements Loading {
   const _$Loading();
 
@@ -235,26 +235,22 @@ class _$Loading implements Loading {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(Iterable<NewsListItem> news), {
-    @required TResult loading(),
-    @required TResult error(),
+  TResult when<TResult extends Object?>(
+    TResult Function(Iterable<NewsListItem> news) $default, {
+    required TResult Function() loading,
+    required TResult Function() error,
   }) {
-    assert($default != null);
-    assert(loading != null);
-    assert(error != null);
     return loading();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(Iterable<NewsListItem> news), {
-    TResult loading(),
-    TResult error(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(Iterable<NewsListItem> news)? $default, {
+    TResult Function()? loading,
+    TResult Function()? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (loading != null) {
       return loading();
     }
@@ -263,26 +259,22 @@ class _$Loading implements Loading {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(Data value), {
-    @required TResult loading(Loading value),
-    @required TResult error(Error value),
+  TResult map<TResult extends Object?>(
+    TResult Function(Data value) $default, {
+    required TResult Function(Loading value) loading,
+    required TResult Function(Error value) error,
   }) {
-    assert($default != null);
-    assert(loading != null);
-    assert(error != null);
     return loading(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(Data value), {
-    TResult loading(Loading value),
-    TResult error(Error value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(Data value)? $default, {
+    TResult Function(Loading value)? loading,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (loading != null) {
       return loading(this);
     }
@@ -311,6 +303,7 @@ class _$ErrorCopyWithImpl<$Res> extends _$NewsStateCopyWithImpl<$Res>
 }
 
 /// @nodoc
+
 class _$Error implements Error {
   const _$Error();
 
@@ -329,26 +322,22 @@ class _$Error implements Error {
 
   @override
   @optionalTypeArgs
-  TResult when<TResult extends Object>(
-    TResult $default(Iterable<NewsListItem> news), {
-    @required TResult loading(),
-    @required TResult error(),
+  TResult when<TResult extends Object?>(
+    TResult Function(Iterable<NewsListItem> news) $default, {
+    required TResult Function() loading,
+    required TResult Function() error,
   }) {
-    assert($default != null);
-    assert(loading != null);
-    assert(error != null);
     return error();
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object>(
-    TResult $default(Iterable<NewsListItem> news), {
-    TResult loading(),
-    TResult error(),
-    @required TResult orElse(),
+  TResult maybeWhen<TResult extends Object?>(
+    TResult Function(Iterable<NewsListItem> news)? $default, {
+    TResult Function()? loading,
+    TResult Function()? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (error != null) {
       return error();
     }
@@ -357,26 +346,22 @@ class _$Error implements Error {
 
   @override
   @optionalTypeArgs
-  TResult map<TResult extends Object>(
-    TResult $default(Data value), {
-    @required TResult loading(Loading value),
-    @required TResult error(Error value),
+  TResult map<TResult extends Object?>(
+    TResult Function(Data value) $default, {
+    required TResult Function(Loading value) loading,
+    required TResult Function(Error value) error,
   }) {
-    assert($default != null);
-    assert(loading != null);
-    assert(error != null);
     return error(this);
   }
 
   @override
   @optionalTypeArgs
-  TResult maybeMap<TResult extends Object>(
-    TResult $default(Data value), {
-    TResult loading(Loading value),
-    TResult error(Error value),
-    @required TResult orElse(),
+  TResult maybeMap<TResult extends Object?>(
+    TResult Function(Data value)? $default, {
+    TResult Function(Loading value)? loading,
+    TResult Function(Error value)? error,
+    required TResult orElse(),
   }) {
-    assert(orElse != null);
     if (error != null) {
       return error(this);
     }

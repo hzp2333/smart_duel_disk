@@ -12,9 +12,9 @@ class SettingItem extends Equatable {
   final UserSettingType type;
 
   const SettingItem({
-    @required this.title,
-    @required this.leadingIcon,
-    @required this.type,
+    required this.title,
+    required this.leadingIcon,
+    required this.type,
   });
 
   @override
@@ -34,11 +34,11 @@ class SwitchSettingItem extends SettingItem {
   final FutureOr<void> Function(bool value) onValueChanged;
 
   const SwitchSettingItem({
-    @required String title,
-    @required IconData leadingIcon,
-    @required UserSettingType type,
-    @required this.value,
-    @required this.onValueChanged,
+    required String title,
+    required IconData leadingIcon,
+    required UserSettingType type,
+    required this.value,
+    required this.onValueChanged,
   }) : super(
           title: title,
           leadingIcon: leadingIcon,

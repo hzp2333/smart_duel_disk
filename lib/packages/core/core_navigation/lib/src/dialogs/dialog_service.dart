@@ -7,9 +7,9 @@ import '../../core_navigation.dart';
 import 'entities/dialog_config.dart';
 
 abstract class DialogService {
-  Future<bool> showAlertDialog(DialogConfig dialogConfig);
+  Future<bool?> showAlertDialog(DialogConfig dialogConfig);
   void popDialog<T>(T result);
-  Future<T> showCustomDialog<T>(Widget child);
+  Future<T?> showCustomDialog<T>(Widget child);
 }
 
 @LazySingleton(as: DialogService)
@@ -21,12 +21,12 @@ class DialogServiceImpl implements DialogService {
   );
 
   @override
-  Future<bool> showAlertDialog(DialogConfig dialogConfig) {
+  Future<bool?> showAlertDialog(DialogConfig dialogConfig) {
     final ios = Platform.isIOS;
     final dialog = ios ? _createCupertinoDialog(dialogConfig) : _createMaterialDialog(dialogConfig);
 
     return showDialog<bool>(
-      context: _router.navigatorKey.currentState.overlay.context,
+      context: _router.navigatorKey.currentState!.overlay!.context,
       barrierDismissible: dialogConfig.isDismissable,
       useRootNavigator: true,
       builder: (_) {
@@ -50,7 +50,7 @@ class DialogServiceImpl implements DialogService {
         if (dialogConfig.negativeButtonText != null) ...{
           TextButton(
             onPressed: () => popDialog(false),
-            child: Text(dialogConfig.negativeButtonText),
+            child: Text(dialogConfig.negativeButtonText!),
           ),
         },
         TextButton(
@@ -73,7 +73,7 @@ class DialogServiceImpl implements DialogService {
         if (dialogConfig.negativeButtonText != null) ...{
           CupertinoDialogAction(
             onPressed: () => popDialog(false),
-            child: Text(dialogConfig.negativeButtonText),
+            child: Text(dialogConfig.negativeButtonText!),
           ),
         },
         CupertinoDialogAction(
@@ -87,13 +87,13 @@ class DialogServiceImpl implements DialogService {
 
   @override
   void popDialog<T>(T result) {
-    _router.navigatorKey.currentState.pop(result);
+    _router.navigatorKey.currentState!.pop(result);
   }
 
   @override
-  Future<T> showCustomDialog<T>(Widget child) {
+  Future<T?> showCustomDialog<T>(Widget child) {
     return showDialog<T>(
-      context: _router.navigatorKey.currentState.overlay.context,
+      context: _router.navigatorKey.currentState!.overlay!.context,
       barrierDismissible: true,
       useRootNavigator: true,
       builder: (_) => child,

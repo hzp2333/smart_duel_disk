@@ -9,7 +9,7 @@ enum CardAttribute {
   unknown,
 }
 
-CardAttribute parseCardAttribute(String value) {
+CardAttribute parseCardAttribute(String? value) {
   if (value == null) {
     return CardAttribute.unknown;
   }

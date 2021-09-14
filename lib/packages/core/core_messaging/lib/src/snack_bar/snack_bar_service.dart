@@ -20,13 +20,15 @@ class SnackBarServiceImpl implements SnackBarService {
   @override
   void showSnackBar(String message) {
     hideSnackBar();
-    _messengerKey.currentState?.showSnackBar(SnackBar(
-      content: Text(
-        message,
-        style: const TextStyle(color: Colors.white),
+    _messengerKey.currentState?.showSnackBar(
+      SnackBar(
+        content: Text(
+          message,
+          style: const TextStyle(color: Colors.white),
+        ),
+        backgroundColor: AppColors.cardBackgroundColor,
       ),
-      backgroundColor: AppColors.cardBackgroundColor,
-    ));
+    );
   }
 
   @override

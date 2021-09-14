@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'card_set_model.dart';
 
@@ -8,6 +8,10 @@ part of 'card_set_model.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 CardSetModel _$CardSetModelFromJson(Map<String, dynamic> json) {
   return _CardSetModel.fromJson(json);
 }
@@ -16,13 +20,12 @@ CardSetModel _$CardSetModelFromJson(Map<String, dynamic> json) {
 class _$CardSetModelTearOff {
   const _$CardSetModelTearOff();
 
-// ignore: unused_element
   _CardSetModel call(
-      {@required @JsonKey(name: 'set_name') String setName,
-      @required @JsonKey(name: 'set_code') String setCode,
-      @required @JsonKey(name: 'set_rarity') String setRarity,
-      @required @JsonKey(name: 'set_rarity_code') String setRarityCode,
-      @required @JsonKey(name: 'set_price') String setPrice}) {
+      {@JsonKey(name: 'set_name') required String setName,
+      @JsonKey(name: 'set_code') required String setCode,
+      @JsonKey(name: 'set_rarity') required String setRarity,
+      @JsonKey(name: 'set_rarity_code') required String setRarityCode,
+      @JsonKey(name: 'set_price') required String setPrice}) {
     return _CardSetModel(
       setName: setName,
       setCode: setCode,
@@ -32,32 +35,31 @@ class _$CardSetModelTearOff {
     );
   }
 
-// ignore: unused_element
   CardSetModel fromJson(Map<String, Object> json) {
     return CardSetModel.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $CardSetModel = _$CardSetModelTearOff();
 
 /// @nodoc
 mixin _$CardSetModel {
   @JsonKey(name: 'set_name')
-  String get setName;
+  String get setName => throw _privateConstructorUsedError;
   @JsonKey(name: 'set_code')
-  String get setCode;
+  String get setCode => throw _privateConstructorUsedError;
   @JsonKey(name: 'set_rarity')
-  String get setRarity;
+  String get setRarity => throw _privateConstructorUsedError;
   @JsonKey(name: 'set_rarity_code')
-  String get setRarityCode;
+  String get setRarityCode => throw _privateConstructorUsedError;
   @JsonKey(name: 'set_price')
-  String get setPrice;
+  String get setPrice => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $CardSetModelCopyWith<CardSetModel> get copyWith;
+  $CardSetModelCopyWith<CardSetModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -83,20 +85,33 @@ class _$CardSetModelCopyWithImpl<$Res> implements $CardSetModelCopyWith<$Res> {
 
   @override
   $Res call({
-    Object setName = freezed,
-    Object setCode = freezed,
-    Object setRarity = freezed,
-    Object setRarityCode = freezed,
-    Object setPrice = freezed,
+    Object? setName = freezed,
+    Object? setCode = freezed,
+    Object? setRarity = freezed,
+    Object? setRarityCode = freezed,
+    Object? setPrice = freezed,
   }) {
     return _then(_value.copyWith(
-      setName: setName == freezed ? _value.setName : setName as String,
-      setCode: setCode == freezed ? _value.setCode : setCode as String,
-      setRarity: setRarity == freezed ? _value.setRarity : setRarity as String,
+      setName: setName == freezed
+          ? _value.setName
+          : setName // ignore: cast_nullable_to_non_nullable
+              as String,
+      setCode: setCode == freezed
+          ? _value.setCode
+          : setCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      setRarity: setRarity == freezed
+          ? _value.setRarity
+          : setRarity // ignore: cast_nullable_to_non_nullable
+              as String,
       setRarityCode: setRarityCode == freezed
           ? _value.setRarityCode
-          : setRarityCode as String,
-      setPrice: setPrice == freezed ? _value.setPrice : setPrice as String,
+          : setRarityCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      setPrice: setPrice == freezed
+          ? _value.setPrice
+          : setPrice // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -128,39 +143,46 @@ class __$CardSetModelCopyWithImpl<$Res> extends _$CardSetModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object setName = freezed,
-    Object setCode = freezed,
-    Object setRarity = freezed,
-    Object setRarityCode = freezed,
-    Object setPrice = freezed,
+    Object? setName = freezed,
+    Object? setCode = freezed,
+    Object? setRarity = freezed,
+    Object? setRarityCode = freezed,
+    Object? setPrice = freezed,
   }) {
     return _then(_CardSetModel(
-      setName: setName == freezed ? _value.setName : setName as String,
-      setCode: setCode == freezed ? _value.setCode : setCode as String,
-      setRarity: setRarity == freezed ? _value.setRarity : setRarity as String,
+      setName: setName == freezed
+          ? _value.setName
+          : setName // ignore: cast_nullable_to_non_nullable
+              as String,
+      setCode: setCode == freezed
+          ? _value.setCode
+          : setCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      setRarity: setRarity == freezed
+          ? _value.setRarity
+          : setRarity // ignore: cast_nullable_to_non_nullable
+              as String,
       setRarityCode: setRarityCode == freezed
           ? _value.setRarityCode
-          : setRarityCode as String,
-      setPrice: setPrice == freezed ? _value.setPrice : setPrice as String,
+          : setRarityCode // ignore: cast_nullable_to_non_nullable
+              as String,
+      setPrice: setPrice == freezed
+          ? _value.setPrice
+          : setPrice // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_CardSetModel implements _CardSetModel {
   const _$_CardSetModel(
-      {@required @JsonKey(name: 'set_name') this.setName,
-      @required @JsonKey(name: 'set_code') this.setCode,
-      @required @JsonKey(name: 'set_rarity') this.setRarity,
-      @required @JsonKey(name: 'set_rarity_code') this.setRarityCode,
-      @required @JsonKey(name: 'set_price') this.setPrice})
-      : assert(setName != null),
-        assert(setCode != null),
-        assert(setRarity != null),
-        assert(setRarityCode != null),
-        assert(setPrice != null);
+      {@JsonKey(name: 'set_name') required this.setName,
+      @JsonKey(name: 'set_code') required this.setCode,
+      @JsonKey(name: 'set_rarity') required this.setRarity,
+      @JsonKey(name: 'set_rarity_code') required this.setRarityCode,
+      @JsonKey(name: 'set_price') required this.setPrice});
 
   factory _$_CardSetModel.fromJson(Map<String, dynamic> json) =>
       _$_$_CardSetModelFromJson(json);
@@ -229,31 +251,32 @@ class _$_CardSetModel implements _CardSetModel {
 
 abstract class _CardSetModel implements CardSetModel {
   const factory _CardSetModel(
-      {@required @JsonKey(name: 'set_name') String setName,
-      @required @JsonKey(name: 'set_code') String setCode,
-      @required @JsonKey(name: 'set_rarity') String setRarity,
-      @required @JsonKey(name: 'set_rarity_code') String setRarityCode,
-      @required @JsonKey(name: 'set_price') String setPrice}) = _$_CardSetModel;
+      {@JsonKey(name: 'set_name') required String setName,
+      @JsonKey(name: 'set_code') required String setCode,
+      @JsonKey(name: 'set_rarity') required String setRarity,
+      @JsonKey(name: 'set_rarity_code') required String setRarityCode,
+      @JsonKey(name: 'set_price') required String setPrice}) = _$_CardSetModel;
 
   factory _CardSetModel.fromJson(Map<String, dynamic> json) =
       _$_CardSetModel.fromJson;
 
   @override
   @JsonKey(name: 'set_name')
-  String get setName;
+  String get setName => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'set_code')
-  String get setCode;
+  String get setCode => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'set_rarity')
-  String get setRarity;
+  String get setRarity => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'set_rarity_code')
-  String get setRarityCode;
+  String get setRarityCode => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'set_price')
-  String get setPrice;
+  String get setPrice => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$CardSetModelCopyWith<_CardSetModel> get copyWith;
+  _$CardSetModelCopyWith<_CardSetModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -9,11 +9,9 @@ part of 'get_speed_duel_cards_response_model.dart';
 _$_GetSpeedDuelCardsResponseModel _$_$_GetSpeedDuelCardsResponseModelFromJson(
     Map<String, dynamic> json) {
   return _$_GetSpeedDuelCardsResponseModel(
-    speedDuelCards: (json['data'] as List)
-        ?.map((e) => e == null
-            ? null
-            : SpeedDuelCardModel.fromJson(e as Map<String, dynamic>))
-        ?.toList(),
+    speedDuelCards: (json['data'] as List<dynamic>)
+        .map((e) => SpeedDuelCardModel.fromJson(e as Map<String, dynamic>))
+        .toList(),
   );
 }
 

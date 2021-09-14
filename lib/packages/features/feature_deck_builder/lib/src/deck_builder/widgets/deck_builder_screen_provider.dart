@@ -8,7 +8,7 @@ import 'package:smart_duel_disk/src/di/di.dart';
 import 'deck_builder_screen.dart';
 
 class DeckBuilderScreenProvider extends StatelessWidget {
-  final PreBuiltDeck preBuiltDeck;
+  final PreBuiltDeck? preBuiltDeck;
 
   const DeckBuilderScreenProvider({
     this.preBuiltDeck,

@@ -11,12 +11,12 @@ part 'room_event_data.g.dart';
 @immutable
 @JsonSerializable()
 class RoomEventData extends Equatable implements SmartDuelEventData {
-  final String roomName;
+  final String? roomName;
   @JsonKey(unknownEnumValue: RoomError.unknown)
-  final RoomError error;
-  final Iterable<int> deckList;
-  final DuelRoom duelRoom;
-  final String winnerId;
+  final RoomError? error;
+  final Iterable<int>? deckList;
+  final DuelRoom? duelRoom;
+  final String? winnerId;
 
   const RoomEventData({
     this.roomName,
@@ -29,7 +29,7 @@ class RoomEventData extends Equatable implements SmartDuelEventData {
   factory RoomEventData.fromJson(Map<String, dynamic> json) => _$RoomEventDataFromJson(json);
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         roomName,
         error,
         deckList,

@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'ban_list_info_model.dart';
 
@@ -8,6 +8,10 @@ part of 'ban_list_info_model.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 BanListInfoModel _$BanListInfoModelFromJson(Map<String, dynamic> json) {
   return _BanListInfoModel.fromJson(json);
 }
@@ -16,11 +20,10 @@ BanListInfoModel _$BanListInfoModelFromJson(Map<String, dynamic> json) {
 class _$BanListInfoModelTearOff {
   const _$BanListInfoModelTearOff();
 
-// ignore: unused_element
   _BanListInfoModel call(
-      {@JsonKey(name: 'ban_ocg') String banOcg,
-      @JsonKey(name: 'ban_goat') String banGoat,
-      @JsonKey(name: 'ban_tcg') String banTcg}) {
+      {@JsonKey(name: 'ban_ocg') String? banOcg,
+      @JsonKey(name: 'ban_goat') String? banGoat,
+      @JsonKey(name: 'ban_tcg') String? banTcg}) {
     return _BanListInfoModel(
       banOcg: banOcg,
       banGoat: banGoat,
@@ -28,28 +31,27 @@ class _$BanListInfoModelTearOff {
     );
   }
 
-// ignore: unused_element
   BanListInfoModel fromJson(Map<String, Object> json) {
     return BanListInfoModel.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $BanListInfoModel = _$BanListInfoModelTearOff();
 
 /// @nodoc
 mixin _$BanListInfoModel {
   @JsonKey(name: 'ban_ocg')
-  String get banOcg;
+  String? get banOcg => throw _privateConstructorUsedError;
   @JsonKey(name: 'ban_goat')
-  String get banGoat;
+  String? get banGoat => throw _privateConstructorUsedError;
   @JsonKey(name: 'ban_tcg')
-  String get banTcg;
+  String? get banTcg => throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $BanListInfoModelCopyWith<BanListInfoModel> get copyWith;
+  $BanListInfoModelCopyWith<BanListInfoModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -58,9 +60,9 @@ abstract class $BanListInfoModelCopyWith<$Res> {
           BanListInfoModel value, $Res Function(BanListInfoModel) then) =
       _$BanListInfoModelCopyWithImpl<$Res>;
   $Res call(
-      {@JsonKey(name: 'ban_ocg') String banOcg,
-      @JsonKey(name: 'ban_goat') String banGoat,
-      @JsonKey(name: 'ban_tcg') String banTcg});
+      {@JsonKey(name: 'ban_ocg') String? banOcg,
+      @JsonKey(name: 'ban_goat') String? banGoat,
+      @JsonKey(name: 'ban_tcg') String? banTcg});
 }
 
 /// @nodoc
@@ -74,14 +76,23 @@ class _$BanListInfoModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object banOcg = freezed,
-    Object banGoat = freezed,
-    Object banTcg = freezed,
+    Object? banOcg = freezed,
+    Object? banGoat = freezed,
+    Object? banTcg = freezed,
   }) {
     return _then(_value.copyWith(
-      banOcg: banOcg == freezed ? _value.banOcg : banOcg as String,
-      banGoat: banGoat == freezed ? _value.banGoat : banGoat as String,
-      banTcg: banTcg == freezed ? _value.banTcg : banTcg as String,
+      banOcg: banOcg == freezed
+          ? _value.banOcg
+          : banOcg // ignore: cast_nullable_to_non_nullable
+              as String?,
+      banGoat: banGoat == freezed
+          ? _value.banGoat
+          : banGoat // ignore: cast_nullable_to_non_nullable
+              as String?,
+      banTcg: banTcg == freezed
+          ? _value.banTcg
+          : banTcg // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -94,9 +105,9 @@ abstract class _$BanListInfoModelCopyWith<$Res>
       __$BanListInfoModelCopyWithImpl<$Res>;
   @override
   $Res call(
-      {@JsonKey(name: 'ban_ocg') String banOcg,
-      @JsonKey(name: 'ban_goat') String banGoat,
-      @JsonKey(name: 'ban_tcg') String banTcg});
+      {@JsonKey(name: 'ban_ocg') String? banOcg,
+      @JsonKey(name: 'ban_goat') String? banGoat,
+      @JsonKey(name: 'ban_tcg') String? banTcg});
 }
 
 /// @nodoc
@@ -112,21 +123,29 @@ class __$BanListInfoModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object banOcg = freezed,
-    Object banGoat = freezed,
-    Object banTcg = freezed,
+    Object? banOcg = freezed,
+    Object? banGoat = freezed,
+    Object? banTcg = freezed,
   }) {
     return _then(_BanListInfoModel(
-      banOcg: banOcg == freezed ? _value.banOcg : banOcg as String,
-      banGoat: banGoat == freezed ? _value.banGoat : banGoat as String,
-      banTcg: banTcg == freezed ? _value.banTcg : banTcg as String,
+      banOcg: banOcg == freezed
+          ? _value.banOcg
+          : banOcg // ignore: cast_nullable_to_non_nullable
+              as String?,
+      banGoat: banGoat == freezed
+          ? _value.banGoat
+          : banGoat // ignore: cast_nullable_to_non_nullable
+              as String?,
+      banTcg: banTcg == freezed
+          ? _value.banTcg
+          : banTcg // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_BanListInfoModel implements _BanListInfoModel {
   const _$_BanListInfoModel(
       {@JsonKey(name: 'ban_ocg') this.banOcg,
@@ -138,13 +157,13 @@ class _$_BanListInfoModel implements _BanListInfoModel {
 
   @override
   @JsonKey(name: 'ban_ocg')
-  final String banOcg;
+  final String? banOcg;
   @override
   @JsonKey(name: 'ban_goat')
-  final String banGoat;
+  final String? banGoat;
   @override
   @JsonKey(name: 'ban_tcg')
-  final String banTcg;
+  final String? banTcg;
 
   @override
   String toString() {
@@ -184,23 +203,24 @@ class _$_BanListInfoModel implements _BanListInfoModel {
 
 abstract class _BanListInfoModel implements BanListInfoModel {
   const factory _BanListInfoModel(
-      {@JsonKey(name: 'ban_ocg') String banOcg,
-      @JsonKey(name: 'ban_goat') String banGoat,
-      @JsonKey(name: 'ban_tcg') String banTcg}) = _$_BanListInfoModel;
+      {@JsonKey(name: 'ban_ocg') String? banOcg,
+      @JsonKey(name: 'ban_goat') String? banGoat,
+      @JsonKey(name: 'ban_tcg') String? banTcg}) = _$_BanListInfoModel;
 
   factory _BanListInfoModel.fromJson(Map<String, dynamic> json) =
       _$_BanListInfoModel.fromJson;
 
   @override
   @JsonKey(name: 'ban_ocg')
-  String get banOcg;
+  String? get banOcg => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'ban_goat')
-  String get banGoat;
+  String? get banGoat => throw _privateConstructorUsedError;
   @override
   @JsonKey(name: 'ban_tcg')
-  String get banTcg;
+  String? get banTcg => throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
-  _$BanListInfoModelCopyWith<_BanListInfoModel> get copyWith;
+  _$BanListInfoModelCopyWith<_BanListInfoModel> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -8,10 +8,10 @@ abstract class TwitterModule {
   TwitterApi provideTwitterApi(AppConfig appConfig) {
     return TwitterApi(
       client: TwitterClient(
-        consumerKey: appConfig.twitterConsumerKey,
-        consumerSecret: appConfig.twitterConsumerSecret,
-        token: appConfig.twitterToken,
-        secret: appConfig.twitterSecret,
+        consumerKey: appConfig.twitterConsumerKey!,
+        consumerSecret: appConfig.twitterConsumerSecret!,
+        token: appConfig.twitterToken!,
+        secret: appConfig.twitterSecret!,
       ),
     );
   }

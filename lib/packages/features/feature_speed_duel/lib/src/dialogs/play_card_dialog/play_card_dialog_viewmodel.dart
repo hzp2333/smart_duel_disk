@@ -16,14 +16,14 @@ import 'models/play_card_dialog_parameters.dart';
 class PlayCardDialogViewModel extends BaseViewModel {
   static const _tag = 'PlayCardDialogViewModel';
 
-  final PlayCardDialogParameters _parameters;
+  final PlayCardDialogParameters? _parameters;
   final CreatePlayCardDialogActionsUseCase _createPlayCardDialogActionsUseCase;
   final DialogService _dialogService;
 
-  PlayCard get playCard => _parameters?.playCard;
+  PlayCard? get playCard => _parameters?.playCard;
 
-  Iterable<PlayCardDialogAction> _cardActions = [];
-  Iterable<PlayCardDialogAction> get cardActions => _cardActions;
+  Iterable<PlayCardDialogAction>? _cardActions = [];
+  Iterable<PlayCardDialogAction>? get cardActions => _cardActions;
 
   PlayCardDialogViewModel(
     @factoryParam this._parameters,
@@ -37,13 +37,13 @@ class PlayCardDialogViewModel extends BaseViewModel {
   void _init() {
     logger.verbose(_tag, '_init()');
 
-    if (!_parameters.showActions) {
+    if (!_parameters!.showActions) {
       return;
     }
 
     _cardActions = _createPlayCardDialogActionsUseCase(
-      _parameters?.playCard,
-      _parameters?.newZone,
+      _parameters!.playCard!,
+      _parameters!.newZone,
     );
   }
 
@@ -102,12 +102,12 @@ class PlayCardDialogViewModel extends BaseViewModel {
   void _onSetPressed() {
     logger.verbose(_tag, '_onSetPressed()');
 
-    if (_parameters.playCard.zoneType.isMultiCardZone && _parameters.newZone != null) {
+    if (_parameters!.playCard!.zoneType.isMultiCardZone && _parameters?.newZone != null) {
       _setCardFromMultiCardZone();
       return;
     }
 
-    if (playCard.zoneType.isMainMonsterZone) {
+    if (playCard!.zoneType.isMainMonsterZone) {
       _setMonsterCard();
       return;
     }
@@ -118,7 +118,7 @@ class PlayCardDialogViewModel extends BaseViewModel {
   void _setCardFromMultiCardZone() {
     logger.verbose(_tag, '_setCardFromMultiCardZone(');
 
-    if (_parameters.newZone.zoneType.isMainMonsterZone) {
+    if (_parameters!.newZone!.zoneType.isMainMonsterZone) {
       _setMonsterCard();
     } else {
       _setSpellTrapCard();
@@ -128,7 +128,7 @@ class PlayCardDialogViewModel extends BaseViewModel {
   void _setMonsterCard() {
     logger.verbose(_tag, '_setMonsterCard()');
 
-    if (_parameters.playCard.yugiohCard.type == CardType.token) {
+    if (_parameters!.playCard!.yugiohCard.type == CardType.token) {
       _dialogService.popDialog(CardPosition.faceUpDefence);
     } else {
       _dialogService.popDialog(CardPosition.faceDownDefence);

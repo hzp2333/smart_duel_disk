@@ -4,13 +4,13 @@ import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 class IconTitleTileButton extends StatelessWidget {
   final String title;
   final IconData icon;
-  final VoidCallback onPressed;
-  final IconData trailingIcon;
+  final VoidCallback? onPressed;
+  final IconData? trailingIcon;
 
   const IconTitleTileButton({
-    @required this.title,
-    @required this.icon,
-    @required this.onPressed,
+    required this.title,
+    required this.icon,
+    required this.onPressed,
     this.trailingIcon,
   });
 

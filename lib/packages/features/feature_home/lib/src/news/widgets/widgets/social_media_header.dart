@@ -22,7 +22,7 @@ class _SocialMediaHeaderItem extends StatelessWidget {
   final SocialMedia socialMedia;
 
   const _SocialMediaHeaderItem({
-    @required this.socialMedia,
+    required this.socialMedia,
   });
 
   IconData _getSocialMediaIcon() {

@@ -27,7 +27,7 @@ class NewsDataManagerImpl implements NewsDataManager {
         .map((newsItem) => newsItem.copyWith(text: _htmlUnescapeProvider.convert(newsItem.text)))
         .toList();
 
-    newsItems.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+    newsItems.sort((a, b) => a.createdAt!.compareTo(b.createdAt!));
 
     return newsItems.reversed;
   }

@@ -24,8 +24,8 @@ class SpeedDuelScreen extends StatefulWidget {
 class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
   final _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  StreamSubscription<SpeedDuelScreenEvent> _speedDuelEventSubscription;
-  PersistentBottomSheetController<void> _bottomSheetController;
+  StreamSubscription<SpeedDuelScreenEvent>? _speedDuelEventSubscription;
+  PersistentBottomSheetController<void>? _bottomSheetController;
 
   @override
   void initState() {
@@ -36,7 +36,10 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
     ]);
 
     // Make the app full screen.
-    SystemChrome.setEnabledSystemUIOverlays([]);
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [],
+    );
 
     final vm = Provider.of<SpeedDuelViewModel>(context, listen: false);
     vm.init();
@@ -59,10 +62,13 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
     ]);
 
     // Show the status bar and bottom bar again.
-    SystemChrome.setEnabledSystemUIOverlays([
-      SystemUiOverlay.bottom,
-      SystemUiOverlay.top,
-    ]);
+    SystemChrome.setEnabledSystemUIMode(
+      SystemUiMode.manual,
+      overlays: [
+        SystemUiOverlay.bottom,
+        SystemUiOverlay.top,
+      ],
+    );
 
     super.dispose();
   }
@@ -70,7 +76,7 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
   void _onInspectCardPileEventReceived(PlayerState playerState, Zone zone) {
     _closeBottomSheet();
 
-    _bottomSheetController = _scaffoldKey.currentState.showBottomSheet(
+    _bottomSheetController = _scaffoldKey.currentState!.showBottomSheet(
       (_) => CardListBottomSheet(playerState: playerState, zone: zone),
       backgroundColor: AppColors.cardBackgroundColor,
     );
@@ -123,7 +129,7 @@ class _BodyBuilder extends HookWidget {
     final speedDuelState = useStream(vm.screenState, initialData: const SpeedDuelLoading());
 
     return SafeArea(
-      child: speedDuelState.data.when(
+      child: speedDuelState.data!.when(
         (state) => SpeedDuelField(state: state),
         loading: () => const GeneralLoadingState(),
         error: () => const GeneralErrorState(description: 'An error occurred while starting the speed duel'),

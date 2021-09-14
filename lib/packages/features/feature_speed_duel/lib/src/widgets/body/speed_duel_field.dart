@@ -13,7 +13,7 @@ class SpeedDuelField extends StatelessWidget {
   final SpeedDuelState state;
 
   const SpeedDuelField({
-    @required this.state,
+    required this.state,
   });
 
   @override
@@ -33,15 +33,15 @@ class SpeedDuelField extends StatelessWidget {
 }
 
 class _PlayerField extends StatelessWidget {
-  final PlayerState playerState;
+  final PlayerState? playerState;
 
   const _PlayerField({
-    @required this.playerState,
+    required this.playerState,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Provider<PlayerState>.value(
+    return Provider<PlayerState?>.value(
       value: playerState,
       child: SizedBox(
         height: context.screenHeight,
@@ -49,7 +49,7 @@ class _PlayerField extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(AppSizes.screenMargin),
           child: RotatedBox(
-            quarterTurns: playerState.isOpponent ? 2 : 0,
+            quarterTurns: playerState!.isOpponent ? 2 : 0,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: const [

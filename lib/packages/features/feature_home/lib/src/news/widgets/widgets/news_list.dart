@@ -10,7 +10,7 @@ class NewsList extends StatelessWidget {
   final Iterable<NewsListItem> newsItems;
 
   const NewsList({
-    @required this.newsItems,
+    required this.newsItems,
   });
 
   @override
@@ -32,7 +32,7 @@ class _NewsListItemBuilder extends StatelessWidget {
   final NewsListItem newsItem;
 
   const _NewsListItemBuilder({
-    @required this.newsItem,
+    required this.newsItem,
   });
 
   @override
@@ -52,7 +52,7 @@ class _NewsListItem extends StatelessWidget {
   final NewsListItem newsItem;
 
   const _NewsListItem({
-    @required this.newsItem,
+    required this.newsItem,
   });
 
   @override
@@ -83,10 +83,10 @@ class _NewsListItem extends StatelessWidget {
 }
 
 class _NewsListItemImage extends StatelessWidget {
-  final String imageUrl;
+  final String? imageUrl;
 
   const _NewsListItemImage({
-    @required this.imageUrl,
+    required this.imageUrl,
   });
 
   @override
@@ -99,7 +99,7 @@ class _NewsListItemImage extends StatelessWidget {
           topRight: Radius.circular(AppSizes.generalBorderRadius),
         ),
         child: CachedNetworkImage(
-          imageUrl: imageUrl,
+          imageUrl: imageUrl!,
           fit: BoxFit.fitWidth,
         ),
       ),
@@ -111,7 +111,7 @@ class _NewsListItemHeader extends StatelessWidget {
   final NewsListItem newsItem;
 
   const _NewsListItemHeader({
-    @required this.newsItem,
+    required this.newsItem,
   });
 
   @override
@@ -149,7 +149,7 @@ class _NewsListItemAuthor extends StatelessWidget {
   final NewsListItem newsItem;
 
   const _NewsListItemAuthor({
-    @required this.newsItem,
+    required this.newsItem,
   });
 
   @override
@@ -157,12 +157,12 @@ class _NewsListItemAuthor extends StatelessWidget {
     return Row(
       children: [
         CircleAvatar(
-          backgroundImage: CachedNetworkImageProvider(newsItem.authorImageUrl),
+          backgroundImage: CachedNetworkImageProvider(newsItem.authorImageUrl!),
           radius: AppSizes.newsCardAuthorImageRadius,
         ),
         const SizedBox(width: AppSizes.newsCardAuthorImageNameSpacing),
         AutoSizeText(
-          newsItem.authorName,
+          newsItem.authorName!,
           style: TextStyles.subtitle,
           maxLines: 1,
         ),
@@ -175,7 +175,7 @@ class _NewsListItemDate extends StatelessWidget {
   final String createdAt;
 
   const _NewsListItemDate({
-    @required this.createdAt,
+    required this.createdAt,
   });
 
   @override
@@ -192,7 +192,7 @@ class _NewsListItemText extends StatelessWidget {
   final NewsListItem newsItem;
 
   const _NewsListItemText({
-    @required this.newsItem,
+    required this.newsItem,
   });
 
   @override
@@ -204,7 +204,7 @@ class _NewsListItemText extends StatelessWidget {
         AppSizes.newsCardPadding,
         AppSizes.newsCardPadding,
       ),
-      child: Text(newsItem.text),
+      child: Text(newsItem.text!),
     );
   }
 }
@@ -213,7 +213,7 @@ class _NewsListItemRipple extends StatelessWidget {
   final NewsListItem newsItem;
 
   const _NewsListItemRipple({
-    @required this.newsItem,
+    required this.newsItem,
   });
 
   @override

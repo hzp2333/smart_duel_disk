@@ -6,7 +6,7 @@ enum CardPosition {
   destroy,
 }
 
-CardPosition parseCardPosition(String cardPosition) {
+CardPosition? parseCardPosition(String? cardPosition) {
   switch (cardPosition) {
     case 'faceUp':
       return CardPosition.faceUp;

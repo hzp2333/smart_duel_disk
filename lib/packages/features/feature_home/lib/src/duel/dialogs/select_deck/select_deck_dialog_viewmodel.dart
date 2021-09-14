@@ -13,10 +13,10 @@ class SelectDeckDialogViewModel extends BaseViewModel {
   final DialogService _dialogService;
 
   SelectDeckDialogViewModel(
-    Logger logger,
     this._router,
     this._dataManager,
     this._dialogService,
+    Logger logger,
   ) : super(logger);
 
   Iterable<PreBuiltDeck> getPreBuiltDecks() {

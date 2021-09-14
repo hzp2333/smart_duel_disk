@@ -1,0 +1,9 @@
+locales:
+  - en
+directory: assets/translations
+key: PT4Az8sqJ_VF22jimP21_fh5gGHFlckZ
+fallback: en
+order: id
+no_comments: true
+platform: custom
+custom_extension: .json

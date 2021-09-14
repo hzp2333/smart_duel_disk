@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_duel_disk/generated/locale_keys.g.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_assets/lib/wrapper_assets.dart';
-import 'package:smart_duel_disk/src/localization/strings.al.dart';
 
 import '../onboarding_viewmodel.dart';
 
@@ -80,14 +80,16 @@ class _CompanyLogo extends StatelessWidget {
   }
 }
 
-class _AppName extends StatelessWidget {
+class _AppName extends StatelessWidget with ProviderMixin {
   const _AppName();
 
   @override
   Widget build(BuildContext context) {
+    final stringProvider = getStringProvider(context);
+
     return Center(
       child: Text(
-        Strings.onboardingAppTitle.get(),
+        stringProvider.getString(LocaleKeys.onboarding_app_title),
         textAlign: TextAlign.center,
         style: TextStyles.onboardingAppTile,
       ),
@@ -95,32 +97,35 @@ class _AppName extends StatelessWidget {
   }
 }
 
-class _Actions extends StatelessWidget {
+class _Actions extends StatelessWidget with ProviderMixin {
   const _Actions();
 
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<OnboardingViewModel>(context);
+    final stringProvider = getStringProvider(context);
 
     return Align(
       alignment: Alignment.bottomCenter,
       child: PrimaryButton(
-        text: Strings.onboardingInitiateLink.get(),
+        text: stringProvider.getString(LocaleKeys.onboarding_initiate_link),
         onPressed: vm.onInitiateLinkPressed,
       ),
     );
   }
 }
 
-class _Footer extends StatelessWidget {
+class _Footer extends StatelessWidget with ProviderMixin {
   const _Footer();
 
   @override
   Widget build(BuildContext context) {
+    final stringProvider = getStringProvider(context);
+
     return Padding(
       padding: const EdgeInsets.only(top: AppSizes.onboardingFooterMarginTop),
       child: Text(
-        Strings.onboardingFineprint.get(),
+        stringProvider.getString(LocaleKeys.onboarding_fineprint),
         textAlign: TextAlign.center,
         style: TextStyles.onboardingFineprint,
       ),

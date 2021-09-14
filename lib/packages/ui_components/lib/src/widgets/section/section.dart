@@ -6,8 +6,8 @@ class Section extends StatelessWidget {
   final Widget child;
 
   const Section({
-    @required this.title,
-    @required this.child,
+    required this.title,
+    required this.child,
   });
 
   @override
@@ -28,7 +28,7 @@ class SectionTitle extends StatelessWidget {
   final String title;
 
   const SectionTitle({
-    @required this.title,
+    required this.title,
   });
 
   @override

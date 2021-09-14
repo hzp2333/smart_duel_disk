@@ -8,8 +8,8 @@ part of 'duelist.dart';
 
 Duelist _$DuelistFromJson(Map<String, dynamic> json) {
   return Duelist(
-    id: json['id'] as String,
-    deckList: (json['deckList'] as List)?.map((e) => e as int),
+    id: json['id'] as String?,
+    deckList: (json['deckList'] as List<dynamic>?)?.map((e) => e as int),
   );
 }
 

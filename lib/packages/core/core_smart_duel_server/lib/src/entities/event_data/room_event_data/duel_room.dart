@@ -9,18 +9,18 @@ part 'duel_room.g.dart';
 @immutable
 @JsonSerializable()
 class DuelRoom extends Equatable {
-  final String roomName;
-  final Iterable<Duelist> duelists;
-  final int duelistLimit;
+  final String? roomName;
+  final Iterable<Duelist>? duelists;
+  final int? duelistLimit;
 
   const DuelRoom({
-    @required this.roomName,
-    @required this.duelists,
-    @required this.duelistLimit,
+    required this.roomName,
+    required this.duelists,
+    required this.duelistLimit,
   });
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         roomName,
         duelists,
         duelistLimit,

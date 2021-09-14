@@ -7,16 +7,16 @@ part 'duelist.g.dart';
 @immutable
 @JsonSerializable()
 class Duelist extends Equatable {
-  final String id;
-  final Iterable<int> deckList;
+  final String? id;
+  final Iterable<int>? deckList;
 
   const Duelist({
-    @required this.id,
-    @required this.deckList,
+    required this.id,
+    required this.deckList,
   });
 
   @override
-  List<Object> get props => [
+  List<Object?> get props => [
         id,
         deckList,
       ];

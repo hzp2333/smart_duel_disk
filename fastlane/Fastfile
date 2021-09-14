@@ -1,0 +1,28 @@
+#!/usr/bin/env ruby
+
+fastlane_version "2.142.0"
+fastlane_require "fileutils"
+
+require './lib/plugin_config.rb'
+
+lane :download_loco_changes do |options|
+  config = read_plugin_config
+  simple_loco(conf_file_path: config.loco.config_file)
+  post_loco_actions(config).call
+end
+
+def read_plugin_config
+  yaml_file = YAML.load(open(File.join(File.dirname(__FILE__), "fastlane_plugin_config.yaml")))
+  config = OpenStruct.new(yaml_file)
+  return PluginConfig.new(options: config)
+end
+
+def post_loco_actions(config)
+  return Proc.new {
+           post_loco(
+             input_directory: config.loco.input_directory,
+             output_directory: config.loco.output_directory,
+             string_keys_file: config.loco.string_keys_file,
+           )
+         }
+end

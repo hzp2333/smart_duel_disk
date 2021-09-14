@@ -52,9 +52,9 @@ class _Body extends HookWidget {
     return ListView.builder(
       shrinkWrap: true,
       padding: const EdgeInsets.all(AppSizes.screenMargin),
-      itemCount: userSettings.data.length,
+      itemCount: userSettings.data!.length,
       itemBuilder: (context, index) {
-        return _SettingListItemContainer(settingItem: userSettings.data.elementAt(index));
+        return _SettingListItemContainer(settingItem: userSettings.data!.elementAt(index));
       },
     );
   }
@@ -64,7 +64,7 @@ class _SettingListItemContainer extends StatelessWidget {
   final SettingItem settingItem;
 
   const _SettingListItemContainer({
-    @required this.settingItem,
+    required this.settingItem,
   });
 
   @override
@@ -87,7 +87,7 @@ class _SettingsListItem extends StatelessWidget {
   final SettingItem settingItem;
 
   const _SettingsListItem({
-    @required this.settingItem,
+    required this.settingItem,
   });
 
   @override

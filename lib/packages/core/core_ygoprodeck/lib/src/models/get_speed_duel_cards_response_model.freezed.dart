@@ -1,5 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
 
 part of 'get_speed_duel_cards_response_model.dart';
 
@@ -8,6 +8,10 @@ part of 'get_speed_duel_cards_response_model.dart';
 // **************************************************************************
 
 T _$identity<T>(T value) => value;
+
+final _privateConstructorUsedError = UnsupportedError(
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+
 GetSpeedDuelCardsResponseModel _$GetSpeedDuelCardsResponseModelFromJson(
     Map<String, dynamic> json) {
   return _GetSpeedDuelCardsResponseModel.fromJson(json);
@@ -17,36 +21,33 @@ GetSpeedDuelCardsResponseModel _$GetSpeedDuelCardsResponseModelFromJson(
 class _$GetSpeedDuelCardsResponseModelTearOff {
   const _$GetSpeedDuelCardsResponseModelTearOff();
 
-// ignore: unused_element
   _GetSpeedDuelCardsResponseModel call(
-      {@required
-      @JsonKey(name: 'data')
-          List<SpeedDuelCardModel> speedDuelCards}) {
+      {@JsonKey(name: 'data')
+          required List<SpeedDuelCardModel> speedDuelCards}) {
     return _GetSpeedDuelCardsResponseModel(
       speedDuelCards: speedDuelCards,
     );
   }
 
-// ignore: unused_element
   GetSpeedDuelCardsResponseModel fromJson(Map<String, Object> json) {
     return GetSpeedDuelCardsResponseModel.fromJson(json);
   }
 }
 
 /// @nodoc
-// ignore: unused_element
 const $GetSpeedDuelCardsResponseModel =
     _$GetSpeedDuelCardsResponseModelTearOff();
 
 /// @nodoc
 mixin _$GetSpeedDuelCardsResponseModel {
   @JsonKey(name: 'data')
-  List<SpeedDuelCardModel> get speedDuelCards;
+  List<SpeedDuelCardModel> get speedDuelCards =>
+      throw _privateConstructorUsedError;
 
-  Map<String, dynamic> toJson();
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $GetSpeedDuelCardsResponseModelCopyWith<GetSpeedDuelCardsResponseModel>
-      get copyWith;
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -69,12 +70,13 @@ class _$GetSpeedDuelCardsResponseModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object speedDuelCards = freezed,
+    Object? speedDuelCards = freezed,
   }) {
     return _then(_value.copyWith(
       speedDuelCards: speedDuelCards == freezed
           ? _value.speedDuelCards
-          : speedDuelCards as List<SpeedDuelCardModel>,
+          : speedDuelCards // ignore: cast_nullable_to_non_nullable
+              as List<SpeedDuelCardModel>,
     ));
   }
 }
@@ -105,24 +107,23 @@ class __$GetSpeedDuelCardsResponseModelCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object speedDuelCards = freezed,
+    Object? speedDuelCards = freezed,
   }) {
     return _then(_GetSpeedDuelCardsResponseModel(
       speedDuelCards: speedDuelCards == freezed
           ? _value.speedDuelCards
-          : speedDuelCards as List<SpeedDuelCardModel>,
+          : speedDuelCards // ignore: cast_nullable_to_non_nullable
+              as List<SpeedDuelCardModel>,
     ));
   }
 }
 
-@JsonSerializable()
-
 /// @nodoc
+@JsonSerializable()
 class _$_GetSpeedDuelCardsResponseModel
     implements _GetSpeedDuelCardsResponseModel {
   const _$_GetSpeedDuelCardsResponseModel(
-      {@required @JsonKey(name: 'data') this.speedDuelCards})
-      : assert(speedDuelCards != null);
+      {@JsonKey(name: 'data') required this.speedDuelCards});
 
   factory _$_GetSpeedDuelCardsResponseModel.fromJson(
           Map<String, dynamic> json) =>
@@ -166,9 +167,8 @@ class _$_GetSpeedDuelCardsResponseModel
 abstract class _GetSpeedDuelCardsResponseModel
     implements GetSpeedDuelCardsResponseModel {
   const factory _GetSpeedDuelCardsResponseModel(
-          {@required
-          @JsonKey(name: 'data')
-              List<SpeedDuelCardModel> speedDuelCards}) =
+          {@JsonKey(name: 'data')
+              required List<SpeedDuelCardModel> speedDuelCards}) =
       _$_GetSpeedDuelCardsResponseModel;
 
   factory _GetSpeedDuelCardsResponseModel.fromJson(Map<String, dynamic> json) =
@@ -176,9 +176,10 @@ abstract class _GetSpeedDuelCardsResponseModel
 
   @override
   @JsonKey(name: 'data')
-  List<SpeedDuelCardModel> get speedDuelCards;
+  List<SpeedDuelCardModel> get speedDuelCards =>
+      throw _privateConstructorUsedError;
   @override
   @JsonKey(ignore: true)
   _$GetSpeedDuelCardsResponseModelCopyWith<_GetSpeedDuelCardsResponseModel>
-      get copyWith;
+      get copyWith => throw _privateConstructorUsedError;
 }

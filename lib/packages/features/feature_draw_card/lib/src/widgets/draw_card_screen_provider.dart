@@ -11,7 +11,7 @@ class DrawCardScreenProvider extends StatelessWidget {
   final VoidCallback cardDrawnCallback;
 
   const DrawCardScreenProvider({
-    @required this.cardDrawnCallback,
+    required this.cardDrawnCallback,
   });
 
   @override

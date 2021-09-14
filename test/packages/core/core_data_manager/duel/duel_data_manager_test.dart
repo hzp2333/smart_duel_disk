@@ -1,16 +1,15 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:smart_duel_disk/packages/core/core_config/lib/core_config.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart';
 
-import '../../../../testing/empty_mocks.dart';
+import '../../../../testing/mocks/shared.mocks.dart';
 
 void main() {
-  DuelDataManager _dataManager;
+  late DuelDataManager _dataManager;
 
-  AppConfig _appConfig;
-  DuelStorageProvider _duelStorageProvider;
+  late MockAppConfig _appConfig;
+  late MockDuelStorageProvider _duelStorageProvider;
 
   const _onlineServerAddress = 'https://smart.duel.server';
   const _onlinePort = '443';
@@ -66,6 +65,7 @@ void main() {
     group('and the local connection info should be used', () {
       test('then the local connection info is fetched', () {
         when(_duelStorageProvider.useOnlineDuelRoom()).thenReturn(false);
+        when(_duelStorageProvider.getConnectionInfo()).thenReturn(null);
 
         _dataManager.getConnectionInfo();
 

@@ -8,11 +8,11 @@ part of 'card_event_data.dart';
 
 CardEventData _$CardEventDataFromJson(Map<String, dynamic> json) {
   return CardEventData(
-    duelistId: json['duelistId'] as String,
-    cardId: json['cardId'] as int,
-    copyNumber: json['copyNumber'] as int,
-    zoneName: json['zoneName'] as String,
-    cardPosition: json['cardPosition'] as String,
+    duelistId: json['duelistId'] as String?,
+    cardId: json['cardId'] as int?,
+    copyNumber: json['copyNumber'] as int?,
+    zoneName: json['zoneName'] as String?,
+    cardPosition: json['cardPosition'] as String?,
   );
 }
 

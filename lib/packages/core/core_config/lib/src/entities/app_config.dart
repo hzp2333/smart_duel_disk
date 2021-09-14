@@ -1,9 +1,14 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 @immutable
 class AppConfig {
   bool get loggingEnabled => true;
+
+  List<Locale> get supportedLocales => const [Locale('en')];
+  Locale get fallbackLocale => const Locale('en');
+  String get translationsPath => 'assets/translations';
 
   String get smartDuelServerAddress => 'https://smart-duel-server.herokuapp.com';
   String get smartDuelServerPort => '443';
@@ -18,17 +23,17 @@ class AppConfig {
   String get discordUrl => 'https://discord.gg/SxmeN9Yh8a';
 
   final String twitterUserId;
-  final String twitterConsumerKey;
-  final String twitterConsumerSecret;
-  final String twitterToken;
-  final String twitterSecret;
+  final String? twitterConsumerKey;
+  final String? twitterConsumerSecret;
+  final String? twitterToken;
+  final String? twitterSecret;
 
   const AppConfig._({
-    @required this.twitterUserId,
-    @required this.twitterConsumerKey,
-    @required this.twitterConsumerSecret,
-    @required this.twitterToken,
-    @required this.twitterSecret,
+    required this.twitterUserId,
+    required this.twitterConsumerKey,
+    required this.twitterConsumerSecret,
+    required this.twitterToken,
+    required this.twitterSecret,
   });
 
   factory AppConfig.release(DotEnv dotEnv) {

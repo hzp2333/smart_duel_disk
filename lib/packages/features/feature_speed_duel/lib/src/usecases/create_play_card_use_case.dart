@@ -20,8 +20,8 @@ class CreatePlayCardUseCase {
     YugiohCard card,
     String duelistId,
     int copyNumber, {
-    CardPosition position,
-    ZoneType zoneType,
+    CardPosition? position,
+    ZoneType? zoneType,
   }) {
     final raceAndType =
         '[${_enumHelper.convertToString(card.race, camelCase: true)} / ${_enumHelper.convertToString(card.type, camelCase: true)}]';
@@ -40,7 +40,7 @@ class CreatePlayCardUseCase {
     );
   }
 
-  String _getAttributeAssetName(YugiohCard card, AssetsProvider assetsProvider) {
+  String? _getAttributeAssetName(YugiohCard card, AssetsProvider assetsProvider) {
     switch (card.attribute) {
       case CardAttribute.dark:
         return assetsProvider.iconAttributeDark;
@@ -56,8 +56,8 @@ class CreatePlayCardUseCase {
         return assetsProvider.iconAttributeFire;
       case CardAttribute.divine:
         return assetsProvider.iconAttributeDivine;
-
       case CardAttribute.unknown:
+      case null:
         break;
     }
 
@@ -66,18 +66,7 @@ class CreatePlayCardUseCase {
         return assetsProvider.iconCardTypeSpell;
       case CardType.trapCard:
         return assetsProvider.iconCardTypeTrap;
-
-      case CardType.flipEffectMonster:
-      case CardType.effectMonster:
-      case CardType.normalMonster:
-      case CardType.fusionMonster:
-      case CardType.skillCard:
-      case CardType.ritualMonster:
-      case CardType.unionEffectMonster:
-      case CardType.toonMonster:
-      case CardType.ritualEffectMonster:
-      case CardType.token:
-      case CardType.unknown:
+      default:
         break;
     }
 
