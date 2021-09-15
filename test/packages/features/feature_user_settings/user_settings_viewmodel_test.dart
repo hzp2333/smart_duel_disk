@@ -14,18 +14,27 @@ void main() {
 
   late MockDataManager _dataManager;
   late MockSnackBarService _snackBarService;
+  late MockStringProvider _stringProvider;
   late MockLogger _logger;
 
   setUp(() {
     _dataManager = MockDataManager();
     _snackBarService = MockSnackBarService();
+    _stringProvider = MockStringProvider();
     _logger = MockLogger();
 
     when(_dataManager.isDeveloperModeEnabled()).thenReturn(false);
 
+    when(_stringProvider.getString(any))
+        .thenAnswer((realInvocation) => realInvocation.positionalArguments[0].toString());
+
+    when(_stringProvider.getString(any, any))
+        .thenAnswer((realInvocation) => realInvocation.positionalArguments.join(', '));
+
     _viewModel = UserSettingsViewModel(
       _dataManager,
       _snackBarService,
+      _stringProvider,
       _logger,
     );
   });
@@ -48,7 +57,7 @@ void main() {
         observable,
         emits([
           SwitchSettingItem(
-            title: 'Developer mode',
+            titleId: 'user_setting_developer_mode_title',
             leadingIcon: Icons.developer_mode,
             type: UserSettingType.developerModeEnabled,
             value: false,
@@ -72,8 +81,12 @@ void main() {
       await _viewModel.init();
 
       await _viewModel.onDeveloperModeEnabledChanged(true);
+      verify(_snackBarService.showSnackBar('user_setting_developer_mode_update_message, [general_switch_on, null]'))
+          .called(1);
 
-      verify(_snackBarService.showSnackBar('The developer mode has been turned on. Please restart the app.')).called(1);
+      await _viewModel.onDeveloperModeEnabledChanged(false);
+      verify(_snackBarService.showSnackBar('user_setting_developer_mode_update_message, [general_switch_off, null]'))
+          .called(1);
     });
 
     test('then the updated user settings are emitted', () async {
@@ -92,7 +105,7 @@ void main() {
         emitsInOrder(<StreamMatcher>[
           emits([
             SwitchSettingItem(
-              title: 'Developer mode',
+              titleId: 'user_setting_developer_mode_title',
               leadingIcon: Icons.developer_mode,
               type: UserSettingType.developerModeEnabled,
               value: false,
@@ -101,7 +114,7 @@ void main() {
           ]),
           emits([
             SwitchSettingItem(
-              title: 'Developer mode',
+              titleId: 'user_setting_developer_mode_title',
               leadingIcon: Icons.developer_mode,
               type: UserSettingType.developerModeEnabled,
               value: true,

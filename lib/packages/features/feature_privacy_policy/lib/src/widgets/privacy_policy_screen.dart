@@ -1,18 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_duel_disk/generated/locale_keys.g.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
 import '../privacy_policy_viewmodel.dart';
 
-class PrivacyPolicyScreen extends StatelessWidget {
+class PrivacyPolicyScreen extends StatelessWidget with ProviderMixin {
   const PrivacyPolicyScreen();
 
   @override
   Widget build(BuildContext context) {
+    final stringProvider = getStringProvider(context);
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Privacy Policy'),
+      appBar: SddAppBar(
+        title: stringProvider.getString(LocaleKeys.privacy_policy_title),
       ),
       body: const _Body(),
     );

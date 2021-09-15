@@ -258,7 +258,8 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i35.DuelDataManager>(() => _i35.DuelDataManagerImpl(
       get<_i4.AppConfig>(), get<_i36.DuelStorageProvider>()));
   gh.lazySingleton<_i37.DuelDialogProvider>(() => _i37.DuelDialogProvider());
-  gh.lazySingleton<_i38.DuelFormValidators>(() => _i38.DuelFormValidators());
+  gh.lazySingleton<_i38.DuelFormValidators>(
+      () => _i38.DuelFormValidators(get<_i25.StringProvider>()));
   gh.factoryParam<_i39.DuelRoomViewModel, _i21.PreBuiltDeck?, dynamic>(
       (_preBuiltDeck, _) => _i39.DuelRoomViewModel(
           _preBuiltDeck,
@@ -355,6 +356,7 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.factory<_i80.UserSettingsViewModel>(() => _i80.UserSettingsViewModel(
       get<_i21.DataManager>(),
       get<_i29.SnackBarService>(),
+      get<_i25.StringProvider>(),
       get<_i51.Logger>()));
   gh.lazySingleton<_i81.WebSocketFactory>(() => _i81.WebSocketFactoryImpl());
   gh.factory<_i82.WebSocketProvider>(
@@ -363,7 +365,7 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => _i83.YgoProDeckRestClient(get<_i32.Dio>()));
   gh.factoryParam<_i84.YugiohCardDetailViewModel, _i21.YugiohCard?, int?>(
       (_yugiohCard, _index) => _i84.YugiohCardDetailViewModel(
-          get<_i12.Logger>(), _yugiohCard, _index));
+          _yugiohCard, _index, get<_i12.Logger>()));
   gh.lazySingleton<_i85.YugiohCardsDataManager>(() =>
       _i85.YugiohCardsDataManagerImpl(get<_i86.YgoProDeckApiProvider>(),
           get<_i36.YugiohCardsStorageProvider>()));

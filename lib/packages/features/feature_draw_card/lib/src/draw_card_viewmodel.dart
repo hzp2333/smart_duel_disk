@@ -4,6 +4,8 @@ import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 
 class DrawCardViewModel extends BaseViewModel {
+  static const _tag = 'DrawCardViewModel';
+
   final VoidCallback _cardDrawnCallback;
   final AppRouter _router;
 
@@ -13,8 +15,10 @@ class DrawCardViewModel extends BaseViewModel {
     Logger logger,
   ) : super(logger);
 
-  Future<void> onCardDrawn() {
-    _cardDrawnCallback.call();
-    return _router.closeScreen();
+  Future<void> onCardDrawn() async {
+    logger.info(_tag, 'onCardDrawn()');
+
+    _cardDrawnCallback();
+    await _router.closeScreen();
   }
 }

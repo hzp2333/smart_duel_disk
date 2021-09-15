@@ -7,19 +7,19 @@ import 'user_setting_type.dart';
 
 @immutable
 class SettingItem extends Equatable {
-  final String title;
+  final String titleId;
   final IconData leadingIcon;
   final UserSettingType type;
 
   const SettingItem({
-    required this.title,
+    required this.titleId,
     required this.leadingIcon,
     required this.type,
   });
 
   @override
   List<Object> get props => [
-        title,
+        titleId,
         leadingIcon,
         type,
       ];
@@ -34,20 +34,20 @@ class SwitchSettingItem extends SettingItem {
   final FutureOr<void> Function(bool value) onValueChanged;
 
   const SwitchSettingItem({
-    required String title,
+    required String titleId,
     required IconData leadingIcon,
     required UserSettingType type,
     required this.value,
     required this.onValueChanged,
   }) : super(
-          title: title,
+          titleId: titleId,
           leadingIcon: leadingIcon,
           type: type,
         );
 
   @override
   List<Object> get props => [
-        title,
+        titleId,
         leadingIcon,
         type,
         value,

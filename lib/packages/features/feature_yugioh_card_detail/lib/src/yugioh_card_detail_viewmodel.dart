@@ -9,12 +9,10 @@ class YugiohCardDetailViewModel extends BaseViewModel {
   late final int? _index;
 
   YugiohCardDetailViewModel(
-    Logger logger,
     @factoryParam this._yugiohCard,
     @factoryParam this._index,
-  ) : super(
-          logger,
-        );
+    Logger logger,
+  ) : super(logger);
 
   YugiohCard get yugiohCard => _yugiohCard!;
   String get heroTag => '${_yugiohCard!.id} - $_index';

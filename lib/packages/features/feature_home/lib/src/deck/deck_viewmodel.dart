@@ -35,8 +35,12 @@ class DeckViewModel extends BaseViewModel {
   }
 
   void onBuildDeckPressed() {
+    final featureName = _stringProvider.getString(LocaleKeys.feature_create_personal_deck);
+    final featureNotAvailableText =
+        _stringProvider.getString(LocaleKeys.feature_not_available_yet_description, [featureName]);
+
     _snackBarService.showSnackBar(
-      _stringProvider.getString(LocaleKeys.feature_not_available_yet_description, ['Creating a personal deck']),
+      _stringProvider.getString(featureNotAvailableText),
     );
   }
 }

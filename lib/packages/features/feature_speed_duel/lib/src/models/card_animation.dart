@@ -17,7 +17,7 @@ abstract class CardAnimation extends Equatable {
     required this.copyNumber,
     required this.animationColor,
     this.waitTime = Duration.zero,
-    this.animationDuration = AppDurations.cardAnimationDuration,
+    this.animationDuration = AppDurations.cardEventAnimationDuration,
   });
 
   @override

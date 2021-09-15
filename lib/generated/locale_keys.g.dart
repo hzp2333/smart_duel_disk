@@ -21,8 +21,27 @@ abstract class  LocaleKeys {
   static const deck_pre_built_kaiba_title = 'deck_pre_built_kaiba_title';
   static const deck_pre_built_mai_title = 'deck_pre_built_mai_title';
   static const deck_pre_built_yugi_title = 'deck_pre_built_yugi_title';
+  static const duel_deck_opponent_tooltip = 'duel_deck_opponent_tooltip';
+  static const duel_deck_user_tooltip = 'duel_deck_user_tooltip';
+  static const duel_form_enter_local_duel_room = 'duel_form_enter_local_duel_room';
+  static const duel_form_enter_online_duel_room = 'duel_form_enter_online_duel_room';
+  static const duel_form_hint_ip_address = 'duel_form_hint_ip_address';
+  static const duel_form_hint_port = 'duel_form_hint_port';
+  static const duel_form_invalid_ip_address = 'duel_form_invalid_ip_address';
+  static const duel_form_invalid_port = 'duel_form_invalid_port';
+  static const duel_form_label_ip_address = 'duel_form_label_ip_address';
+  static const duel_form_label_port = 'duel_form_label_port';
+  static const duel_form_no_ip_address = 'duel_form_no_ip_address';
+  static const duel_form_no_port = 'duel_form_no_port';
+  static const duel_form_speed_duel_local_title = 'duel_form_speed_duel_local_title';
+  static const duel_form_speed_duel_online_title = 'duel_form_speed_duel_online_title';
+  static const duel_general_error_message = 'duel_general_error_message';
+  static const duel_room_title = 'duel_room_title';
+  static const feature_create_personal_deck = 'feature_create_personal_deck';
   static const feature_not_available_yet_description = 'feature_not_available_yet_description';
   static const general_error_try_again = 'general_error_try_again';
+  static const general_switch_off = 'general_switch_off';
+  static const general_switch_on = 'general_switch_on';
   static const home_tab_deck = 'home_tab_deck';
   static const home_tab_duel = 'home_tab_duel';
   static const home_tab_news = 'home_tab_news';
@@ -30,6 +49,7 @@ abstract class  LocaleKeys {
   static const onboarding_app_title = 'onboarding_app_title';
   static const onboarding_fineprint = 'onboarding_fineprint';
   static const onboarding_initiate_link = 'onboarding_initiate_link';
+  static const privacy_policy_title = 'privacy_policy_title';
   static const speed_duel_card_action_activate = 'speed_duel_card_action_activate';
   static const speed_duel_card_action_destroy = 'speed_duel_card_action_destroy';
   static const speed_duel_card_action_flip = 'speed_duel_card_action_flip';
@@ -39,5 +59,8 @@ abstract class  LocaleKeys {
   static const speed_duel_card_action_summon_defence = 'speed_duel_card_action_summon_defence';
   static const speed_duel_card_action_to_attack = 'speed_duel_card_action_to_attack';
   static const speed_duel_card_action_to_defence = 'speed_duel_card_action_to_defence';
+  static const user_setting_developer_mode_title = 'user_setting_developer_mode_title';
+  static const user_setting_developer_mode_update_message = 'user_setting_developer_mode_update_message';
+  static const user_settings_title = 'user_settings_title';
 
 }

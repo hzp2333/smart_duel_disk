@@ -1,6 +1,7 @@
 import 'package:mockito/annotations.dart';
 import 'package:smart_duel_disk/packages/core/core_config/lib/core_config.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_localization/lib/core_localization.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_messaging/lib/core_messaging.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
@@ -22,5 +23,6 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_shared_preferences/lib
   AppConfig,
   DuelStorageProvider,
   GetHomeTabsUseCase,
+  StringProvider,
 ])
 void main() {}

@@ -12,6 +12,8 @@ import 'package:smart_duel_disk/packages/core/core_config/lib/core_config.dart'
     as _i17;
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart'
     as _i2;
+import 'package:smart_duel_disk/packages/core/core_localization/lib/core_localization.dart'
+    as _i21;
 import 'package:smart_duel_disk/packages/core/core_logger/lib/src/logger.dart'
     as _i6;
 import 'package:smart_duel_disk/packages/core/core_messaging/lib/src/snack_bar/snack_bar_service.dart'
@@ -547,6 +549,22 @@ class MockGetHomeTabsUseCase extends _i1.Mock
   Iterable<_i20.HomeTab> call() =>
       (super.noSuchMethod(Invocation.method(#call, []),
           returnValue: <_i20.HomeTab>[]) as Iterable<_i20.HomeTab>);
+  @override
+  String toString() => super.toString();
+}
+
+/// A class which mocks [StringProvider].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockStringProvider extends _i1.Mock implements _i21.StringProvider {
+  MockStringProvider() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String getString(String? key, [List<String>? args]) =>
+      (super.noSuchMethod(Invocation.method(#getString, [key, args]),
+          returnValue: '') as String);
   @override
   String toString() => super.toString();
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_duel_disk/generated/locale_keys.g.dart';
 import 'package:smart_duel_disk/packages/features/feature_user_settings/lib/src/models/setting_item.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
@@ -13,7 +14,7 @@ class UserSettingsScreen extends StatefulWidget {
   _UserSettingsScreenState createState() => _UserSettingsScreenState();
 }
 
-class _UserSettingsScreenState extends State<UserSettingsScreen> {
+class _UserSettingsScreenState extends State<UserSettingsScreen> with ProviderMixin {
   @override
   void initState() {
     super.initState();
@@ -24,14 +25,15 @@ class _UserSettingsScreenState extends State<UserSettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      // TODO: localization
+    final stringProvider = getStringProvider(context);
+
+    return Scaffold(
       appBar: SddAppBar(
-        title: 'User Settings',
+        title: stringProvider.getString(LocaleKeys.user_settings_title),
         showBackButton: false,
         showCloseButton: true,
       ),
-      body: _Body(),
+      body: const _Body(),
       backgroundColor: AppColors.primaryBackgroundColor,
     );
   }
@@ -83,7 +85,7 @@ class _SettingListItemContainer extends StatelessWidget {
   }
 }
 
-class _SettingsListItem extends StatelessWidget {
+class _SettingsListItem extends StatelessWidget with ProviderMixin {
   final SettingItem settingItem;
 
   const _SettingsListItem({
@@ -92,12 +94,15 @@ class _SettingsListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final stringProvider = getStringProvider(context);
+
     final item = settingItem;
+    final title = stringProvider.getString(item.titleId);
 
     if (item is SwitchSettingItem) {
       return ListTile(
         leading: Icon(item.leadingIcon),
-        title: Text(item.title),
+        title: Text(title),
         contentPadding: EdgeInsets.zero,
         horizontalTitleGap: 0,
         trailing: Switch.adaptive(
@@ -110,7 +115,7 @@ class _SettingsListItem extends StatelessWidget {
 
     return ListTile(
       leading: Icon(item.leadingIcon),
-      title: Text(item.title),
+      title: Text(title),
       contentPadding: EdgeInsets.zero,
       horizontalTitleGap: 0,
     );

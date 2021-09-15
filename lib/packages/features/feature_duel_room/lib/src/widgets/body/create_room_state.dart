@@ -19,7 +19,6 @@ class CreateRoomState extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // TODO: create a copy action to copy the room name
             Text('Room name: $roomName\n\nWaiting for your opponent...'),
             const SizedBox(height: AppSizes.screenMarginLarge),
             const _CopyRoomCodeButton(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_duel_disk/generated/locale_keys.g.dart';
 
 import 'setting_item.dart';
 
@@ -11,7 +12,7 @@ extension UserSettingTypeExtensions on UserSettingType {
     switch (this) {
       case UserSettingType.developerModeEnabled:
         return const SettingItem(
-          title: 'Developer mode',
+          titleId: LocaleKeys.user_setting_developer_mode_title,
           leadingIcon: Icons.developer_mode,
           type: UserSettingType.developerModeEnabled,
         );

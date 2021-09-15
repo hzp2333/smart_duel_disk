@@ -27,7 +27,7 @@ class CardEventAnimationHandler {
       'onAttackCardEvent(attackingCard: ${attackingCard.yugiohCard.id}, targetZone: ${targetZone.zoneType})',
     );
 
-    await _delayProvider.delay(AppDurations.preCardAnimationDelay);
+    await _delayProvider.delay(AppDurations.preCardEventAnimationDelay);
 
     _cardAnimations.safeAdd(
       AttackAnimation(
@@ -45,7 +45,7 @@ class CardEventAnimationHandler {
           duelistId: targettedCard.duelistId,
           cardId: targettedCard.yugiohCard.id,
           copyNumber: targettedCard.copyNumber,
-          waitTime: AppDurations.cardAnimationDuration * 2,
+          waitTime: AppDurations.cardEventAnimationDuration * 2,
         ),
       );
     }

@@ -1,4 +1,6 @@
 class AppDurations {
-  static const preCardAnimationDelay = Duration(milliseconds: 30);
-  static const cardAnimationDuration = Duration(milliseconds: 750);
+  static const preDrawCardAnimationDelay = Duration(milliseconds: 500);
+
+  static const preCardEventAnimationDelay = Duration(milliseconds: 30);
+  static const cardEventAnimationDuration = Duration(milliseconds: 750);
 }
