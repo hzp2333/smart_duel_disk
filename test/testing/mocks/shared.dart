@@ -10,6 +10,7 @@ import 'package:smart_duel_disk/packages/features/feature_home/lib/feature_home.
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/duel/mixins/duel_form_validators.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/home/usecases/get_home_tabs_use_case.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_shared_preferences/lib/wrapper_shared_preferences.dart';
+import 'package:smart_duel_disk/packages/wrappers/wrapper_system_chrome/lib/src/system_chrome_provider.dart';
 
 @GenerateMocks([
   Logger,
@@ -24,5 +25,6 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_shared_preferences/lib
   DuelStorageProvider,
   GetHomeTabsUseCase,
   StringProvider,
+  SystemChromeProvider,
 ])
 void main() {}

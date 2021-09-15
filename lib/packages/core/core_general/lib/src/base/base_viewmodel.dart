@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 
@@ -10,5 +12,5 @@ abstract class BaseViewModel {
   );
 
   @mustCallSuper
-  void dispose() {}
+  FutureOr<void> dispose() {}
 }

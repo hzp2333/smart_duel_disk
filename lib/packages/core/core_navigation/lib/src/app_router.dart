@@ -130,7 +130,7 @@ class AppRouterImpl implements AppRouter {
 
   @override
   Future<void> showSpeedDuel(DuelRoom duelRoom) {
-    return _router.navigate(SpeedDuelRoute(duelRoom: duelRoom));
+    return _router.replace(SpeedDuelRoute(duelRoom: duelRoom));
   }
 
   @override

@@ -7,6 +7,7 @@ import 'dart:ui' as _i5;
 
 import 'package:flutter/cupertino.dart' as _i4;
 import 'package:flutter/material.dart' as _i15;
+import 'package:flutter/services.dart' as _i23;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:smart_duel_disk/packages/core/core_config/lib/core_config.dart'
     as _i17;
@@ -40,6 +41,8 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
     as _i11;
 import 'package:smart_duel_disk/packages/wrappers/wrapper_shared_preferences/lib/wrapper_shared_preferences.dart'
     as _i16;
+import 'package:smart_duel_disk/packages/wrappers/wrapper_system_chrome/lib/src/system_chrome_provider.dart'
+    as _i22;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
@@ -565,6 +568,34 @@ class MockStringProvider extends _i1.Mock implements _i21.StringProvider {
   String getString(String? key, [List<String>? args]) =>
       (super.noSuchMethod(Invocation.method(#getString, [key, args]),
           returnValue: '') as String);
+  @override
+  String toString() => super.toString();
+}
+
+/// A class which mocks [SystemChromeProvider].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockSystemChromeProvider extends _i1.Mock
+    implements _i22.SystemChromeProvider {
+  MockSystemChromeProvider() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<void> setPreferredOrientations(
+          List<_i23.DeviceOrientation>? orientations) =>
+      (super.noSuchMethod(
+          Invocation.method(#setPreferredOrientations, [orientations]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  @override
+  _i3.Future<void> setEnabledSystemUIMode(_i23.SystemUiMode? mode,
+          {List<_i23.SystemUiOverlay>? overlays}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #setEnabledSystemUIMode, [mode], {#overlays: overlays}),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
   String toString() => super.toString();
 }

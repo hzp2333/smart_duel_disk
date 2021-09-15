@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
@@ -31,16 +30,6 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
   void initState() {
     super.initState();
 
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.landscapeLeft,
-    ]);
-
-    // Make the app full screen.
-    SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.manual,
-      overlays: [],
-    );
-
     final vm = Provider.of<SpeedDuelViewModel>(context, listen: false);
     vm.init();
 
@@ -56,19 +45,6 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
   void dispose() {
     _speedDuelEventSubscription?.cancel();
     _speedDuelEventSubscription = null;
-
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-    ]);
-
-    // Show the status bar and bottom bar again.
-    SystemChrome.setEnabledSystemUIMode(
-      SystemUiMode.manual,
-      overlays: [
-        SystemUiOverlay.bottom,
-        SystemUiOverlay.top,
-      ],
-    );
 
     super.dispose();
   }

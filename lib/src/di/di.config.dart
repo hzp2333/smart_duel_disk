@@ -5,7 +5,7 @@
 // **************************************************************************
 
 import 'package:cloud_firestore/cloud_firestore.dart' as _i47;
-import 'package:dart_twitter_api/twitter_api.dart' as _i77;
+import 'package:dart_twitter_api/twitter_api.dart' as _i79;
 import 'package:dio/dio.dart' as _i32;
 import 'package:firebase_crashlytics/firebase_crashlytics.dart' as _i46;
 import 'package:flutter/services.dart' as _i9;
@@ -33,16 +33,20 @@ import '../../packages/core/core_data_manager/lib/src/news/news_data_manager.dar
 import '../../packages/core/core_data_manager/lib/src/settings/settings_data_manager.dart'
     as _i65;
 import '../../packages/core/core_data_manager/lib/src/yugioh_cards/yugioh_cards_data_manager.dart'
-    as _i85;
+    as _i87;
+import '../../packages/core/core_display_config/lib/core_display_config.dart'
+    as _i76;
+import '../../packages/core/core_display_config/lib/src/display_config_service.dart'
+    as _i93;
 import '../../packages/core/core_general/lib/core_general.dart' as _i59;
 import '../../packages/core/core_general/lib/src/formatters/date_formatter.dart'
     as _i23;
 import '../../packages/core/core_localization/lib/core_localization.dart'
     as _i25;
 import '../../packages/core/core_localization/lib/src/di/localization_module.dart'
-    as _i93;
+    as _i96;
 import '../../packages/core/core_localization/lib/src/string_provider.dart'
-    as _i76;
+    as _i77;
 import '../../packages/core/core_logger/lib/core_logger.dart' as _i12;
 import '../../packages/core/core_logger/lib/src/logger.dart' as _i51;
 import '../../packages/core/core_logger/lib/src/logger_impl.dart' as _i52;
@@ -63,14 +67,14 @@ import '../../packages/core/core_storage/lib/src/duel/duel_storage_provider.dart
 import '../../packages/core/core_storage/lib/src/settings/settings_storage_provider.dart'
     as _i66;
 import '../../packages/core/core_storage/lib/src/yugioh_cards/yugioh_cards_storage_provider.dart'
-    as _i87;
-import '../../packages/core/core_ygoprodeck/lib/core_ygoprodeck.dart' as _i86;
+    as _i89;
+import '../../packages/core/core_ygoprodeck/lib/core_ygoprodeck.dart' as _i88;
 import '../../packages/core/core_ygoprodeck/lib/src/api/ygoprodeck_api.dart'
-    as _i83;
+    as _i85;
 import '../../packages/core/core_ygoprodeck/lib/src/di/ygoprodeck_module.dart'
-    as _i94;
+    as _i97;
 import '../../packages/core/core_ygoprodeck/lib/src/ygoprodeck_api_provider.dart'
-    as _i91;
+    as _i94;
 import '../../packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart'
     as _i24;
 import '../../packages/features/feature_duel_room/lib/src/duel_room_viewmodel.dart'
@@ -123,27 +127,27 @@ import '../../packages/features/feature_speed_duel/lib/src/usecases/does_card_fi
 import '../../packages/features/feature_speed_duel/lib/src/usecases/move_card_use_case.dart'
     as _i54;
 import '../../packages/features/feature_user_settings/lib/src/user_settings_viewmodel.dart'
-    as _i80;
+    as _i82;
 import '../../packages/features/feature_yugioh_card_detail/lib/src/yugioh_card_detail_viewmodel.dart'
-    as _i84;
+    as _i86;
 import '../../packages/wrappers/wrapper_clipboard/lib/src/clipboard_provider.dart'
     as _i13;
 import '../../packages/wrappers/wrapper_clipboard/lib/wrapper_clipboard.dart'
     as _i41;
 import '../../packages/wrappers/wrapper_cloud_database/lib/src/cloud_database_provider.dart'
-    as _i88;
+    as _i90;
 import '../../packages/wrappers/wrapper_cloud_database/lib/src/di/cloud_database_module.dart'
-    as _i96;
+    as _i99;
 import '../../packages/wrappers/wrapper_cloud_database/lib/src/firebase/firebase_cloud_database_provider.dart'
-    as _i89;
+    as _i91;
 import '../../packages/wrappers/wrapper_cloud_database/lib/wrapper_cloud_database.dart'
     as _i27;
 import '../../packages/wrappers/wrapper_crashlytics/lib/src/crashlytics_provider.dart'
     as _i15;
 import '../../packages/wrappers/wrapper_crashlytics/lib/src/di/crashlytics_module.dart'
-    as _i95;
+    as _i98;
 import '../../packages/wrappers/wrapper_crashlytics/lib/src/firebase/firebase_crashlytics_provider.dart'
-    as _i90;
+    as _i92;
 import '../../packages/wrappers/wrapper_crashlytics/lib/src/web/web_crashlytics_provider.dart'
     as _i16;
 import '../../packages/wrappers/wrapper_crashlytics/lib/wrapper_crashlytics.dart'
@@ -157,30 +161,32 @@ import '../../packages/wrappers/wrapper_html_unescape/lib/src/html_unescape_prov
 import '../../packages/wrappers/wrapper_html_unescape/lib/wrapper_html_unescape.dart'
     as _i57;
 import '../../packages/wrappers/wrapper_shared_preferences/lib/src/di/shared_preferences_module.dart'
-    as _i97;
+    as _i100;
 import '../../packages/wrappers/wrapper_shared_preferences/lib/src/shared_preferences_provider.dart'
     as _i68;
 import '../../packages/wrappers/wrapper_shared_preferences/lib/wrapper_shared_preferences.dart'
     as _i43;
-import '../../packages/wrappers/wrapper_twitter/lib/src/di/twitter_module.dart'
-    as _i99;
-import '../../packages/wrappers/wrapper_twitter/lib/src/twitter_provider.dart'
+import '../../packages/wrappers/wrapper_system_chrome/lib/src/system_chrome_provider.dart'
     as _i78;
+import '../../packages/wrappers/wrapper_twitter/lib/src/di/twitter_module.dart'
+    as _i102;
+import '../../packages/wrappers/wrapper_twitter/lib/src/twitter_provider.dart'
+    as _i80;
 import '../../packages/wrappers/wrapper_twitter/lib/wrapper_twitter.dart'
     as _i56;
 import '../../packages/wrappers/wrapper_url_launcher/lib/src/url_launcher_provider.dart'
-    as _i79;
+    as _i81;
 import '../../packages/wrappers/wrapper_url_launcher/lib/wrapper_url_launcher.dart'
     as _i6;
 import '../../packages/wrappers/wrapper_web_socket/lib/src/di/web_socket_module.dart'
-    as _i98;
+    as _i101;
 import '../../packages/wrappers/wrapper_web_socket/lib/src/web_socket_factory.dart'
-    as _i81;
+    as _i83;
 import '../../packages/wrappers/wrapper_web_socket/lib/src/web_socket_provider.dart'
-    as _i82;
+    as _i84;
 import '../../packages/wrappers/wrapper_web_socket/lib/wrapper_web_socket.dart'
     as _i70;
-import 'modules/flutter_module.dart' as _i92;
+import 'modules/flutter_module.dart' as _i95;
 
 const String _web = 'web';
 const String _mobile = 'mobile';
@@ -345,54 +351,59 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
           get<_i21.DataManager>(),
           get<_i53.CrashlyticsProvider>(),
           get<_i29.SnackBarService>(),
+          get<_i76.DisplayConfigService>(),
           get<_i12.Logger>()));
-  gh.lazySingleton<_i76.StringProvider>(() => _i76.StringProviderImpl());
-  gh.lazySingleton<_i77.TwitterApi>(
+  gh.lazySingleton<_i77.StringProvider>(() => _i77.StringProviderImpl());
+  gh.lazySingleton<_i78.SystemChromeProvider>(
+      () => _i78.SystemChromeProviderImpl());
+  gh.lazySingleton<_i79.TwitterApi>(
       () => twitterModule.provideTwitterApi(get<_i4.AppConfig>()));
-  gh.lazySingleton<_i78.TwitterProvider>(
-      () => _i78.TwitterProviderImpl(get<_i77.TwitterApi>()));
-  gh.lazySingleton<_i79.UrlLauncherProvider>(
-      () => _i79.UrlLauncherProviderImpl());
-  gh.factory<_i80.UserSettingsViewModel>(() => _i80.UserSettingsViewModel(
+  gh.lazySingleton<_i80.TwitterProvider>(
+      () => _i80.TwitterProviderImpl(get<_i79.TwitterApi>()));
+  gh.lazySingleton<_i81.UrlLauncherProvider>(
+      () => _i81.UrlLauncherProviderImpl());
+  gh.factory<_i82.UserSettingsViewModel>(() => _i82.UserSettingsViewModel(
       get<_i21.DataManager>(),
       get<_i29.SnackBarService>(),
       get<_i25.StringProvider>(),
       get<_i51.Logger>()));
-  gh.lazySingleton<_i81.WebSocketFactory>(() => _i81.WebSocketFactoryImpl());
-  gh.factory<_i82.WebSocketProvider>(
-      () => _i82.WebSocketProviderImpl(get<_i72.Socket>(), get<_i12.Logger>()));
-  gh.lazySingleton<_i83.YgoProDeckRestClient>(
-      () => _i83.YgoProDeckRestClient(get<_i32.Dio>()));
-  gh.factoryParam<_i84.YugiohCardDetailViewModel, _i21.YugiohCard?, int?>(
-      (_yugiohCard, _index) => _i84.YugiohCardDetailViewModel(
+  gh.lazySingleton<_i83.WebSocketFactory>(() => _i83.WebSocketFactoryImpl());
+  gh.factory<_i84.WebSocketProvider>(
+      () => _i84.WebSocketProviderImpl(get<_i72.Socket>(), get<_i12.Logger>()));
+  gh.lazySingleton<_i85.YgoProDeckRestClient>(
+      () => _i85.YgoProDeckRestClient(get<_i32.Dio>()));
+  gh.factoryParam<_i86.YugiohCardDetailViewModel, _i21.YugiohCard?, int?>(
+      (_yugiohCard, _index) => _i86.YugiohCardDetailViewModel(
           _yugiohCard, _index, get<_i12.Logger>()));
-  gh.lazySingleton<_i85.YugiohCardsDataManager>(() =>
-      _i85.YugiohCardsDataManagerImpl(get<_i86.YgoProDeckApiProvider>(),
+  gh.lazySingleton<_i87.YugiohCardsDataManager>(() =>
+      _i87.YugiohCardsDataManagerImpl(get<_i88.YgoProDeckApiProvider>(),
           get<_i36.YugiohCardsStorageProvider>()));
-  gh.lazySingleton<_i87.YugiohCardsStorageProvider>(
-      () => _i87.YugiohCardsStorageProviderImpl());
-  gh.lazySingleton<_i88.CloudDatabaseProvider>(
-      () => _i89.FirebaseCloudDatabaseProvider(get<_i47.FirebaseFirestore>()));
+  gh.lazySingleton<_i89.YugiohCardsStorageProvider>(
+      () => _i89.YugiohCardsStorageProviderImpl());
+  gh.lazySingleton<_i90.CloudDatabaseProvider>(
+      () => _i91.FirebaseCloudDatabaseProvider(get<_i47.FirebaseFirestore>()));
   gh.lazySingleton<_i15.CrashlyticsProvider>(
-      () => _i90.FirebaseCrashlyticsProvider(get<_i46.FirebaseCrashlytics>()),
+      () => _i92.FirebaseCrashlyticsProvider(get<_i46.FirebaseCrashlytics>()),
       registerFor: {_mobile});
-  gh.lazySingleton<_i91.YgoProDeckApiProvider>(
-      () => _i91.YgoProDeckApiProviderImpl(get<_i83.YgoProDeckRestClient>()));
+  gh.lazySingleton<_i93.DisplayConfigService>(
+      () => _i93.DisplayConfigServiceImpl(get<_i78.SystemChromeProvider>()));
+  gh.lazySingleton<_i94.YgoProDeckApiProvider>(
+      () => _i94.YgoProDeckApiProviderImpl(get<_i85.YgoProDeckRestClient>()));
   return get;
 }
 
-class _$FlutterModule extends _i92.FlutterModule {}
+class _$FlutterModule extends _i95.FlutterModule {}
 
-class _$LocalizationModule extends _i93.LocalizationModule {}
+class _$LocalizationModule extends _i96.LocalizationModule {}
 
-class _$YgoProDeckModule extends _i94.YgoProDeckModule {}
+class _$YgoProDeckModule extends _i97.YgoProDeckModule {}
 
-class _$CrashlyticsModule extends _i95.CrashlyticsModule {}
+class _$CrashlyticsModule extends _i98.CrashlyticsModule {}
 
-class _$CloudDatabaseModule extends _i96.CloudDatabaseModule {}
+class _$CloudDatabaseModule extends _i99.CloudDatabaseModule {}
 
-class _$SharedPreferencesModule extends _i97.SharedPreferencesModule {}
+class _$SharedPreferencesModule extends _i100.SharedPreferencesModule {}
 
-class _$SocketIoModule extends _i98.SocketIoModule {}
+class _$SocketIoModule extends _i101.SocketIoModule {}
 
-class _$TwitterModule extends _i99.TwitterModule {}
+class _$TwitterModule extends _i102.TwitterModule {}

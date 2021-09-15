@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_display_config/lib/core_display_config.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_messaging/lib/core_messaging.dart';
@@ -45,6 +46,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   final DataManager _dataManager;
   final CrashlyticsProvider _crashlyticsProvider;
   final SnackBarService _snackBarService;
+  final DisplayConfigService _displayConfigService;
 
   final _duelState = BehaviorSubject<SpeedDuelState>();
 
@@ -74,6 +76,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     this._dataManager,
     this._crashlyticsProvider,
     this._snackBarService,
+    this._displayConfigService,
     Logger logger,
   ) : super(logger);
 
@@ -96,6 +99,8 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   Future<void> init() async {
     logger.info(_tag, '_init()');
+
+    await _displayConfigService.useDuelMode();
 
     try {
       _initSpeedDuelStateSubscription();
@@ -609,17 +614,19 @@ class SpeedDuelViewModel extends BaseViewModel {
   //region Clean-up
 
   @override
-  void dispose() {
+  Future<void> dispose() async {
     logger.info(_tag, 'dispose()');
+
+    await _displayConfigService.useDefaultMode();
 
     _cancelSpeedDuelStateSubscription();
     _cancelSmartDuelEventSubscription();
 
     _smartDuelServer.dispose();
 
-    _duelState.close();
-    _screenState.close();
-    _screenEvent.close();
+    await _duelState.close();
+    await _screenState.close();
+    await _screenEvent.close();
 
     super.dispose();
   }
