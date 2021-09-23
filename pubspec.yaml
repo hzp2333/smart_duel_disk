@@ -34,6 +34,7 @@ dependencies:
   intl: ^0.17.0
   json_annotation: ^4.1.0
   logger: ^1.1.0
+  lottie: ^1.1.0
   pretty_dio_logger: ^1.2.0-beta-1
   provider: ^6.0.0
   retrofit: ^2.0.1
@@ -66,11 +67,12 @@ flutter:
   uses-material-design: true
 
   assets:
-    - secrets.env
+    - assets/animations/
+    - assets/html/
+    - assets/icons/
     - assets/illustrations/
     - assets/illustrations/duelists/
-    - assets/icons/
-    - assets/html/
+    - secrets.env
 
 scripts:
   clean: flutter clean

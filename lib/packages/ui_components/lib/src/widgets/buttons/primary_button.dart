@@ -12,20 +12,23 @@ class PrimaryButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        primary: AppColors.primaryAccentColor,
-        minimumSize: const Size(double.infinity, AppSizes.buttonHeight),
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(AppSizes.generalBorderRadius),
-          ),
+    return DecoratedBox(
+      decoration: const ShapeDecoration(
+        shape: StadiumBorder(),
+        gradient: LinearGradient(
+          colors: [AppColors.secondaryLogoColor, AppColors.primaryLogoColor],
         ),
       ),
-      child: Text(
-        text,
-        style: TextStyles.button,
+      child: MaterialButton(
+        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+        shape: const StadiumBorder(),
+        minWidth: double.infinity,
+        height: AppSizes.buttonHeight,
+        onPressed: onPressed,
+        child: Text(
+          text,
+          style: TextStyles.button,
+        ),
       ),
     );
   }

@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/generated/assets.gen.dart';
 import 'package:smart_duel_disk/generated/locale_keys.g.dart';
@@ -24,27 +27,84 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return DecoratedBox(
       decoration: const BoxDecoration(
         gradient: AppColors.onboardingBackgroundGradient,
       ),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(AppSizes.screenMarginLarge),
-          child: Column(
-            children: const [
-              Expanded(
-                flex: 9,
-                child: _Header(),
+      child: Stack(
+        children: [
+          if (!kIsWeb) ...{
+            const Positioned.fill(
+              child: _AnimatedBackground(),
+            ),
+          },
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(AppSizes.screenMarginLarge),
+              child: Column(
+                children: const [
+                  Expanded(
+                    flex: 9,
+                    child: _Header(),
+                  ),
+                  Expanded(
+                    flex: 8,
+                    child: _Footer(),
+                  ),
+                  _Disclaimer(),
+                ],
               ),
-              Expanded(
-                flex: 8,
-                child: _Actions(),
-              ),
-              _Footer(),
-            ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _AnimatedBackground extends StatelessWidget {
+  const _AnimatedBackground();
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        const Positioned.fill(child: _CircuitBackground()),
+        Positioned.fill(
+          child: DecoratedBox(
+            decoration: BoxDecoration(color: Colors.black.withOpacity(0.7)),
           ),
         ),
+        Positioned.fill(
+          child: Lottie.asset(
+            Assets.animations.starryBackground,
+            fit: BoxFit.fill,
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _CircuitBackground extends HookWidget {
+  const _CircuitBackground();
+
+  @override
+  Widget build(BuildContext context) {
+    final controller = useAnimationController();
+
+    return RotatedBox(
+      quarterTurns: 1,
+      child: Lottie.asset(
+        Assets.animations.circuitBackground,
+        fit: BoxFit.fill,
+        controller: controller,
+        frameRate: FrameRate(60),
+        onLoaded: (composition) {
+          controller
+            ..duration = composition.duration * 2
+            ..repeat();
+        },
       ),
     );
   }
@@ -58,16 +118,16 @@ class _Header extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: const [
-        _CompanyLogo(),
+        _CrownCorpLogo(),
         SizedBox(height: AppSizes.screenMarginSmall),
-        _AppName(),
+        _AppTitle(),
       ],
     );
   }
 }
 
-class _CompanyLogo extends StatelessWidget {
-  const _CompanyLogo();
+class _CrownCorpLogo extends StatelessWidget {
+  const _CrownCorpLogo();
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +138,8 @@ class _CompanyLogo extends StatelessWidget {
   }
 }
 
-class _AppName extends StatelessWidget with ProviderMixin {
-  const _AppName();
+class _AppTitle extends StatelessWidget with ProviderMixin {
+  const _AppTitle();
 
   @override
   Widget build(BuildContext context) {
@@ -95,8 +155,8 @@ class _AppName extends StatelessWidget with ProviderMixin {
   }
 }
 
-class _Actions extends StatelessWidget with ProviderMixin {
-  const _Actions();
+class _Footer extends StatelessWidget with ProviderMixin {
+  const _Footer();
 
   @override
   Widget build(BuildContext context) {
@@ -105,23 +165,26 @@ class _Actions extends StatelessWidget with ProviderMixin {
 
     return Align(
       alignment: Alignment.bottomCenter,
-      child: PrimaryButton(
-        text: stringProvider.getString(LocaleKeys.onboarding_initiate_link),
-        onPressed: vm.onInitiateLinkPressed,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: AppSizes.screenMarginSmall),
+        child: PrimaryButton(
+          text: stringProvider.getString(LocaleKeys.onboarding_initiate_link),
+          onPressed: vm.onInitiateLinkPressed,
+        ),
       ),
     );
   }
 }
 
-class _Footer extends StatelessWidget with ProviderMixin {
-  const _Footer();
+class _Disclaimer extends StatelessWidget with ProviderMixin {
+  const _Disclaimer();
 
   @override
   Widget build(BuildContext context) {
     final stringProvider = getStringProvider(context);
 
     return Padding(
-      padding: const EdgeInsets.only(top: AppSizes.onboardingFooterMarginTop),
+      padding: const EdgeInsets.only(top: 28.0),
       child: Text(
         stringProvider.getString(LocaleKeys.onboarding_fineprint),
         textAlign: TextAlign.center,

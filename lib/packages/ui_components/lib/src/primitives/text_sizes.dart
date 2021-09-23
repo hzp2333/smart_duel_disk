@@ -6,7 +6,7 @@ class TextSizes {
 
   static const cardDialogBigText = 18.0;
 
-  static const button = 16.0;
+  static const button = 18.0;
 
   static const onboardingAppTitle = 42.0;
   static const onboardingFineprint = 13.0;

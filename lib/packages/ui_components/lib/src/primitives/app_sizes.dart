@@ -8,7 +8,7 @@ class AppSizes {
   static const iconSize16 = 16.0;
   static const iconSize24 = 24.0;
 
-  static const buttonHeight = 48.0;
+  static const buttonHeight = 52.0;
 
   static const cardAnimationBorderRadius = 4.0;
   static const generalBorderRadius = 8.0;
@@ -44,6 +44,4 @@ class AppSizes {
   static const duelFieldCardSpacing = 8.0;
   static const duelFieldFirstSecondRowSpacing = 16.0;
   static const duelFieldSecondHandRowSpacing = 32.0;
-
-  static const onboardingFooterMarginTop = 40.0;
 }

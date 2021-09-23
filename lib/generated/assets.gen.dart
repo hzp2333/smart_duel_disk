@@ -5,6 +5,13 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsAnimationsGen {
+  const $AssetsAnimationsGen();
+
+  String get circuitBackground => 'assets/animations/circuit_background.json';
+  String get starryBackground => 'assets/animations/starry_background.json';
+}
+
 class $AssetsHtmlGen {
   const $AssetsHtmlGen();
 
@@ -47,6 +54,7 @@ class $AssetsIllustrationsDuelistsGen {
 class Assets {
   Assets._();
 
+  static const $AssetsAnimationsGen animations = $AssetsAnimationsGen();
   static const $AssetsHtmlGen html = $AssetsHtmlGen();
   static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsIllustrationsGen illustrations = $AssetsIllustrationsGen();
