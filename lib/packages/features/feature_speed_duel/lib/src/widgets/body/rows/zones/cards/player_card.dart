@@ -129,8 +129,6 @@ class CardImage extends StatelessWidget {
                       placeholder: (_, __) => cardSleeve,
                       // ignore: avoid_annotating_with_dynamic
                       errorWidget: (_, __, dynamic ___) => cardSleeve,
-                      height: playCard!.position.isAttack ? zoneHeight : null,
-                      width: playCard!.position.isAttack ? null : zoneHeight,
                       fit: BoxFit.contain,
                     )
                   : cardSleeve,
