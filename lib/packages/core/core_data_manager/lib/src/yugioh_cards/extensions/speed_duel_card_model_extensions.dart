@@ -1,6 +1,5 @@
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
-
-import '../models/speed_duel_card_model.dart';
+import 'package:smart_duel_disk/packages/core/core_ygoprodeck/lib/core_ygoprodeck.dart';
 
 extension SpeedDuelCardModelExtensions on SpeedDuelCardModel {
   YugiohCard toEntity() {

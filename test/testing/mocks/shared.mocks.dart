@@ -15,7 +15,7 @@ import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_ma
     as _i2;
 import 'package:smart_duel_disk/packages/core/core_localization/lib/core_localization.dart'
     as _i21;
-import 'package:smart_duel_disk/packages/core/core_logger/lib/src/logger.dart'
+import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart'
     as _i6;
 import 'package:smart_duel_disk/packages/core/core_messaging/lib/src/snack_bar/snack_bar_service.dart'
     as _i14;
@@ -249,16 +249,16 @@ class MockDataManager extends _i1.Mock implements _i2.DataManager {
           returnValue: Future<Iterable<_i2.NewsItem>>.value(<_i2.NewsItem>[]))
       as _i3.Future<Iterable<_i2.NewsItem>>);
   @override
+  _i3.Future<_i2.YugiohCard> getSpeedDuelCard(int? cardId) =>
+      (super.noSuchMethod(Invocation.method(#getSpeedDuelCard, [cardId]),
+              returnValue: Future<_i2.YugiohCard>.value(_FakeYugiohCard_0()))
+          as _i3.Future<_i2.YugiohCard>);
+  @override
   _i3.Future<Iterable<_i2.YugiohCard>> getSpeedDuelCards() =>
       (super.noSuchMethod(Invocation.method(#getSpeedDuelCards, []),
               returnValue:
                   Future<Iterable<_i2.YugiohCard>>.value(<_i2.YugiohCard>[]))
           as _i3.Future<Iterable<_i2.YugiohCard>>);
-  @override
-  _i3.Future<_i2.YugiohCard> getSpeedDuelCard(int? cardId) =>
-      (super.noSuchMethod(Invocation.method(#getSpeedDuelCard, [cardId]),
-              returnValue: Future<_i2.YugiohCard>.value(_FakeYugiohCard_0()))
-          as _i3.Future<_i2.YugiohCard>);
   @override
   _i3.Future<_i2.YugiohCard> getToken() =>
       (super.noSuchMethod(Invocation.method(#getToken, []),

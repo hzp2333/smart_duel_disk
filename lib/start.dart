@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/generated/codegen_loader.g.dart';
 import 'package:smart_duel_disk/packages/core/core_config/lib/core_config.dart';
@@ -16,6 +17,7 @@ import 'src/di/di.dart';
 Future<void> start(AppConfig appConfig, Environment environment) async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  await Hive.initFlutter();
   await EasyLocalization.ensureInitialized();
   EasyLocalization.logger.enableBuildModes = [];
 

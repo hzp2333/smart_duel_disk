@@ -1,41 +1,58 @@
+import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
-import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
+import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart';
 
 abstract class YugiohCardsStorageProvider {
-  Iterable<YugiohCard>? getSpeedDuelCards();
-  Future<void> saveSpeedDuelCards(Iterable<YugiohCard> speedDuelCards);
-  YugiohCard getSpeedDuelCard(int cardId);
-  YugiohCard? getToken();
-  Future<void> saveToken(YugiohCard token);
+  DbYugiohCard? getSpeedDuelCard(int cardId);
+  Iterable<DbYugiohCard>? getSpeedDuelCards();
+  Future<void> saveSpeedDuelCard(DbYugiohCard card);
+  Future<void> saveSpeedDuelCards(Iterable<DbYugiohCard> cards);
 }
 
 @LazySingleton(as: YugiohCardsStorageProvider)
 class YugiohCardsStorageProviderImpl implements YugiohCardsStorageProvider {
-  Iterable<YugiohCard>? _speedDuelCards;
-  YugiohCard? _token;
+  static const _tag = 'YugiohCardsStorageProviderImpl';
+
+  final Box<DbYugiohCard> _box;
+  final Logger _logger;
+
+  YugiohCardsStorageProviderImpl(
+    this._box,
+    this._logger,
+  );
 
   @override
-  Iterable<YugiohCard>? getSpeedDuelCards() {
-    return _speedDuelCards;
+  DbYugiohCard? getSpeedDuelCard(int cardId) {
+    _logger.info(_tag, 'getSpeedDuelCard(cardId: $cardId)');
+
+    return _box.get(cardId);
   }
 
   @override
-  Future<void> saveSpeedDuelCards(Iterable<YugiohCard> speedDuelCards) async {
-    _speedDuelCards = speedDuelCards;
+  Iterable<DbYugiohCard>? getSpeedDuelCards() {
+    _logger.info(_tag, 'getSpeedDuelCards()');
+
+    final cards = _box.values;
+    return cards.isEmpty ? null : cards;
   }
 
   @override
-  YugiohCard getSpeedDuelCard(int cardId) {
-    return _speedDuelCards!.firstWhere((card) => card.id == cardId);
+  Future<void> saveSpeedDuelCard(DbYugiohCard card) async {
+    _logger.info(_tag, 'saveSpeedDuelCard(card: ${card.id})');
+
+    await _box.put(card.id, card);
   }
 
   @override
-  YugiohCard? getToken() {
-    return _token;
-  }
+  Future<void> saveSpeedDuelCards(Iterable<DbYugiohCard> cards) async {
+    _logger.info(_tag, 'saveSpeedDuelCards()');
 
-  @override
-  Future<void> saveToken(YugiohCard token) async {
-    _token = token;
+    final map = <int, DbYugiohCard>{};
+    for (final card in cards) {
+      map[card.id] = card;
+    }
+
+    await _box.putAll(map);
   }
 }

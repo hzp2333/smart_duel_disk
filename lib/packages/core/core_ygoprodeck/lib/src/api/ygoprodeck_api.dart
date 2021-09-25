@@ -12,9 +12,11 @@ abstract class YgoProDeckRestClient {
   @factoryMethod
   factory YgoProDeckRestClient(Dio dio) = _YgoProDeckRestClient;
 
+  @GET('/cardinfo.php?id={id}')
+  Future<GetSpeedDuelCardsResponseModel> getSpeedDuelCard({
+    @Path('id') required int id,
+  });
+
   @GET('/cardinfo.php?format=Speed%20Duel')
   Future<GetSpeedDuelCardsResponseModel> getSpeedDuelCards();
-
-  @GET('/cardinfo.php?name=Sheep%20Token')
-  Future<GetSpeedDuelCardsResponseModel> getToken();
 }

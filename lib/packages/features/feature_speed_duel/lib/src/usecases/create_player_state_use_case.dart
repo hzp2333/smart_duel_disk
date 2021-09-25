@@ -19,10 +19,10 @@ class CreatePlayerStateUseCase {
   );
 
   Future<PlayerState> call(Duelist duelist, {bool isOpponent = false}) async {
+    final allCards = await _dataManager.getSpeedDuelCards();
+
     // TODO: we do this here to cache the token, can be improved
     await _dataManager.getToken();
-
-    final allCards = await _dataManager.getSpeedDuelCards();
 
     // TODO: as this is a heavy computation we should probably spawn an isolate.
     // Curently having a problem with that though: Invalid argument(s): Illegal argument in isolate message : (object is a closure - Function '<anonymous closure>':.)

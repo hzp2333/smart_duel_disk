@@ -1,31 +1,39 @@
 import 'package:injectable/injectable.dart';
-import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
+import 'package:smart_duel_disk/packages/core/core_ygoprodeck/lib/core_ygoprodeck.dart';
 
 import 'api/ygoprodeck_api.dart';
-import 'extensions/speed_duel_card_model_extensions.dart';
 
 abstract class YgoProDeckApiProvider {
-  Future<Iterable<YugiohCard>> getSpeedDuelCards();
-  Future<YugiohCard> getToken();
+  Future<SpeedDuelCardModel> getSpeedDuelCard(int id);
+  Future<Iterable<SpeedDuelCardModel>> getSpeedDuelCards();
 }
 
 @LazySingleton(as: YgoProDeckApiProvider)
 class YgoProDeckApiProviderImpl implements YgoProDeckApiProvider {
+  static const _tag = 'YgoProDeckApiProviderImpl';
+
   final YgoProDeckRestClient _restClient;
+  final Logger _logger;
 
   YgoProDeckApiProviderImpl(
     this._restClient,
+    this._logger,
   );
 
   @override
-  Future<Iterable<YugiohCard>> getSpeedDuelCards() async {
-    final response = await _restClient.getSpeedDuelCards();
-    return response.speedDuelCards.map((card) => card.toEntity());
+  Future<SpeedDuelCardModel> getSpeedDuelCard(int id) async {
+    _logger.info(_tag, 'getSpeedDuelCard(id: $id)');
+
+    final response = await _restClient.getSpeedDuelCard(id: id);
+    return response.speedDuelCards.first;
   }
 
   @override
-  Future<YugiohCard> getToken() async {
-    final response = await _restClient.getToken();
-    return response.speedDuelCards.first.toEntity();
+  Future<Iterable<SpeedDuelCardModel>> getSpeedDuelCards() async {
+    _logger.info(_tag, 'getSpeedDuelCards()');
+
+    final response = await _restClient.getSpeedDuelCards();
+    return response.speedDuelCards;
   }
 }

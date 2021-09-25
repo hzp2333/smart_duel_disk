@@ -1,6 +1,6 @@
 library core_ygoprodeck;
 
-export 'src/extensions/speed_duel_card_model_extensions.dart';
+export '../../core_data_manager/lib/src/yugioh_cards/extensions/speed_duel_card_model_extensions.dart';
 export 'src/models/ban_list_info_model.dart';
 export 'src/models/card_image_model.dart';
 export 'src/models/card_price_model.dart';

@@ -14,6 +14,21 @@ class _YgoProDeckRestClient implements YgoProDeckRestClient {
   String? baseUrl;
 
   @override
+  Future<GetSpeedDuelCardsResponseModel> getSpeedDuelCard({required id}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<GetSpeedDuelCardsResponseModel>(
+            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+                .compose(_dio.options, '/cardinfo.php?id=$id',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = GetSpeedDuelCardsResponseModel.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<GetSpeedDuelCardsResponseModel> getSpeedDuelCards() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
@@ -22,21 +37,6 @@ class _YgoProDeckRestClient implements YgoProDeckRestClient {
         _setStreamType<GetSpeedDuelCardsResponseModel>(
             Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
                 .compose(_dio.options, '/cardinfo.php?format=Speed%20Duel',
-                    queryParameters: queryParameters, data: _data)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = GetSpeedDuelCardsResponseModel.fromJson(_result.data!);
-    return value;
-  }
-
-  @override
-  Future<GetSpeedDuelCardsResponseModel> getToken() async {
-    const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
-    final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<Map<String, dynamic>>(
-        _setStreamType<GetSpeedDuelCardsResponseModel>(
-            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, '/cardinfo.php?name=Sheep%20Token',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     final value = GetSpeedDuelCardsResponseModel.fromJson(_result.data!);
