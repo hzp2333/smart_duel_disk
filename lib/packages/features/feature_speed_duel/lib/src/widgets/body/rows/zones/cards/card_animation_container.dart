@@ -54,22 +54,26 @@ class _CardAnimationContainerState extends State<CardAnimationContainer> with Si
   }
 
   Future<void> _playAnimation(CardAnimation cardAnimation) async {
-    // Set the animation color and duration.
-    _animationColor = cardAnimation.animationColor;
-    _animationController.duration = cardAnimation.animationDuration;
+    try {
+      // Set the animation color and duration.
+      _animationColor = cardAnimation.animationColor;
+      _animationController.duration = cardAnimation.animationDuration;
 
-    // Reset the animation controller in case an animation was still playing.
-    _animationController.reset();
+      // Reset the animation controller in case an animation was still playing.
+      _animationController.reset();
 
-    // Wait for a given duration and then play the animation forward.
-    await Future.delayed(cardAnimation.waitTime, () async {
-      if (mounted) await _animationController.forward();
-    });
+      // Wait for a given duration and then play the animation forward.
+      await Future.delayed(cardAnimation.waitTime, () async {
+        if (mounted) await _animationController.forward();
+      });
 
-    // Play the animation backward to the start point.
-    if (mounted) await _animationController.animateBack(0.0);
+      // Play the animation backward to the start point.
+      if (mounted) await _animationController.animateBack(0.0);
 
-    setState(() => _resetAnimationColor());
+      if (mounted) setState(() => _resetAnimationColor());
+    } catch (e) {
+      // Silently ignore.
+    }
   }
 
   @override

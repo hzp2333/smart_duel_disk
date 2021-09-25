@@ -37,7 +37,7 @@ class CardEventAnimationHandler {
       ),
     );
 
-    if (targetZone.zoneType.isMainMonsterZone) {
+    if (targetZone.zoneType.isMainMonsterZone && targetZone.cards.isNotEmpty) {
       final targettedCard = targetZone.cards.first;
 
       _cardAnimations.safeAdd(
