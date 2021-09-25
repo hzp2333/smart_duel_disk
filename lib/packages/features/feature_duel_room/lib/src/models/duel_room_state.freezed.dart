@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'duel_room_state.dart';
 
@@ -65,6 +66,16 @@ mixin _$DuelRoomState {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? connecting,
+    TResult Function()? connected,
+    TResult Function(String roomName)? createRoom,
+    TResult Function(String roomName)? joinRoom,
+    TResult Function()? ready,
+    TResult Function(String errorMessage, void Function() retryAction)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? connecting,
     TResult Function()? connected,
@@ -83,6 +94,16 @@ mixin _$DuelRoomState {
     required TResult Function(DuelRoomJoin value) joinRoom,
     required TResult Function(DuelRoomReady value) ready,
     required TResult Function(DuelRoomError value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DuelRoomConnecting value)? connecting,
+    TResult Function(DuelRoomConnected value)? connected,
+    TResult Function(DuelRoomCreate value)? createRoom,
+    TResult Function(DuelRoomJoin value)? joinRoom,
+    TResult Function(DuelRoomReady value)? ready,
+    TResult Function(DuelRoomError value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -176,6 +197,19 @@ class _$DuelRoomConnecting
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? connecting,
+    TResult Function()? connected,
+    TResult Function(String roomName)? createRoom,
+    TResult Function(String roomName)? joinRoom,
+    TResult Function()? ready,
+    TResult Function(String errorMessage, void Function() retryAction)? error,
+  }) {
+    return connecting?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? connecting,
     TResult Function()? connected,
@@ -202,6 +236,19 @@ class _$DuelRoomConnecting
     required TResult Function(DuelRoomError value) error,
   }) {
     return connecting(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DuelRoomConnecting value)? connecting,
+    TResult Function(DuelRoomConnected value)? connected,
+    TResult Function(DuelRoomCreate value)? createRoom,
+    TResult Function(DuelRoomJoin value)? joinRoom,
+    TResult Function(DuelRoomReady value)? ready,
+    TResult Function(DuelRoomError value)? error,
+  }) {
+    return connecting?.call(this);
   }
 
   @override
@@ -287,6 +334,19 @@ class _$DuelRoomConnected
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? connecting,
+    TResult Function()? connected,
+    TResult Function(String roomName)? createRoom,
+    TResult Function(String roomName)? joinRoom,
+    TResult Function()? ready,
+    TResult Function(String errorMessage, void Function() retryAction)? error,
+  }) {
+    return connected?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? connecting,
     TResult Function()? connected,
@@ -313,6 +373,19 @@ class _$DuelRoomConnected
     required TResult Function(DuelRoomError value) error,
   }) {
     return connected(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DuelRoomConnecting value)? connecting,
+    TResult Function(DuelRoomConnected value)? connected,
+    TResult Function(DuelRoomCreate value)? createRoom,
+    TResult Function(DuelRoomJoin value)? joinRoom,
+    TResult Function(DuelRoomReady value)? ready,
+    TResult Function(DuelRoomError value)? error,
+  }) {
+    return connected?.call(this);
   }
 
   @override
@@ -424,6 +497,19 @@ class _$DuelRoomCreate with DiagnosticableTreeMixin implements DuelRoomCreate {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? connecting,
+    TResult Function()? connected,
+    TResult Function(String roomName)? createRoom,
+    TResult Function(String roomName)? joinRoom,
+    TResult Function()? ready,
+    TResult Function(String errorMessage, void Function() retryAction)? error,
+  }) {
+    return createRoom?.call(roomName);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? connecting,
     TResult Function()? connected,
@@ -450,6 +536,19 @@ class _$DuelRoomCreate with DiagnosticableTreeMixin implements DuelRoomCreate {
     required TResult Function(DuelRoomError value) error,
   }) {
     return createRoom(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DuelRoomConnecting value)? connecting,
+    TResult Function(DuelRoomConnected value)? connected,
+    TResult Function(DuelRoomCreate value)? createRoom,
+    TResult Function(DuelRoomJoin value)? joinRoom,
+    TResult Function(DuelRoomReady value)? ready,
+    TResult Function(DuelRoomError value)? error,
+  }) {
+    return createRoom?.call(this);
   }
 
   @override
@@ -565,6 +664,19 @@ class _$DuelRoomJoin with DiagnosticableTreeMixin implements DuelRoomJoin {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? connecting,
+    TResult Function()? connected,
+    TResult Function(String roomName)? createRoom,
+    TResult Function(String roomName)? joinRoom,
+    TResult Function()? ready,
+    TResult Function(String errorMessage, void Function() retryAction)? error,
+  }) {
+    return joinRoom?.call(roomName);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? connecting,
     TResult Function()? connected,
@@ -591,6 +703,19 @@ class _$DuelRoomJoin with DiagnosticableTreeMixin implements DuelRoomJoin {
     required TResult Function(DuelRoomError value) error,
   }) {
     return joinRoom(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DuelRoomConnecting value)? connecting,
+    TResult Function(DuelRoomConnected value)? connected,
+    TResult Function(DuelRoomCreate value)? createRoom,
+    TResult Function(DuelRoomJoin value)? joinRoom,
+    TResult Function(DuelRoomReady value)? ready,
+    TResult Function(DuelRoomError value)? error,
+  }) {
+    return joinRoom?.call(this);
   }
 
   @override
@@ -679,6 +804,19 @@ class _$DuelRoomReady with DiagnosticableTreeMixin implements DuelRoomReady {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? connecting,
+    TResult Function()? connected,
+    TResult Function(String roomName)? createRoom,
+    TResult Function(String roomName)? joinRoom,
+    TResult Function()? ready,
+    TResult Function(String errorMessage, void Function() retryAction)? error,
+  }) {
+    return ready?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? connecting,
     TResult Function()? connected,
@@ -705,6 +843,19 @@ class _$DuelRoomReady with DiagnosticableTreeMixin implements DuelRoomReady {
     required TResult Function(DuelRoomError value) error,
   }) {
     return ready(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DuelRoomConnecting value)? connecting,
+    TResult Function(DuelRoomConnected value)? connected,
+    TResult Function(DuelRoomCreate value)? createRoom,
+    TResult Function(DuelRoomJoin value)? joinRoom,
+    TResult Function(DuelRoomReady value)? ready,
+    TResult Function(DuelRoomError value)? error,
+  }) {
+    return ready?.call(this);
   }
 
   @override
@@ -829,6 +980,19 @@ class _$DuelRoomError with DiagnosticableTreeMixin implements DuelRoomError {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? connecting,
+    TResult Function()? connected,
+    TResult Function(String roomName)? createRoom,
+    TResult Function(String roomName)? joinRoom,
+    TResult Function()? ready,
+    TResult Function(String errorMessage, void Function() retryAction)? error,
+  }) {
+    return error?.call(errorMessage, retryAction);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? connecting,
     TResult Function()? connected,
@@ -855,6 +1019,19 @@ class _$DuelRoomError with DiagnosticableTreeMixin implements DuelRoomError {
     required TResult Function(DuelRoomError value) error,
   }) {
     return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DuelRoomConnecting value)? connecting,
+    TResult Function(DuelRoomConnected value)? connected,
+    TResult Function(DuelRoomCreate value)? createRoom,
+    TResult Function(DuelRoomJoin value)? joinRoom,
+    TResult Function(DuelRoomReady value)? ready,
+    TResult Function(DuelRoomError value)? error,
+  }) {
+    return error?.call(this);
   }
 
   @override

@@ -9,8 +9,21 @@ import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
 import '../onboarding_viewmodel.dart';
 
-class OnboardingScreen extends StatelessWidget {
+class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen();
+
+  @override
+  State<OnboardingScreen> createState() => _OnboardingScreenState();
+}
+
+class _OnboardingScreenState extends State<OnboardingScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    final vm = Provider.of<OnboardingViewModel>(context, listen: false);
+    vm.init();
+  }
 
   @override
   Widget build(BuildContext context) {

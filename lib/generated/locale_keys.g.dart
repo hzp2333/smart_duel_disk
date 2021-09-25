@@ -46,6 +46,8 @@ abstract class  LocaleKeys {
   static const home_tab_duel = 'home_tab_duel';
   static const home_tab_news = 'home_tab_news';
   static const news_general_error_description = 'news_general_error_description';
+  static const no_connection_dialog_description = 'no_connection_dialog_description';
+  static const no_connection_dialog_title = 'no_connection_dialog_title';
   static const onboarding_app_title = 'onboarding_app_title';
   static const onboarding_fineprint = 'onboarding_fineprint';
   static const onboarding_initiate_link = 'onboarding_initiate_link';

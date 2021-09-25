@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'deck_builder_state.dart';
 
@@ -56,6 +57,15 @@ mixin _$DeckBuilderState {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Iterable<YugiohCard> cards)? filtered,
+    TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
+    TResult Function()? loading,
+    TResult Function()? noData,
+    TResult Function()? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Iterable<YugiohCard> cards)? filtered,
     TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
@@ -72,6 +82,15 @@ mixin _$DeckBuilderState {
     required TResult Function(DeckBuilderLoading value) loading,
     required TResult Function(DeckBuilderNoData value) noData,
     required TResult Function(DeckBuilderError value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DeckBuilderFiltered value)? filtered,
+    TResult Function(DeckBuilderPreBuilt value)? preBuilt,
+    TResult Function(DeckBuilderLoading value)? loading,
+    TResult Function(DeckBuilderNoData value)? noData,
+    TResult Function(DeckBuilderError value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -179,6 +198,18 @@ class _$DeckBuilderFiltered implements DeckBuilderFiltered {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Iterable<YugiohCard> cards)? filtered,
+    TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
+    TResult Function()? loading,
+    TResult Function()? noData,
+    TResult Function()? error,
+  }) {
+    return filtered?.call(cards);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Iterable<YugiohCard> cards)? filtered,
     TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
@@ -203,6 +234,18 @@ class _$DeckBuilderFiltered implements DeckBuilderFiltered {
     required TResult Function(DeckBuilderError value) error,
   }) {
     return filtered(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DeckBuilderFiltered value)? filtered,
+    TResult Function(DeckBuilderPreBuilt value)? preBuilt,
+    TResult Function(DeckBuilderLoading value)? loading,
+    TResult Function(DeckBuilderNoData value)? noData,
+    TResult Function(DeckBuilderError value)? error,
+  }) {
+    return filtered?.call(this);
   }
 
   @override
@@ -309,6 +352,18 @@ class _$DeckBuilderPreBuilt implements DeckBuilderPreBuilt {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Iterable<YugiohCard> cards)? filtered,
+    TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
+    TResult Function()? loading,
+    TResult Function()? noData,
+    TResult Function()? error,
+  }) {
+    return preBuilt?.call(sections);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Iterable<YugiohCard> cards)? filtered,
     TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
@@ -333,6 +388,18 @@ class _$DeckBuilderPreBuilt implements DeckBuilderPreBuilt {
     required TResult Function(DeckBuilderError value) error,
   }) {
     return preBuilt(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DeckBuilderFiltered value)? filtered,
+    TResult Function(DeckBuilderPreBuilt value)? preBuilt,
+    TResult Function(DeckBuilderLoading value)? loading,
+    TResult Function(DeckBuilderNoData value)? noData,
+    TResult Function(DeckBuilderError value)? error,
+  }) {
+    return preBuilt?.call(this);
   }
 
   @override
@@ -414,6 +481,18 @@ class _$DeckBuilderLoading implements DeckBuilderLoading {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Iterable<YugiohCard> cards)? filtered,
+    TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
+    TResult Function()? loading,
+    TResult Function()? noData,
+    TResult Function()? error,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Iterable<YugiohCard> cards)? filtered,
     TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
@@ -438,6 +517,18 @@ class _$DeckBuilderLoading implements DeckBuilderLoading {
     required TResult Function(DeckBuilderError value) error,
   }) {
     return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DeckBuilderFiltered value)? filtered,
+    TResult Function(DeckBuilderPreBuilt value)? preBuilt,
+    TResult Function(DeckBuilderLoading value)? loading,
+    TResult Function(DeckBuilderNoData value)? noData,
+    TResult Function(DeckBuilderError value)? error,
+  }) {
+    return loading?.call(this);
   }
 
   @override
@@ -512,6 +603,18 @@ class _$DeckBuilderNoData implements DeckBuilderNoData {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Iterable<YugiohCard> cards)? filtered,
+    TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
+    TResult Function()? loading,
+    TResult Function()? noData,
+    TResult Function()? error,
+  }) {
+    return noData?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Iterable<YugiohCard> cards)? filtered,
     TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
@@ -536,6 +639,18 @@ class _$DeckBuilderNoData implements DeckBuilderNoData {
     required TResult Function(DeckBuilderError value) error,
   }) {
     return noData(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DeckBuilderFiltered value)? filtered,
+    TResult Function(DeckBuilderPreBuilt value)? preBuilt,
+    TResult Function(DeckBuilderLoading value)? loading,
+    TResult Function(DeckBuilderNoData value)? noData,
+    TResult Function(DeckBuilderError value)? error,
+  }) {
+    return noData?.call(this);
   }
 
   @override
@@ -610,6 +725,18 @@ class _$DeckBuilderError implements DeckBuilderError {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function(Iterable<YugiohCard> cards)? filtered,
+    TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
+    TResult Function()? loading,
+    TResult Function()? noData,
+    TResult Function()? error,
+  }) {
+    return error?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(Iterable<YugiohCard> cards)? filtered,
     TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
@@ -634,6 +761,18 @@ class _$DeckBuilderError implements DeckBuilderError {
     required TResult Function(DeckBuilderError value) error,
   }) {
     return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(DeckBuilderFiltered value)? filtered,
+    TResult Function(DeckBuilderPreBuilt value)? preBuilt,
+    TResult Function(DeckBuilderLoading value)? loading,
+    TResult Function(DeckBuilderNoData value)? noData,
+    TResult Function(DeckBuilderError value)? error,
+  }) {
+    return error?.call(this);
   }
 
   @override

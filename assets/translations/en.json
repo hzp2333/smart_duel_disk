@@ -44,6 +44,8 @@
     "home_tab_duel": "Duel",
     "home_tab_news": "News",
     "news_general_error_description": "The latest news could not be loaded. Please check your internet connection and try again.",
+    "no_connection_dialog_description": "No network connection detected. Make sure you're connected to the internet to continue.",
+    "no_connection_dialog_title": "No connection",
     "onboarding_app_title": "Smart\nDuel Disk",
     "onboarding_fineprint": "Smart Duel Disk is an unofficial Fan Project and is not approved or endorsed by Konami. Portions of the materials used are property of Konami Digital Entertainment.",
     "onboarding_initiate_link": "Initiate link!",

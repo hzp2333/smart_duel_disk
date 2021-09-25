@@ -6,17 +6,16 @@ part of 'card_price_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_CardPriceModel _$_$_CardPriceModelFromJson(Map<String, dynamic> json) {
-  return _$_CardPriceModel(
-    cardmarketPrice: json['cardmarket_price'] as String,
-    tcgplayerPrice: json['tcgplayer_price'] as String,
-    ebayPrice: json['ebay_price'] as String,
-    amazonPrice: json['amazon_price'] as String,
-    coolstuffincPrice: json['coolstuffinc_price'] as String,
-  );
-}
+_$_CardPriceModel _$$_CardPriceModelFromJson(Map<String, dynamic> json) =>
+    _$_CardPriceModel(
+      cardmarketPrice: json['cardmarket_price'] as String,
+      tcgplayerPrice: json['tcgplayer_price'] as String,
+      ebayPrice: json['ebay_price'] as String,
+      amazonPrice: json['amazon_price'] as String,
+      coolstuffincPrice: json['coolstuffinc_price'] as String,
+    );
 
-Map<String, dynamic> _$_$_CardPriceModelToJson(_$_CardPriceModel instance) =>
+Map<String, dynamic> _$$_CardPriceModelToJson(_$_CardPriceModel instance) =>
     <String, dynamic>{
       'cardmarket_price': instance.cardmarketPrice,
       'tcgplayer_price': instance.tcgplayerPrice,

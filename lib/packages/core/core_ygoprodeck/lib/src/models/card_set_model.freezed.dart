@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'card_set_model.dart';
 
@@ -185,7 +186,7 @@ class _$_CardSetModel implements _CardSetModel {
       @JsonKey(name: 'set_price') required this.setPrice});
 
   factory _$_CardSetModel.fromJson(Map<String, dynamic> json) =>
-      _$_$_CardSetModelFromJson(json);
+      _$$_CardSetModelFromJson(json);
 
   @override
   @JsonKey(name: 'set_name')
@@ -245,7 +246,7 @@ class _$_CardSetModel implements _CardSetModel {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_CardSetModelToJson(this);
+    return _$$_CardSetModelToJson(this);
   }
 }
 

@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'play_card_dialog_action_type.dart';
 
@@ -72,6 +73,19 @@ mixin _$PlayCardDialogActionType {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? summon,
     TResult Function()? activate,
@@ -98,6 +112,19 @@ mixin _$PlayCardDialogActionType {
     required TResult Function(PlayCardDialogSummonDefenceAction value)
         summonDefence,
     required TResult Function(PlayCardDialogDestroyAction value) destroy,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -189,6 +216,22 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+  }) {
+    return summon?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? summon,
     TResult Function()? activate,
@@ -223,6 +266,22 @@ class _$PlayCardDialogSummonAction implements PlayCardDialogSummonAction {
     required TResult Function(PlayCardDialogDestroyAction value) destroy,
   }) {
     return summon(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
+  }) {
+    return summon?.call(this);
   }
 
   @override
@@ -308,6 +367,22 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+  }) {
+    return activate?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? summon,
     TResult Function()? activate,
@@ -342,6 +417,22 @@ class _$PlayCardDialogActivateAction implements PlayCardDialogActivateAction {
     required TResult Function(PlayCardDialogDestroyAction value) destroy,
   }) {
     return activate(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
+  }) {
+    return activate?.call(this);
   }
 
   @override
@@ -428,6 +519,22 @@ class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+  }) {
+    return toAttack?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? summon,
     TResult Function()? activate,
@@ -462,6 +569,22 @@ class _$PlayCardDialogToAttackAction implements PlayCardDialogToAttackAction {
     required TResult Function(PlayCardDialogDestroyAction value) destroy,
   }) {
     return toAttack(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
+  }) {
+    return toAttack?.call(this);
   }
 
   @override
@@ -548,6 +671,22 @@ class _$PlayCardDialogToDefenceAction implements PlayCardDialogToDefenceAction {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+  }) {
+    return toDefence?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? summon,
     TResult Function()? activate,
@@ -582,6 +721,22 @@ class _$PlayCardDialogToDefenceAction implements PlayCardDialogToDefenceAction {
     required TResult Function(PlayCardDialogDestroyAction value) destroy,
   }) {
     return toDefence(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
+  }) {
+    return toDefence?.call(this);
   }
 
   @override
@@ -667,6 +822,22 @@ class _$PlayCardDialogFlipAction implements PlayCardDialogFlipAction {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+  }) {
+    return flip?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? summon,
     TResult Function()? activate,
@@ -701,6 +872,22 @@ class _$PlayCardDialogFlipAction implements PlayCardDialogFlipAction {
     required TResult Function(PlayCardDialogDestroyAction value) destroy,
   }) {
     return flip(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
+  }) {
+    return flip?.call(this);
   }
 
   @override
@@ -783,6 +970,22 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+  }) {
+    return set?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? summon,
     TResult Function()? activate,
@@ -817,6 +1020,22 @@ class _$PlayCardDialogSetAction implements PlayCardDialogSetAction {
     required TResult Function(PlayCardDialogDestroyAction value) destroy,
   }) {
     return set(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
+  }) {
+    return set?.call(this);
   }
 
   @override
@@ -904,6 +1123,22 @@ class _$PlayCardDialogSummonAttackAction
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+  }) {
+    return summonAttack?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? summon,
     TResult Function()? activate,
@@ -938,6 +1173,22 @@ class _$PlayCardDialogSummonAttackAction
     required TResult Function(PlayCardDialogDestroyAction value) destroy,
   }) {
     return summonAttack(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
+  }) {
+    return summonAttack?.call(this);
   }
 
   @override
@@ -1027,6 +1278,22 @@ class _$PlayCardDialogSummonDefenceAction
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+  }) {
+    return summonDefence?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? summon,
     TResult Function()? activate,
@@ -1061,6 +1328,22 @@ class _$PlayCardDialogSummonDefenceAction
     required TResult Function(PlayCardDialogDestroyAction value) destroy,
   }) {
     return summonDefence(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
+  }) {
+    return summonDefence?.call(this);
   }
 
   @override
@@ -1147,6 +1430,22 @@ class _$PlayCardDialogDestroyAction implements PlayCardDialogDestroyAction {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? summon,
+    TResult Function()? activate,
+    TResult Function()? toAttack,
+    TResult Function()? toDefence,
+    TResult Function()? flip,
+    TResult Function()? set,
+    TResult Function()? summonAttack,
+    TResult Function()? summonDefence,
+    TResult Function()? destroy,
+  }) {
+    return destroy?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? summon,
     TResult Function()? activate,
@@ -1181,6 +1480,22 @@ class _$PlayCardDialogDestroyAction implements PlayCardDialogDestroyAction {
     required TResult Function(PlayCardDialogDestroyAction value) destroy,
   }) {
     return destroy(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(PlayCardDialogSummonAction value)? summon,
+    TResult Function(PlayCardDialogActivateAction value)? activate,
+    TResult Function(PlayCardDialogToAttackAction value)? toAttack,
+    TResult Function(PlayCardDialogToDefenceAction value)? toDefence,
+    TResult Function(PlayCardDialogFlipAction value)? flip,
+    TResult Function(PlayCardDialogSetAction value)? set,
+    TResult Function(PlayCardDialogSummonAttackAction value)? summonAttack,
+    TResult Function(PlayCardDialogSummonDefenceAction value)? summonDefence,
+    TResult Function(PlayCardDialogDestroyAction value)? destroy,
+  }) {
+    return destroy?.call(this);
   }
 
   @override

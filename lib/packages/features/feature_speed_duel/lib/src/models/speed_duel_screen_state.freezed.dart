@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'speed_duel_screen_state.dart';
 
@@ -44,6 +45,13 @@ mixin _$SpeedDuelScreenState {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult Function(SpeedDuelState state)? $default, {
+    TResult Function()? loading,
+    TResult Function()? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(SpeedDuelState state)? $default, {
     TResult Function()? loading,
@@ -56,6 +64,13 @@ mixin _$SpeedDuelScreenState {
     TResult Function(SpeedDuelData value) $default, {
     required TResult Function(SpeedDuelLoading value) loading,
     required TResult Function(SpeedDuelError value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult Function(SpeedDuelData value)? $default, {
+    TResult Function(SpeedDuelLoading value)? loading,
+    TResult Function(SpeedDuelError value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -159,6 +174,16 @@ class _$SpeedDuelData implements SpeedDuelData {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult Function(SpeedDuelState state)? $default, {
+    TResult Function()? loading,
+    TResult Function()? error,
+  }) {
+    return $default?.call(state);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(SpeedDuelState state)? $default, {
     TResult Function()? loading,
@@ -179,6 +204,16 @@ class _$SpeedDuelData implements SpeedDuelData {
     required TResult Function(SpeedDuelError value) error,
   }) {
     return $default(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult Function(SpeedDuelData value)? $default, {
+    TResult Function(SpeedDuelLoading value)? loading,
+    TResult Function(SpeedDuelError value)? error,
+  }) {
+    return $default?.call(this);
   }
 
   @override
@@ -254,6 +289,16 @@ class _$SpeedDuelLoading implements SpeedDuelLoading {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult Function(SpeedDuelState state)? $default, {
+    TResult Function()? loading,
+    TResult Function()? error,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(SpeedDuelState state)? $default, {
     TResult Function()? loading,
@@ -274,6 +319,16 @@ class _$SpeedDuelLoading implements SpeedDuelLoading {
     required TResult Function(SpeedDuelError value) error,
   }) {
     return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult Function(SpeedDuelData value)? $default, {
+    TResult Function(SpeedDuelLoading value)? loading,
+    TResult Function(SpeedDuelError value)? error,
+  }) {
+    return loading?.call(this);
   }
 
   @override
@@ -344,6 +399,16 @@ class _$SpeedDuelError implements SpeedDuelError {
 
   @override
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>(
+    TResult Function(SpeedDuelState state)? $default, {
+    TResult Function()? loading,
+    TResult Function()? error,
+  }) {
+    return error?.call();
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>(
     TResult Function(SpeedDuelState state)? $default, {
     TResult Function()? loading,
@@ -364,6 +429,16 @@ class _$SpeedDuelError implements SpeedDuelError {
     required TResult Function(SpeedDuelError value) error,
   }) {
     return error(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>(
+    TResult Function(SpeedDuelData value)? $default, {
+    TResult Function(SpeedDuelLoading value)? loading,
+    TResult Function(SpeedDuelError value)? error,
+  }) {
+    return error?.call(this);
   }
 
   @override

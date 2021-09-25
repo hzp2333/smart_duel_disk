@@ -6,18 +6,17 @@ part of 'room_event_data.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-RoomEventData _$RoomEventDataFromJson(Map<String, dynamic> json) {
-  return RoomEventData(
-    roomName: json['roomName'] as String?,
-    error: _$enumDecodeNullable(_$RoomErrorEnumMap, json['error'],
-        unknownValue: RoomError.unknown),
-    deckList: (json['deckList'] as List<dynamic>?)?.map((e) => e as int),
-    duelRoom: json['duelRoom'] == null
-        ? null
-        : DuelRoom.fromJson(json['duelRoom'] as Map<String, dynamic>),
-    winnerId: json['winnerId'] as String?,
-  );
-}
+RoomEventData _$RoomEventDataFromJson(Map<String, dynamic> json) =>
+    RoomEventData(
+      roomName: json['roomName'] as String?,
+      error: _$enumDecodeNullable(_$RoomErrorEnumMap, json['error'],
+          unknownValue: RoomError.unknown),
+      deckList: (json['deckList'] as List<dynamic>?)?.map((e) => e as int),
+      duelRoom: json['duelRoom'] == null
+          ? null
+          : DuelRoom.fromJson(json['duelRoom'] as Map<String, dynamic>),
+      winnerId: json['winnerId'] as String?,
+    );
 
 Map<String, dynamic> _$RoomEventDataToJson(RoomEventData instance) =>
     <String, dynamic>{

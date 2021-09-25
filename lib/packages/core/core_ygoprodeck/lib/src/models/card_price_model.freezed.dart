@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'card_price_model.dart';
 
@@ -187,7 +188,7 @@ class _$_CardPriceModel implements _CardPriceModel {
       @JsonKey(name: 'coolstuffinc_price') required this.coolstuffincPrice});
 
   factory _$_CardPriceModel.fromJson(Map<String, dynamic> json) =>
-      _$_$_CardPriceModelFromJson(json);
+      _$$_CardPriceModelFromJson(json);
 
   @override
   @JsonKey(name: 'cardmarket_price')
@@ -247,7 +248,7 @@ class _$_CardPriceModel implements _CardPriceModel {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_CardPriceModelToJson(this);
+    return _$$_CardPriceModelToJson(this);
   }
 }
 
