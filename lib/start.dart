@@ -9,6 +9,7 @@ import 'package:smart_duel_disk/generated/codegen_loader.g.dart';
 import 'package:smart_duel_disk/packages/core/core_config/lib/core_config.dart';
 import 'package:smart_duel_disk/packages/core/core_display_config/lib/core_display_config.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/lib/wrapper_crashlytics.dart';
+import 'package:smart_duel_disk/packages/wrappers/wrapper_remote_config/lib/wrapper_remote_config.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 import 'src/app/app_provider.dart';
@@ -31,6 +32,9 @@ Future<void> start(AppConfig appConfig, Environment environment) async {
   await runZonedGuarded<Future<void>>(
     () async {
       setPathUrlStrategy();
+
+      final remoteConfigProvider = di.get<RemoteConfigProvider>();
+      await remoteConfigProvider.init();
 
       final displayConfigService = di.get<DisplayConfigService>();
       await displayConfigService.useDefaultMode();

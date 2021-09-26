@@ -12,6 +12,7 @@ abstract class YugiohCardsDataManager {
   Future<YugiohCard> getSpeedDuelCard(int cardId);
   Future<Iterable<YugiohCard>> getSpeedDuelCards();
   Future<YugiohCard> getToken();
+  bool hasSpeedDuelCardsCache();
 }
 
 @LazySingleton(as: YugiohCardsDataManager)
@@ -70,5 +71,12 @@ class YugiohCardsDataManagerImpl implements YugiohCardsDataManager {
     _logger.info(_tag, 'getToken()');
 
     return getSpeedDuelCard(73915052);
+  }
+
+  @override
+  bool hasSpeedDuelCardsCache() {
+    _logger.info(_tag, 'hasSpeedDuelCardsCache()');
+
+    return _yugiohCardsStorageProvider.hasData();
   }
 }

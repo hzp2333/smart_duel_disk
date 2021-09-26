@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/generated/assets.gen.dart';
 import 'package:smart_duel_disk/generated/locale_keys.g.dart';
+import 'package:smart_duel_disk/packages/features/feature_onboarding/lib/src/onboarding/models/onboarding_state.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
 import '../onboarding_viewmodel.dart';
@@ -168,8 +169,56 @@ class _AppTitle extends StatelessWidget with ProviderMixin {
   }
 }
 
-class _Footer extends StatelessWidget with ProviderMixin {
+class _Footer extends HookWidget with ProviderMixin {
   const _Footer();
+
+  @override
+  Widget build(BuildContext context) {
+    final vm = Provider.of<OnboardingViewModel>(context);
+    final stringProvider = getStringProvider(context);
+
+    final state = useStream(vm.onboardingState, initialData: const OnboardingConnecting());
+    final data = state.data;
+
+    if (data == null) {
+      return _LoadingState(text: stringProvider.getString(LocaleKeys.onboarding_status_connectivity_check));
+    }
+
+    return data.when(
+      connecting: () => _LoadingState(text: stringProvider.getString(LocaleKeys.onboarding_status_connectivity_check)),
+      cachingCards: () => _LoadingState(text: stringProvider.getString(LocaleKeys.onboarding_status_cards_cache_check)),
+      ready: () => const _InitiateLinkButton(),
+    );
+  }
+}
+
+class _LoadingState extends StatelessWidget {
+  final String text;
+
+  const _LoadingState({
+    required this.text,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const LoadingIndicator(),
+          const SizedBox(height: AppSizes.screenMarginLarge),
+          Text(
+            text,
+            style: TextStyles.subtitle,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _InitiateLinkButton extends StatelessWidget with ProviderMixin {
+  const _InitiateLinkButton();
 
   @override
   Widget build(BuildContext context) {

@@ -39,6 +39,7 @@ abstract class  LocaleKeys {
   static const duel_room_title = 'duel_room_title';
   static const feature_create_personal_deck = 'feature_create_personal_deck';
   static const feature_not_available_yet_description = 'feature_not_available_yet_description';
+  static const general_error_dialog_title = 'general_error_dialog_title';
   static const general_error_try_again = 'general_error_try_again';
   static const general_switch_off = 'general_switch_off';
   static const general_switch_on = 'general_switch_on';
@@ -49,8 +50,11 @@ abstract class  LocaleKeys {
   static const no_connection_dialog_description = 'no_connection_dialog_description';
   static const no_connection_dialog_title = 'no_connection_dialog_title';
   static const onboarding_app_title = 'onboarding_app_title';
+  static const onboarding_cards_cache_error_description = 'onboarding_cards_cache_error_description';
   static const onboarding_fineprint = 'onboarding_fineprint';
   static const onboarding_initiate_link = 'onboarding_initiate_link';
+  static const onboarding_status_cards_cache_check = 'onboarding_status_cards_cache_check';
+  static const onboarding_status_connectivity_check = 'onboarding_status_connectivity_check';
   static const privacy_policy_title = 'privacy_policy_title';
   static const speed_duel_card_action_activate = 'speed_duel_card_action_activate';
   static const speed_duel_card_action_destroy = 'speed_duel_card_action_destroy';

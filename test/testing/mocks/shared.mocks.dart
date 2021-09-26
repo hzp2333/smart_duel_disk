@@ -265,6 +265,10 @@ class MockDataManager extends _i1.Mock implements _i2.DataManager {
               returnValue: Future<_i2.YugiohCard>.value(_FakeYugiohCard_0()))
           as _i3.Future<_i2.YugiohCard>);
   @override
+  bool hasSpeedDuelCardsCache() =>
+      (super.noSuchMethod(Invocation.method(#hasSpeedDuelCardsCache, []),
+          returnValue: false) as bool);
+  @override
   Iterable<_i2.PreBuiltDeck> getPreBuiltDecks() =>
       (super.noSuchMethod(Invocation.method(#getPreBuiltDecks, []),
           returnValue: <_i2.PreBuiltDeck>[]) as Iterable<_i2.PreBuiltDeck>);

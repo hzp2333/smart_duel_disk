@@ -8,9 +8,18 @@ class GeneralLoadingState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: CircularProgressIndicator(
-        valueColor: AlwaysStoppedAnimation(AppColors.primaryAccentColor),
-      ),
+      child: LoadingIndicator(),
+    );
+  }
+}
+
+class LoadingIndicator extends StatelessWidget {
+  const LoadingIndicator();
+
+  @override
+  Widget build(BuildContext context) {
+    return const CircularProgressIndicator(
+      valueColor: AlwaysStoppedAnimation(AppColors.primaryAccentColor),
     );
   }
 }

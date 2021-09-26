@@ -46,6 +46,11 @@ class DataManagerImpl implements DataManager {
     return _yugiohCardsDataManager.getToken();
   }
 
+  @override
+  bool hasSpeedDuelCardsCache() {
+    return _yugiohCardsDataManager.hasSpeedDuelCardsCache();
+  }
+
   //endregion
 
   //region Decks

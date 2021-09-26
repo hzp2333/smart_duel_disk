@@ -1,9 +1,13 @@
 import 'package:hive/hive.dart';
 import 'package:injectable/injectable.dart';
+import 'package:smart_duel_disk/packages/core/core_config/lib/core_config.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart';
+import 'package:smart_duel_disk/packages/wrappers/wrapper_remote_config/lib/wrapper_remote_config.dart';
+import 'package:smart_duel_disk/packages/wrappers/wrapper_shared_preferences/lib/wrapper_shared_preferences.dart';
 
 abstract class YugiohCardsStorageProvider {
+  bool hasData();
   DbYugiohCard? getSpeedDuelCard(int cardId);
   Iterable<DbYugiohCard>? getSpeedDuelCards();
   Future<void> saveSpeedDuelCard(DbYugiohCard card);
@@ -14,13 +18,28 @@ abstract class YugiohCardsStorageProvider {
 class YugiohCardsStorageProviderImpl implements YugiohCardsStorageProvider {
   static const _tag = 'YugiohCardsStorageProviderImpl';
 
+  static const _yugiohCardsCacheTimestampKey = 'yugiohCardsCacheTimestamp';
+
   final Box<DbYugiohCard> _box;
+  final SharedPreferencesProvider _sharedPreferencesProvider;
+  final RemoteConfigProvider _remoteConfigProvider;
+  final DateTimeProvider _dateTimeProvider;
   final Logger _logger;
 
   YugiohCardsStorageProviderImpl(
     this._box,
+    this._sharedPreferencesProvider,
+    this._remoteConfigProvider,
+    this._dateTimeProvider,
     this._logger,
   );
+
+  @override
+  bool hasData() {
+    _logger.info(_tag, 'hasData()');
+
+    return _isCacheValid();
+  }
 
   @override
   DbYugiohCard? getSpeedDuelCard(int cardId) {
@@ -33,8 +52,28 @@ class YugiohCardsStorageProviderImpl implements YugiohCardsStorageProvider {
   Iterable<DbYugiohCard>? getSpeedDuelCards() {
     _logger.info(_tag, 'getSpeedDuelCards()');
 
+    if (!_isCacheValid()) {
+      return null;
+    }
+
     final cards = _box.values;
     return cards.isEmpty ? null : cards;
+  }
+
+  bool _isCacheValid() {
+    _logger.verbose(_tag, '_isCacheValid()');
+
+    final timestampString = _sharedPreferencesProvider.getString(_yugiohCardsCacheTimestampKey);
+    if (timestampString == null) {
+      return false;
+    }
+
+    final timestamp = DateTime.parse(timestampString);
+
+    final databaseUpdateString = _remoteConfigProvider.getString(RemoteConfigKeys.lastCardDatabaseUpdate);
+    final databaseUpdate = DateTime.parse(databaseUpdateString);
+
+    return timestamp.isAfter(databaseUpdate) && _box.values.length > 1;
   }
 
   @override
@@ -54,5 +93,16 @@ class YugiohCardsStorageProviderImpl implements YugiohCardsStorageProvider {
     }
 
     await _box.putAll(map);
+
+    await _updateYugiohCardsCacheTimestamp();
+  }
+
+  Future<void> _updateYugiohCardsCacheTimestamp() async {
+    _logger.verbose(_tag, '_updateYugiohCardsCacheTimestamp()');
+
+    await _sharedPreferencesProvider.setString(
+      _yugiohCardsCacheTimestampKey,
+      _dateTimeProvider.currentUtcDateTime.toString(),
+    );
   }
 }
