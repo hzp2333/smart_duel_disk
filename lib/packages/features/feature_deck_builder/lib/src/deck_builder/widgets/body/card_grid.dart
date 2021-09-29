@@ -1,8 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_duel_disk/generated/assets.gen.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
@@ -10,7 +7,7 @@ import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 class CardGrid extends StatelessWidget {
   static const _cardsPerRow = 6;
 
-  final Iterable<YugiohCard> cards;
+  final Iterable<CardCopy> cards;
   final ScrollPhysics scrollPhysics;
 
   const CardGrid({
@@ -34,7 +31,7 @@ class CardGrid extends StatelessWidget {
         itemCount: cards.length,
         itemBuilder: (context, index) {
           return _GridCard(
-            card: cards.elementAt(index),
+            cardCopy: cards.elementAt(index),
             index: index,
           );
         },
@@ -44,11 +41,11 @@ class CardGrid extends StatelessWidget {
 }
 
 class _GridCard extends StatelessWidget {
-  final YugiohCard card;
+  final CardCopy cardCopy;
   final int index;
 
   const _GridCard({
-    required this.card,
+    required this.cardCopy,
     required this.index,
   });
 
@@ -56,18 +53,13 @@ class _GridCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final vm = Provider.of<DeckBuilderViewModel>(context);
 
-    final cardBackPath = Assets.illustrations.cardBack.path;
-
     return GestureDetector(
-      onTap: () => vm.onCardPressed(card, index),
+      onTap: () => vm.onCardPressed(cardCopy, index),
       child: Hero(
-        tag: '${card.id} - $index',
-        child: CachedNetworkImage(
-          imageUrl: kIsWeb ? card.imageLargeUrl : card.imageSmallUrl,
-          fit: BoxFit.fitWidth,
-          placeholder: (_, __) => ImagePlaceholder(imageAssetId: cardBackPath),
-          // ignore: avoid_annotating_with_dynamic
-          errorWidget: (_, __, dynamic ___) => ImagePlaceholder(imageAssetId: cardBackPath),
+        tag: vm.getCardTag(cardCopy, index),
+        child: CardImage(
+          card: cardCopy.card,
+          image: cardCopy.image,
         ),
       ),
     );

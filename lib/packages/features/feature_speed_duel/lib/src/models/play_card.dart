@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
+import 'package:universal_io/io.dart';
 
 import 'card_position.dart';
 import 'zone_type.dart';
@@ -8,6 +9,7 @@ import 'zone_type.dart';
 @immutable
 class PlayCard extends Equatable {
   final YugiohCard yugiohCard;
+  final File? image;
   final String duelistId;
   final ZoneType zoneType;
   final CardPosition position;
@@ -20,6 +22,7 @@ class PlayCard extends Equatable {
 
   const PlayCard({
     required this.yugiohCard,
+    required this.image,
     required this.duelistId,
     required this.zoneType,
     required this.position,
@@ -38,6 +41,7 @@ class PlayCard extends Equatable {
     return PlayCard(
       yugiohCard: yugiohCard,
       duelistId: duelistId,
+      image: image,
       zoneType: zoneType ?? this.zoneType,
       position: position ?? this.position,
       copyNumber: copyNumber,

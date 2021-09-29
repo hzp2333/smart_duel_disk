@@ -31,7 +31,7 @@ class PlayerCardBuilder extends StatelessWidget {
     final cardBack = Assets.illustrations.cardBack.path;
 
     if (playerState.isOpponent) {
-      return CardImage(
+      return PlayCardImage(
         playCard: card,
         playerState: playerState,
         placeholderImage: cardBack,
@@ -72,13 +72,13 @@ class _DraggableCard extends StatelessWidget {
       maxSimultaneousDrags: 1,
       onDragStarted: () => HapticFeedback.selectionClick(),
       data: playCard,
-      feedback: CardImage(
+      feedback: PlayCardImage(
         playCard: playCard,
         playerState: playerState,
         placeholderImage: placeholderImage,
       ),
       childWhenDragging: childWhenDragging,
-      child: CardImage(
+      child: PlayCardImage(
         playCard: playCard,
         playerState: playerState,
         placeholderImage: placeholderImage,
@@ -88,13 +88,13 @@ class _DraggableCard extends StatelessWidget {
   }
 }
 
-class CardImage extends StatelessWidget {
+class PlayCardImage extends StatelessWidget {
   final PlayCard? playCard;
   final PlayerState playerState;
   final String placeholderImage;
   final VoidCallback? onCardTapped;
 
-  const CardImage({
+  const PlayCardImage({
     required this.playCard,
     required this.playerState,
     required this.placeholderImage,
@@ -124,12 +124,9 @@ class CardImage extends StatelessWidget {
             child: RotatedBox(
               quarterTurns: quarterTurns,
               child: showImage
-                  ? CachedNetworkImage(
-                      imageUrl: kIsWeb ? playCard!.yugiohCard.imageLargeUrl : playCard!.yugiohCard.imageSmallUrl,
-                      placeholder: (_, __) => cardSleeve,
-                      // ignore: avoid_annotating_with_dynamic
-                      errorWidget: (_, __, dynamic ___) => cardSleeve,
-                      fit: BoxFit.contain,
+                  ? CardImage(
+                      card: playCard!.yugiohCard,
+                      image: playCard!.image,
                     )
                   : cardSleeve,
             ),

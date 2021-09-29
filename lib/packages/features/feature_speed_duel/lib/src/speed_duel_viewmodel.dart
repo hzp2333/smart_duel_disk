@@ -347,7 +347,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     final token = await _dataManager.getToken();
     final tokenCount = userState.cards.where((card) => card!.yugiohCard.id == token.id).length;
-    final PlayCard tokenCard = _createPlayCardUseCase(token, userState.duelistId, tokenCount + 1);
+    final tokenCard = _createPlayCardUseCase(token, userState.duelistId, tokenCount + 1);
     return onZoneAcceptsCard(tokenCard, availableZones.first);
   }
 
@@ -390,7 +390,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     logger.verbose(_tag, '_updateCardPosition(card: $card, position: $position)');
 
     final userState = _duelState.value.userState;
-    final PlayerState updatedUserState = _moveCardUseCase(userState, card, position);
+    final updatedUserState = _moveCardUseCase(userState, card, position);
     if (userState == updatedUserState) {
       return;
     }
@@ -486,7 +486,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     final newZone = opponentState.zones.firstWhere((zone) => zone.zoneType == zoneType);
 
-    final PlayerState updatedOpponentState = _moveCardUseCase(opponentState, playCard, position, newZone: newZone);
+    final updatedOpponentState = _moveCardUseCase(opponentState, playCard, position, newZone: newZone);
     if (opponentState == updatedOpponentState) {
       return;
     }

@@ -1,8 +1,16 @@
+import 'dart:io';
+
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 
 abstract class DataManager
-    implements NewsDataManager, YugiohCardsDataManager, DeckDataManager, DuelDataManager, SettingsDataManager {}
+    implements
+        NewsDataManager,
+        YugiohCardsDataManager,
+        DeckDataManager,
+        DuelDataManager,
+        SettingsDataManager,
+        CardImageDataManager {}
 
 @LazySingleton(as: DataManager)
 class DataManagerImpl implements DataManager {
@@ -11,6 +19,7 @@ class DataManagerImpl implements DataManager {
   final DeckDataManager _deckDataManager;
   final DuelDataManager _duelDataManager;
   final SettingsDataManager _settingsDataManager;
+  final CardImageDataManager _cardImageDataManager;
 
   DataManagerImpl(
     this._newsDataManager,
@@ -18,6 +27,7 @@ class DataManagerImpl implements DataManager {
     this._deckDataManager,
     this._duelDataManager,
     this._settingsDataManager,
+    this._cardImageDataManager,
   );
 
   //region News
@@ -106,6 +116,20 @@ class DataManagerImpl implements DataManager {
   @override
   Future<void> saveDeveloperModeEnabled({required bool value}) {
     return _settingsDataManager.saveDeveloperModeEnabled(value: value);
+  }
+
+  //endregion
+
+  //region Card Images
+
+  @override
+  Future<void> cacheCardImages(Iterable<YugiohCard> cards) {
+    return _cardImageDataManager.cacheCardImages(cards);
+  }
+
+  @override
+  File? getCardImageFile(YugiohCard card) {
+    return _cardImageDataManager.getCardImageFile(card);
   }
 
   //endregion

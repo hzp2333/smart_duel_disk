@@ -12,6 +12,7 @@ void main() {
 
   late MockAppRouter _router;
   late MockDataManager _dataManager;
+  late MockCacheCardImagesUseCase _cacheCardImagesUseCase;
   late MockStringProvider _stringProvider;
   late MockConnectivityProvider _connectivityProvider;
   late MockLogger _logger;
@@ -19,6 +20,7 @@ void main() {
   setUp(() {
     _router = MockAppRouter();
     _dataManager = MockDataManager();
+    _cacheCardImagesUseCase = MockCacheCardImagesUseCase();
     _stringProvider = MockStringProvider();
     _connectivityProvider = MockConnectivityProvider();
     _logger = MockLogger();
@@ -33,6 +35,7 @@ void main() {
     _viewModel = OnboardingViewModel(
       _router,
       _dataManager,
+      _cacheCardImagesUseCase,
       _stringProvider,
       _connectivityProvider,
       _logger,

@@ -48,7 +48,7 @@ class MultiCardZone extends StatelessWidget {
             } else if (showCardBack) ...{
               ImagePlaceholder(imageAssetId: cardBack),
             } else ...{
-              CardImage(
+              PlayCardImage(
                 playCard: zone.cards.last,
                 playerState: playerState,
                 placeholderImage: cardBack,

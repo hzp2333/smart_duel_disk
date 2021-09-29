@@ -6,7 +6,7 @@ import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_ma
 @immutable
 abstract class DeckBuilderSection extends Equatable {
   final String titleId;
-  final Iterable<YugiohCard> cards;
+  final Iterable<CardCopy> cards;
 
   const DeckBuilderSection({
     required this.titleId,
@@ -25,7 +25,7 @@ abstract class DeckBuilderSection extends Equatable {
 
 class MonsterCardsSection extends DeckBuilderSection {
   const MonsterCardsSection({
-    required Iterable<YugiohCard> cards,
+    required Iterable<CardCopy> cards,
   }) : super(
           titleId: LocaleKeys.deck_builder_monster_cards_section,
           cards: cards,
@@ -34,7 +34,7 @@ class MonsterCardsSection extends DeckBuilderSection {
 
 class SpellCardsSection extends DeckBuilderSection {
   const SpellCardsSection({
-    required Iterable<YugiohCard> cards,
+    required Iterable<CardCopy> cards,
   }) : super(
           titleId: LocaleKeys.deck_builder_spell_cards_section,
           cards: cards,
@@ -43,7 +43,7 @@ class SpellCardsSection extends DeckBuilderSection {
 
 class TrapCardsSection extends DeckBuilderSection {
   const TrapCardsSection({
-    required Iterable<YugiohCard> cards,
+    required Iterable<CardCopy> cards,
   }) : super(
           titleId: LocaleKeys.deck_builder_trap_cards_section,
           cards: cards,
@@ -52,7 +52,7 @@ class TrapCardsSection extends DeckBuilderSection {
 
 class ExtraDeckSection extends DeckBuilderSection {
   const ExtraDeckSection({
-    required Iterable<YugiohCard> cards,
+    required Iterable<CardCopy> cards,
   }) : super(
           titleId: LocaleKeys.deck_builder_extra_deck_section,
           cards: cards,

@@ -5,15 +5,15 @@ import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 
 @Injectable()
 class YugiohCardDetailViewModel extends BaseViewModel {
-  late final YugiohCard? _yugiohCard;
-  late final int? _index;
+  late final CardCopy? _cardCopy;
+  late final String? _tag;
 
   YugiohCardDetailViewModel(
-    @factoryParam this._yugiohCard,
-    @factoryParam this._index,
+    @factoryParam this._cardCopy,
+    @factoryParam this._tag,
     Logger logger,
   ) : super(logger);
 
-  YugiohCard get yugiohCard => _yugiohCard!;
-  String get heroTag => '${_yugiohCard!.id} - $_index';
+  CardCopy get cardCopy => _cardCopy!;
+  String get tag => _tag!;
 }

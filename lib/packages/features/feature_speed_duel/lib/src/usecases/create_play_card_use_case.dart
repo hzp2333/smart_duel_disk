@@ -8,9 +8,11 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_enum_helper/lib/wrappe
 
 @LazySingleton()
 class CreatePlayCardUseCase {
+  final DataManager _dataManager;
   final EnumHelper _enumHelper;
 
   CreatePlayCardUseCase(
+    this._dataManager,
     this._enumHelper,
   );
 
@@ -21,12 +23,14 @@ class CreatePlayCardUseCase {
     CardPosition? position,
     ZoneType? zoneType,
   }) {
+    final image = _dataManager.getCardImageFile(card);
     final raceAndType =
         '[${_enumHelper.convertToString(card.race, camelCase: true)} / ${_enumHelper.convertToString(card.type, camelCase: true)}]';
 
     return PlayCard(
       yugiohCard: card,
       duelistId: duelistId,
+      image: image,
       zoneType: zoneType ?? ZoneType.deck,
       position: position ?? CardPosition.faceUp,
       copyNumber: copyNumber,

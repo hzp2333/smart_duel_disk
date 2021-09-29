@@ -14,8 +14,8 @@ class AppConfig {
   String get smartDuelServerPort => '443';
 
   String get ygoProDeckBaseUrl => 'https://db.ygoprodeck.com/api/v7';
-  int get ygoProDeckReceiveTimeout => 60000;
-  int get ygoProDeckConnectTimeout => 60000;
+  int get defaultApiReceiveTimeout => 60000;
+  int get defaultApiConnectTimeout => 60000;
 
   String get twitterUrl => 'https://twitter.com/CrownCorpBE';
   String get tweetUrl => 'https://twitter.com/{0}/status/{1}';

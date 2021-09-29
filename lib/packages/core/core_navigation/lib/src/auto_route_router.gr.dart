@@ -56,7 +56,7 @@ class AutoRouteRouter extends _i1.RootStackRouter {
       return _i1.AdaptivePage<void>(
           routeData: routeData,
           child: _i6.YugiohCardDetailScreenProvider(
-              yugiohCard: args.yugiohCard, index: args.index));
+              cardCopy: args.cardCopy, tag: args.tag));
     },
     DrawCardRoute.name: (routeData) {
       final args = routeData.argsAs<DrawCardRouteArgs>();
@@ -153,23 +153,20 @@ class DeckBuilderRouteArgs {
 
 class YugiohCardDetailRoute
     extends _i1.PageRouteInfo<YugiohCardDetailRouteArgs> {
-  YugiohCardDetailRoute(
-      {required _i12.YugiohCard yugiohCard, required int index})
+  YugiohCardDetailRoute({required _i12.CardCopy cardCopy, required String tag})
       : super(name,
             path: '/card-detail',
-            args: YugiohCardDetailRouteArgs(
-                yugiohCard: yugiohCard, index: index));
+            args: YugiohCardDetailRouteArgs(cardCopy: cardCopy, tag: tag));
 
   static const String name = 'YugiohCardDetailRoute';
 }
 
 class YugiohCardDetailRouteArgs {
-  const YugiohCardDetailRouteArgs(
-      {required this.yugiohCard, required this.index});
+  const YugiohCardDetailRouteArgs({required this.cardCopy, required this.tag});
 
-  final _i12.YugiohCard yugiohCard;
+  final _i12.CardCopy cardCopy;
 
-  final int index;
+  final String tag;
 }
 
 class DrawCardRoute extends _i1.PageRouteInfo<DrawCardRouteArgs> {

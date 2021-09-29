@@ -4,8 +4,11 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_config/lib/core_config.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 
+const ygoProDeckDioName = 'YgoProDeckDio';
+
 @module
 abstract class YgoProDeckModule {
+  @Named(ygoProDeckDioName)
   @LazySingleton()
   Dio provideYgoProDeckDio(
     AppConfig appConfig,
@@ -15,8 +18,8 @@ abstract class YgoProDeckModule {
     final dio = Dio(
       BaseOptions(
         baseUrl: appConfig.ygoProDeckBaseUrl,
-        connectTimeout: appConfig.ygoProDeckConnectTimeout,
-        receiveTimeout: appConfig.ygoProDeckReceiveTimeout,
+        connectTimeout: appConfig.defaultApiConnectTimeout,
+        receiveTimeout: appConfig.defaultApiReceiveTimeout,
       ),
     )..transformer = dioPluginProvider.getDioBackgroundDecoder();
 

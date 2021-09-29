@@ -26,7 +26,7 @@ abstract class AppRouter {
   Future<void> showDeckBuilder({PreBuiltDeck? preBuiltDeck});
   Future<void> showSpeedDuel(DuelRoom duelRoom);
   Future<PreBuiltDeck?> showSelectDeckDialog();
-  Future<void> showYugiohCardDetail(YugiohCard yugiohCard, int index);
+  Future<void> showYugiohCardDetail(CardCopy cardCopy, String ta);
   Future<void> showDrawCard(VoidCallback cardDrawnCallback);
   Future<CardPosition?> showPlayCardDialog(PlayCard? playCard, {Zone? newZone, bool showActions = false});
   Future<void> showDuelRoom(PreBuiltDeck preBuiltDeck);
@@ -144,8 +144,8 @@ class AppRouterImpl implements AppRouter {
   //region Deck builder
 
   @override
-  Future<void> showYugiohCardDetail(YugiohCard yugiohCard, int index) {
-    return _router.navigate(YugiohCardDetailRoute(yugiohCard: yugiohCard, index: index));
+  Future<void> showYugiohCardDetail(CardCopy cardCopy, String tag) {
+    return _router.navigate(YugiohCardDetailRoute(cardCopy: cardCopy, tag: tag));
   }
 
   //endregion

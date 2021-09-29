@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 class _$DeckBuilderStateTearOff {
   const _$DeckBuilderStateTearOff();
 
-  DeckBuilderFiltered filtered(Iterable<YugiohCard> cards) {
+  DeckBuilderFiltered filtered(Iterable<CardCopy> cards) {
     return DeckBuilderFiltered(
       cards,
     );
@@ -49,7 +49,7 @@ const $DeckBuilderState = _$DeckBuilderStateTearOff();
 mixin _$DeckBuilderState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Iterable<YugiohCard> cards) filtered,
+    required TResult Function(Iterable<CardCopy> cards) filtered,
     required TResult Function(Iterable<DeckBuilderSection> sections) preBuilt,
     required TResult Function() loading,
     required TResult Function() noData,
@@ -58,7 +58,7 @@ mixin _$DeckBuilderState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Iterable<YugiohCard> cards)? filtered,
+    TResult Function(Iterable<CardCopy> cards)? filtered,
     TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
     TResult Function()? loading,
     TResult Function()? noData,
@@ -67,7 +67,7 @@ mixin _$DeckBuilderState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Iterable<YugiohCard> cards)? filtered,
+    TResult Function(Iterable<CardCopy> cards)? filtered,
     TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
     TResult Function()? loading,
     TResult Function()? noData,
@@ -127,7 +127,7 @@ abstract class $DeckBuilderFilteredCopyWith<$Res> {
   factory $DeckBuilderFilteredCopyWith(
           DeckBuilderFiltered value, $Res Function(DeckBuilderFiltered) then) =
       _$DeckBuilderFilteredCopyWithImpl<$Res>;
-  $Res call({Iterable<YugiohCard> cards});
+  $Res call({Iterable<CardCopy> cards});
 }
 
 /// @nodoc
@@ -149,7 +149,7 @@ class _$DeckBuilderFilteredCopyWithImpl<$Res>
       cards == freezed
           ? _value.cards
           : cards // ignore: cast_nullable_to_non_nullable
-              as Iterable<YugiohCard>,
+              as Iterable<CardCopy>,
     ));
   }
 }
@@ -160,7 +160,7 @@ class _$DeckBuilderFiltered implements DeckBuilderFiltered {
   const _$DeckBuilderFiltered(this.cards);
 
   @override
-  final Iterable<YugiohCard> cards;
+  final Iterable<CardCopy> cards;
 
   @override
   String toString() {
@@ -187,7 +187,7 @@ class _$DeckBuilderFiltered implements DeckBuilderFiltered {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Iterable<YugiohCard> cards) filtered,
+    required TResult Function(Iterable<CardCopy> cards) filtered,
     required TResult Function(Iterable<DeckBuilderSection> sections) preBuilt,
     required TResult Function() loading,
     required TResult Function() noData,
@@ -199,7 +199,7 @@ class _$DeckBuilderFiltered implements DeckBuilderFiltered {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Iterable<YugiohCard> cards)? filtered,
+    TResult Function(Iterable<CardCopy> cards)? filtered,
     TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
     TResult Function()? loading,
     TResult Function()? noData,
@@ -211,7 +211,7 @@ class _$DeckBuilderFiltered implements DeckBuilderFiltered {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Iterable<YugiohCard> cards)? filtered,
+    TResult Function(Iterable<CardCopy> cards)? filtered,
     TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
     TResult Function()? loading,
     TResult Function()? noData,
@@ -266,10 +266,10 @@ class _$DeckBuilderFiltered implements DeckBuilderFiltered {
 }
 
 abstract class DeckBuilderFiltered implements DeckBuilderState {
-  const factory DeckBuilderFiltered(Iterable<YugiohCard> cards) =
+  const factory DeckBuilderFiltered(Iterable<CardCopy> cards) =
       _$DeckBuilderFiltered;
 
-  Iterable<YugiohCard> get cards => throw _privateConstructorUsedError;
+  Iterable<CardCopy> get cards => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
   $DeckBuilderFilteredCopyWith<DeckBuilderFiltered> get copyWith =>
       throw _privateConstructorUsedError;
@@ -341,7 +341,7 @@ class _$DeckBuilderPreBuilt implements DeckBuilderPreBuilt {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Iterable<YugiohCard> cards) filtered,
+    required TResult Function(Iterable<CardCopy> cards) filtered,
     required TResult Function(Iterable<DeckBuilderSection> sections) preBuilt,
     required TResult Function() loading,
     required TResult Function() noData,
@@ -353,7 +353,7 @@ class _$DeckBuilderPreBuilt implements DeckBuilderPreBuilt {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Iterable<YugiohCard> cards)? filtered,
+    TResult Function(Iterable<CardCopy> cards)? filtered,
     TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
     TResult Function()? loading,
     TResult Function()? noData,
@@ -365,7 +365,7 @@ class _$DeckBuilderPreBuilt implements DeckBuilderPreBuilt {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Iterable<YugiohCard> cards)? filtered,
+    TResult Function(Iterable<CardCopy> cards)? filtered,
     TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
     TResult Function()? loading,
     TResult Function()? noData,
@@ -470,7 +470,7 @@ class _$DeckBuilderLoading implements DeckBuilderLoading {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Iterable<YugiohCard> cards) filtered,
+    required TResult Function(Iterable<CardCopy> cards) filtered,
     required TResult Function(Iterable<DeckBuilderSection> sections) preBuilt,
     required TResult Function() loading,
     required TResult Function() noData,
@@ -482,7 +482,7 @@ class _$DeckBuilderLoading implements DeckBuilderLoading {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Iterable<YugiohCard> cards)? filtered,
+    TResult Function(Iterable<CardCopy> cards)? filtered,
     TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
     TResult Function()? loading,
     TResult Function()? noData,
@@ -494,7 +494,7 @@ class _$DeckBuilderLoading implements DeckBuilderLoading {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Iterable<YugiohCard> cards)? filtered,
+    TResult Function(Iterable<CardCopy> cards)? filtered,
     TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
     TResult Function()? loading,
     TResult Function()? noData,
@@ -592,7 +592,7 @@ class _$DeckBuilderNoData implements DeckBuilderNoData {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Iterable<YugiohCard> cards) filtered,
+    required TResult Function(Iterable<CardCopy> cards) filtered,
     required TResult Function(Iterable<DeckBuilderSection> sections) preBuilt,
     required TResult Function() loading,
     required TResult Function() noData,
@@ -604,7 +604,7 @@ class _$DeckBuilderNoData implements DeckBuilderNoData {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Iterable<YugiohCard> cards)? filtered,
+    TResult Function(Iterable<CardCopy> cards)? filtered,
     TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
     TResult Function()? loading,
     TResult Function()? noData,
@@ -616,7 +616,7 @@ class _$DeckBuilderNoData implements DeckBuilderNoData {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Iterable<YugiohCard> cards)? filtered,
+    TResult Function(Iterable<CardCopy> cards)? filtered,
     TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
     TResult Function()? loading,
     TResult Function()? noData,
@@ -714,7 +714,7 @@ class _$DeckBuilderError implements DeckBuilderError {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(Iterable<YugiohCard> cards) filtered,
+    required TResult Function(Iterable<CardCopy> cards) filtered,
     required TResult Function(Iterable<DeckBuilderSection> sections) preBuilt,
     required TResult Function() loading,
     required TResult Function() noData,
@@ -726,7 +726,7 @@ class _$DeckBuilderError implements DeckBuilderError {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult Function(Iterable<YugiohCard> cards)? filtered,
+    TResult Function(Iterable<CardCopy> cards)? filtered,
     TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
     TResult Function()? loading,
     TResult Function()? noData,
@@ -738,7 +738,7 @@ class _$DeckBuilderError implements DeckBuilderError {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(Iterable<YugiohCard> cards)? filtered,
+    TResult Function(Iterable<CardCopy> cards)? filtered,
     TResult Function(Iterable<DeckBuilderSection> sections)? preBuilt,
     TResult Function()? loading,
     TResult Function()? noData,

@@ -7,12 +7,12 @@ import '../yugioh_card_detail_viewmodel.dart';
 import 'yugioh_card_detail_screen.dart';
 
 class YugiohCardDetailScreenProvider extends StatelessWidget {
-  final YugiohCard yugiohCard;
-  final int index;
+  final CardCopy cardCopy;
+  final String tag;
 
   const YugiohCardDetailScreenProvider({
-    required this.yugiohCard,
-    required this.index,
+    required this.cardCopy,
+    required this.tag,
   });
 
   @override
@@ -21,8 +21,8 @@ class YugiohCardDetailScreenProvider extends StatelessWidget {
       providers: [
         Provider(
           create: (_) => di.get<YugiohCardDetailViewModel>(
-            param1: yugiohCard,
-            param2: index,
+            param1: cardCopy,
+            param2: tag,
           ),
         ),
       ],

@@ -18,6 +18,7 @@ class OnboardingViewModel extends BaseViewModel {
 
   final AppRouter _router;
   final DataManager _dataManager;
+  final CacheCardImagesUseCase _cacheCardImagesUseCase;
   final StringProvider _stringProvider;
   final ConnectivityProvider _connectivityProvider;
 
@@ -27,6 +28,7 @@ class OnboardingViewModel extends BaseViewModel {
   OnboardingViewModel(
     this._router,
     this._dataManager,
+    this._cacheCardImagesUseCase,
     this._stringProvider,
     this._connectivityProvider,
     Logger logger,
@@ -37,6 +39,7 @@ class OnboardingViewModel extends BaseViewModel {
 
     await _ensureUserIsConnected();
     await _ensureSpeedDuelCardsAvailable();
+    await _ensureCardImagesAvailable();
 
     _onboardingState.safeAdd(const OnboardingReady());
   }
@@ -98,6 +101,12 @@ class OnboardingViewModel extends BaseViewModel {
     if (retry ?? false) {
       await _ensureSpeedDuelCardsAvailable();
     }
+  }
+
+  Future<void> _ensureCardImagesAvailable() async {
+    logger.verbose(_tag, '_ensureCardImagesAvailable()');
+
+    await _cacheCardImagesUseCase();
   }
 
   Future<void> onInitiateLinkPressed() async {

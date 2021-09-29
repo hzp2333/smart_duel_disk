@@ -39,6 +39,7 @@ dependencies:
   json_annotation: ^4.1.0
   logger: ^1.1.0
   lottie: ^1.2.1
+  path_provider: ^2.0.5
   pretty_dio_logger: ^1.2.0-beta-1
   provider: ^6.0.1
   retrofit: ^2.0.1

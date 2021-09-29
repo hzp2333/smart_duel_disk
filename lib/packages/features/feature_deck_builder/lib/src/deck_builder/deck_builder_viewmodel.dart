@@ -56,41 +56,48 @@ class DeckBuilderViewModel extends BaseViewModel {
       Iterable<int> cardIds,
       String filterValue,
     ) {
+      final cardCopies = <CardCopy>{};
+      for (final card in cards) {
+        final image = _dataManager.getCardImageFile(card);
+        cardCopies.add(CardCopy(card, image));
+      }
+
       if (cardIds.isNotEmpty) {
-        return _createPreBuiltDeckState(cardIds, cards);
+        return _createPreBuiltDeckState(cardIds, cardCopies);
       }
 
       if (filterValue.isNullOrEmpty) {
-        return DeckBuilderFiltered(cards);
+        return DeckBuilderFiltered(cardCopies);
       }
 
-      return _createFilteredCardsState(cards, filterValue);
+      return _createFilteredCardsState(cardCopies, filterValue);
     }).listen(_deckBuilderState.safeAdd);
   }
 
-  DeckBuilderState _createPreBuiltDeckState(Iterable<int> cardIds, Iterable<YugiohCard> cards) {
+  DeckBuilderState _createPreBuiltDeckState(Iterable<int> cardIds, Iterable<CardCopy> cards) {
     logger.verbose(_tag, '_createPreBuiltDeckState()');
 
-    final deckCards = cardIds.map((id) => cards.firstWhere((card) => card.id == id)).toList()
-      ..sort((card1, card2) => card1.name.compareTo(card2.name));
+    final cardCopies = cardIds.map((id) => cards.firstWhere((cc) => cc.card.id == id)).toList()
+      ..sort((cc1, cc2) => cc1.card.name.compareTo(cc2.card.name));
 
     final sections = [
-      MonsterCardsSection(cards: deckCards.where((card) => card.isMonster && !card.belongsInExtraDeck)),
-      SpellCardsSection(cards: deckCards.where((card) => card.type == CardType.spellCard)),
-      TrapCardsSection(cards: deckCards.where((card) => card.type == CardType.trapCard)),
-      ExtraDeckSection(cards: deckCards.where((card) => card.belongsInExtraDeck))
+      MonsterCardsSection(cards: cardCopies.where((cc) => cc.card.isMonster && !cc.card.belongsInExtraDeck)),
+      SpellCardsSection(cards: cardCopies.where((cc) => cc.card.type == CardType.spellCard)),
+      TrapCardsSection(cards: cardCopies.where((cc) => cc.card.type == CardType.trapCard)),
+      ExtraDeckSection(cards: cardCopies.where((cc) => cc.card.belongsInExtraDeck))
     ]..removeWhere((section) => section.cards.isEmpty);
 
     return DeckBuilderPreBuilt(sections);
   }
 
-  DeckBuilderState _createFilteredCardsState(Iterable<YugiohCard> cards, String filterValue) {
+  DeckBuilderState _createFilteredCardsState(Iterable<CardCopy> cards, String filterValue) {
     logger.verbose(_tag, '_createFilteredCardsState()');
 
     final textFilter = filterValue.toLowerCase();
     final filteredCards = cards.where(
-      (card) =>
-          card.name.toLowerCase().contains(textFilter) || (card.archetype?.toLowerCase().contains(textFilter) ?? false),
+      (cc) =>
+          cc.card.name.toLowerCase().contains(textFilter) ||
+          (cc.card.archetype?.toLowerCase().contains(textFilter) ?? false),
     );
 
     if (filteredCards.isEmpty) {
@@ -147,12 +154,14 @@ class DeckBuilderViewModel extends BaseViewModel {
     _preBuiltDeckCardIds.safeAdd(preBuiltDeckCardIds);
   }
 
+  String getCardTag(CardCopy cardCopy, int index) => '${cardCopy.card.id} - $index';
+
   //region Actions
 
-  Future<void> onCardPressed(YugiohCard card, int index) async {
-    logger.info(_tag, 'onCardPressed(card: ${card.id}, index: $index)');
+  Future<void> onCardPressed(CardCopy cardCopy, int index) async {
+    logger.info(_tag, 'onCardPressed(card: ${cardCopy.card.id}, index: $index)');
 
-    await _router.showYugiohCardDetail(card, index);
+    await _router.showYugiohCardDetail(cardCopy, getCardTag(cardCopy, index));
   }
 
   Future<void> onRetryPressed() async {
