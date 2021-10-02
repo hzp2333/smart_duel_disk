@@ -56,11 +56,13 @@ class DeckBuilderViewModel extends BaseViewModel {
       Iterable<int> cardIds,
       String filterValue,
     ) {
-      final cardCopies = <CardCopy>{};
+      final cardCopies = <CardCopy>[];
       for (final card in cards) {
         final image = _dataManager.getCardImageFile(card);
         cardCopies.add(CardCopy(card, image));
       }
+
+      cardCopies.sort((cc1, cc2) => cc1.card.name.compareTo(cc2.card.name));
 
       if (cardIds.isNotEmpty) {
         return _createPreBuiltDeckState(cardIds, cardCopies);
@@ -77,8 +79,7 @@ class DeckBuilderViewModel extends BaseViewModel {
   DeckBuilderState _createPreBuiltDeckState(Iterable<int> cardIds, Iterable<CardCopy> cards) {
     logger.verbose(_tag, '_createPreBuiltDeckState()');
 
-    final cardCopies = cardIds.map((id) => cards.firstWhere((cc) => cc.card.id == id)).toList()
-      ..sort((cc1, cc2) => cc1.card.name.compareTo(cc2.card.name));
+    final cardCopies = cardIds.map((id) => cards.firstWhere((cc) => cc.card.id == id));
 
     final sections = [
       MonsterCardsSection(cards: cardCopies.where((cc) => cc.card.isMonster && !cc.card.belongsInExtraDeck)),

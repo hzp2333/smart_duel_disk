@@ -53,6 +53,7 @@ abstract class  LocaleKeys {
   static const onboarding_cards_cache_error_description = 'onboarding_cards_cache_error_description';
   static const onboarding_fineprint = 'onboarding_fineprint';
   static const onboarding_initiate_link = 'onboarding_initiate_link';
+  static const onboarding_status_card_image_cache_check = 'onboarding_status_card_image_cache_check';
   static const onboarding_status_cards_cache_check = 'onboarding_status_cards_cache_check';
   static const onboarding_status_connectivity_check = 'onboarding_status_connectivity_check';
   static const privacy_policy_title = 'privacy_policy_title';

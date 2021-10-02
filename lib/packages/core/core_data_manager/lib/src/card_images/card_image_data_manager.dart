@@ -5,7 +5,7 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_path_provider/lib/src/
 import 'package:universal_io/io.dart';
 
 abstract class CardImageDataManager {
-  Future<void> cacheCardImages(Iterable<YugiohCard> cards);
+  Stream<int> cacheCardImages(Iterable<YugiohCard> cards);
   File? getCardImageFile(YugiohCard card);
 }
 
@@ -21,8 +21,11 @@ class CardImageDataManagerImpl implements CardImageDataManager {
   ) : _cardImagesDirectory = '${pathProvider.getApplicationDocumentsDirectory().path}/card_images';
 
   @override
-  Future<void> cacheCardImages(Iterable<YugiohCard> cards) async {
-    for (final card in cards) {
+  Stream<int> cacheCardImages(Iterable<YugiohCard> cards) async* {
+    for (int i = 0; i < cards.length; i++) {
+      yield i;
+
+      final card = cards.elementAt(i);
       final filePath = _getCardImagePath(card);
       await _fileManager.downloadAndSaveFileIfNecessary(card.imageLargeUrl, filePath);
     }

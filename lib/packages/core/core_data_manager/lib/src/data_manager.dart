@@ -1,7 +1,6 @@
-import 'dart:io';
-
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
+import 'package:universal_io/io.dart';
 
 abstract class DataManager
     implements
@@ -123,7 +122,7 @@ class DataManagerImpl implements DataManager {
   //region Card Images
 
   @override
-  Future<void> cacheCardImages(Iterable<YugiohCard> cards) {
+  Stream<int> cacheCardImages(Iterable<YugiohCard> cards) {
     return _cardImageDataManager.cacheCardImages(cards);
   }
 

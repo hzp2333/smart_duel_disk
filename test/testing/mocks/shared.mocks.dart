@@ -325,10 +325,9 @@ class MockDataManager extends _i1.Mock implements _i2.DataManager {
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
-  _i3.Future<void> cacheCardImages(Iterable<_i2.YugiohCard>? cards) =>
+  _i3.Stream<int> cacheCardImages(Iterable<_i2.YugiohCard>? cards) =>
       (super.noSuchMethod(Invocation.method(#cacheCardImages, [cards]),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+          returnValue: Stream<int>.empty()) as _i3.Stream<int>);
   @override
   _i6.File? getCardImageFile(_i2.YugiohCard? card) =>
       (super.noSuchMethod(Invocation.method(#getCardImageFile, [card]))
@@ -660,9 +659,10 @@ class MockCacheCardImagesUseCase extends _i1.Mock
   }
 
   @override
-  _i3.Future<void> call() => (super.noSuchMethod(Invocation.method(#call, []),
-      returnValue: Future<void>.value(),
-      returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  _i3.Future<_i3.Stream<String>> call() => (super.noSuchMethod(
+          Invocation.method(#call, []),
+          returnValue: Future<_i3.Stream<String>>.value(Stream<String>.empty()))
+      as _i3.Future<_i3.Stream<String>>);
   @override
   String toString() => super.toString();
 }

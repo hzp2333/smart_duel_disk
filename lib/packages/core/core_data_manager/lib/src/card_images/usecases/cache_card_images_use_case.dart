@@ -2,7 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 
 abstract class CacheCardImagesUseCase {
-  Future<void> call();
+  Future<Stream<String>> call();
 }
 
 @LazySingleton(as: CacheCardImagesUseCase)
@@ -14,10 +14,13 @@ class CacheCardImagesUseCaseImpl implements CacheCardImagesUseCase {
   );
 
   @override
-  Future<void> call() async {
+  Future<Stream<String>> call() async {
     final cards = await _dataManager.getSpeedDuelCards();
     final token = await _dataManager.getToken();
 
-    await _dataManager.cacheCardImages([...cards, token]);
+    final allCards = [...cards, token];
+    final amountOfCards = allCards.length;
+
+    return _dataManager.cacheCardImages(allCards).map((index) => '${index + 1} / $amountOfCards');
   }
 }

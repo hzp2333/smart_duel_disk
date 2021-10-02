@@ -106,7 +106,11 @@ class OnboardingViewModel extends BaseViewModel {
   Future<void> _ensureCardImagesAvailable() async {
     logger.verbose(_tag, '_ensureCardImagesAvailable()');
 
-    await _cacheCardImagesUseCase();
+    final progressStream = await _cacheCardImagesUseCase();
+
+    return progressStream
+        .listen((progress) => _onboardingState.safeAdd(OnboardingCachingCardImages(progress)))
+        .asFuture<void>();
   }
 
   Future<void> onInitiateLinkPressed() async {

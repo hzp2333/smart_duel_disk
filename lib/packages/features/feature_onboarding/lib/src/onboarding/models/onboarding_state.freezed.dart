@@ -25,6 +25,12 @@ class _$OnboardingStateTearOff {
     return const OnboardingCachingCards();
   }
 
+  OnboardingCachingCardImages cachingCardImages(String progress) {
+    return OnboardingCachingCardImages(
+      progress,
+    );
+  }
+
   OnboardingReady ready() {
     return const OnboardingReady();
   }
@@ -39,6 +45,7 @@ mixin _$OnboardingState {
   TResult when<TResult extends Object?>({
     required TResult Function() connecting,
     required TResult Function() cachingCards,
+    required TResult Function(String progress) cachingCardImages,
     required TResult Function() ready,
   }) =>
       throw _privateConstructorUsedError;
@@ -46,6 +53,7 @@ mixin _$OnboardingState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? connecting,
     TResult Function()? cachingCards,
+    TResult Function(String progress)? cachingCardImages,
     TResult Function()? ready,
   }) =>
       throw _privateConstructorUsedError;
@@ -53,6 +61,7 @@ mixin _$OnboardingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? connecting,
     TResult Function()? cachingCards,
+    TResult Function(String progress)? cachingCardImages,
     TResult Function()? ready,
     required TResult orElse(),
   }) =>
@@ -61,6 +70,8 @@ mixin _$OnboardingState {
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardingConnecting value) connecting,
     required TResult Function(OnboardingCachingCards value) cachingCards,
+    required TResult Function(OnboardingCachingCardImages value)
+        cachingCardImages,
     required TResult Function(OnboardingReady value) ready,
   }) =>
       throw _privateConstructorUsedError;
@@ -68,6 +79,7 @@ mixin _$OnboardingState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OnboardingConnecting value)? connecting,
     TResult Function(OnboardingCachingCards value)? cachingCards,
+    TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
     TResult Function(OnboardingReady value)? ready,
   }) =>
       throw _privateConstructorUsedError;
@@ -75,6 +87,7 @@ mixin _$OnboardingState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardingConnecting value)? connecting,
     TResult Function(OnboardingCachingCards value)? cachingCards,
+    TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
     TResult Function(OnboardingReady value)? ready,
     required TResult orElse(),
   }) =>
@@ -140,6 +153,7 @@ class _$OnboardingConnecting implements OnboardingConnecting {
   TResult when<TResult extends Object?>({
     required TResult Function() connecting,
     required TResult Function() cachingCards,
+    required TResult Function(String progress) cachingCardImages,
     required TResult Function() ready,
   }) {
     return connecting();
@@ -150,6 +164,7 @@ class _$OnboardingConnecting implements OnboardingConnecting {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? connecting,
     TResult Function()? cachingCards,
+    TResult Function(String progress)? cachingCardImages,
     TResult Function()? ready,
   }) {
     return connecting?.call();
@@ -160,6 +175,7 @@ class _$OnboardingConnecting implements OnboardingConnecting {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? connecting,
     TResult Function()? cachingCards,
+    TResult Function(String progress)? cachingCardImages,
     TResult Function()? ready,
     required TResult orElse(),
   }) {
@@ -174,6 +190,8 @@ class _$OnboardingConnecting implements OnboardingConnecting {
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardingConnecting value) connecting,
     required TResult Function(OnboardingCachingCards value) cachingCards,
+    required TResult Function(OnboardingCachingCardImages value)
+        cachingCardImages,
     required TResult Function(OnboardingReady value) ready,
   }) {
     return connecting(this);
@@ -184,6 +202,7 @@ class _$OnboardingConnecting implements OnboardingConnecting {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OnboardingConnecting value)? connecting,
     TResult Function(OnboardingCachingCards value)? cachingCards,
+    TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
     TResult Function(OnboardingReady value)? ready,
   }) {
     return connecting?.call(this);
@@ -194,6 +213,7 @@ class _$OnboardingConnecting implements OnboardingConnecting {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardingConnecting value)? connecting,
     TResult Function(OnboardingCachingCards value)? cachingCards,
+    TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
     TResult Function(OnboardingReady value)? ready,
     required TResult orElse(),
   }) {
@@ -250,6 +270,7 @@ class _$OnboardingCachingCards implements OnboardingCachingCards {
   TResult when<TResult extends Object?>({
     required TResult Function() connecting,
     required TResult Function() cachingCards,
+    required TResult Function(String progress) cachingCardImages,
     required TResult Function() ready,
   }) {
     return cachingCards();
@@ -260,6 +281,7 @@ class _$OnboardingCachingCards implements OnboardingCachingCards {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? connecting,
     TResult Function()? cachingCards,
+    TResult Function(String progress)? cachingCardImages,
     TResult Function()? ready,
   }) {
     return cachingCards?.call();
@@ -270,6 +292,7 @@ class _$OnboardingCachingCards implements OnboardingCachingCards {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? connecting,
     TResult Function()? cachingCards,
+    TResult Function(String progress)? cachingCardImages,
     TResult Function()? ready,
     required TResult orElse(),
   }) {
@@ -284,6 +307,8 @@ class _$OnboardingCachingCards implements OnboardingCachingCards {
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardingConnecting value) connecting,
     required TResult Function(OnboardingCachingCards value) cachingCards,
+    required TResult Function(OnboardingCachingCardImages value)
+        cachingCardImages,
     required TResult Function(OnboardingReady value) ready,
   }) {
     return cachingCards(this);
@@ -294,6 +319,7 @@ class _$OnboardingCachingCards implements OnboardingCachingCards {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OnboardingConnecting value)? connecting,
     TResult Function(OnboardingCachingCards value)? cachingCards,
+    TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
     TResult Function(OnboardingReady value)? ready,
   }) {
     return cachingCards?.call(this);
@@ -304,6 +330,7 @@ class _$OnboardingCachingCards implements OnboardingCachingCards {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardingConnecting value)? connecting,
     TResult Function(OnboardingCachingCards value)? cachingCards,
+    TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
     TResult Function(OnboardingReady value)? ready,
     required TResult orElse(),
   }) {
@@ -316,6 +343,158 @@ class _$OnboardingCachingCards implements OnboardingCachingCards {
 
 abstract class OnboardingCachingCards implements OnboardingState {
   const factory OnboardingCachingCards() = _$OnboardingCachingCards;
+}
+
+/// @nodoc
+abstract class $OnboardingCachingCardImagesCopyWith<$Res> {
+  factory $OnboardingCachingCardImagesCopyWith(
+          OnboardingCachingCardImages value,
+          $Res Function(OnboardingCachingCardImages) then) =
+      _$OnboardingCachingCardImagesCopyWithImpl<$Res>;
+  $Res call({String progress});
+}
+
+/// @nodoc
+class _$OnboardingCachingCardImagesCopyWithImpl<$Res>
+    extends _$OnboardingStateCopyWithImpl<$Res>
+    implements $OnboardingCachingCardImagesCopyWith<$Res> {
+  _$OnboardingCachingCardImagesCopyWithImpl(OnboardingCachingCardImages _value,
+      $Res Function(OnboardingCachingCardImages) _then)
+      : super(_value, (v) => _then(v as OnboardingCachingCardImages));
+
+  @override
+  OnboardingCachingCardImages get _value =>
+      super._value as OnboardingCachingCardImages;
+
+  @override
+  $Res call({
+    Object? progress = freezed,
+  }) {
+    return _then(OnboardingCachingCardImages(
+      progress == freezed
+          ? _value.progress
+          : progress // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$OnboardingCachingCardImages implements OnboardingCachingCardImages {
+  const _$OnboardingCachingCardImages(this.progress);
+
+  @override
+  final String progress;
+
+  @override
+  String toString() {
+    return 'OnboardingState.cachingCardImages(progress: $progress)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other is OnboardingCachingCardImages &&
+            (identical(other.progress, progress) ||
+                const DeepCollectionEquality()
+                    .equals(other.progress, progress)));
+  }
+
+  @override
+  int get hashCode =>
+      runtimeType.hashCode ^ const DeepCollectionEquality().hash(progress);
+
+  @JsonKey(ignore: true)
+  @override
+  $OnboardingCachingCardImagesCopyWith<OnboardingCachingCardImages>
+      get copyWith => _$OnboardingCachingCardImagesCopyWithImpl<
+          OnboardingCachingCardImages>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() connecting,
+    required TResult Function() cachingCards,
+    required TResult Function(String progress) cachingCardImages,
+    required TResult Function() ready,
+  }) {
+    return cachingCardImages(progress);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? connecting,
+    TResult Function()? cachingCards,
+    TResult Function(String progress)? cachingCardImages,
+    TResult Function()? ready,
+  }) {
+    return cachingCardImages?.call(progress);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? connecting,
+    TResult Function()? cachingCards,
+    TResult Function(String progress)? cachingCardImages,
+    TResult Function()? ready,
+    required TResult orElse(),
+  }) {
+    if (cachingCardImages != null) {
+      return cachingCardImages(progress);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(OnboardingConnecting value) connecting,
+    required TResult Function(OnboardingCachingCards value) cachingCards,
+    required TResult Function(OnboardingCachingCardImages value)
+        cachingCardImages,
+    required TResult Function(OnboardingReady value) ready,
+  }) {
+    return cachingCardImages(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(OnboardingConnecting value)? connecting,
+    TResult Function(OnboardingCachingCards value)? cachingCards,
+    TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
+    TResult Function(OnboardingReady value)? ready,
+  }) {
+    return cachingCardImages?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(OnboardingConnecting value)? connecting,
+    TResult Function(OnboardingCachingCards value)? cachingCards,
+    TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
+    TResult Function(OnboardingReady value)? ready,
+    required TResult orElse(),
+  }) {
+    if (cachingCardImages != null) {
+      return cachingCardImages(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class OnboardingCachingCardImages implements OnboardingState {
+  const factory OnboardingCachingCardImages(String progress) =
+      _$OnboardingCachingCardImages;
+
+  String get progress => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $OnboardingCachingCardImagesCopyWith<OnboardingCachingCardImages>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -360,6 +539,7 @@ class _$OnboardingReady implements OnboardingReady {
   TResult when<TResult extends Object?>({
     required TResult Function() connecting,
     required TResult Function() cachingCards,
+    required TResult Function(String progress) cachingCardImages,
     required TResult Function() ready,
   }) {
     return ready();
@@ -370,6 +550,7 @@ class _$OnboardingReady implements OnboardingReady {
   TResult? whenOrNull<TResult extends Object?>({
     TResult Function()? connecting,
     TResult Function()? cachingCards,
+    TResult Function(String progress)? cachingCardImages,
     TResult Function()? ready,
   }) {
     return ready?.call();
@@ -380,6 +561,7 @@ class _$OnboardingReady implements OnboardingReady {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? connecting,
     TResult Function()? cachingCards,
+    TResult Function(String progress)? cachingCardImages,
     TResult Function()? ready,
     required TResult orElse(),
   }) {
@@ -394,6 +576,8 @@ class _$OnboardingReady implements OnboardingReady {
   TResult map<TResult extends Object?>({
     required TResult Function(OnboardingConnecting value) connecting,
     required TResult Function(OnboardingCachingCards value) cachingCards,
+    required TResult Function(OnboardingCachingCardImages value)
+        cachingCardImages,
     required TResult Function(OnboardingReady value) ready,
   }) {
     return ready(this);
@@ -404,6 +588,7 @@ class _$OnboardingReady implements OnboardingReady {
   TResult? mapOrNull<TResult extends Object?>({
     TResult Function(OnboardingConnecting value)? connecting,
     TResult Function(OnboardingCachingCards value)? cachingCards,
+    TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
     TResult Function(OnboardingReady value)? ready,
   }) {
     return ready?.call(this);
@@ -414,6 +599,7 @@ class _$OnboardingReady implements OnboardingReady {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(OnboardingConnecting value)? connecting,
     TResult Function(OnboardingCachingCards value)? cachingCards,
+    TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
     TResult Function(OnboardingReady value)? ready,
     required TResult orElse(),
   }) {

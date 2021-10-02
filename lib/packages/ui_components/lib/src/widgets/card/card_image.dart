@@ -7,6 +7,7 @@ import 'package:universal_io/io.dart';
 
 class CardImage extends StatelessWidget {
   static final _cardBackPath = Assets.illustrations.cardBack.path;
+  static final _placeHolder = ImagePlaceholder(imageAssetId: _cardBackPath);
 
   final YugiohCard card;
   final File? image;
@@ -21,18 +22,15 @@ class CardImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (image != null) {
-      return Image.file(
-        image!,
-        fit: fit,
-      );
+      return Image.file(image!);
     }
 
     return CachedNetworkImage(
       imageUrl: card.imageLargeUrl,
       fit: fit,
-      placeholder: (_, __) => ImagePlaceholder(imageAssetId: _cardBackPath),
+      placeholder: (_, __) => _placeHolder,
       // ignore: avoid_annotating_with_dynamic
-      errorWidget: (_, __, dynamic ___) => ImagePlaceholder(imageAssetId: _cardBackPath),
+      errorWidget: (_, __, dynamic ___) => _placeHolder,
     );
   }
 }

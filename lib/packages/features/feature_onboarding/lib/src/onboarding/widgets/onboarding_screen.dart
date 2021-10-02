@@ -185,9 +185,12 @@ class _Footer extends HookWidget with ProviderMixin {
     }
 
     return data.when(
+      ready: () => const _InitiateLinkButton(),
       connecting: () => _LoadingState(text: stringProvider.getString(LocaleKeys.onboarding_status_connectivity_check)),
       cachingCards: () => _LoadingState(text: stringProvider.getString(LocaleKeys.onboarding_status_cards_cache_check)),
-      ready: () => const _InitiateLinkButton(),
+      cachingCardImages: (progress) => _LoadingState(
+        text: '${stringProvider.getString(LocaleKeys.onboarding_status_card_image_cache_check)}\n$progress',
+      ),
     );
   }
 }
@@ -201,7 +204,8 @@ class _LoadingState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Align(
+      alignment: const Alignment(0.0, 0.5),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -209,7 +213,10 @@ class _LoadingState extends StatelessWidget {
           const SizedBox(height: AppSizes.screenMarginLarge),
           Text(
             text,
-            style: TextStyles.subtitle,
+            style: TextStyles.subtitle.copyWith(
+              height: 2,
+            ),
+            textAlign: TextAlign.center,
           ),
         ],
       ),
