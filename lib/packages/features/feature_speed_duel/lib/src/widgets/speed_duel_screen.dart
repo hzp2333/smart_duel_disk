@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_event.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_state.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
@@ -85,27 +86,61 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
         onTap: () => _closeBottomSheet(),
         child: ScrollConfiguration(
           behavior: const NoScrollGlowBehavior(),
-          child: Scaffold(
-            key: _scaffoldKey,
-            backgroundColor: AppColors.primaryBackgroundColor,
-            body: const _BodyBuilder(),
-          ),
+          child: _ScaffoldBuilder(scaffoldKey: _scaffoldKey),
         ),
       ),
     );
   }
 }
 
-class _BodyBuilder extends HookWidget {
-  const _BodyBuilder();
+class _ScaffoldBuilder extends HookWidget {
+  final GlobalKey<ScaffoldState> scaffoldKey;
+
+  const _ScaffoldBuilder({
+    required this.scaffoldKey,
+  });
 
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<SpeedDuelViewModel>(context);
-    final speedDuelState = useStream(vm.screenState, initialData: const SpeedDuelLoading());
+    final state = useStream(vm.screenState, initialData: const SpeedDuelLoading());
 
+    return Scaffold(
+      key: scaffoldKey,
+      appBar: state.data is SpeedDuelError ? const _AppBar() : null,
+      body: _BodyBuilder(state: state.data!),
+      backgroundColor: AppColors.primaryBackgroundColor,
+    );
+  }
+}
+
+class _AppBar extends StatelessWidget with PreferredSizeWidget {
+  const _AppBar();
+
+  @override
+  Widget build(BuildContext context) {
+    return AppBar(
+      elevation: 0.0,
+      backgroundColor: Colors.transparent,
+      leading: const BackButton(),
+    );
+  }
+
+  @override
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+class _BodyBuilder extends StatelessWidget {
+  final SpeedDuelScreenState state;
+
+  const _BodyBuilder({
+    required this.state,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return SafeArea(
-      child: speedDuelState.data!.when(
+      child: state.when(
         (state) => SpeedDuelField(state: state),
         loading: () => const GeneralLoadingState(),
         error: () => const GeneralErrorState(description: 'An error occurred while starting the speed duel'),
