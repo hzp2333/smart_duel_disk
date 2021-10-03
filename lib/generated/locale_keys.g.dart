@@ -39,6 +39,8 @@ abstract class  LocaleKeys {
   static const duel_room_title = 'duel_room_title';
   static const feature_create_personal_deck = 'feature_create_personal_deck';
   static const feature_not_available_yet_description = 'feature_not_available_yet_description';
+  static const general_dialog_no = 'general_dialog_no';
+  static const general_dialog_yes = 'general_dialog_yes';
   static const general_error_dialog_title = 'general_error_dialog_title';
   static const general_error_try_again = 'general_error_try_again';
   static const general_switch_off = 'general_switch_off';
@@ -50,6 +52,9 @@ abstract class  LocaleKeys {
   static const no_connection_dialog_description = 'no_connection_dialog_description';
   static const no_connection_dialog_title = 'no_connection_dialog_title';
   static const onboarding_app_title = 'onboarding_app_title';
+  static const onboarding_card_images_cache_dialog_description = 'onboarding_card_images_cache_dialog_description';
+  static const onboarding_card_images_cache_dialog_title = 'onboarding_card_images_cache_dialog_title';
+  static const onboarding_card_images_cache_error_description = 'onboarding_card_images_cache_error_description';
   static const onboarding_cards_cache_error_description = 'onboarding_cards_cache_error_description';
   static const onboarding_fineprint = 'onboarding_fineprint';
   static const onboarding_initiate_link = 'onboarding_initiate_link';

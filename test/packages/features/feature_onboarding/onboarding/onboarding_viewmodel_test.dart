@@ -12,6 +12,7 @@ void main() {
 
   late MockAppRouter _router;
   late MockDataManager _dataManager;
+  late MockAreAllCardImagesCachedUseCase _areAllCardImagesCachedUseCase;
   late MockCacheCardImagesUseCase _cacheCardImagesUseCase;
   late MockStringProvider _stringProvider;
   late MockConnectivityProvider _connectivityProvider;
@@ -20,6 +21,7 @@ void main() {
   setUp(() {
     _router = MockAppRouter();
     _dataManager = MockDataManager();
+    _areAllCardImagesCachedUseCase = MockAreAllCardImagesCachedUseCase();
     _cacheCardImagesUseCase = MockCacheCardImagesUseCase();
     _stringProvider = MockStringProvider();
     _connectivityProvider = MockConnectivityProvider();
@@ -30,11 +32,14 @@ void main() {
 
     when(_connectivityProvider.isConnected()).thenAnswer((_) => Future.value(true));
 
+    when(_areAllCardImagesCachedUseCase()).thenAnswer((_) => Future.value(true));
+
     when(_router.showDialog(any)).thenAnswer((_) => Future.value(false));
 
     _viewModel = OnboardingViewModel(
       _router,
       _dataManager,
+      _areAllCardImagesCachedUseCase,
       _cacheCardImagesUseCase,
       _stringProvider,
       _connectivityProvider,
@@ -70,22 +75,6 @@ void main() {
             ),
           ),
         ).called(1);
-      });
-
-      group('and the user retries the connection check', () {
-        setUp(() {
-          when(_router.showDialog(any)).thenAnswer((_) => Future.value(true));
-        });
-
-        test('then another check is done to see if the user is connected to the internet', () async {
-          // ignore: unawaited_futures
-          _viewModel.init();
-          await untilCalled(_router.showDialog(any));
-          when(_connectivityProvider.isConnected()).thenAnswer((_) => Future.value(true));
-          await delay();
-
-          verify(_connectivityProvider.isConnected()).called(2);
-        });
       });
     });
   });

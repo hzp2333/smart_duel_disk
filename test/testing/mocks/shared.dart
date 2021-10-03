@@ -35,5 +35,6 @@ import 'package:universal_io/io.dart';
   FileManager,
   PathProviderWrapper,
   Directory,
+  AreAllCardImagesCachedUseCase,
 ])
 void main() {}

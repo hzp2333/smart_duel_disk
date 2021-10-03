@@ -825,3 +825,19 @@ class MockDirectory extends _i1.Mock implements _i6.Directory {
               returnValue: Stream<_i6.FileSystemEvent>.empty())
           as _i3.Stream<_i6.FileSystemEvent>);
 }
+
+/// A class which mocks [AreAllCardImagesCachedUseCase].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockAreAllCardImagesCachedUseCase extends _i1.Mock
+    implements _i2.AreAllCardImagesCachedUseCase {
+  MockAreAllCardImagesCachedUseCase() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  _i3.Future<bool> call() => (super.noSuchMethod(Invocation.method(#call, []),
+      returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
+  @override
+  String toString() => super.toString();
+}

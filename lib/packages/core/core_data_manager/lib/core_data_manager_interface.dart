@@ -2,6 +2,7 @@ library core_data_manager_interface;
 
 export 'src/card_images/card_image_data_manager.dart' show CardImageDataManager;
 export 'src/card_images/entities/card_copy.dart';
+export 'src/card_images/usecases/are_all_card_images_cached_use_case.dart' show AreAllCardImagesCachedUseCase;
 export 'src/card_images/usecases/cache_card_images_use_case.dart' show CacheCardImagesUseCase;
 export 'src/data_manager.dart' show DataManager;
 export 'src/deck/deck_data_manager.dart' show DeckDataManager;

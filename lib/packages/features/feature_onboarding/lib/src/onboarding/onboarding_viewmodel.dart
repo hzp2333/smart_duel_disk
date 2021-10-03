@@ -18,6 +18,7 @@ class OnboardingViewModel extends BaseViewModel {
 
   final AppRouter _router;
   final DataManager _dataManager;
+  final AreAllCardImagesCachedUseCase _areAllCardImagesCachedUseCase;
   final CacheCardImagesUseCase _cacheCardImagesUseCase;
   final StringProvider _stringProvider;
   final ConnectivityProvider _connectivityProvider;
@@ -28,6 +29,7 @@ class OnboardingViewModel extends BaseViewModel {
   OnboardingViewModel(
     this._router,
     this._dataManager,
+    this._areAllCardImagesCachedUseCase,
     this._cacheCardImagesUseCase,
     this._stringProvider,
     this._connectivityProvider,
@@ -39,10 +41,12 @@ class OnboardingViewModel extends BaseViewModel {
 
     await _ensureUserIsConnected();
     await _ensureSpeedDuelCardsAvailable();
-    await _ensureCardImagesAvailable();
+    await _showDownloadCardImagesDialogIfNecessary();
 
     _onboardingState.safeAdd(const OnboardingReady());
   }
+
+  //region Connectivity check
 
   Future<void> _ensureUserIsConnected() async {
     logger.verbose(_tag, '_ensureUserIsConnected()');
@@ -72,16 +76,26 @@ class OnboardingViewModel extends BaseViewModel {
     }
   }
 
+  //endregion
+
+  //region Cards cache check
+
   Future<void> _ensureSpeedDuelCardsAvailable() async {
     logger.verbose(_tag, '_ensureUserIsConnected()');
 
     _onboardingState.safeAdd(const OnboardingCachingCards());
 
-    await _dataManager.getSpeedDuelCards();
-    await _dataManager.getToken();
+    try {
+      await _dataManager.getSpeedDuelCards();
+      await _dataManager.getToken();
 
-    final hasCache = _dataManager.hasSpeedDuelCardsCache();
-    if (!hasCache) {
+      final hasCache = _dataManager.hasSpeedDuelCardsCache();
+      if (!hasCache) {
+        await _showCardsCacheErrorDialog();
+      }
+    } catch (e, stackTrace) {
+      logger.error(_tag, 'An error occurred while downloading the speed duel cards', e, stackTrace);
+
       await _showCardsCacheErrorDialog();
     }
   }
@@ -103,15 +117,75 @@ class OnboardingViewModel extends BaseViewModel {
     }
   }
 
+  //endregion
+
+  //region Card images cache check
+
+  Future<void> _showDownloadCardImagesDialogIfNecessary() async {
+    logger.verbose(_tag, '_showDownloadCardImagesDialogIfNecessary()');
+
+    final cardImagesCached = await _areAllCardImagesCachedUseCase();
+    if (cardImagesCached) {
+      return;
+    }
+
+    final downloadCardImages = await _router.showDialog(
+      DialogConfig(
+        title: _stringProvider.getString(LocaleKeys.onboarding_card_images_cache_dialog_title),
+        description: _stringProvider.getString(LocaleKeys.onboarding_card_images_cache_dialog_description),
+        positiveButtonText: _stringProvider.getString(LocaleKeys.general_dialog_yes),
+        negativeButtonText: _stringProvider.getString(LocaleKeys.general_dialog_no),
+        isDismissable: false,
+      ),
+    );
+
+    if (downloadCardImages ?? false) {
+      await _ensureCardImagesAvailable();
+    }
+  }
+
   Future<void> _ensureCardImagesAvailable() async {
     logger.verbose(_tag, '_ensureCardImagesAvailable()');
 
-    final progressStream = await _cacheCardImagesUseCase();
+    try {
+      final progressStream = await _cacheCardImagesUseCase();
 
-    return progressStream
-        .listen((progress) => _onboardingState.safeAdd(OnboardingCachingCardImages(progress)))
-        .asFuture<void>();
+      await progressStream
+          .listen(
+            (progress) => _onboardingState.safeAdd(OnboardingCachingCardImages(progress)),
+            onError: _onCardImagesCacheError,
+            cancelOnError: true,
+          )
+          .asFuture<void>();
+    } catch (e, stackTrace) {
+      await _onCardImagesCacheError(e, stackTrace);
+    }
   }
+
+  Future<void> _onCardImagesCacheError(Object exception, StackTrace stackTrace) async {
+    logger.error(_tag, 'An error occurred while downloading the card images', exception, stackTrace);
+
+    await _showCardImagesCacheErrorDialog();
+  }
+
+  Future<void> _showCardImagesCacheErrorDialog() async {
+    logger.verbose(_tag, '_showCardImagesCacheErrorDialog()');
+
+    final retry = await _router.showDialog(
+      DialogConfig(
+        title: _stringProvider.getString(LocaleKeys.general_error_dialog_title),
+        description: _stringProvider.getString(LocaleKeys.onboarding_card_images_cache_error_description),
+        positiveButtonText: _stringProvider.getString(LocaleKeys.general_error_try_again),
+        isDismissable: false,
+      ),
+    );
+
+    if (retry ?? false) {
+      await _ensureCardImagesAvailable();
+    }
+  }
+
+  //endregion
 
   Future<void> onInitiateLinkPressed() async {
     logger.info(_tag, 'onInitiateLinkPressed()');
