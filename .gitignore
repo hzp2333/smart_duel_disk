@@ -27,3 +27,5 @@ ios/Flutter/.last_build_id
 *.env
 .idea
 fastlane/report.xml
+
+ios/Podfile.lock
