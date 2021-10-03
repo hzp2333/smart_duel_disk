@@ -646,6 +646,11 @@ class MockConnectivityProvider extends _i1.Mock
       (super.noSuchMethod(Invocation.method(#hasWifi, []),
           returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
   @override
+  _i3.Future<void> dispose() =>
+      (super.noSuchMethod(Invocation.method(#dispose, []),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  @override
   String toString() => super.toString();
 }
 

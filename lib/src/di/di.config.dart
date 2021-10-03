@@ -273,8 +273,9 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => localizationModule.provideCodegenLoader);
   gh.lazySingleton<_i20.Connectivity>(
       () => connectivityModule.provideConnectivity());
-  gh.lazySingleton<_i21.ConnectivityProvider>(
-      () => _i21.ConnectivityProviderImpl(get<_i20.Connectivity>()));
+  gh.singleton<_i21.ConnectivityProvider>(
+      _i21.ConnectivityProviderImpl(get<_i20.Connectivity>()),
+      dispose: (i) => i.dispose());
   gh.lazySingleton<_i22.CrashlyticsProvider>(
       () => _i23.WebCrashlyticsProvider(),
       registerFor: {_web});
