@@ -44,7 +44,7 @@ class SpellTrapRow extends StatelessWidget {
           children: [
             DeckZone(zone: playerState.deckZone),
             const SizedBox(width: AppSizes.duelFieldCardSpacing),
-            const ZoneFiller(),
+            SingleCardZone(zone: playerState.skillZone),
           ],
         ),
       ],

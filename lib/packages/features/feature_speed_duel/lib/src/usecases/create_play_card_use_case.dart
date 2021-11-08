@@ -42,7 +42,7 @@ class CreatePlayCardUseCase {
     );
   }
 
-  String _getAttributeAssetName(YugiohCard card) {
+  String? _getAttributeAssetName(YugiohCard card) {
     switch (card.attribute) {
       case CardAttribute.dark:
         return Assets.icons.icAttributeDark.path;
@@ -72,6 +72,6 @@ class CreatePlayCardUseCase {
         break;
     }
 
-    throw Exception('No attribute asset available.');
+    return null;
   }
 }

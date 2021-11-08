@@ -40,6 +40,10 @@ class CreatePlayCardDialogActionsUseCase {
       return _getSpellTrapFieldZoneActions(playCard);
     }
 
+    if (playCard.zoneType == ZoneType.skill) {
+      return _getSpellTrapFieldZoneActions(playCard);
+    }
+
     return [];
   }
 

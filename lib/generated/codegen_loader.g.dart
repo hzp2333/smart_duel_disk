@@ -26,6 +26,7 @@ class CodegenLoader extends AssetLoader{
   "deck_builder_monster_cards_section": "Monster cards",
   "deck_builder_no_data_error_description": "No cards were found. Please update the filter.",
   "deck_builder_search_hint": "Search by name or archetype...",
+  "deck_builder_skill_cards_section": "Skill card",
   "deck_builder_spell_cards_section": "Spell cards",
   "deck_builder_trap_cards_section": "Trap cards",
   "deck_personal_create_deck": "Create a deck",

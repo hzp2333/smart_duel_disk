@@ -18,7 +18,7 @@ class PlayCard extends Equatable {
   final String? formattedAttack;
   final String? formattedDefence;
   final String? formattedLevel;
-  final String attributeAssetName;
+  final String? attributeAssetName;
 
   const PlayCard({
     required this.yugiohCard,

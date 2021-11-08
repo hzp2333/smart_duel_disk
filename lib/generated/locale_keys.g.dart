@@ -12,6 +12,7 @@ abstract class  LocaleKeys {
   static const deck_builder_monster_cards_section = 'deck_builder_monster_cards_section';
   static const deck_builder_no_data_error_description = 'deck_builder_no_data_error_description';
   static const deck_builder_search_hint = 'deck_builder_search_hint';
+  static const deck_builder_skill_cards_section = 'deck_builder_skill_cards_section';
   static const deck_builder_spell_cards_section = 'deck_builder_spell_cards_section';
   static const deck_builder_trap_cards_section = 'deck_builder_trap_cards_section';
   static const deck_personal_create_deck = 'deck_personal_create_deck';

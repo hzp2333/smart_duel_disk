@@ -91,6 +91,7 @@ class MoveCardUseCase {
       spellTrapZone2: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap2),
       spellTrapZone3: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap3),
       deckZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.deck),
+      skillZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.skill),
     );
   }
 }

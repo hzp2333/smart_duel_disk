@@ -11,6 +11,7 @@ enum ZoneType {
   spellTrap2,
   spellTrap3,
   deck,
+  skill,
 }
 
 ZoneType? parseZoneType(String? zoneType) {
@@ -39,6 +40,8 @@ ZoneType? parseZoneType(String? zoneType) {
       return ZoneType.spellTrap3;
     case 'deck':
       return ZoneType.deck;
+    case 'skill':
+      return ZoneType.skill;
     default:
       return null;
   }
@@ -51,5 +54,6 @@ extension ZoneTypeExtensions on ZoneType {
   bool get isSpellTrapCardZone =>
       this == ZoneType.spellTrap1 || this == ZoneType.spellTrap2 || this == ZoneType.spellTrap3;
 
-  bool get isMultiCardZone => !isMainMonsterZone && !isSpellTrapCardZone && this != ZoneType.field;
+  bool get isMultiCardZone =>
+      [ZoneType.hand, ZoneType.graveyard, ZoneType.banished, ZoneType.extraDeck, ZoneType.deck].contains(this);
 }

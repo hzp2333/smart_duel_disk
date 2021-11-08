@@ -87,10 +87,12 @@ class _FirstRow extends StatelessWidget {
             style: TextStyles.cardDialogBigText,
           ),
         ),
-        ImageAssetProvider(
-          assetName: playCard!.attributeAssetName,
-          size: AppSizes.iconSize24,
-        ),
+        if (playCard!.attributeAssetName != null) ...[
+          ImageAssetProvider(
+            assetName: playCard!.attributeAssetName!,
+            size: AppSizes.iconSize24,
+          ),
+        ],
       ],
     );
   }

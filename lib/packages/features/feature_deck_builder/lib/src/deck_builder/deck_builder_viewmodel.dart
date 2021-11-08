@@ -82,6 +82,7 @@ class DeckBuilderViewModel extends BaseViewModel {
     final cardCopies = cardIds.map((id) => cards.firstWhere((cc) => cc.card.id == id));
 
     final sections = [
+      SkillCardSection(cards: cardCopies.where((cc) => cc.card.type == CardType.skillCard)),
       MonsterCardsSection(cards: cardCopies.where((cc) => cc.card.isMonster && !cc.card.belongsInExtraDeck)),
       SpellCardsSection(cards: cardCopies.where((cc) => cc.card.type == CardType.spellCard)),
       TrapCardsSection(cards: cardCopies.where((cc) => cc.card.type == CardType.trapCard)),

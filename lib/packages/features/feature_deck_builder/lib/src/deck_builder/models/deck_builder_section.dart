@@ -23,37 +23,41 @@ abstract class DeckBuilderSection extends Equatable {
   bool? get stringify => true;
 }
 
+class SkillCardSection extends DeckBuilderSection {
+  const SkillCardSection({required Iterable<CardCopy> cards})
+      : super(
+          titleId: LocaleKeys.deck_builder_skill_cards_section,
+          cards: cards,
+        );
+}
+
 class MonsterCardsSection extends DeckBuilderSection {
-  const MonsterCardsSection({
-    required Iterable<CardCopy> cards,
-  }) : super(
+  const MonsterCardsSection({required Iterable<CardCopy> cards})
+      : super(
           titleId: LocaleKeys.deck_builder_monster_cards_section,
           cards: cards,
         );
 }
 
 class SpellCardsSection extends DeckBuilderSection {
-  const SpellCardsSection({
-    required Iterable<CardCopy> cards,
-  }) : super(
+  const SpellCardsSection({required Iterable<CardCopy> cards})
+      : super(
           titleId: LocaleKeys.deck_builder_spell_cards_section,
           cards: cards,
         );
 }
 
 class TrapCardsSection extends DeckBuilderSection {
-  const TrapCardsSection({
-    required Iterable<CardCopy> cards,
-  }) : super(
+  const TrapCardsSection({required Iterable<CardCopy> cards})
+      : super(
           titleId: LocaleKeys.deck_builder_trap_cards_section,
           cards: cards,
         );
 }
 
 class ExtraDeckSection extends DeckBuilderSection {
-  const ExtraDeckSection({
-    required Iterable<CardCopy> cards,
-  }) : super(
+  const ExtraDeckSection({required Iterable<CardCopy> cards})
+      : super(
           titleId: LocaleKeys.deck_builder_extra_deck_section,
           cards: cards,
         );
