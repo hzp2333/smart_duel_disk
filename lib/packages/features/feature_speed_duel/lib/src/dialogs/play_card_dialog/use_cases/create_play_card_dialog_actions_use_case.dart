@@ -1,6 +1,5 @@
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
-import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/models/play_card_dialog_action.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
@@ -9,127 +8,78 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 
 @LazySingleton()
 class CreatePlayCardDialogActionsUseCase {
-  static const _tag = 'CreatePlayCardDialogActionsUseCase';
-
-  final Logger _logger;
-
-  CreatePlayCardDialogActionsUseCase(
-    this._logger,
-  );
-
   Iterable<PlayCardDialogAction> call(PlayCard playCard, Zone? newZone) {
-    _logger.info(_tag, 'call(playCard: $playCard, newZone: $newZone)');
-
     if (playCard.zoneType.isMultiCardZone && newZone != null) {
       return _getMultiCardZoneActions(playCard, newZone);
     }
 
     if (playCard.zoneType.isMainMonsterZone) {
-      if (newZone?.zoneType.isSpellTrapCardZone ?? false) {
-        return _getSpellTrapFieldZoneActions(playCard);
-      }
-
-      return _getMainMonsterZoneActions(playCard);
+      return (newZone?.zoneType.isSpellTrapCardZone ?? false)
+          ? [
+              PlayCardDialogAction.activate(),
+              PlayCardDialogAction.set(),
+            ]
+          : _getMonsterPositionActions(playCard);
     }
 
-    if (playCard.zoneType.isSpellTrapCardZone || playCard.zoneType == ZoneType.field) {
-      if (newZone?.zoneType.isMainMonsterZone ?? false) {
-        return _getSpecialSummonActions();
-      }
-
-      return _getSpellTrapFieldZoneActions(playCard);
-    }
-
-    if (playCard.zoneType == ZoneType.skill) {
-      return _getSpellTrapFieldZoneActions(playCard);
+    if (playCard.zoneType.isSpellTrapCardZone ||
+        playCard.zoneType == ZoneType.field ||
+        playCard.zoneType == ZoneType.skill) {
+      return (newZone?.zoneType.isMainMonsterZone ?? false)
+          ? [
+              PlayCardDialogAction.normalSummon(),
+              PlayCardDialogAction.set(),
+              PlayCardDialogAction.specialSummonAttack(),
+              PlayCardDialogAction.specialSummonDefence(),
+            ]
+          : _getSpellTrapSkillPositionActions(playCard);
     }
 
     return [];
   }
 
   Iterable<PlayCardDialogAction> _getMultiCardZoneActions(PlayCard playCard, Zone newZone) {
-    _logger.verbose(_tag, '_getMultiCardZoneActions(playCard: $playCard, newZone: $newZone');
-
-    if (newZone.zoneType.isMainMonsterZone) {
-      if (playCard.yugiohCard.type == CardType.token) {
-        return _getSpecialSummonActions();
-      }
-
-      return _getNormalSummonActions();
-    }
-
-    return _getPlaySpellTrapActions();
+    return newZone.zoneType.isMainMonsterZone
+        ? [
+            if (playCard.yugiohCard.type != CardType.token) ...[
+              PlayCardDialogAction.normalSummon(),
+              PlayCardDialogAction.set(),
+            ],
+            PlayCardDialogAction.specialSummonAttack(),
+            PlayCardDialogAction.specialSummonDefence(),
+          ]
+        : [
+            PlayCardDialogAction.activate(),
+            PlayCardDialogAction.set(),
+          ];
   }
 
-  Iterable<PlayCardDialogAction> _getMainMonsterZoneActions(PlayCard playCard) {
-    _logger.verbose(_tag, '_getMainMonsterZoneActions(playCard: $playCard');
+  Iterable<PlayCardDialogAction> _getMonsterPositionActions(PlayCard playCard) {
+    final faceDownAction =
+        playCard.yugiohCard.type == CardType.token ? PlayCardDialogAction.destroy() : PlayCardDialogAction.set();
 
     if (playCard.position == CardPosition.faceUp) {
       return [
         PlayCardDialogAction.toDefence(),
-        if (playCard.yugiohCard.type == CardType.token) ...{
-          PlayCardDialogAction.destroy(),
-        } else ...{
-          PlayCardDialogAction.set(),
-        },
+        faceDownAction,
       ];
     }
 
     if (playCard.position == CardPosition.faceUpDefence) {
       return [
         PlayCardDialogAction.toAttack(),
-        if (playCard.yugiohCard.type == CardType.token) ...{
-          PlayCardDialogAction.destroy(),
-        } else ...{
-          PlayCardDialogAction.set(),
-        },
+        faceDownAction,
       ];
     }
 
+    // Face down defence
     return [
       PlayCardDialogAction.flip(),
-      PlayCardDialogAction.summon(),
+      PlayCardDialogAction.flipSummon(),
     ];
   }
 
-  Iterable<PlayCardDialogAction> _getSpellTrapFieldZoneActions(PlayCard playCard) {
-    _logger.verbose(_tag, '_getSpellTrapFieldZoneActions(playCard: $playCard');
-
-    if (playCard.zoneType.isMainMonsterZone) {
-      return _getPlaySpellTrapActions();
-    }
-
+  Iterable<PlayCardDialogAction> _getSpellTrapSkillPositionActions(PlayCard playCard) {
     return playCard.position == CardPosition.faceUp ? [PlayCardDialogAction.set()] : [PlayCardDialogAction.activate()];
   }
-
-  //region Action sets
-
-  Iterable<PlayCardDialogAction> _getNormalSummonActions() {
-    _logger.verbose(_tag, '_getNormalSummonActions()');
-
-    return [
-      PlayCardDialogAction.summon(),
-      PlayCardDialogAction.set(),
-    ];
-  }
-
-  Iterable<PlayCardDialogAction> _getSpecialSummonActions() {
-    _logger.verbose(_tag, '_getSpecialSummonActions()');
-
-    return [
-      PlayCardDialogAction.summonAttack(),
-      PlayCardDialogAction.summonDefence(),
-    ];
-  }
-
-  Iterable<PlayCardDialogAction> _getPlaySpellTrapActions() {
-    _logger.verbose(_tag, '_getPlaySpellTrapActions()');
-
-    return [
-      PlayCardDialogAction.activate(),
-      PlayCardDialogAction.set(),
-    ];
-  }
-
-  //endregion
 }

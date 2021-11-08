@@ -17,9 +17,17 @@ class PlayCardDialogAction extends Equatable {
     required this.type,
   });
 
-  factory PlayCardDialogAction.summon() {
+  factory PlayCardDialogAction.normalSummon() {
     return const PlayCardDialogAction._(
-      name: LocaleKeys.speed_duel_card_action_summon,
+      name: LocaleKeys.speed_duel_card_action_normal_summon,
+      type: PlayCardDialogSummonAction(),
+      icon: FontAwesomeIcons.caretSquareUp,
+    );
+  }
+
+  factory PlayCardDialogAction.flipSummon() {
+    return const PlayCardDialogAction._(
+      name: LocaleKeys.speed_duel_card_action_flip_summon,
       type: PlayCardDialogSummonAction(),
       icon: FontAwesomeIcons.caretSquareUp,
     );
@@ -41,7 +49,7 @@ class PlayCardDialogAction extends Equatable {
     );
   }
 
-  factory PlayCardDialogAction.summonAttack() {
+  factory PlayCardDialogAction.specialSummonAttack() {
     return const PlayCardDialogAction._(
       name: LocaleKeys.speed_duel_card_action_summon_attack,
       type: PlayCardDialogSummonAttackAction(),
@@ -57,7 +65,7 @@ class PlayCardDialogAction extends Equatable {
     );
   }
 
-  factory PlayCardDialogAction.summonDefence() {
+  factory PlayCardDialogAction.specialSummonDefence() {
     return const PlayCardDialogAction._(
       name: LocaleKeys.speed_duel_card_action_summon_defence,
       type: PlayCardDialogSummonDefenceAction(),

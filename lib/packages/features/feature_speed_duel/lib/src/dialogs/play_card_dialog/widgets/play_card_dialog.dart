@@ -228,6 +228,7 @@ class _ActionsRow extends StatelessWidget {
       color: Colors.transparent,
       child: Row(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: actions!.map((action) => _ActionItem(action: action)).toList(),
       ),
     );
@@ -250,7 +251,7 @@ class _ActionItem extends StatelessWidget with ProviderMixin {
       onTap: () => vm.onPlayCardDialogActionPressed(action.type),
       child: Container(
         padding: const EdgeInsets.symmetric(
-          horizontal: AppSizes.screenMarginLarge,
+          horizontal: AppSizes.screenMargin,
           vertical: AppSizes.screenMarginSmall,
         ),
         decoration: BoxDecoration(
@@ -264,6 +265,7 @@ class _ActionItem extends StatelessWidget with ProviderMixin {
             Text(
               stringProvider.getString(action.name),
               style: const TextStyle(color: Colors.white),
+              textAlign: TextAlign.center,
             ),
           ],
         ),
