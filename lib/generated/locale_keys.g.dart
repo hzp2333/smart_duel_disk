@@ -64,6 +64,7 @@ abstract class  LocaleKeys {
   static const onboarding_status_connectivity_check = 'onboarding_status_connectivity_check';
   static const privacy_policy_title = 'privacy_policy_title';
   static const speed_duel_card_action_activate = 'speed_duel_card_action_activate';
+  static const speed_duel_card_action_declare = 'speed_duel_card_action_declare';
   static const speed_duel_card_action_destroy = 'speed_duel_card_action_destroy';
   static const speed_duel_card_action_flip = 'speed_duel_card_action_flip';
   static const speed_duel_card_action_flip_summon = 'speed_duel_card_action_flip_summon';

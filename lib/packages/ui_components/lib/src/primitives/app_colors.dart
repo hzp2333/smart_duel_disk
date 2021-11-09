@@ -29,6 +29,7 @@ class AppColors {
   static final fineprintTextColor = Colors.grey[400];
 
   static const cardAnimationAttack = Color(0xffff5252);
+  static const cardAnimationDeclare = Color(0xff448aff);
 
   static final whiteOverlayGradient = LinearGradient(
     begin: Alignment.topCenter,

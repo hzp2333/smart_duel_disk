@@ -6,6 +6,7 @@ import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_sm
 import 'package:smart_duel_disk/packages/features/feature_home/lib/feature_home.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature_speed_duel.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/models/play_card_dialog_parameters.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/models/play_card_dialog_result.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
@@ -28,7 +29,7 @@ abstract class AppRouter {
   Future<PreBuiltDeck?> showSelectDeckDialog();
   Future<void> showYugiohCardDetail(CardCopy cardCopy, String ta);
   Future<void> showDrawCard(VoidCallback cardDrawnCallback);
-  Future<CardPosition?> showPlayCardDialog(PlayCard? playCard, {Zone? newZone, bool showActions = false});
+  Future<PlayCardDialogResult?> showPlayCardDialog(PlayCard? playCard, {Zone? newZone, bool showActions = false});
   Future<void> showDuelRoom(PreBuiltDeck preBuiltDeck);
   Future<void> showUserSettings();
 }
@@ -158,7 +159,7 @@ class AppRouterImpl implements AppRouter {
   }
 
   @override
-  Future<CardPosition?> showPlayCardDialog(PlayCard? playCard, {Zone? newZone, bool showActions = false}) {
+  Future<PlayCardDialogResult?> showPlayCardDialog(PlayCard? playCard, {Zone? newZone, bool showActions = false}) {
     final parameters = PlayCardDialogParameters(
       playCard: playCard,
       newZone: newZone,
@@ -166,7 +167,7 @@ class AppRouterImpl implements AppRouter {
     );
 
     final playCardDialog = _speedDuelDialogProvider.createPlayCardDialog(parameters);
-    return _dialogService.showCustomDialog(playCardDialog);
+    return _dialogService.showCustomDialog<PlayCardDialogResult>(playCardDialog);
   }
 
   //endregion

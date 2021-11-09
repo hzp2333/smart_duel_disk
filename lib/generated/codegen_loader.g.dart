@@ -78,6 +78,7 @@ class CodegenLoader extends AssetLoader{
   "onboarding_status_connectivity_check": "Checking network connectivity...",
   "privacy_policy_title": "Privacy Policy",
   "speed_duel_card_action_activate": "Activate",
+  "speed_duel_card_action_declare": "Declare",
   "speed_duel_card_action_destroy": "Destroy",
   "speed_duel_card_action_flip": "Flip",
   "speed_duel_card_action_flip_summon": "Flip summon",

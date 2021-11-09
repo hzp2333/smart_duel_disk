@@ -9,6 +9,7 @@ import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_messaging/lib/core_messaging.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/models/play_card_dialog_result.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/helpers/card_event_animation_handler.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
@@ -201,9 +202,13 @@ class SpeedDuelViewModel extends BaseViewModel {
       return;
     }
 
-    final position = await _router.showPlayCardDialog(card, newZone: zone, showActions: true);
-    if (position != null) {
-      _moveCardToNewZone(card, zone, position);
+    final result = await _router.showPlayCardDialog(card, newZone: zone, showActions: true);
+    if (result == null) {
+      return;
+    }
+
+    if (result is PlayCardUpdatePosition) {
+      _moveCardToNewZone(card, zone, result.position);
     }
   }
 
@@ -222,7 +227,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
 
     final userState = _duelState.value.userState;
-    final PlayerState updatedUserState = _moveCardUseCase(userState, card, position, newZone: newZone);
+    final updatedUserState = _moveCardUseCase(userState, card, position, newZone: newZone);
     if (userState == updatedUserState) {
       return;
     }
@@ -368,12 +373,23 @@ class SpeedDuelViewModel extends BaseViewModel {
   Future<void> _handleUserCardPressed(PlayCard card) async {
     logger.verbose(_tag, '_handleUserCardPressed(card: $card)');
 
-    final position = await _router.showPlayCardDialog(card, showActions: true);
-    if (position == null) {
+    final result = await _router.showPlayCardDialog(card, showActions: true);
+    if (result == null) {
       return;
     }
 
-    _updateCardPosition(card, position);
+    if (result is PlayCardUpdatePosition) {
+      _updateCardPosition(card, result.position);
+    } else if (result is PlayCardDeclare) {
+      _onCardDeclaration(card);
+    }
+  }
+
+  void _onCardDeclaration(PlayCard card) {
+    logger.verbose(_tag, '_onCardDeclaration(card= $card)');
+
+    _speedDuelEventEmitter.sendDeclareCardEvent(card);
+    _cardEventAnimationHandler.onDeclareCardEvent(card);
   }
 
   Future<void> _handleOpponentCardPressed(PlayCard card) async {

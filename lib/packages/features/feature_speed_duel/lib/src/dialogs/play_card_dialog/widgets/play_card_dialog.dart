@@ -248,7 +248,7 @@ class _ActionItem extends StatelessWidget with ProviderMixin {
     final stringProvider = getStringProvider(context);
 
     return InkWell(
-      onTap: () => vm.onPlayCardDialogActionPressed(action.type),
+      onTap: () => vm.onPlayCardDialogActionPressed(action),
       child: Container(
         padding: const EdgeInsets.symmetric(
           horizontal: AppSizes.screenMargin,

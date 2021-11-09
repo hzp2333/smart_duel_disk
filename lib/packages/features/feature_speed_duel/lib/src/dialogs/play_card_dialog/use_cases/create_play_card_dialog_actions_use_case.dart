@@ -15,9 +15,9 @@ class CreatePlayCardDialogActionsUseCase {
 
     if (playCard.zoneType.isMainMonsterZone) {
       return (newZone?.zoneType.isSpellTrapCardZone ?? false)
-          ? [
-              PlayCardDialogAction.activate(),
-              PlayCardDialogAction.set(),
+          ? const [
+              ActivateAction(),
+              SetSpellTrapAction(),
             ]
           : _getMonsterPositionActions(playCard);
     }
@@ -26,11 +26,11 @@ class CreatePlayCardDialogActionsUseCase {
         playCard.zoneType == ZoneType.field ||
         playCard.zoneType == ZoneType.skill) {
       return (newZone?.zoneType.isMainMonsterZone ?? false)
-          ? [
-              PlayCardDialogAction.normalSummon(),
-              PlayCardDialogAction.set(),
-              PlayCardDialogAction.specialSummonAttack(),
-              PlayCardDialogAction.specialSummonDefence(),
+          ? const [
+              NormalSummonAction(),
+              SetMonsterAction(),
+              SpecialSummonAttackAction(),
+              SpecialSummonDefenceAction(),
             ]
           : _getSpellTrapSkillPositionActions(playCard);
     }
@@ -41,45 +41,46 @@ class CreatePlayCardDialogActionsUseCase {
   Iterable<PlayCardDialogAction> _getMultiCardZoneActions(PlayCard playCard, Zone newZone) {
     return newZone.zoneType.isMainMonsterZone
         ? [
-            if (playCard.yugiohCard.type != CardType.token) ...[
-              PlayCardDialogAction.normalSummon(),
-              PlayCardDialogAction.set(),
+            if (playCard.yugiohCard.type != CardType.token) ...const [
+              NormalSummonAction(),
+              SetMonsterAction(),
             ],
-            PlayCardDialogAction.specialSummonAttack(),
-            PlayCardDialogAction.specialSummonDefence(),
+            const SpecialSummonAttackAction(),
+            const SpecialSummonDefenceAction(),
           ]
-        : [
-            PlayCardDialogAction.activate(),
-            PlayCardDialogAction.set(),
+        : const [
+            ActivateAction(),
+            SetSpellTrapAction(),
           ];
   }
 
   Iterable<PlayCardDialogAction> _getMonsterPositionActions(PlayCard playCard) {
+    if (playCard.position == CardPosition.faceDownDefence) {
+      return const [
+        FlipAction(),
+        FlipSummonAction(),
+      ];
+    }
+
+    final toAtkOrDefAction =
+        playCard.position == CardPosition.faceUp ? const ToDefenceAction() : const ToAttackAction();
+
     final faceDownAction =
-        playCard.yugiohCard.type == CardType.token ? PlayCardDialogAction.destroy() : PlayCardDialogAction.set();
+        playCard.yugiohCard.type == CardType.token ? const DestroyAction() : const SetMonsterAction();
 
-    if (playCard.position == CardPosition.faceUp) {
-      return [
-        PlayCardDialogAction.toDefence(),
-        faceDownAction,
-      ];
-    }
-
-    if (playCard.position == CardPosition.faceUpDefence) {
-      return [
-        PlayCardDialogAction.toAttack(),
-        faceDownAction,
-      ];
-    }
-
-    // Face down defence
-    return [
-      PlayCardDialogAction.flip(),
-      PlayCardDialogAction.flipSummon(),
-    ];
+    return [toAtkOrDefAction, faceDownAction, const DeclareAction()];
   }
 
   Iterable<PlayCardDialogAction> _getSpellTrapSkillPositionActions(PlayCard playCard) {
-    return playCard.position == CardPosition.faceUp ? [PlayCardDialogAction.set()] : [PlayCardDialogAction.activate()];
+    if (playCard.position == CardPosition.faceDown) {
+      return const [
+        ActivateAction(),
+      ];
+    }
+
+    return const [
+      SetSpellTrapAction(),
+      DeclareAction(),
+    ];
   }
 }

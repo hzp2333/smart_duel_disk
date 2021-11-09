@@ -21,19 +21,16 @@ class CardEventAnimationHandler {
     this._logger,
   );
 
-  Future<void> onAttackCardEvent(PlayCard attackingCard, Zone targetZone) async {
-    _logger.info(
-      _tag,
-      'onAttackCardEvent(attackingCard: ${attackingCard.yugiohCard.id}, targetZone: ${targetZone.zoneType})',
-    );
+  Future<void> onAttackCardEvent(PlayCard card, Zone targetZone) async {
+    _logger.info(_tag, 'onAttackCardEvent(card: ${card.yugiohCard.id}, targetZone: ${targetZone.zoneType})');
 
     await _delayProvider.delay(AppDurations.preCardEventAnimationDelay);
 
     _cardAnimations.safeAdd(
       AttackAnimation(
-        duelistId: attackingCard.duelistId,
-        cardId: attackingCard.yugiohCard.id,
-        copyNumber: attackingCard.copyNumber,
+        duelistId: card.duelistId,
+        cardId: card.yugiohCard.id,
+        copyNumber: card.copyNumber,
       ),
     );
 
@@ -49,6 +46,18 @@ class CardEventAnimationHandler {
         ),
       );
     }
+  }
+
+  Future<void> onDeclareCardEvent(PlayCard card) async {
+    _logger.info(_tag, 'onAttackCardEvent(card: ${card.yugiohCard.id})');
+
+    _cardAnimations.safeAdd(
+      DeclareAnimation(
+        duelistId: card.duelistId,
+        cardId: card.yugiohCard.id,
+        copyNumber: card.copyNumber,
+      ),
+    );
   }
 
   @disposeMethod

@@ -41,10 +41,23 @@ class AttackAnimation extends CardAnimation {
     required int copyNumber,
     Duration waitTime = Duration.zero,
   }) : super(
+          duelistId: duelistId,
           cardId: cardId,
           copyNumber: copyNumber,
           animationColor: AppColors.cardAnimationAttack,
           waitTime: waitTime,
+        );
+}
+
+class DeclareAnimation extends CardAnimation {
+  const DeclareAnimation({
+    required String duelistId,
+    required int cardId,
+    required int copyNumber,
+  }) : super(
           duelistId: duelistId,
+          cardId: cardId,
+          copyNumber: copyNumber,
+          animationColor: AppColors.cardAnimationDeclare,
         );
 }

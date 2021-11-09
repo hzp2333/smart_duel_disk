@@ -36,7 +36,7 @@ import 'package:smart_duel_disk/packages/features/feature_home/lib/src/home/mode
     as _i21;
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/home/usecases/get_home_tabs_use_case.dart'
     as _i20;
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart'
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/models/play_card_dialog_result.dart'
     as _i10;
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart'
     as _i11;
@@ -225,13 +225,15 @@ class MockAppRouter extends _i1.Mock implements _i8.AppRouter {
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
-  _i3.Future<_i10.CardPosition?> showPlayCardDialog(_i11.PlayCard? playCard,
-          {_i12.Zone? newZone, bool? showActions = false}) =>
+  _i3.Future<_i10.PlayCardDialogResult?> showPlayCardDialog(
+          _i11.PlayCard? playCard,
+          {_i12.Zone? newZone,
+          bool? showActions = false}) =>
       (super.noSuchMethod(
               Invocation.method(#showPlayCardDialog, [playCard],
                   {#newZone: newZone, #showActions: showActions}),
-              returnValue: Future<_i10.CardPosition?>.value())
-          as _i3.Future<_i10.CardPosition?>);
+              returnValue: Future<_i10.PlayCardDialogResult?>.value())
+          as _i3.Future<_i10.PlayCardDialogResult?>);
   @override
   _i3.Future<void> showDuelRoom(_i2.PreBuiltDeck? preBuiltDeck) =>
       (super.noSuchMethod(Invocation.method(#showDuelRoom, [preBuiltDeck]),
