@@ -55,7 +55,10 @@ class MultiCardZone extends StatelessWidget {
               ),
             },
             if (zone.cards.isNotEmpty) ...{
-              BorderedText(text: amountOfCards),
+              RotatedBox(
+                quarterTurns: playerState.isOpponent ? 2 : 0,
+                child: BorderedText(text: amountOfCards),
+              ),
             },
           ],
         ),

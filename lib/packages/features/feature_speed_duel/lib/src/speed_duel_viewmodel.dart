@@ -9,6 +9,7 @@ import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_messaging/lib/core_messaging.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature_speed_duel.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/models/play_card_dialog_result.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/helpers/card_event_animation_handler.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
@@ -136,10 +137,10 @@ class SpeedDuelViewModel extends BaseViewModel {
     final duelistId = _smartDuelServer.getDuelistId();
 
     final user = _duelRoom!.duelists.firstWhere((duelist) => duelist.id == duelistId);
-    final PlayerState userState = await _createPlayerStateUseCase(user);
+    final userState = await _createPlayerStateUseCase(user);
 
     final opponent = _duelRoom!.duelists.firstWhere((duelist) => duelist.id != duelistId);
-    final PlayerState opponentState = await _createPlayerStateUseCase(opponent, isOpponent: true);
+    final opponentState = await _createPlayerStateUseCase(opponent, isOpponent: true);
 
     _duelState.safeAdd(
       SpeedDuelState(
@@ -171,63 +172,80 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   //region Drag & drop
 
-  bool? onWillZoneAcceptCard(PlayCard? card, Zone zone) {
-    logger.info(_tag, 'onWillZoneAcceptCard($card, $zone)');
+  bool onWillZoneAcceptCard(PlayCard card, Zone zone) {
+    logger.info(_tag, 'onWillZoneAcceptCard(card: ${card.yugiohCard.id}, zone: ${zone.zoneType})');
 
     _screenEvent.safeAdd(const SpeedDuelHideOverlaysEvent());
 
     final userState = _duelState.value.userState;
-
-    if (userState.duelistId == zone.duelistId) {
-      return _doesCardFitInZoneUseCase(card!, zone, userState);
-    }
-
-    return _canCardAttackZoneUseCase(card!, zone, userState.duelistId);
+    return userState.duelistId == zone.duelistId
+        ? _doesCardFitInZoneUseCase(card, zone, userState)
+        : _canCardAttackZoneUseCase(card, zone, userState.duelistId);
   }
 
-  Future<void> onZoneAcceptsCard(PlayCard? card, Zone zone) async {
-    logger.info(_tag, 'onZoneAcceptsCard(card: $card, zone: $zone)');
+  Future<void> onZoneAcceptsCard(PlayCard card, Zone zone) async {
+    logger.info(_tag, 'onZoneAcceptsCard(card: ${card.yugiohCard.id}, zone: ${zone.zoneType})');
 
     _screenEvent.safeAdd(const SpeedDuelHideOverlaysEvent());
 
     final userState = _duelState.value.userState;
 
-    if (_canCardAttackZoneUseCase(card!, zone, userState.duelistId)) {
+    if (userState.duelistId != zone.duelistId) {
       _onMonsterAttack(card, zone);
       return;
     }
 
     if (zone.zoneType.isMultiCardZone) {
-      _moveCardToNewZone(card, zone, CardPosition.faceUp);
+      zone.zoneType == ZoneType.deck
+          ? await _onDeckZoneAcceptsCard(card, zone)
+          : _moveCardToNewZone(card, zone, CardPosition.faceUp);
       return;
     }
 
     final result = await _router.showPlayCardDialog(card, newZone: zone, showActions: true);
-    if (result == null) {
-      return;
-    }
-
     if (result is PlayCardUpdatePosition) {
       _moveCardToNewZone(card, zone, result.position);
     }
   }
 
   void _onMonsterAttack(PlayCard attackingCard, Zone targettedZone) {
-    logger.verbose(_tag, '_onMonsterAttack(attacker: $attackingCard, targettedZone: $targettedZone)');
+    logger.verbose(
+      _tag,
+      '_onMonsterAttack(attackingCard: ${attackingCard.yugiohCard.id}, zone: ${targettedZone.zoneType})',
+    );
 
     _speedDuelEventEmitter.sendAttackCardEvent(attackingCard, targettedZone.zoneType);
     _cardEventAnimationHandler.onAttackCardEvent(attackingCard, targettedZone);
   }
 
-  void _moveCardToNewZone(PlayCard card, Zone newZone, CardPosition position) {
-    logger.verbose(_tag, '_moveCardToNewZone(card: $card, newZone: $newZone, position: $position)');
+  Future<void> _onDeckZoneAcceptsCard(PlayCard card, Zone deckZone) async {
+    logger.verbose(_tag, '_onDeckZoneAcceptsCard(card: ${card.yugiohCard.id}, deckZone: ${deckZone.zoneType})');
+
+    final result = await _router.showAddCardToDeckDialog(card);
+    if (result == null) {
+      return;
+    }
+
+    final moveToTop = result is AddToTopOfDeck;
+    _moveCardToNewZone(card, deckZone, CardPosition.faceUp, moveToTop: moveToTop);
+
+    if (result.shuffle) {
+      _shuffleDeck();
+    }
+  }
+
+  void _moveCardToNewZone(PlayCard card, Zone newZone, CardPosition position, {bool moveToTop = true}) {
+    logger.verbose(
+      _tag,
+      '_moveCardToNewZone(card: ${card.yugiohCard.id}, zone: ${newZone.zoneType}, position: $position, moveToTop: $moveToTop)',
+    );
 
     if (card.zoneType == newZone.zoneType) {
       return;
     }
 
     final userState = _duelState.value.userState;
-    final updatedUserState = _moveCardUseCase(userState, card, position, newZone: newZone);
+    final updatedUserState = _moveCardUseCase(userState, card, position, newZone: newZone, moveToTop: moveToTop);
     if (userState == updatedUserState) {
       return;
     }
@@ -421,7 +439,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   }
 
   void onMultiCardZonePressed(PlayerState playerState, Zone zone) {
-    logger.info(_tag, 'onMultiCardZonePressed(playerState: $playerState, zone: $zone)');
+    logger.info(_tag, 'onMultiCardZonePressed()');
 
     if (zone.cards.isEmpty) {
       return;

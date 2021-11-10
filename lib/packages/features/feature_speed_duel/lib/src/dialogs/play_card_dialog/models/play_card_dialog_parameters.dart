@@ -5,7 +5,7 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 
 @immutable
 class PlayCardDialogParameters extends Equatable {
-  final PlayCard? playCard;
+  final PlayCard playCard;
   final Zone? newZone;
   final bool showActions;
 

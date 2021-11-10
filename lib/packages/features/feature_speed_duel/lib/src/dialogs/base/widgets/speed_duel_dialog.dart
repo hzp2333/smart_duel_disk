@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/generated/assets.gen.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/models/play_card_dialog_action.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/play_card_dialog_viewmodel.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/base/models/speed_duel_dialog_action.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
-class PlayCardDialog extends StatelessWidget {
-  const PlayCardDialog();
+import '../speed_duel_dialog_viewmodel.dart';
+
+class SpeedDuelDialog extends StatelessWidget {
+  const SpeedDuelDialog();
 
   @override
   Widget build(BuildContext context) {
-    final vm = Provider.of<PlayCardDialogViewModel>(context);
+    final vm = Provider.of<SpeedDuelDialogViewModel>(context);
 
     return Center(
       child: Column(
@@ -27,13 +28,11 @@ class PlayCardDialog extends StatelessWidget {
                 decoration: BoxDecoration(
                   border: Border.all(color: AppColors.primaryAccentColor),
                 ),
-                child: _DialogBody(playCard: vm.playCard),
+                child: _DialogBody(playCard: vm.getPlayCard()),
               ),
             ),
           ),
-          if (vm.cardActions != null) ...{
-            _ActionsRow(actions: vm.cardActions),
-          },
+          _ActionsRow(actions: vm.getDialogActions()),
         ],
       ),
     );
@@ -216,7 +215,7 @@ class _CardDescription extends StatelessWidget {
 }
 
 class _ActionsRow extends StatelessWidget {
-  final Iterable<PlayCardDialogAction>? actions;
+  final Iterable<SpeedDuelDialogAction> actions;
 
   const _ActionsRow({
     required this.actions,
@@ -229,14 +228,14 @@ class _ActionsRow extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: actions!.map((action) => _ActionItem(action: action)).toList(),
+        children: actions.map((action) => _ActionItem(action: action)).toList(),
       ),
     );
   }
 }
 
 class _ActionItem extends StatelessWidget with ProviderMixin {
-  final PlayCardDialogAction action;
+  final SpeedDuelDialogAction action;
 
   const _ActionItem({
     required this.action,
@@ -244,11 +243,11 @@ class _ActionItem extends StatelessWidget with ProviderMixin {
 
   @override
   Widget build(BuildContext context) {
-    final vm = Provider.of<PlayCardDialogViewModel>(context);
+    final vm = Provider.of<SpeedDuelDialogViewModel>(context);
     final stringProvider = getStringProvider(context);
 
     return InkWell(
-      onTap: () => vm.onPlayCardDialogActionPressed(action),
+      onTap: () => vm.onDialogActionPressed(action),
       child: Container(
         padding: const EdgeInsets.symmetric(
           horizontal: AppSizes.screenMargin,

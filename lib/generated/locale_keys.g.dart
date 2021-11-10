@@ -2,6 +2,9 @@
 
 abstract class  LocaleKeys {
   static const app_title = 'app_title';
+  static const card_action_add_to_deck_and_shuffle = 'card_action_add_to_deck_and_shuffle';
+  static const card_action_to_bottom_of_deck = 'card_action_to_bottom_of_deck';
+  static const card_action_to_top_of_deck = 'card_action_to_top_of_deck';
   static const deck_action_draw_card = 'deck_action_draw_card';
   static const deck_action_show_deck_list = 'deck_action_show_deck_list';
   static const deck_action_shuffle_deck = 'deck_action_shuffle_deck';

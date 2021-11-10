@@ -92,6 +92,26 @@ class PlayerState extends Equatable {
     );
   }
 
+  PlayerState copyWithAllZones(List<Zone> updatedZones) {
+    return PlayerState._(
+      duelistId: duelistId,
+      isOpponent: isOpponent,
+      hand: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.hand),
+      fieldZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.field),
+      mainMonsterZone1: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster1),
+      mainMonsterZone2: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster2),
+      mainMonsterZone3: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster3),
+      graveyardZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.graveyard),
+      banishedZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.banished),
+      extraDeckZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.extraDeck),
+      spellTrapZone1: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap1),
+      spellTrapZone2: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap2),
+      spellTrapZone3: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap3),
+      deckZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.deck),
+      skillZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.skill),
+    );
+  }
+
   Iterable<Zone> get zones => [
         hand,
         fieldZone,

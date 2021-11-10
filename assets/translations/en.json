@@ -1,5 +1,8 @@
 {
     "app_title": "Smart Duel Disk",
+    "card_action_add_to_deck_and_shuffle": "Add and\nshuffle",
+    "card_action_to_bottom_of_deck": "Add to\nbottom",
+    "card_action_to_top_of_deck": "Add to\ntop",
     "deck_action_draw_card": "Draw card",
     "deck_action_show_deck_list": "Show deck list",
     "deck_action_shuffle_deck": "Shuffle deck",

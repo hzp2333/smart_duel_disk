@@ -3,7 +3,6 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone_type.dart';
 
 @LazySingleton()
 class MoveCardUseCase {
@@ -12,6 +11,7 @@ class MoveCardUseCase {
     PlayCard card,
     CardPosition position, {
     Zone? newZone,
+    bool moveToTop = true,
   }) {
     final playerZones = playerState.zones.toList();
     final oldZone = playerZones.firstWhere((zone) => zone.zoneType == card.zoneType);
@@ -25,7 +25,7 @@ class MoveCardUseCase {
       return _updateCardPosition(playerState, card, position, playerZones, oldZone);
     }
 
-    return _updateCardZone(playerState, card, position, playerZones, oldZone, newZone);
+    return _updateCardZone(playerState, card, position, playerZones, oldZone, newZone, moveToTop: moveToTop);
   }
 
   PlayerState _removeCard(PlayerState playerState, PlayCard card, List<Zone> playerZones, Zone oldZone) {
@@ -35,7 +35,7 @@ class MoveCardUseCase {
       ..remove(oldZone)
       ..add(updatedOldZone);
 
-    return _updatePlayerState(playerState, updatedZones);
+    return playerState.copyWithAllZones(updatedZones);
   }
 
   PlayerState _updateCardPosition(
@@ -52,7 +52,7 @@ class MoveCardUseCase {
       ..remove(oldZone)
       ..add(updatedOldZone);
 
-    return _updatePlayerState(playerState, updatedZones);
+    return playerState.copyWithAllZones(updatedZones);
   }
 
   PlayerState _updateCardZone(
@@ -61,12 +61,14 @@ class MoveCardUseCase {
     CardPosition position,
     List<Zone> playerZones,
     Zone oldZone,
-    Zone newZone,
-  ) {
+    Zone newZone, {
+    required bool moveToTop,
+  }) {
     final updatedOldZone = oldZone.copyWith(cards: [...oldZone.cards]..remove(card));
 
     final updatedCard = card.copyWith(zoneType: newZone.zoneType, position: position);
-    final updatedNewZone = newZone.copyWith(cards: [...newZone.cards, updatedCard]);
+    final updatedNewZone =
+        newZone.copyWith(cards: moveToTop ? [...newZone.cards, updatedCard] : [updatedCard, ...newZone.cards]);
 
     final updatedZones = playerZones.toList()
       ..removeWhere((zone) => zone.zoneType == updatedOldZone.zoneType)
@@ -74,24 +76,6 @@ class MoveCardUseCase {
       ..add(updatedOldZone)
       ..add(updatedNewZone);
 
-    return _updatePlayerState(playerState, updatedZones);
-  }
-
-  PlayerState _updatePlayerState(PlayerState playerState, List<Zone> updatedZones) {
-    return playerState.copyWith(
-      hand: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.hand),
-      fieldZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.field),
-      mainMonsterZone1: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster1),
-      mainMonsterZone2: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster2),
-      mainMonsterZone3: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster3),
-      graveyardZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.graveyard),
-      banishedZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.banished),
-      extraDeckZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.extraDeck),
-      spellTrapZone1: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap1),
-      spellTrapZone2: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap2),
-      spellTrapZone3: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.spellTrap3),
-      deckZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.deck),
-      skillZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.skill),
-    );
+    return playerState.copyWithAllZones(updatedZones);
   }
 }

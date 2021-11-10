@@ -1,32 +1,21 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:smart_duel_disk/generated/locale_keys.g.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/base/models/speed_duel_dialog_action.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 
 import 'play_card_dialog_result.dart';
 
-@immutable
-abstract class PlayCardDialogAction extends Equatable {
-  final String name;
-  final IconData icon;
-  final PlayCardDialogResult result;
-
+abstract class PlayCardDialogAction extends SpeedDuelDialogAction {
   const PlayCardDialogAction({
-    required this.name,
-    required this.icon,
-    required this.result,
-  });
-
-  @override
-  List<Object> get props => [
-        name,
-        icon,
-        result,
-      ];
-
-  @override
-  bool get stringify => true;
+    required String name,
+    required IconData icon,
+    required PlayCardDialogResult result,
+  }) : super(
+          name: name,
+          icon: icon,
+          result: result,
+        );
 }
 
 class NormalSummonAction extends PlayCardDialogAction {
@@ -34,7 +23,7 @@ class NormalSummonAction extends PlayCardDialogAction {
       : super(
           name: LocaleKeys.speed_duel_card_action_normal_summon,
           icon: FontAwesomeIcons.caretSquareUp,
-          result: const PlayCardUpdatePosition(CardPosition.faceUp),
+          result: const PlayCardUpdatePosition(position: CardPosition.faceUp),
         );
 }
 
@@ -43,7 +32,7 @@ class FlipSummonAction extends PlayCardDialogAction {
       : super(
           name: LocaleKeys.speed_duel_card_action_flip_summon,
           icon: FontAwesomeIcons.caretSquareUp,
-          result: const PlayCardUpdatePosition(CardPosition.faceUp),
+          result: const PlayCardUpdatePosition(position: CardPosition.faceUp),
         );
 }
 
@@ -52,7 +41,7 @@ class ActivateAction extends PlayCardDialogAction {
       : super(
           name: LocaleKeys.speed_duel_card_action_activate,
           icon: FontAwesomeIcons.fireAlt,
-          result: const PlayCardUpdatePosition(CardPosition.faceUp),
+          result: const PlayCardUpdatePosition(position: CardPosition.faceUp),
         );
 }
 
@@ -61,7 +50,7 @@ class ToAttackAction extends PlayCardDialogAction {
       : super(
           name: LocaleKeys.speed_duel_card_action_to_attack,
           icon: FontAwesomeIcons.gavel,
-          result: const PlayCardUpdatePosition(CardPosition.faceUp),
+          result: const PlayCardUpdatePosition(position: CardPosition.faceUp),
         );
 }
 
@@ -70,7 +59,7 @@ class SpecialSummonAttackAction extends PlayCardDialogAction {
       : super(
           name: LocaleKeys.speed_duel_card_action_summon_attack,
           icon: FontAwesomeIcons.gavel,
-          result: const PlayCardUpdatePosition(CardPosition.faceUp),
+          result: const PlayCardUpdatePosition(position: CardPosition.faceUp),
         );
 }
 
@@ -79,7 +68,7 @@ class ToDefenceAction extends PlayCardDialogAction {
       : super(
           name: LocaleKeys.speed_duel_card_action_to_defence,
           icon: FontAwesomeIcons.shieldAlt,
-          result: const PlayCardUpdatePosition(CardPosition.faceUpDefence),
+          result: const PlayCardUpdatePosition(position: CardPosition.faceUpDefence),
         );
 }
 
@@ -88,7 +77,7 @@ class SpecialSummonDefenceAction extends PlayCardDialogAction {
       : super(
           name: LocaleKeys.speed_duel_card_action_summon_defence,
           icon: FontAwesomeIcons.shieldAlt,
-          result: const PlayCardUpdatePosition(CardPosition.faceUpDefence),
+          result: const PlayCardUpdatePosition(position: CardPosition.faceUpDefence),
         );
 }
 
@@ -97,7 +86,7 @@ class FlipAction extends PlayCardDialogAction {
       : super(
           name: LocaleKeys.speed_duel_card_action_flip,
           icon: FontAwesomeIcons.undoAlt,
-          result: const PlayCardUpdatePosition(CardPosition.faceUpDefence),
+          result: const PlayCardUpdatePosition(position: CardPosition.faceUpDefence),
         );
 }
 
@@ -106,7 +95,7 @@ class SetMonsterAction extends PlayCardDialogAction {
       : super(
           name: LocaleKeys.speed_duel_card_action_set,
           icon: FontAwesomeIcons.caretSquareDown,
-          result: const PlayCardUpdatePosition(CardPosition.faceDownDefence),
+          result: const PlayCardUpdatePosition(position: CardPosition.faceDownDefence),
         );
 }
 
@@ -115,7 +104,7 @@ class SetSpellTrapAction extends PlayCardDialogAction {
       : super(
           name: LocaleKeys.speed_duel_card_action_set,
           icon: FontAwesomeIcons.caretSquareDown,
-          result: const PlayCardUpdatePosition(CardPosition.faceDown),
+          result: const PlayCardUpdatePosition(position: CardPosition.faceDown),
         );
 }
 
@@ -124,7 +113,7 @@ class DestroyAction extends PlayCardDialogAction {
       : super(
           name: LocaleKeys.speed_duel_card_action_destroy,
           icon: FontAwesomeIcons.bomb,
-          result: const PlayCardUpdatePosition(CardPosition.destroy),
+          result: const PlayCardUpdatePosition(position: CardPosition.destroy),
         );
 }
 
