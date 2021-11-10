@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 
@@ -15,6 +16,11 @@ class AreAllCardImagesCachedUseCaseImpl implements AreAllCardImagesCachedUseCase
 
   @override
   Future<bool> call() async {
+    // Card image caching is currently not supported yet on web.
+    if (kIsWeb) {
+      return true;
+    }
+
     final cards = await _dataManager.getSpeedDuelCards();
     final token = await _dataManager.getToken();
     final allCards = [...cards, token];

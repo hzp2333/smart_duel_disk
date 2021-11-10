@@ -22,8 +22,8 @@ class DialogServiceImpl implements DialogService {
 
   @override
   Future<bool?> showAlertDialog(DialogConfig dialogConfig) {
-    final ios = Platform.isIOS;
-    final dialog = ios ? _createCupertinoDialog(dialogConfig) : _createMaterialDialog(dialogConfig);
+    final cupertino = Platform.isIOS || Platform.isMacOS;
+    final dialog = cupertino ? _createCupertinoDialog(dialogConfig) : _createMaterialDialog(dialogConfig);
 
     return showDialog<bool>(
       context: _router.navigatorKey.currentState!.overlay!.context,

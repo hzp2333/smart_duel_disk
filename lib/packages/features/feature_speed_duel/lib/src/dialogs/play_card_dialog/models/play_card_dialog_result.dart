@@ -4,7 +4,7 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 part 'play_card_dialog_result.freezed.dart';
 
 @freezed
-abstract class PlayCardDialogResult with _$PlayCardDialogResult {
+class PlayCardDialogResult with _$PlayCardDialogResult {
   const factory PlayCardDialogResult.updatePosition(CardPosition position) = PlayCardUpdatePosition;
   const factory PlayCardDialogResult.declare() = PlayCardDeclare;
 }

@@ -22,6 +22,8 @@ class CardImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (image != null) {
+      // This can be used for web, but it ruins Hero animations.
+      // return Image.memory(File(image!.path).readAsBytesSync());
       return Image.file(image!);
     }
 

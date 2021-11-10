@@ -7,7 +7,6 @@ import 'package:smart_duel_disk/packages/features/feature_home/lib/feature_home.
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature_speed_duel.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/models/play_card_dialog_parameters.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/models/play_card_dialog_result.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_url_launcher/lib/wrapper_url_launcher.dart';

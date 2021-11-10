@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:injectable/injectable.dart';
+import 'package:universal_io/io.dart';
 
 abstract class ConnectivityProvider {
   Future<bool> isConnected();
@@ -18,6 +19,11 @@ class ConnectivityProviderImpl implements ConnectivityProvider {
 
   @override
   Future<bool> isConnected() async {
+    // TODO: this currently doesn't work on macOS (https://github.com/fluttercommunity/plus_plugins/issues/434)
+    if (Platform.isMacOS) {
+      return true;
+    }
+
     final connectivityResult = await _connectivity.checkConnectivity();
     return connectivityResult != ConnectivityResult.none;
   }

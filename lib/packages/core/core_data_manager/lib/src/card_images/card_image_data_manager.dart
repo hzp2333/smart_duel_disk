@@ -12,13 +12,21 @@ abstract class CardImageDataManager {
 @LazySingleton(as: CardImageDataManager)
 class CardImageDataManagerImpl implements CardImageDataManager {
   final FileManager _fileManager;
+  final PathProviderWrapper _pathProvider;
 
-  final String _cardImagesDirectory;
+  String? _cardImagesDirectory;
 
   CardImageDataManagerImpl(
     this._fileManager,
-    PathProviderWrapper pathProvider,
-  ) : _cardImagesDirectory = '${pathProvider.getApplicationDocumentsDirectory().path}/card_images';
+    this._pathProvider,
+  ) {
+    _initCardImagesDirectory();
+  }
+
+  Future<void> _initCardImagesDirectory() async {
+    final appDirectory = await _pathProvider.getAppDirectory();
+    _cardImagesDirectory = '${appDirectory?.path}/card_images';
+  }
 
   @override
   Stream<int> cacheCardImages(Iterable<YugiohCard> cards) async* {

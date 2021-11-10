@@ -35,7 +35,7 @@ void main() {
 
     when(_directory.path).thenReturn(_appDocDirectory);
 
-    when(_pathProvider.getApplicationDocumentsDirectory()).thenReturn(_directory);
+    when(_pathProvider.getAppDirectory()).thenAnswer((_) => Future.value(_directory));
 
     _dataManager = CardImageDataManagerImpl(
       _fileManager,

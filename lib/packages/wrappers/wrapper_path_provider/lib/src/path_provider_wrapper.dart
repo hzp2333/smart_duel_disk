@@ -1,26 +1,21 @@
 import 'package:injectable/injectable.dart';
 import 'package:universal_io/io.dart';
 
-import 'di/path_provider_module.dart';
+// ignore: unused_import
+import 'stubs/platform_provider_stub.dart'
+    if (dart.library.io) 'package:path_provider/path_provider.dart'
+    if (dart.library.html) 'stubs/platform_provider_stub.dart';
 
 abstract class PathProviderWrapper {
-  Directory getApplicationDocumentsDirectory();
-  Directory getTemporaryDirectory();
+  Future<Directory?> getAppDirectory();
+  Future<Directory?> getTempDirectory();
 }
 
 @LazySingleton(as: PathProviderWrapper)
 class PathProviderWrapperImpl implements PathProviderWrapper {
-  final Directory _appDocDirectory;
-  final Directory _tempDirectory;
-
-  PathProviderWrapperImpl(
-    @Named(appDocDirectoryName) this._appDocDirectory,
-    @Named(tempDirectoryName) this._tempDirectory,
-  );
+  @override
+  Future<Directory?> getAppDirectory() => getApplicationDocumentsDirectory();
 
   @override
-  Directory getApplicationDocumentsDirectory() => _appDocDirectory;
-
-  @override
-  Directory getTemporaryDirectory() => _tempDirectory;
+  Future<Directory?> getTempDirectory() => getTemporaryDirectory();
 }

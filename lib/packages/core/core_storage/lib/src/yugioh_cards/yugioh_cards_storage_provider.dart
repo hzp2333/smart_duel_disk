@@ -63,17 +63,16 @@ class YugiohCardsStorageProviderImpl implements YugiohCardsStorageProvider {
   bool _isCacheValid() {
     _logger.verbose(_tag, '_isCacheValid()');
 
-    final timestampString = _sharedPreferencesProvider.getString(_yugiohCardsCacheTimestampKey);
-    if (timestampString == null) {
+    final lastCacheString = _sharedPreferencesProvider.getString(_yugiohCardsCacheTimestampKey);
+    if (lastCacheString == null) {
       return false;
     }
-
-    final timestamp = DateTime.parse(timestampString);
 
     final databaseUpdateString = _remoteConfigProvider.getString(RemoteConfigKeys.lastCardDatabaseUpdate);
     final databaseUpdate = DateTime.parse(databaseUpdateString);
 
-    return timestamp.isAfter(databaseUpdate) && _box.values.length > 1;
+    final lastCache = DateTime.parse(lastCacheString);
+    return lastCache.isAfter(databaseUpdate) && _box.values.length > 1;
   }
 
   @override
