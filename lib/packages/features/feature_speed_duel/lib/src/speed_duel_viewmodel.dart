@@ -9,9 +9,10 @@ import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_messaging/lib/core_messaging.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart';
+import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/src/entities/event_data/deck_event_data.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature_speed_duel.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/models/play_card_dialog_result.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/helpers/card_event_animation_handler.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/helpers/speed_duel_event_animation_handler.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_event.dart';
@@ -44,7 +45,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   final CanCardAttackZoneUseCase _canCardAttackZoneUseCase;
   final MoveCardUseCase _moveCardUseCase;
   final SpeedDuelEventEmitter _speedDuelEventEmitter;
-  final CardEventAnimationHandler _cardEventAnimationHandler;
+  final SpeedDuelEventAnimationHandler _speedDuelEventAnimationHandler;
   final DataManager _dataManager;
   final CrashlyticsProvider _crashlyticsProvider;
   final SnackBarService _snackBarService;
@@ -74,7 +75,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     this._canCardAttackZoneUseCase,
     this._moveCardUseCase,
     this._speedDuelEventEmitter,
-    this._cardEventAnimationHandler,
+    this._speedDuelEventAnimationHandler,
     this._dataManager,
     this._crashlyticsProvider,
     this._snackBarService,
@@ -163,6 +164,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     _smartDuelEventSubscription = Rx.merge([
       _smartDuelServer.cardEvents,
+      _smartDuelServer.deckEvents,
       _smartDuelServer.roomEvents,
       _smartDuelServer.globalEvents,
     ]).listen(_onSmartDuelEventReceived);
@@ -195,16 +197,24 @@ class SpeedDuelViewModel extends BaseViewModel {
       return;
     }
 
-    if (zone.zoneType.isMultiCardZone) {
-      zone.zoneType == ZoneType.deck
-          ? await _onDeckZoneAcceptsCard(card, zone)
-          : _moveCardToNewZone(card, zone, CardPosition.faceUp);
+    if (zone.zoneType.isMultiCardZone && zone.zoneType == ZoneType.deck) {
+      await _onDeckZoneAcceptsCard(card, zone);
       return;
     }
 
-    final result = await _router.showPlayCardDialog(card, newZone: zone, showActions: true);
-    if (result is PlayCardUpdatePosition) {
-      _moveCardToNewZone(card, zone, result.position);
+    bool movedCard = false;
+    if (zone.zoneType.isMultiCardZone) {
+      movedCard = _moveCardToNewZone(card, zone, CardPosition.faceUp);
+    } else {
+      final result = await _router.showPlayCardDialog(card, newZone: zone, showActions: true);
+      if (result is PlayCardUpdatePosition) {
+        movedCard = _moveCardToNewZone(card, zone, result.position);
+      }
+    }
+
+    // Shuffle when a card is moved from the deck to somewhere else
+    if (movedCard && card.zoneType == ZoneType.deck) {
+      _shuffleDeck();
     }
   }
 
@@ -215,7 +225,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     );
 
     _speedDuelEventEmitter.sendAttackCardEvent(attackingCard, targettedZone.zoneType);
-    _cardEventAnimationHandler.onAttackCardEvent(attackingCard, targettedZone);
+    _speedDuelEventAnimationHandler.onAttackCardEvent(attackingCard, targettedZone);
   }
 
   Future<void> _onDeckZoneAcceptsCard(PlayCard card, Zone deckZone) async {
@@ -227,31 +237,33 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
 
     final moveToTop = result is AddToTopOfDeck;
-    _moveCardToNewZone(card, deckZone, CardPosition.faceUp, moveToTop: moveToTop);
+    final movedCard = _moveCardToNewZone(card, deckZone, CardPosition.faceUp, moveToTop: moveToTop);
 
-    if (result.shuffle) {
+    if (movedCard && result.shuffle) {
       _shuffleDeck();
     }
   }
 
-  void _moveCardToNewZone(PlayCard card, Zone newZone, CardPosition position, {bool moveToTop = true}) {
+  bool _moveCardToNewZone(PlayCard card, Zone newZone, CardPosition position, {bool moveToTop = true}) {
     logger.verbose(
       _tag,
       '_moveCardToNewZone(card: ${card.yugiohCard.id}, zone: ${newZone.zoneType}, position: $position, moveToTop: $moveToTop)',
     );
 
     if (card.zoneType == newZone.zoneType) {
-      return;
+      return false;
     }
 
     final userState = _duelState.value.userState;
     final updatedUserState = _moveCardUseCase(userState, card, position, newZone: newZone, moveToTop: moveToTop);
     if (userState == updatedUserState) {
-      return;
+      return false;
     }
 
     _speedDuelEventEmitter.sendPlayCardEvent(card, newZone.zoneType, position);
     _duelState.safeAdd(_duelState.value.copyWith(userState: updatedUserState));
+
+    return true;
   }
 
   //endregion
@@ -338,6 +350,9 @@ class SpeedDuelViewModel extends BaseViewModel {
     );
 
     _duelState.safeAdd(_duelState.value.copyWith(userState: updatedUserState));
+
+    _speedDuelEventEmitter.sendShuffleDeckEvent();
+    _speedDuelEventAnimationHandler.onShuffleDeckEvent(_smartDuelServer.getDuelistId()!);
   }
 
   Future<void> _surrender() async {
@@ -407,7 +422,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     logger.verbose(_tag, '_onCardDeclaration(card= $card)');
 
     _speedDuelEventEmitter.sendDeclareCardEvent(card);
-    _cardEventAnimationHandler.onDeclareCardEvent(card);
+    _speedDuelEventAnimationHandler.onDeclareCardEvent(card);
   }
 
   Future<void> _handleOpponentCardPressed(PlayCard card) async {
@@ -460,6 +475,11 @@ class SpeedDuelViewModel extends BaseViewModel {
       return;
     }
 
+    if (event.scope == SmartDuelEventConstants.deckScope) {
+      await _handleDeckEvent(event);
+      return;
+    }
+
     if (event.scope == SmartDuelEventConstants.roomScope) {
       await _handleRoomEvent(event);
       return;
@@ -487,6 +507,9 @@ class SpeedDuelViewModel extends BaseViewModel {
           break;
         case SmartDuelEventConstants.cardAttackAction:
           await _handleAttackCardEvent(eventData);
+          break;
+        case SmartDuelEventConstants.cardDeclareAction:
+          await _handleDeclareCardEvent(eventData);
           break;
       }
     }
@@ -559,12 +582,49 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     final duelState = _duelState.value;
     final attackingCard = duelState.opponentState.cards
-        .firstWhere((card) => card!.yugiohCard.id == cardId && card.copyNumber == copyNumber);
+        .firstWhere((card) => card?.yugiohCard.id == cardId && card?.copyNumber == copyNumber, orElse: () => null);
     final targetZone = duelState.userState.getZone(zoneType);
 
     if (attackingCard != null) {
-      await _cardEventAnimationHandler.onAttackCardEvent(attackingCard, targetZone);
+      await _speedDuelEventAnimationHandler.onAttackCardEvent(attackingCard, targetZone);
     }
+  }
+
+  Future<void> _handleDeclareCardEvent(CardEventData data) async {
+    logger.verbose(_tag, '_handleDeclareCardEvent(data: $data)');
+
+    final cardId = data.cardId;
+    final copyNumber = data.copyNumber;
+
+    final declaringCard = _duelState.value.opponentState.cards
+        .firstWhere((card) => card?.yugiohCard.id == cardId && card?.copyNumber == copyNumber, orElse: () => null);
+
+    if (declaringCard != null) {
+      await _speedDuelEventAnimationHandler.onDeclareCardEvent(declaringCard);
+    }
+  }
+
+  //endregion
+
+  //region Deck events
+
+  Future<void> _handleDeckEvent(SmartDuelEvent event) async {
+    logger.verbose(_tag, '_handleDeckEvent(event: $event)');
+
+    final eventData = event.data;
+    if (eventData is DeckEventData) {
+      switch (event.action) {
+        case SmartDuelEventConstants.deckShuffleAction:
+          _handleShuffleDeckEvent(eventData);
+          break;
+      }
+    }
+  }
+
+  void _handleShuffleDeckEvent(DeckEventData data) {
+    logger.verbose(_tag, '_handleShuffleDeckEvent(data: $data)');
+
+    _speedDuelEventAnimationHandler.onShuffleDeckEvent(data.duelistId);
   }
 
   //endregion

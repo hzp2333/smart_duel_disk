@@ -37,6 +37,7 @@ class WebSocketProviderImpl implements WebSocketProvider {
       _registerGlobalHandlers();
       _registerRoomHandlers();
       _registerCardHandlers();
+      _registerDeckHandlers();
 
       _socket.connect();
     } catch (ex, stackTrace) {
@@ -68,6 +69,15 @@ class WebSocketProviderImpl implements WebSocketProvider {
     _logger.verbose(_tag, '_onEventReceived(scope: $scope, action: $action, json: $json)');
 
     _receiver?.onEventReceived(scope, action, json);
+  }
+
+  void _registerHandler(String scope, String action) {
+    final eventName = scope == SmartDuelEventConstants.globalScope ? action : '$scope:$action';
+
+    // ignore: avoid_annotating_with_dynamic
+    _socket.on(eventName, (dynamic json) {
+      _onEventReceived(scope, action, json);
+    });
   }
 
   void _registerGlobalHandlers() {
@@ -103,14 +113,14 @@ class WebSocketProviderImpl implements WebSocketProvider {
     _registerHandler(scope, SmartDuelEventConstants.cardPlayAction);
     _registerHandler(scope, SmartDuelEventConstants.cardRemoveAction);
     _registerHandler(scope, SmartDuelEventConstants.cardAttackAction);
+    _registerHandler(scope, SmartDuelEventConstants.cardDeclareAction);
   }
 
-  void _registerHandler(String scope, String action) {
-    final eventName = scope == SmartDuelEventConstants.globalScope ? action : '$scope:$action';
+  void _registerDeckHandlers() {
+    _logger.verbose(_tag, '_registerDeckHandlers()');
 
-    // ignore: avoid_annotating_with_dynamic
-    _socket.on(eventName, (dynamic json) {
-      _onEventReceived(scope, action, json);
-    });
+    const scope = SmartDuelEventConstants.deckScope;
+
+    _registerHandler(scope, SmartDuelEventConstants.deckShuffleAction);
   }
 }

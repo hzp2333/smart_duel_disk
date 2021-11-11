@@ -7,16 +7,16 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
 @LazySingleton()
-class CardEventAnimationHandler {
-  static const _tag = 'CardEventAnimationHandler';
+class SpeedDuelEventAnimationHandler {
+  static const _tag = 'SpeedDuelEventAnimationHandler';
 
   final DelayProvider _delayProvider;
   final Logger _logger;
 
-  final _cardAnimations = PublishSubject<CardAnimation>();
-  Stream<CardAnimation> get cardAnimations => _cardAnimations.stream;
+  final _animationEvents = PublishSubject<SpeedDuelAnimation>();
+  Stream<SpeedDuelAnimation> get animationEvents => _animationEvents.stream;
 
-  CardEventAnimationHandler(
+  SpeedDuelEventAnimationHandler(
     this._delayProvider,
     this._logger,
   );
@@ -24,9 +24,9 @@ class CardEventAnimationHandler {
   Future<void> onAttackCardEvent(PlayCard card, Zone targetZone) async {
     _logger.info(_tag, 'onAttackCardEvent(card: ${card.yugiohCard.id}, targetZone: ${targetZone.zoneType})');
 
-    await _delayProvider.delay(AppDurations.preCardEventAnimationDelay);
+    await _delayProvider.delay(AppDurations.preSpeedDuelEventAnimationDelay);
 
-    _cardAnimations.safeAdd(
+    _animationEvents.safeAdd(
       AttackAnimation(
         duelistId: card.duelistId,
         cardId: card.yugiohCard.id,
@@ -37,21 +37,23 @@ class CardEventAnimationHandler {
     if (targetZone.zoneType.isMainMonsterZone && targetZone.cards.isNotEmpty) {
       final targettedCard = targetZone.cards.first;
 
-      _cardAnimations.safeAdd(
+      _animationEvents.safeAdd(
         AttackAnimation(
           duelistId: targettedCard.duelistId,
           cardId: targettedCard.yugiohCard.id,
           copyNumber: targettedCard.copyNumber,
-          waitTime: AppDurations.cardEventAnimationDuration * 2,
+          waitTime: AppDurations.speedDuelEventAnimationDuration * 2,
         ),
       );
     }
   }
 
   Future<void> onDeclareCardEvent(PlayCard card) async {
-    _logger.info(_tag, 'onAttackCardEvent(card: ${card.yugiohCard.id})');
+    _logger.info(_tag, 'onDeclareCardEvent(card: ${card.yugiohCard.id})');
 
-    _cardAnimations.safeAdd(
+    await _delayProvider.delay(AppDurations.preSpeedDuelEventAnimationDelay);
+
+    _animationEvents.safeAdd(
       DeclareAnimation(
         duelistId: card.duelistId,
         cardId: card.yugiohCard.id,
@@ -60,8 +62,20 @@ class CardEventAnimationHandler {
     );
   }
 
+  Future<void> onShuffleDeckEvent(String duelistId) async {
+    _logger.info(_tag, 'onShuffleDeckEvent(duelistId: $duelistId)');
+
+    await _delayProvider.delay(AppDurations.preSpeedDuelEventAnimationDelay);
+
+    _animationEvents.safeAdd(
+      ShuffleAnimation(
+        duelistId: duelistId,
+      ),
+    );
+  }
+
   @disposeMethod
   void dispose() {
-    _cardAnimations.close();
+    _animationEvents.close();
   }
 }

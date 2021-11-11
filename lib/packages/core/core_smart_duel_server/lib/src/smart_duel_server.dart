@@ -2,6 +2,7 @@ import 'package:injectable/injectable.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
+import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/src/entities/event_data/deck_event_data.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_web_socket/lib/wrapper_web_socket.dart';
 
 import '../core_smart_duel_server.dart';
@@ -11,6 +12,7 @@ abstract class SmartDuelServer {
   Stream<SmartDuelEvent> get globalEvents;
   Stream<SmartDuelEvent> get roomEvents;
   Stream<SmartDuelEvent> get cardEvents;
+  Stream<SmartDuelEvent> get deckEvents;
   String? getDuelistId();
   void emitEvent(SmartDuelEvent event);
   void dispose();
@@ -34,6 +36,10 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
   ReplaySubject<SmartDuelEvent> _cardEvents = ReplaySubject<SmartDuelEvent>();
   @override
   Stream<SmartDuelEvent> get cardEvents => _cardEvents.stream;
+
+  final _deckEvents = PublishSubject<SmartDuelEvent>();
+  @override
+  Stream<SmartDuelEvent> get deckEvents => _deckEvents.stream;
 
   WebSocketProvider? _socket;
 
@@ -83,6 +89,9 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
         break;
       case SmartDuelEventConstants.cardScope:
         _handleCardEvent(action, json);
+        break;
+      case SmartDuelEventConstants.deckScope:
+        _handleDeckEvent(action, json);
         break;
     }
   }
@@ -145,10 +154,34 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
       case SmartDuelEventConstants.cardAttackAction:
         event = SmartDuelEvent.attackCard(data);
         break;
+      case SmartDuelEventConstants.cardDeclareAction:
+        event = SmartDuelEvent.declareCard(data);
+        break;
     }
 
     if (event != null && !_cardEvents.isClosed) {
       _cardEvents.safeAdd(event);
+    }
+  }
+
+  // ignore: avoid_annotating_with_dynamic
+  void _handleDeckEvent(String action, dynamic json) {
+    _logger.verbose(_tag, '_handleDeckEvent(action: $action), json: $json');
+
+    SmartDuelEventData? data;
+    if (json is Map<String, dynamic>) {
+      data = DeckEventData.fromJson(json);
+    }
+
+    SmartDuelEvent? event;
+    switch (action) {
+      case SmartDuelEventConstants.deckShuffleAction:
+        event = SmartDuelEvent.shuffleDeck(data);
+        break;
+    }
+
+    if (event != null && !_deckEvents.isClosed) {
+      _deckEvents.safeAdd(event);
     }
   }
 

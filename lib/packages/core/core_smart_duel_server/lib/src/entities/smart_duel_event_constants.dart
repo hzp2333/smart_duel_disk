@@ -4,6 +4,7 @@ abstract class SmartDuelEventConstants {
   static const globalScope = 'global';
   static const cardScope = 'card';
   static const roomScope = 'room';
+  static const deckScope = 'deck';
 
   //endregion
 
@@ -27,6 +28,8 @@ abstract class SmartDuelEventConstants {
   static const roomJoinAction = 'join';
   static const roomStartAction = 'start';
   static const roomSurrenderAction = 'surrender';
+
+  static const deckShuffleAction = 'shuffle';
 
   //endregion
 }

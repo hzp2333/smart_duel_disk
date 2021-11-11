@@ -30,6 +30,7 @@ class AppColors {
 
   static const cardAnimationAttack = Color(0xffff5252);
   static const cardAnimationDeclare = Color(0xff448aff);
+  static const zoneAnimationShuffle = Color(0xffffab40);
 
   static final whiteOverlayGradient = LinearGradient(
     begin: Alignment.topCenter,

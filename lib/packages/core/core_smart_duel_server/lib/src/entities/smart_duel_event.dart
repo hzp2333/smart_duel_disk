@@ -95,6 +95,14 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
+  factory SmartDuelEvent.shuffleDeck(SmartDuelEventData? data) {
+    return SmartDuelEvent._(
+      scope: SmartDuelEventConstants.deckScope,
+      action: SmartDuelEventConstants.deckShuffleAction,
+      data: data,
+    );
+  }
+
   @override
   List<Object?> get props => [
         scope,

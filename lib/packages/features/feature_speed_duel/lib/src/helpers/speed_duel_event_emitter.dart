@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart';
+import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/src/entities/event_data/deck_event_data.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_models.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_enum_helper/lib/wrapper_enum_helper.dart';
 
@@ -86,6 +87,16 @@ class SpeedDuelEventEmitter {
     _smartDuelServer.emitEvent(
       SmartDuelEvent.surrenderRoom(
         RoomEventData(roomName: duelRoom.roomName),
+      ),
+    );
+  }
+
+  void sendShuffleDeckEvent() {
+    _logger.info(_tag, 'sendShuffleDeckEvent()');
+
+    _smartDuelServer.emitEvent(
+      SmartDuelEvent.shuffleDeck(
+        DeckEventData(duelistId: _smartDuelServer.getDuelistId()!),
       ),
     );
   }

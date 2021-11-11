@@ -1,30 +1,27 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/helpers/card_event_animation_handler.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_models.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
-import 'package:smart_duel_disk/src/di/di.dart';
 
-class CardAnimationContainer extends StatefulWidget {
-  final PlayCard? playCard;
+class SpeedDuelAnimationContainer extends StatefulWidget {
+  final Stream<SpeedDuelAnimation> animationStream;
   final Widget child;
 
-  const CardAnimationContainer({
-    required this.playCard,
+  const SpeedDuelAnimationContainer({
+    required this.animationStream,
     required this.child,
   });
 
   @override
-  _CardAnimationContainerState createState() => _CardAnimationContainerState();
+  _SpeedDuelAnimationContainerState createState() => _SpeedDuelAnimationContainerState();
 }
 
-class _CardAnimationContainerState extends State<CardAnimationContainer> with SingleTickerProviderStateMixin {
+class _SpeedDuelAnimationContainerState extends State<SpeedDuelAnimationContainer> with SingleTickerProviderStateMixin {
   late Color _animationColor;
   late AnimationController _animationController;
 
-  late StreamSubscription<CardAnimation> _cardAnimationSubscription;
+  late StreamSubscription<SpeedDuelAnimation> _animationSubscription;
 
   @override
   void initState() {
@@ -33,37 +30,24 @@ class _CardAnimationContainerState extends State<CardAnimationContainer> with Si
     _animationController = AnimationController(vsync: this, upperBound: 8.0);
     _resetAnimationColor();
 
-    // TODO: find a better way to inject this dependency.
-    // Can't use Provider because the dependency might not exist in the context.
-    // Maybe provide it at root level? But then the entire app can access it...
-    final cardEventAnimationHandler = di.get<CardEventAnimationHandler>();
-    _cardAnimationSubscription = cardEventAnimationHandler.cardAnimations.listen(_onCardAnimation);
+    _animationSubscription = widget.animationStream.listen(_playAnimation);
   }
 
   void _resetAnimationColor() {
     _animationColor = Colors.transparent;
   }
 
-  Future<void> _onCardAnimation(CardAnimation cardAnimation) async {
-    if (cardAnimation.cardId == widget.playCard!.yugiohCard.id &&
-        cardAnimation.copyNumber == widget.playCard!.copyNumber &&
-        cardAnimation.duelistId == widget.playCard!.duelistId &&
-        mounted) {
-      await _playAnimation(cardAnimation);
-    }
-  }
-
-  Future<void> _playAnimation(CardAnimation cardAnimation) async {
+  Future<void> _playAnimation(SpeedDuelAnimation animation) async {
     try {
       // Set the animation color and duration.
-      _animationColor = cardAnimation.animationColor;
-      _animationController.duration = cardAnimation.animationDuration;
+      _animationColor = animation.animationColor;
+      _animationController.duration = animation.animationDuration;
 
       // Reset the animation controller in case an animation was still playing.
       _animationController.reset();
 
       // Wait for a given duration and then play the animation forward.
-      await Future.delayed(cardAnimation.waitTime, () async {
+      await Future.delayed(animation.waitTime, () async {
         if (mounted) await _animationController.forward();
       });
 
@@ -77,7 +61,7 @@ class _CardAnimationContainerState extends State<CardAnimationContainer> with Si
   }
 
   @override
-  void didUpdateWidget(covariant CardAnimationContainer oldWidget) {
+  void didUpdateWidget(covariant SpeedDuelAnimationContainer oldWidget) {
     super.didUpdateWidget(oldWidget);
 
     _resetAnimationColor();
@@ -85,7 +69,7 @@ class _CardAnimationContainerState extends State<CardAnimationContainer> with Si
 
   @override
   void dispose() {
-    _cardAnimationSubscription.cancel();
+    _animationSubscription.cancel();
     _animationController.dispose();
 
     super.dispose();
