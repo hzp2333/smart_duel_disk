@@ -138,11 +138,75 @@ class PlayCardImage extends StatelessWidget {
             child: RotatedBox(
               quarterTurns: quarterTurns,
               child: showImage
-                  ? CardImage(
-                      card: playCard.yugiohCard,
-                      image: playCard.image,
+                  ? Stack(
+                      alignment: Alignment.bottomRight,
+                      children: [
+                        CardImage(
+                          card: playCard.yugiohCard,
+                          image: playCard.image,
+                        ),
+                        Positioned(
+                          right: 4,
+                          bottom: 4,
+                          child: _PlayCardCounters(
+                            playCard: playCard,
+                            playerState: playerState,
+                          ),
+                        ),
+                      ],
                     )
                   : cardSleeve,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _PlayCardCounters extends StatelessWidget {
+  final PlayCard playCard;
+  final PlayerState playerState;
+
+  const _PlayCardCounters({
+    required this.playCard,
+    required this.playerState,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    if (playCard.counters <= 0) {
+      return const SizedBox.shrink();
+    }
+
+    final circleSize = context.playCardHeight / 3.5;
+    final quarterTurns = playerState.isOpponent
+        ? playCard.position.isAttack
+            ? 2
+            : 3
+        : playCard.position.isAttack
+            ? 0
+            : 1;
+
+    return RotatedBox(
+      quarterTurns: quarterTurns,
+      child: Container(
+        width: circleSize,
+        height: circleSize,
+        decoration: BoxDecoration(
+          color: Colors.white,
+          shape: BoxShape.circle,
+          border: Border.all(
+            width: 2.5,
+          ),
+        ),
+        child: Center(
+          child: Text(
+            playCard.counters.toString(),
+            style: const TextStyle(
+              color: Colors.black,
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
             ),
           ),
         ),

@@ -3,6 +3,7 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone_type.dart';
 
 @LazySingleton()
 class MoveCardUseCase {
@@ -45,7 +46,8 @@ class MoveCardUseCase {
     List<Zone> playerZones,
     Zone oldZone,
   ) {
-    final updatedCard = card.copyWith(position: position);
+    final counters = position.isFaceUp ? card.counters : 0;
+    final updatedCard = card.copyWith(position: position, counters: counters);
     final updatedOldZone = oldZone.copyWith(cards: [...oldZone.cards, updatedCard]..remove(card));
 
     final updatedZones = playerZones.toList()
@@ -66,7 +68,8 @@ class MoveCardUseCase {
   }) {
     final updatedOldZone = oldZone.copyWith(cards: [...oldZone.cards]..remove(card));
 
-    final updatedCard = card.copyWith(zoneType: newZone.zoneType, position: position);
+    final counters = position.isFaceUp && !newZone.zoneType.isMultiCardZone ? card.counters : 0;
+    final updatedCard = card.copyWith(zoneType: newZone.zoneType, position: position, counters: counters);
     final updatedNewZone =
         newZone.copyWith(cards: moveToTop ? [...newZone.cards, updatedCard] : [updatedCard, ...newZone.cards]);
 

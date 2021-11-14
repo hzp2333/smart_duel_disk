@@ -81,6 +81,34 @@ class SpeedDuelEventEmitter {
     );
   }
 
+  void sendAddCounterToCardEvent(PlayCard card) {
+    _logger.info(_tag, 'sendAddCounterToCardEvent(card: ${card.yugiohCard.id})');
+
+    _smartDuelServer.emitEvent(
+      SmartDuelEvent.addCounterToCard(
+        CardEventData(
+          duelistId: _smartDuelServer.getDuelistId()!,
+          cardId: card.yugiohCard.id,
+          copyNumber: card.copyNumber,
+        ),
+      ),
+    );
+  }
+
+  void sendRemoveCounterFromCardEvent(PlayCard card) {
+    _logger.info(_tag, 'sendRemoveCounterFromCardEvent(card: ${card.yugiohCard.id})');
+
+    _smartDuelServer.emitEvent(
+      SmartDuelEvent.removeCounterFromCard(
+        CardEventData(
+          duelistId: _smartDuelServer.getDuelistId()!,
+          cardId: card.yugiohCard.id,
+          copyNumber: card.copyNumber,
+        ),
+      ),
+    );
+  }
+
   void sendSurrenderEvent(DuelRoom duelRoom) {
     _logger.info(_tag, 'sendSurrenderEvent(duelRoom: ${duelRoom.roomName})');
 

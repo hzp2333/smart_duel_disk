@@ -55,6 +55,22 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
+  factory SmartDuelEvent.addCounterToCard(SmartDuelEventData? data) {
+    return SmartDuelEvent._(
+      scope: SmartDuelEventConstants.cardScope,
+      action: SmartDuelEventConstants.cardAddCounterAction,
+      data: data,
+    );
+  }
+
+  factory SmartDuelEvent.removeCounterFromCard(SmartDuelEventData? data) {
+    return SmartDuelEvent._(
+      scope: SmartDuelEventConstants.cardScope,
+      action: SmartDuelEventConstants.cardRemoveCounterAction,
+      data: data,
+    );
+  }
+
   factory SmartDuelEvent.createRoom([SmartDuelEventData? data]) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.roomScope,

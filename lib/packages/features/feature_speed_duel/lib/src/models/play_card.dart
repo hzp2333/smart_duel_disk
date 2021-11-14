@@ -15,10 +15,11 @@ class PlayCard extends Equatable {
   final CardPosition position;
   final int copyNumber;
   final String formattedRaceAndType;
+  final String? attributeAssetName;
+  final int counters;
   final String? formattedAttack;
   final String? formattedDefence;
   final String? formattedLevel;
-  final String? attributeAssetName;
 
   const PlayCard({
     required this.yugiohCard,
@@ -28,16 +29,17 @@ class PlayCard extends Equatable {
     required this.position,
     required this.copyNumber,
     required this.formattedRaceAndType,
+    required this.attributeAssetName,
+    this.counters = 0,
     this.formattedAttack,
     this.formattedDefence,
     this.formattedLevel,
-    required this.attributeAssetName,
   });
 
   bool get belongsInExtraDeck => yugiohCard.belongsInExtraDeck;
   bool get isMonster => yugiohCard.isMonster;
 
-  PlayCard copyWith({ZoneType? zoneType, CardPosition? position}) {
+  PlayCard copyWith({ZoneType? zoneType, CardPosition? position, int? counters}) {
     return PlayCard(
       yugiohCard: yugiohCard,
       duelistId: duelistId,
@@ -46,12 +48,16 @@ class PlayCard extends Equatable {
       position: position ?? this.position,
       copyNumber: copyNumber,
       formattedRaceAndType: formattedRaceAndType,
+      attributeAssetName: attributeAssetName,
+      counters: counters ?? this.counters,
       formattedAttack: formattedAttack,
       formattedDefence: formattedDefence,
       formattedLevel: formattedLevel,
-      attributeAssetName: attributeAssetName,
     );
   }
+
+  PlayCard copyAndAddCounter() => copyWith(counters: counters + 1);
+  PlayCard copyAndRemoveCounter() => counters > 0 ? copyWith(counters: counters - 1) : copyWith(counters: 0);
 
   @override
   List<Object?> get props => [
@@ -61,10 +67,11 @@ class PlayCard extends Equatable {
         position,
         copyNumber,
         formattedRaceAndType,
+        attributeAssetName,
+        counters,
         formattedAttack,
         formattedDefence,
         formattedLevel,
-        attributeAssetName,
       ];
 
   @override

@@ -68,7 +68,11 @@ class CreatePlayCardDialogActionsUseCase {
     final faceDownAction =
         playCard.yugiohCard.type == CardType.token ? const DestroyAction() : const SetMonsterAction();
 
-    return [toAtkOrDefAction, faceDownAction, const DeclareAction()];
+    return [
+      toAtkOrDefAction,
+      faceDownAction,
+      ..._getGeneralPositionActions(playCard),
+    ];
   }
 
   Iterable<PlayCardDialogAction> _getSpellTrapSkillPositionActions(PlayCard playCard) {
@@ -78,9 +82,19 @@ class CreatePlayCardDialogActionsUseCase {
       ];
     }
 
-    return const [
-      SetSpellTrapAction(),
-      DeclareAction(),
+    return [
+      const SetSpellTrapAction(),
+      ..._getGeneralPositionActions(playCard),
+    ];
+  }
+
+  Iterable<PlayCardDialogAction> _getGeneralPositionActions(PlayCard playCard) {
+    return [
+      const DeclareAction(),
+      const AddCounterAction(),
+      if (playCard.counters > 0) ...[
+        const RemoveCounterAction(),
+      ],
     ];
   }
 }

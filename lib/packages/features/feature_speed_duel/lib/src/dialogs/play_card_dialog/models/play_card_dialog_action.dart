@@ -125,3 +125,21 @@ class DeclareAction extends PlayCardDialogAction {
           result: const PlayCardDeclare(),
         );
 }
+
+class AddCounterAction extends PlayCardDialogAction {
+  const AddCounterAction()
+      : super(
+          name: LocaleKeys.speed_duel_card_action_add_counter,
+          icon: FontAwesomeIcons.plusCircle,
+          result: const PlayCardAddCounter(),
+        );
+}
+
+class RemoveCounterAction extends PlayCardDialogAction {
+  const RemoveCounterAction()
+      : super(
+          name: LocaleKeys.speed_duel_card_action_remove_counter,
+          icon: FontAwesomeIcons.minusCircle,
+          result: const PlayCardRemoveCounter(),
+        );
+}

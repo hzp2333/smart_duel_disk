@@ -415,24 +415,9 @@ class SpeedDuelViewModel extends BaseViewModel {
       _updateCardPosition(card, result.position);
     } else if (result is PlayCardDeclare) {
       _onCardDeclaration(card);
+    } else if (result is PlayCardAddCounter || result is PlayCardRemoveCounter) {
+      _updateCardCounter(card, result);
     }
-  }
-
-  void _onCardDeclaration(PlayCard card) {
-    logger.verbose(_tag, '_onCardDeclaration(card= $card)');
-
-    _speedDuelEventEmitter.sendDeclareCardEvent(card);
-    _speedDuelEventAnimationHandler.onDeclareCardEvent(card);
-  }
-
-  Future<void> _handleOpponentCardPressed(PlayCard card) async {
-    logger.verbose(_tag, '_handleOpponentCardPressed(card: $card)');
-
-    if (card.position.isFaceDown || card.zoneType == ZoneType.hand) {
-      return;
-    }
-
-    await _router.showPlayCardDialog(card);
   }
 
   void _updateCardPosition(PlayCard card, CardPosition position) {
@@ -451,6 +436,47 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
 
     _duelState.safeAdd(_duelState.value.copyWith(userState: updatedUserState));
+  }
+
+  void _updateCardCounter(PlayCard card, PlayCardDialogResult result) {
+    logger.verbose(_tag, '_updateCardCounter(card: $card, result: $result)');
+
+    final addCounter = result is PlayCardAddCounter;
+
+    final oldState = _duelState.value.userState;
+    final oldZone = oldState.getZoneWithCard(card);
+
+    final updatedCard = addCounter ? card.copyAndAddCounter() : card.copyAndRemoveCounter();
+    final updatedZone = oldZone.copyWith(cards: [...oldZone.cards, updatedCard]..remove(card));
+    final updatedZones = oldState.zones.toList()
+      ..remove(oldZone)
+      ..add(updatedZone);
+    final updatedState = oldState.copyWithAllZones(updatedZones);
+
+    _duelState.safeAdd(
+      _duelState.value.copyWith(userState: updatedState),
+    );
+
+    addCounter
+        ? _speedDuelEventEmitter.sendAddCounterToCardEvent(card)
+        : _speedDuelEventEmitter.sendRemoveCounterFromCardEvent(card);
+  }
+
+  void _onCardDeclaration(PlayCard card) {
+    logger.verbose(_tag, '_onCardDeclaration(card= $card)');
+
+    _speedDuelEventEmitter.sendDeclareCardEvent(card);
+    _speedDuelEventAnimationHandler.onDeclareCardEvent(card);
+  }
+
+  Future<void> _handleOpponentCardPressed(PlayCard card) async {
+    logger.verbose(_tag, '_handleOpponentCardPressed(card: $card)');
+
+    if (card.position.isFaceDown || card.zoneType == ZoneType.hand) {
+      return;
+    }
+
+    await _router.showPlayCardDialog(card);
   }
 
   void onMultiCardZonePressed(PlayerState playerState, Zone zone) {
@@ -510,6 +536,12 @@ class SpeedDuelViewModel extends BaseViewModel {
           break;
         case SmartDuelEventConstants.cardDeclareAction:
           await _handleDeclareCardEvent(eventData);
+          break;
+        case SmartDuelEventConstants.cardAddCounterAction:
+          await _handleCardCounterEvent(eventData, addCounter: true);
+          break;
+        case SmartDuelEventConstants.cardRemoveCounterAction:
+          await _handleCardCounterEvent(eventData, addCounter: false);
           break;
       }
     }
@@ -602,6 +634,33 @@ class SpeedDuelViewModel extends BaseViewModel {
     if (declaringCard != null) {
       await _speedDuelEventAnimationHandler.onDeclareCardEvent(declaringCard);
     }
+  }
+
+  Future<void> _handleCardCounterEvent(CardEventData data, {required bool addCounter}) async {
+    logger.verbose(_tag, '_handleCardCounterEvent(data: $data, addCounter: $addCounter)');
+
+    final cardId = data.cardId;
+    final copyNumber = data.copyNumber;
+
+    final playCard = _duelState.value.opponentState.cards
+        .firstWhere((card) => card?.yugiohCard.id == cardId && card?.copyNumber == copyNumber, orElse: () => null);
+    if (playCard == null) {
+      return;
+    }
+
+    final oldState = _duelState.value.opponentState;
+    final oldZone = oldState.getZoneWithCard(playCard);
+
+    final updatedCard = addCounter ? playCard.copyAndAddCounter() : playCard.copyAndRemoveCounter();
+    final updatedZone = oldZone.copyWith(cards: [...oldZone.cards, updatedCard]..remove(playCard));
+    final updatedZones = oldState.zones.toList()
+      ..remove(oldZone)
+      ..add(updatedZone);
+    final updatedState = oldState.copyWithAllZones(updatedZones);
+
+    _duelState.safeAdd(
+      _duelState.value.copyWith(opponentState: updatedState),
+    );
   }
 
   //endregion

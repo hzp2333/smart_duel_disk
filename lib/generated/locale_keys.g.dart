@@ -67,11 +67,13 @@ abstract class  LocaleKeys {
   static const onboarding_status_connectivity_check = 'onboarding_status_connectivity_check';
   static const privacy_policy_title = 'privacy_policy_title';
   static const speed_duel_card_action_activate = 'speed_duel_card_action_activate';
+  static const speed_duel_card_action_add_counter = 'speed_duel_card_action_add_counter';
   static const speed_duel_card_action_declare = 'speed_duel_card_action_declare';
   static const speed_duel_card_action_destroy = 'speed_duel_card_action_destroy';
   static const speed_duel_card_action_flip = 'speed_duel_card_action_flip';
   static const speed_duel_card_action_flip_summon = 'speed_duel_card_action_flip_summon';
   static const speed_duel_card_action_normal_summon = 'speed_duel_card_action_normal_summon';
+  static const speed_duel_card_action_remove_counter = 'speed_duel_card_action_remove_counter';
   static const speed_duel_card_action_set = 'speed_duel_card_action_set';
   static const speed_duel_card_action_summon_attack = 'speed_duel_card_action_summon_attack';
   static const speed_duel_card_action_summon_defence = 'speed_duel_card_action_summon_defence';

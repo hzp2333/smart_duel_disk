@@ -19,3 +19,11 @@ class PlayCardUpdatePosition extends PlayCardDialogResult {
 class PlayCardDeclare extends PlayCardDialogResult {
   const PlayCardDeclare() : super();
 }
+
+class PlayCardAddCounter extends PlayCardDialogResult {
+  const PlayCardAddCounter() : super();
+}
+
+class PlayCardRemoveCounter extends PlayCardDialogResult {
+  const PlayCardRemoveCounter() : super();
+}

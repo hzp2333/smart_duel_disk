@@ -130,6 +130,8 @@ class PlayerState extends Equatable {
 
   Zone getZone(ZoneType zoneType) => zones.firstWhere((zone) => zone.zoneType == zoneType);
 
+  Zone getZoneWithCard(PlayCard card) => zones.firstWhere((zone) => zone.cards.contains(card));
+
   Iterable<Zone> get mainMonsterZones => [
         mainMonsterZone1,
         mainMonsterZone2,
