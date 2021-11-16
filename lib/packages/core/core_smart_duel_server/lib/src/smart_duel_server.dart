@@ -163,6 +163,12 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
       case SmartDuelEventConstants.cardRemoveCounterAction:
         event = SmartDuelEvent.removeCounterFromCard(data);
         break;
+      case SmartDuelEventConstants.cardRevealAction:
+        event = SmartDuelEvent.revealCard(data);
+        break;
+      case SmartDuelEventConstants.cardHideAction:
+        event = SmartDuelEvent.hideCard(data);
+        break;
     }
 
     if (event != null && !_cardEvents.isClosed) {

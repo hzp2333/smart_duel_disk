@@ -417,6 +417,8 @@ class SpeedDuelViewModel extends BaseViewModel {
       _onCardDeclaration(card);
     } else if (result is PlayCardAddCounter || result is PlayCardRemoveCounter) {
       _updateCardCounter(card, result);
+    } else if (result is PlayCardReveal || result is PlayCardHide) {
+      _updateCardVisibility(card, result);
     }
   }
 
@@ -462,6 +464,35 @@ class SpeedDuelViewModel extends BaseViewModel {
         : _speedDuelEventEmitter.sendRemoveCounterFromCardEvent(card);
   }
 
+  void _updateCardVisibility(PlayCard card, PlayCardDialogResult result) {
+    logger.verbose(_tag, '_updateCardVisibility(card: $card, result: $result)');
+
+    final revealed = result is PlayCardReveal;
+
+    final oldState = _duelState.value.userState;
+    final oldZone = oldState.getZoneWithCard(card);
+    final oldCardIndex = oldZone.cards.toList().indexOf(card);
+
+    final updatedCard = card.copyWith(revealed: revealed);
+    final updatedZone = oldZone.copyWith(
+      cards: oldZone.cards.toList()
+        ..remove(card)
+        ..insert(oldCardIndex, updatedCard),
+    );
+    final updatedZones = oldState.zones.toList()
+      ..remove(oldZone)
+      ..add(updatedZone);
+    final updatedState = oldState.copyWithAllZones(updatedZones);
+
+    _duelState.safeAdd(
+      _duelState.value.copyWith(userState: updatedState),
+    );
+
+    revealed
+        ? _speedDuelEventEmitter.sendRevealCardEvent(card)
+        : _speedDuelEventEmitter.sendHideCardEvent(card);
+  }
+
   void _onCardDeclaration(PlayCard card) {
     logger.verbose(_tag, '_onCardDeclaration(card= $card)');
 
@@ -472,7 +503,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   Future<void> _handleOpponentCardPressed(PlayCard card) async {
     logger.verbose(_tag, '_handleOpponentCardPressed(card: $card)');
 
-    if (card.position.isFaceDown || card.zoneType == ZoneType.hand) {
+    if (card.position.isFaceDown || (card.zoneType == ZoneType.hand && !card.revealed)) {
       return;
     }
 
@@ -542,6 +573,12 @@ class SpeedDuelViewModel extends BaseViewModel {
           break;
         case SmartDuelEventConstants.cardRemoveCounterAction:
           await _handleCardCounterEvent(eventData, addCounter: false);
+          break;
+        case SmartDuelEventConstants.cardRevealAction:
+          await _handleCardVisibilityEvent(eventData, revealed: true);
+          break;
+        case SmartDuelEventConstants.cardHideAction:
+          await _handleCardVisibilityEvent(eventData, revealed: false);
           break;
       }
     }
@@ -653,6 +690,38 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     final updatedCard = addCounter ? playCard.copyAndAddCounter() : playCard.copyAndRemoveCounter();
     final updatedZone = oldZone.copyWith(cards: [...oldZone.cards, updatedCard]..remove(playCard));
+    final updatedZones = oldState.zones.toList()
+      ..remove(oldZone)
+      ..add(updatedZone);
+    final updatedState = oldState.copyWithAllZones(updatedZones);
+
+    _duelState.safeAdd(
+      _duelState.value.copyWith(opponentState: updatedState),
+    );
+  }
+
+  Future<void> _handleCardVisibilityEvent(CardEventData data, {required bool revealed}) async {
+    logger.verbose(_tag, '_handleCardVisibilityEvent(data: $data, revealed: $revealed)');
+
+    final cardId = data.cardId;
+    final copyNumber = data.copyNumber;
+
+    final playCard = _duelState.value.opponentState.cards
+        .firstWhere((card) => card?.yugiohCard.id == cardId && card?.copyNumber == copyNumber, orElse: () => null);
+    if (playCard == null) {
+      return;
+    }
+
+    final oldState = _duelState.value.opponentState;
+    final oldZone = oldState.getZoneWithCard(playCard);
+    final oldCardIndex = oldZone.cards.toList().indexOf(playCard);
+
+    final updatedCard = playCard.copyWith(revealed: revealed);
+    final updatedZone = oldZone.copyWith(
+      cards: oldZone.cards.toList()
+        ..remove(playCard)
+        ..insert(oldCardIndex, updatedCard),
+    );
     final updatedZones = oldState.zones.toList()
       ..remove(oldZone)
       ..add(updatedZone);

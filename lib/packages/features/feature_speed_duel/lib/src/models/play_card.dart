@@ -17,6 +17,7 @@ class PlayCard extends Equatable {
   final String formattedRaceAndType;
   final String? attributeAssetName;
   final int counters;
+  final bool revealed;
   final String? formattedAttack;
   final String? formattedDefence;
   final String? formattedLevel;
@@ -31,6 +32,7 @@ class PlayCard extends Equatable {
     required this.formattedRaceAndType,
     required this.attributeAssetName,
     this.counters = 0,
+    this.revealed = false,
     this.formattedAttack,
     this.formattedDefence,
     this.formattedLevel,
@@ -39,7 +41,7 @@ class PlayCard extends Equatable {
   bool get belongsInExtraDeck => yugiohCard.belongsInExtraDeck;
   bool get isMonster => yugiohCard.isMonster;
 
-  PlayCard copyWith({ZoneType? zoneType, CardPosition? position, int? counters}) {
+  PlayCard copyWith({ZoneType? zoneType, CardPosition? position, int? counters, bool? revealed}) {
     return PlayCard(
       yugiohCard: yugiohCard,
       duelistId: duelistId,
@@ -50,6 +52,7 @@ class PlayCard extends Equatable {
       formattedRaceAndType: formattedRaceAndType,
       attributeAssetName: attributeAssetName,
       counters: counters ?? this.counters,
+      revealed: revealed ?? this.revealed,
       formattedAttack: formattedAttack,
       formattedDefence: formattedDefence,
       formattedLevel: formattedLevel,
@@ -69,6 +72,7 @@ class PlayCard extends Equatable {
         formattedRaceAndType,
         attributeAssetName,
         counters,
+        revealed,
         formattedAttack,
         formattedDefence,
         formattedLevel,

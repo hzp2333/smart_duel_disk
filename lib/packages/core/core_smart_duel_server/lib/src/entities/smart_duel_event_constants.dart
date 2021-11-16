@@ -24,6 +24,8 @@ abstract class SmartDuelEventConstants {
   static const cardDeclareAction = 'declare';
   static const cardAddCounterAction = 'add-counter';
   static const cardRemoveCounterAction = 'remove-counter';
+  static const cardRevealAction = 'reveal';
+  static const cardHideAction = 'hide';
 
   static const roomCreateAction = 'create';
   static const roomCloseAction = 'close';

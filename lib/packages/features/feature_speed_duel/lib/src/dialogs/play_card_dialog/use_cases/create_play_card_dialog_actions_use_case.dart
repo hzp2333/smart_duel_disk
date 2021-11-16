@@ -13,6 +13,10 @@ class CreatePlayCardDialogActionsUseCase {
       return _getMultiCardZoneActions(playCard, newZone);
     }
 
+    if (playCard.zoneType == ZoneType.hand) {
+      return playCard.revealed ? const [HideCardAction()] : const [RevealCardAction()];
+    }
+
     if (playCard.zoneType.isMainMonsterZone) {
       return (newZone?.zoneType.isSpellTrapCardZone ?? false)
           ? const [

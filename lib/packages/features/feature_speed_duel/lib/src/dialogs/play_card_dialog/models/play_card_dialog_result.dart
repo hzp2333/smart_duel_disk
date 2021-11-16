@@ -27,3 +27,11 @@ class PlayCardAddCounter extends PlayCardDialogResult {
 class PlayCardRemoveCounter extends PlayCardDialogResult {
   const PlayCardRemoveCounter() : super();
 }
+
+class PlayCardReveal extends PlayCardDialogResult {
+  const PlayCardReveal() : super();
+}
+
+class PlayCardHide extends PlayCardDialogResult {
+  const PlayCardHide() : super();
+}

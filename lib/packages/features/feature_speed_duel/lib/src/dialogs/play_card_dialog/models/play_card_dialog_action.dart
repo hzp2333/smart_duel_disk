@@ -143,3 +143,21 @@ class RemoveCounterAction extends PlayCardDialogAction {
           result: const PlayCardRemoveCounter(),
         );
 }
+
+class RevealCardAction extends PlayCardDialogAction {
+  const RevealCardAction()
+      : super(
+          name: LocaleKeys.speed_duel_card_action_reveal,
+          icon: FontAwesomeIcons.eye,
+          result: const PlayCardReveal(),
+        );
+}
+
+class HideCardAction extends PlayCardDialogAction {
+  const HideCardAction()
+      : super(
+          name: LocaleKeys.speed_duel_card_action_hide,
+          icon: FontAwesomeIcons.eyeSlash,
+          result: const PlayCardHide(),
+        );
+}

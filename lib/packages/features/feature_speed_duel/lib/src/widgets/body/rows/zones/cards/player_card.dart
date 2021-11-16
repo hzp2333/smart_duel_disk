@@ -42,7 +42,7 @@ class PlayerCardBuilder extends StatelessWidget {
     }
 
     return _DraggableCard(
-      playCard: card,
+      card: card,
       playerState: playerState,
       placeholderImage: cardBack,
       onCardTapped: () => vm.onCardPressed(card),
@@ -51,13 +51,13 @@ class PlayerCardBuilder extends StatelessWidget {
 }
 
 class _DraggableCard extends StatelessWidget {
-  final PlayCard playCard;
+  final PlayCard card;
   final PlayerState playerState;
   final String placeholderImage;
   final VoidCallback onCardTapped;
 
   const _DraggableCard({
-    required this.playCard,
+    required this.card,
     required this.playerState,
     required this.placeholderImage,
     required this.onCardTapped,
@@ -65,26 +65,24 @@ class _DraggableCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final vm = Provider.of<SpeedDuelViewModel>(context);
-
     final childWhenDragging =
-        playCard.zoneType == ZoneType.hand ? const ZoneFiller() : ZoneBackground(zoneType: playCard.zoneType);
+        card.zoneType == ZoneType.hand ? const ZoneFiller() : ZoneBackground(zoneType: card.zoneType);
 
     return Draggable<PlayCard>(
       maxSimultaneousDrags: 1,
       onDragStarted: () => HapticFeedback.selectionClick(),
-      data: playCard,
+      data: card,
       feedback: PlayCardImage(
-        playCard: playCard,
+        playCard: card,
         playerState: playerState,
         placeholderImage: placeholderImage,
       ),
       childWhenDragging: childWhenDragging,
       child: PlayCardImage(
-        playCard: playCard,
+        playCard: card,
         playerState: playerState,
         placeholderImage: placeholderImage,
-        onCardTapped: () => vm.onCardPressed(playCard),
+        onCardTapped: onCardTapped,
       ),
     );
   }
@@ -106,14 +104,17 @@ class PlayCardImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final quarterTurns = playCard.position.isAttack ? 0 : 3;
+    final cardSleeve = ImagePlaceholder(imageAssetId: placeholderImage);
+
     final zoneHeight = context.playCardHeight;
     final zoneWidth = playCard.zoneType.isMainMonsterZone || playCard.zoneType.isSpellTrapCardZone
         ? zoneHeight
         : zoneHeight * AppSizes.yugiohCardAspectRatio;
-    final cardSleeve = ImagePlaceholder(imageAssetId: placeholderImage);
 
     final showImage = playCard.position.isFaceUp &&
-        (!playerState.isOpponent || (playerState.isOpponent && playCard.zoneType != ZoneType.hand));
+        ((!playerState.isOpponent && !playCard.revealed) ||
+            (playerState.isOpponent &&
+                (playCard.zoneType != ZoneType.hand || (playCard.zoneType == ZoneType.hand && playCard.revealed))));
 
     // TODO: find a better way to inject this dependency.
     // Can't use Provider because the dependency might not exist in the context.
