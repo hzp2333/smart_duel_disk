@@ -87,6 +87,14 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
+  factory SmartDuelEvent.giveCardToOpponent(SmartDuelEventData? data) {
+    return SmartDuelEvent._(
+      scope: SmartDuelEventConstants.cardScope,
+      action: SmartDuelEventConstants.cardGiveToOpponentAction,
+      data: data,
+    );
+  }
+
   factory SmartDuelEvent.createRoom([SmartDuelEventData? data]) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.roomScope,

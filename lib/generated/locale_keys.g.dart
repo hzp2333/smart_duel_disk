@@ -72,6 +72,7 @@ abstract class  LocaleKeys {
   static const speed_duel_card_action_destroy = 'speed_duel_card_action_destroy';
   static const speed_duel_card_action_flip = 'speed_duel_card_action_flip';
   static const speed_duel_card_action_flip_summon = 'speed_duel_card_action_flip_summon';
+  static const speed_duel_card_action_give_to_opponent = 'speed_duel_card_action_give_to_opponent';
   static const speed_duel_card_action_hide = 'speed_duel_card_action_hide';
   static const speed_duel_card_action_normal_summon = 'speed_duel_card_action_normal_summon';
   static const speed_duel_card_action_remove_counter = 'speed_duel_card_action_remove_counter';

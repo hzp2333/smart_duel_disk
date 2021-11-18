@@ -169,6 +169,9 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
       case SmartDuelEventConstants.cardHideAction:
         event = SmartDuelEvent.hideCard(data);
         break;
+      case SmartDuelEventConstants.cardGiveToOpponentAction:
+        event = SmartDuelEvent.giveCardToOpponent(data);
+        break;
     }
 
     if (event != null && !_cardEvents.isClosed) {

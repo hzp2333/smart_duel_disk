@@ -35,3 +35,7 @@ class PlayCardReveal extends PlayCardDialogResult {
 class PlayCardHide extends PlayCardDialogResult {
   const PlayCardHide() : super();
 }
+
+class PlayCardGiveToOpponent extends PlayCardDialogResult {
+  const PlayCardGiveToOpponent() : super();
+}

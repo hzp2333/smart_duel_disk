@@ -86,6 +86,7 @@ class CodegenLoader extends AssetLoader{
   "speed_duel_card_action_destroy": "Destroy",
   "speed_duel_card_action_flip": "Flip",
   "speed_duel_card_action_flip_summon": "Flip summon",
+  "speed_duel_card_action_give_to_opponent": "Give to\nopponent",
   "speed_duel_card_action_hide": "Hide\ncard",
   "speed_duel_card_action_normal_summon": "Normal\nsummon",
   "speed_duel_card_action_remove_counter": "Remove\ncounter",

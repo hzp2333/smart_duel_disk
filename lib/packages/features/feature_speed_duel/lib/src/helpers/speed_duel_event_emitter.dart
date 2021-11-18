@@ -28,7 +28,7 @@ class SpeedDuelEventEmitter {
     _smartDuelServer.emitEvent(
       SmartDuelEvent.playCard(
         CardEventData(
-          duelistId: _smartDuelServer.getDuelistId()!,
+          duelistId: card.duelistId,
           cardId: card.yugiohCard.id,
           copyNumber: card.copyNumber,
           cardPosition: _enumHelper.convertToString(newPosition),
@@ -44,7 +44,7 @@ class SpeedDuelEventEmitter {
     _smartDuelServer.emitEvent(
       SmartDuelEvent.removeCard(
         CardEventData(
-          duelistId: _smartDuelServer.getDuelistId()!,
+          duelistId: card.duelistId,
           cardId: card.yugiohCard.id,
           copyNumber: card.copyNumber,
         ),
@@ -58,7 +58,7 @@ class SpeedDuelEventEmitter {
     _smartDuelServer.emitEvent(
       SmartDuelEvent.attackCard(
         CardEventData(
-          duelistId: _smartDuelServer.getDuelistId()!,
+          duelistId: card.duelistId,
           cardId: card.yugiohCard.id,
           copyNumber: card.copyNumber,
           zoneName: _enumHelper.convertToString(zoneType),
@@ -73,7 +73,7 @@ class SpeedDuelEventEmitter {
     _smartDuelServer.emitEvent(
       SmartDuelEvent.declareCard(
         CardEventData(
-          duelistId: _smartDuelServer.getDuelistId()!,
+          duelistId: card.duelistId,
           cardId: card.yugiohCard.id,
           copyNumber: card.copyNumber,
         ),
@@ -87,7 +87,7 @@ class SpeedDuelEventEmitter {
     _smartDuelServer.emitEvent(
       SmartDuelEvent.addCounterToCard(
         CardEventData(
-          duelistId: _smartDuelServer.getDuelistId()!,
+          duelistId: card.duelistId,
           cardId: card.yugiohCard.id,
           copyNumber: card.copyNumber,
         ),
@@ -101,7 +101,7 @@ class SpeedDuelEventEmitter {
     _smartDuelServer.emitEvent(
       SmartDuelEvent.removeCounterFromCard(
         CardEventData(
-          duelistId: _smartDuelServer.getDuelistId()!,
+          duelistId: card.duelistId,
           cardId: card.yugiohCard.id,
           copyNumber: card.copyNumber,
         ),
@@ -115,7 +115,7 @@ class SpeedDuelEventEmitter {
     _smartDuelServer.emitEvent(
       SmartDuelEvent.revealCard(
         CardEventData(
-          duelistId: _smartDuelServer.getDuelistId()!,
+          duelistId: card.duelistId,
           cardId: card.yugiohCard.id,
           copyNumber: card.copyNumber,
         ),
@@ -129,7 +129,21 @@ class SpeedDuelEventEmitter {
     _smartDuelServer.emitEvent(
       SmartDuelEvent.hideCard(
         CardEventData(
-          duelistId: _smartDuelServer.getDuelistId()!,
+          duelistId: card.duelistId,
+          cardId: card.yugiohCard.id,
+          copyNumber: card.copyNumber,
+        ),
+      ),
+    );
+  }
+
+  void sendGiveCardToOpponentEvent(PlayCard card) {
+    _logger.info(_tag, 'sendGiveCardToOpponentEvent(card: ${card.yugiohCard.id})');
+
+    _smartDuelServer.emitEvent(
+      SmartDuelEvent.giveCardToOpponent(
+        CardEventData(
+          duelistId: card.duelistId,
           cardId: card.yugiohCard.id,
           copyNumber: card.copyNumber,
         ),

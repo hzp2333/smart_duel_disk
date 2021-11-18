@@ -118,6 +118,7 @@ class WebSocketProviderImpl implements WebSocketProvider {
     _registerHandler(scope, SmartDuelEventConstants.cardRemoveCounterAction);
     _registerHandler(scope, SmartDuelEventConstants.cardRevealAction);
     _registerHandler(scope, SmartDuelEventConstants.cardHideAction);
+    _registerHandler(scope, SmartDuelEventConstants.cardGiveToOpponentAction);
   }
 
   void _registerDeckHandlers() {

@@ -161,3 +161,12 @@ class HideCardAction extends PlayCardDialogAction {
           result: const PlayCardHide(),
         );
 }
+
+class GiveToOpponentAction extends PlayCardDialogAction {
+  const GiveToOpponentAction()
+      : super(
+          name: LocaleKeys.speed_duel_card_action_give_to_opponent,
+          icon: FontAwesomeIcons.handshake,
+          result: const PlayCardGiveToOpponent(),
+        );
+}

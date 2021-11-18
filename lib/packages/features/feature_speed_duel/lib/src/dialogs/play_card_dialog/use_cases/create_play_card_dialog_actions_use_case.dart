@@ -14,7 +14,14 @@ class CreatePlayCardDialogActionsUseCase {
     }
 
     if (playCard.zoneType == ZoneType.hand) {
-      return playCard.revealed ? const [HideCardAction()] : const [RevealCardAction()];
+      return playCard.revealed
+          ? const [
+              HideCardAction(),
+              GiveToOpponentAction(),
+            ]
+          : const [
+              RevealCardAction(),
+            ];
     }
 
     if (playCard.zoneType.isMainMonsterZone) {

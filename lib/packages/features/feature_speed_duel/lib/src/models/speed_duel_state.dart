@@ -19,6 +19,13 @@ class SpeedDuelState extends Equatable {
     );
   }
 
+  Iterable<PlayerState> getPlayerStates() {
+    return [
+      userState,
+      opponentState,
+    ];
+  }
+
   @override
   List<Object?> get props => [
         userState,

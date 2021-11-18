@@ -204,7 +204,9 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     bool movedCard = false;
     if (zone.zoneType.isMultiCardZone) {
-      movedCard = _moveCardToNewZone(card, zone, CardPosition.faceUp);
+      if (zone.duelistId == card.duelistId || (zone.duelistId != card.duelistId && zone.zoneType == ZoneType.hand)) {
+        movedCard = _moveCardToNewZone(card, zone, CardPosition.faceUp);
+      }
     } else {
       final result = await _router.showPlayCardDialog(card, newZone: zone, showActions: true);
       if (result is PlayCardUpdatePosition) {
@@ -230,6 +232,10 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   Future<void> _onDeckZoneAcceptsCard(PlayCard card, Zone deckZone) async {
     logger.verbose(_tag, '_onDeckZoneAcceptsCard(card: ${card.yugiohCard.id}, deckZone: ${deckZone.zoneType})');
+
+    if (deckZone.duelistId != card.duelistId) {
+      return;
+    }
 
     final result = await _router.showAddCardToDeckDialog(card);
     if (result == null) {
@@ -396,7 +402,11 @@ class SpeedDuelViewModel extends BaseViewModel {
   Future<void> onCardPressed(PlayCard card) async {
     logger.info(_tag, 'onCardPressed(card: $card)');
 
-    if (card.duelistId == _smartDuelServer.getDuelistId()) {
+    final playerStates = _duelState.value.getPlayerStates();
+    final allZones = playerStates.map((playerState) => playerState.zones).expand((zones) => zones);
+    final zoneWithCard = allZones.firstWhere((zone) => zone.cards.contains(card));
+
+    if (zoneWithCard.duelistId == _smartDuelServer.getDuelistId()) {
       await _handleUserCardPressed(card);
     } else {
       await _handleOpponentCardPressed(card);
@@ -419,6 +429,8 @@ class SpeedDuelViewModel extends BaseViewModel {
       _updateCardCounter(card, result);
     } else if (result is PlayCardReveal || result is PlayCardHide) {
       _updateCardVisibility(card, result);
+    } else if (result is PlayCardGiveToOpponent) {
+      _giveCardToOpponent(card);
     }
   }
 
@@ -488,9 +500,39 @@ class SpeedDuelViewModel extends BaseViewModel {
       _duelState.value.copyWith(userState: updatedState),
     );
 
-    revealed
-        ? _speedDuelEventEmitter.sendRevealCardEvent(card)
-        : _speedDuelEventEmitter.sendHideCardEvent(card);
+    revealed ? _speedDuelEventEmitter.sendRevealCardEvent(card) : _speedDuelEventEmitter.sendHideCardEvent(card);
+  }
+
+  void _giveCardToOpponent(PlayCard card) {
+    logger.verbose(_tag, '_giveCardToOpponent(card: $card)');
+
+    final duelState = _duelState.value;
+
+    final oldUserState = duelState.userState;
+    final oldUserZone = oldUserState.getZoneWithCard(card);
+    final newUserZone = oldUserZone.copyWith(cards: [...oldUserZone.cards]..remove(card));
+    final updatedUserZones = oldUserState.zones.toList()
+      ..remove(oldUserZone)
+      ..add(newUserZone);
+    final updatedUserState = oldUserState.copyWithAllZones(updatedUserZones);
+
+    final updatedCard = card.copyWith(revealed: false);
+    final oldOpponentState = duelState.opponentState;
+    final oldOpponentZone = oldOpponentState.getZone(ZoneType.hand);
+    final newOpponentZone = oldOpponentZone.copyWith(cards: [...oldOpponentZone.cards, updatedCard]);
+    final updatedOpponentZones = oldOpponentState.zones.toList()
+      ..remove(oldOpponentZone)
+      ..add(newOpponentZone);
+    final updatedOpponentState = oldOpponentState.copyWithAllZones(updatedOpponentZones);
+
+    _duelState.safeAdd(
+      duelState.copyWith(
+        userState: updatedUserState,
+        opponentState: updatedOpponentState,
+      ),
+    );
+
+    _speedDuelEventEmitter.sendGiveCardToOpponentEvent(card);
   }
 
   void _onCardDeclaration(PlayCard card) {
@@ -579,6 +621,9 @@ class SpeedDuelViewModel extends BaseViewModel {
           break;
         case SmartDuelEventConstants.cardHideAction:
           await _handleCardVisibilityEvent(eventData, revealed: false);
+          break;
+        case SmartDuelEventConstants.cardGiveToOpponentAction:
+          await _handleGiveCardToOpponentEvent(eventData);
           break;
       }
     }
@@ -729,6 +774,45 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     _duelState.safeAdd(
       _duelState.value.copyWith(opponentState: updatedState),
+    );
+  }
+
+  Future<void> _handleGiveCardToOpponentEvent(CardEventData data) async {
+    logger.verbose(_tag, '_handleGiveCardToOpponentEvent(data: $data)');
+
+    final cardId = data.cardId;
+    final copyNumber = data.copyNumber;
+
+    final playCard = _duelState.value.opponentState.cards
+        .firstWhere((card) => card?.yugiohCard.id == cardId && card?.copyNumber == copyNumber, orElse: () => null);
+    if (playCard == null) {
+      return;
+    }
+
+    final duelState = _duelState.value;
+
+    final oldOpponentState = duelState.opponentState;
+    final oldOpponentZone = oldOpponentState.getZoneWithCard(playCard);
+    final newOpponentZone = oldOpponentZone.copyWith(cards: [...oldOpponentZone.cards]..remove(playCard));
+    final updatedOpponentZones = oldOpponentState.zones.toList()
+      ..remove(oldOpponentZone)
+      ..add(newOpponentZone);
+    final updatedOpponentState = oldOpponentState.copyWithAllZones(updatedOpponentZones);
+
+    final updatedCard = playCard.copyWith(revealed: false);
+    final oldUserState = duelState.userState;
+    final oldUserZone = oldUserState.getZone(ZoneType.hand);
+    final newUserZone = oldUserZone.copyWith(cards: [...oldUserZone.cards, updatedCard]);
+    final updatedUserZones = oldUserState.zones.toList()
+      ..remove(oldUserZone)
+      ..add(newUserZone);
+    final updatedUserState = oldUserState.copyWithAllZones(updatedUserZones);
+
+    _duelState.safeAdd(
+      duelState.copyWith(
+        userState: updatedUserState,
+        opponentState: updatedOpponentState,
+      ),
     );
   }
 
