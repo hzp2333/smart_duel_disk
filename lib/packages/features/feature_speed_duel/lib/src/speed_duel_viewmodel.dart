@@ -214,8 +214,8 @@ class SpeedDuelViewModel extends BaseViewModel {
       }
     }
 
-    // Shuffle when a card is moved from the deck to somewhere else
-    if (movedCard && card.zoneType == ZoneType.deck) {
+    // Shuffle when a card is moved from the deck to somewhere else and it's not a token
+    if (movedCard && card.zoneType == ZoneType.deck && card.yugiohCard.type != CardType.token) {
       _shuffleDeck();
     }
   }
