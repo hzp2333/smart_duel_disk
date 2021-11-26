@@ -16,7 +16,7 @@ class SpellTrapRow extends StatelessWidget {
     final playerState = Provider.of<PlayerState>(context);
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
         Row(
           mainAxisSize: MainAxisSize.min,

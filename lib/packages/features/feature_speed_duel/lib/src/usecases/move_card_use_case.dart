@@ -69,9 +69,15 @@ class MoveCardUseCase {
     final updatedOldZone = oldZone.copyWith(cards: [...oldZone.cards]..remove(card));
 
     final counters = position.isFaceUp && !newZone.zoneType.isMultiCardZone ? card.counters : 0;
-    final updatedCard = card.copyWith(zoneType: newZone.zoneType, position: position, counters: counters);
-    final updatedNewZone =
-        newZone.copyWith(cards: moveToTop ? [...newZone.cards, updatedCard] : [updatedCard, ...newZone.cards]);
+    final updatedCard = card.copyWith(
+      zoneType: newZone.zoneType,
+      position: position,
+      counters: counters,
+      revealed: false,
+    );
+    final updatedNewZone = newZone.copyWith(
+      cards: moveToTop ? [...newZone.cards, updatedCard] : [updatedCard, ...newZone.cards],
+    );
 
     final updatedZones = playerZones.toList()
       ..removeWhere((zone) => zone.zoneType == updatedOldZone.zoneType)

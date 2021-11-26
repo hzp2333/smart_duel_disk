@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
@@ -10,6 +11,7 @@ import 'package:smart_duel_disk/packages/core/core_messaging/lib/core_messaging.
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/src/entities/event_data/deck_event_data.dart';
+import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/src/entities/event_data/duelist_event_data.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature_speed_duel.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/models/play_card_dialog_result.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/helpers/speed_duel_event_animation_handler.dart';
@@ -167,6 +169,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       _smartDuelServer.deckEvents,
       _smartDuelServer.roomEvents,
       _smartDuelServer.globalEvents,
+      _smartDuelServer.duelistEvents,
     ]).listen(_onSmartDuelEventReceived);
   }
 
@@ -564,6 +567,22 @@ class SpeedDuelViewModel extends BaseViewModel {
 
   //endregion
 
+  //region Duelist actions
+
+  void onFlipCoinPressed() {
+    logger.info(_tag, 'onFlipCoinPressed()');
+
+    _speedDuelEventEmitter.sendFlipCoinEvent();
+  }
+
+  void onRollDicePressed() {
+    logger.info(_tag, 'onRollDicePressed()');
+
+    _speedDuelEventEmitter.sendRollDiceEvent();
+  }
+
+  //endregion
+
   //region Receive smart duel events
 
   Future<void> _onSmartDuelEventReceived(SmartDuelEvent event) async {
@@ -586,6 +605,11 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     if (event.scope == SmartDuelEventConstants.globalScope) {
       await _handleGlobalEvent(event);
+      return;
+    }
+
+    if (event.scope == SmartDuelEventConstants.duelistScope) {
+      await _handleDuelistEvent(event);
       return;
     }
   }
@@ -911,6 +935,46 @@ class SpeedDuelViewModel extends BaseViewModel {
     _duelOver = true;
     await _showDuelIsOverDialog('The connection to the Smart Duel Server has been lost.');
     await _router.closeScreen();
+  }
+
+  //endregion
+
+  //region Duelist event
+
+  Future<void> _handleDuelistEvent(SmartDuelEvent event) async {
+    logger.verbose(_tag, '_handleDuelistEvent(event: $event)');
+
+    final eventData = event.data;
+    if (eventData is DuelistEventData) {
+      switch (event.action) {
+        case SmartDuelEventConstants.duelistRollDiceAction:
+          await _handleRollDiceEvent(eventData);
+          break;
+        case SmartDuelEventConstants.duelistFlipCoinAction:
+          await _handleFlipCoinEvent(eventData);
+          break;
+      }
+    }
+  }
+
+  Future<void> _handleRollDiceEvent(DuelistEventData event) async {
+    logger.verbose(_tag, '_handleRollDiceEvent(event: $event)');
+
+    _snackBarService.showSnackBar(
+      'Die roll result: ${event.result}',
+      fontSize: 16.0,
+      textAlign: TextAlign.center,
+    );
+  }
+
+  Future<void> _handleFlipCoinEvent(DuelistEventData event) async {
+    logger.verbose(_tag, '_handleFlipCoinEvent(event: $event)');
+
+    _snackBarService.showSnackBar(
+      'Coin flip result: ${event.result}',
+      fontSize: 16.0,
+      textAlign: TextAlign.center,
+    );
   }
 
   //endregion

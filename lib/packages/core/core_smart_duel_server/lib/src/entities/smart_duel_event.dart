@@ -143,6 +143,22 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
+  factory SmartDuelEvent.rollDice(SmartDuelEventData? data) {
+    return SmartDuelEvent._(
+      scope: SmartDuelEventConstants.duelistScope,
+      action: SmartDuelEventConstants.duelistRollDiceAction,
+      data: data,
+    );
+  }
+
+  factory SmartDuelEvent.flipCoin(SmartDuelEventData? data) {
+    return SmartDuelEvent._(
+      scope: SmartDuelEventConstants.duelistScope,
+      action: SmartDuelEventConstants.duelistFlipCoinAction,
+      data: data,
+    );
+  }
+
   @override
   List<Object?> get props => [
         scope,

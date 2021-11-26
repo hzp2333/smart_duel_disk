@@ -6,6 +6,7 @@ import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/src/ent
 import 'package:smart_duel_disk/packages/wrappers/wrapper_web_socket/lib/wrapper_web_socket.dart';
 
 import '../core_smart_duel_server.dart';
+import 'entities/event_data/duelist_event_data.dart';
 
 abstract class SmartDuelServer {
   void init();
@@ -13,6 +14,7 @@ abstract class SmartDuelServer {
   Stream<SmartDuelEvent> get roomEvents;
   Stream<SmartDuelEvent> get cardEvents;
   Stream<SmartDuelEvent> get deckEvents;
+  Stream<SmartDuelEvent> get duelistEvents;
   String? getDuelistId();
   void emitEvent(SmartDuelEvent event);
   void dispose();
@@ -40,6 +42,10 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
   final _deckEvents = PublishSubject<SmartDuelEvent>();
   @override
   Stream<SmartDuelEvent> get deckEvents => _deckEvents.stream;
+
+  final _duelistEvents = PublishSubject<SmartDuelEvent>();
+  @override
+  Stream<SmartDuelEvent> get duelistEvents => _duelistEvents.stream;
 
   WebSocketProvider? _socket;
 
@@ -92,6 +98,9 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
         break;
       case SmartDuelEventConstants.deckScope:
         _handleDeckEvent(action, json);
+        break;
+      case SmartDuelEventConstants.duelistScope:
+        _handleDuelistEvent(action, json);
         break;
     }
   }
@@ -197,6 +206,30 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
 
     if (event != null && !_deckEvents.isClosed) {
       _deckEvents.safeAdd(event);
+    }
+  }
+
+  // ignore: avoid_annotating_with_dynamic
+  void _handleDuelistEvent(String action, dynamic json) {
+    _logger.verbose(_tag, '_handleDuelistEvent(action: $action), json: $json');
+
+    SmartDuelEventData? data;
+    if (json is Map<String, dynamic>) {
+      data = DuelistEventData.fromJson(json);
+    }
+
+    SmartDuelEvent? event;
+    switch (action) {
+      case SmartDuelEventConstants.duelistRollDiceAction:
+        event = SmartDuelEvent.rollDice(data);
+        break;
+      case SmartDuelEventConstants.duelistFlipCoinAction:
+        event = SmartDuelEvent.flipCoin(data);
+        break;
+    }
+
+    if (event != null && !_duelistEvents.isClosed) {
+      _duelistEvents.safeAdd(event);
     }
   }
 

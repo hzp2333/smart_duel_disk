@@ -7,7 +7,7 @@ extension BuildContextExtensions on BuildContext {
   EdgeInsets get safeAreaPadding => MediaQuery.of(this).padding;
 
   double get playCardHeight =>
-      (screenHeight -
+      (screenHeight * 0.8 -
           safeAreaPadding.top -
           safeAreaPadding.bottom -
           AppSizes.duelFieldFirstSecondRowSpacing -

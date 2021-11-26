@@ -4,7 +4,11 @@ import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
 abstract class SnackBarService {
   GlobalKey<ScaffoldMessengerState> get messengerKey;
-  void showSnackBar(String message);
+  void showSnackBar(
+    String message, {
+    TextAlign textAlign = TextAlign.left,
+    double fontSize = 14.0,
+  });
   void hideSnackBar();
 }
 
@@ -18,14 +22,21 @@ class SnackBarServiceImpl implements SnackBarService {
   GlobalKey<ScaffoldMessengerState> get messengerKey => _messengerKey;
 
   @override
-  void showSnackBar(String message) {
+  void showSnackBar(
+    String message, {
+    TextAlign textAlign = TextAlign.left,
+    double fontSize = 14.0,
+  }) {
     hideSnackBar();
     _messengerKey.currentState?.showSnackBar(
       SnackBar(
         content: Text(
           message,
-          // TODO: move to app_colors
-          style: const TextStyle(color: Colors.white),
+          textAlign: textAlign,
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: fontSize,
+          ),
         ),
         backgroundColor: AppColors.cardBackgroundColor,
       ),

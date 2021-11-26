@@ -5,6 +5,7 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_state.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
+import 'rows/actions_row.dart';
 import 'rows/hand_row.dart';
 import 'rows/main_monster_row.dart';
 import 'rows/spell_trap_row.dart';
@@ -25,6 +26,10 @@ class SpeedDuelField extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           _PlayerField(playerState: state.opponentState),
+          SizedBox(
+            height: context.screenHeight * 0.1,
+            child: const ActionsRow(),
+          ),
           _PlayerField(playerState: state.userState),
         ],
       ),
@@ -44,7 +49,7 @@ class _PlayerField extends StatelessWidget {
     return Provider<PlayerState?>.value(
       value: playerState,
       child: SizedBox(
-        height: context.screenHeight,
+        height: context.screenHeight * 0.8,
         width: context.screenWidth,
         child: Padding(
           padding: const EdgeInsets.all(AppSizes.screenMargin),

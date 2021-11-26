@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
-
+import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 import 'rows/zones/cards/player_card.dart';
 
 class CardListBottomSheet extends StatelessWidget {
@@ -24,15 +24,19 @@ class CardListBottomSheet extends StatelessWidget {
       child: SizedBox(
         height: bottomSheetHeight,
         width: double.infinity,
-        child: Center(
-          child: Scrollbar(
-            child: ListView.separated(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.fromLTRB(8, 8, 8, 32),
-              itemCount: cards.length,
-              itemBuilder: (_, index) => PlayerCardBuilder(card: cards.elementAt(index)),
-              separatorBuilder: (_, __) => const SizedBox(width: 12),
+        child: ScrollConfiguration(
+          behavior: const NoScrollGlowBehavior(),
+          child: Center(
+            child: Scrollbar(
+              isAlwaysShown: true,
+              child: ListView.separated(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                padding: const EdgeInsets.fromLTRB(8, 0, 8, 32),
+                itemCount: cards.length,
+                itemBuilder: (_, index) => PlayerCardBuilder(card: cards.elementAt(index)),
+                separatorBuilder: (_, __) => const SizedBox(width: 12.0),
+              ),
             ),
           ),
         ),

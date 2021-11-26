@@ -38,6 +38,7 @@ class WebSocketProviderImpl implements WebSocketProvider {
       _registerRoomHandlers();
       _registerCardHandlers();
       _registerDeckHandlers();
+      _registerDuelistHandlers();
 
       _socket.connect();
     } catch (ex, stackTrace) {
@@ -127,5 +128,14 @@ class WebSocketProviderImpl implements WebSocketProvider {
     const scope = SmartDuelEventConstants.deckScope;
 
     _registerHandler(scope, SmartDuelEventConstants.deckShuffleAction);
+  }
+
+  void _registerDuelistHandlers() {
+    _logger.verbose(_tag, '_registerDuelistHandlers()');
+
+    const scope = SmartDuelEventConstants.duelistScope;
+
+    _registerHandler(scope, SmartDuelEventConstants.duelistRollDiceAction);
+    _registerHandler(scope, SmartDuelEventConstants.duelistFlipCoinAction);
   }
 }
