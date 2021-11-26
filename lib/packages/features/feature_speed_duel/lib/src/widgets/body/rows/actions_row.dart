@@ -79,6 +79,7 @@ class _Action extends StatelessWidget {
       onPressed: onPressed,
       tooltip: hint,
       color: Colors.white,
+      iconSize: context.screenHeight * 0.07,
       splashRadius: 24.0,
       icon: Icon(icon),
     );
