@@ -5,6 +5,7 @@ import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_ma
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/feature_home.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature_speed_duel.dart';
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/declare_phase_dialog/models/declare_phase_dialog_parameters.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_url_launcher/lib/wrapper_url_launcher.dart';
@@ -28,6 +29,7 @@ abstract class AppRouter {
   Future<void> showDrawCard(VoidCallback cardDrawnCallback);
   Future<PlayCardDialogResult?> showPlayCardDialog(PlayCard playCard, {Zone? newZone, bool showActions = false});
   Future<AddCardToDeckDialogResult?> showAddCardToDeckDialog(PlayCard playCard);
+  Future<DeclarePhaseDialogResult?> showDeclarePhaseDialog(DuelPhaseType duelPhaseType);
   Future<void> showDuelRoom(PreBuiltDeck preBuiltDeck);
   Future<void> showUserSettings();
 }
@@ -172,6 +174,13 @@ class AppRouterImpl implements AppRouter {
   Future<AddCardToDeckDialogResult?> showAddCardToDeckDialog(PlayCard playCard) {
     final addCardToDeckDialog = _speedDuelDialogProvider.createAddCardToDeckDialog(playCard);
     return _dialogService.showCustomDialog<AddCardToDeckDialogResult>(addCardToDeckDialog);
+  }
+
+  @override
+  Future<DeclarePhaseDialogResult?> showDeclarePhaseDialog(DuelPhaseType duelPhaseType) {
+    final parameters = DeclarePhaseDialogParameters(currentDuelPhaseType: duelPhaseType);
+    final declarePhaseDialog = _speedDuelDialogProvider.createDeclarePhaseDialog(parameters);
+    return _dialogService.showCustomDialog<DeclarePhaseDialogResult>(declarePhaseDialog);
   }
 
   //endregion

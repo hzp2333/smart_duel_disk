@@ -2,11 +2,9 @@ import 'package:injectable/injectable.dart';
 import 'package:rxdart/subjects.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
-import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/src/entities/event_data/deck_event_data.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_web_socket/lib/wrapper_web_socket.dart';
 
 import '../core_smart_duel_server.dart';
-import 'entities/event_data/duelist_event_data.dart';
 
 abstract class SmartDuelServer {
   void init();
@@ -117,7 +115,7 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
   void _handleRoomEvent(String action, dynamic json) {
     _logger.verbose(_tag, '_handleRoomEvent(action: $action), json: $json');
 
-    SmartDuelEventData? data;
+    RoomEventData? data;
     if (json is Map<String, dynamic>) {
       data = RoomEventData.fromJson(json);
     }
@@ -147,7 +145,7 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
   void _handleCardEvent(String action, dynamic json) {
     _logger.verbose(_tag, '_handleCardEvent(action: $action), json: $json');
 
-    SmartDuelEventData? data;
+    CardEventData? data;
     if (json is Map<String, dynamic>) {
       data = CardEventData.fromJson(json);
     }
@@ -192,7 +190,7 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
   void _handleDeckEvent(String action, dynamic json) {
     _logger.verbose(_tag, '_handleDeckEvent(action: $action), json: $json');
 
-    SmartDuelEventData? data;
+    DeckEventData? data;
     if (json is Map<String, dynamic>) {
       data = DeckEventData.fromJson(json);
     }
@@ -213,7 +211,7 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
   void _handleDuelistEvent(String action, dynamic json) {
     _logger.verbose(_tag, '_handleDuelistEvent(action: $action), json: $json');
 
-    SmartDuelEventData? data;
+    DuelistEventData? data;
     if (json is Map<String, dynamic>) {
       data = DuelistEventData.fromJson(json);
     }
@@ -225,6 +223,12 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
         break;
       case SmartDuelEventConstants.duelistFlipCoinAction:
         event = SmartDuelEvent.flipCoin(data);
+        break;
+      case SmartDuelEventConstants.duelistDeclarePhaseAction:
+        event = SmartDuelEvent.declarePhase(data);
+        break;
+      case SmartDuelEventConstants.duelistEndTurnAction:
+        event = SmartDuelEvent.endTurn(data);
         break;
     }
 

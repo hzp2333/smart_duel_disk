@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart';
 
 import 'event_data/smart_duel_event_data.dart';
 import 'smart_duel_event_constants.dart';
@@ -23,7 +24,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.playCard(SmartDuelEventData? data) {
+  factory SmartDuelEvent.playCard(CardEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.cardScope,
       action: SmartDuelEventConstants.cardPlayAction,
@@ -31,7 +32,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.removeCard(SmartDuelEventData? data) {
+  factory SmartDuelEvent.removeCard(CardEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.cardScope,
       action: SmartDuelEventConstants.cardRemoveAction,
@@ -39,7 +40,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.attackCard(SmartDuelEventData? data) {
+  factory SmartDuelEvent.attackCard(CardEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.cardScope,
       action: SmartDuelEventConstants.cardAttackAction,
@@ -47,7 +48,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.declareCard(SmartDuelEventData? data) {
+  factory SmartDuelEvent.declareCard(CardEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.cardScope,
       action: SmartDuelEventConstants.cardDeclareAction,
@@ -55,7 +56,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.addCounterToCard(SmartDuelEventData? data) {
+  factory SmartDuelEvent.addCounterToCard(CardEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.cardScope,
       action: SmartDuelEventConstants.cardAddCounterAction,
@@ -63,7 +64,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.removeCounterFromCard(SmartDuelEventData? data) {
+  factory SmartDuelEvent.removeCounterFromCard(CardEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.cardScope,
       action: SmartDuelEventConstants.cardRemoveCounterAction,
@@ -71,7 +72,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.revealCard(SmartDuelEventData? data) {
+  factory SmartDuelEvent.revealCard(CardEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.cardScope,
       action: SmartDuelEventConstants.cardRevealAction,
@@ -79,7 +80,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.hideCard(SmartDuelEventData? data) {
+  factory SmartDuelEvent.hideCard(CardEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.cardScope,
       action: SmartDuelEventConstants.cardHideAction,
@@ -87,7 +88,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.giveCardToOpponent(SmartDuelEventData? data) {
+  factory SmartDuelEvent.giveCardToOpponent(CardEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.cardScope,
       action: SmartDuelEventConstants.cardGiveToOpponentAction,
@@ -95,7 +96,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.createRoom([SmartDuelEventData? data]) {
+  factory SmartDuelEvent.createRoom([RoomEventData? data]) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.roomScope,
       action: SmartDuelEventConstants.roomCreateAction,
@@ -103,7 +104,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.closeRoom(SmartDuelEventData? data) {
+  factory SmartDuelEvent.closeRoom(RoomEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.roomScope,
       action: SmartDuelEventConstants.roomCloseAction,
@@ -111,7 +112,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.joinRoom(SmartDuelEventData? data) {
+  factory SmartDuelEvent.joinRoom(RoomEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.roomScope,
       action: SmartDuelEventConstants.roomJoinAction,
@@ -119,7 +120,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.startRoom(SmartDuelEventData? data) {
+  factory SmartDuelEvent.startRoom(RoomEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.roomScope,
       action: SmartDuelEventConstants.roomStartAction,
@@ -127,7 +128,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.surrenderRoom(SmartDuelEventData data) {
+  factory SmartDuelEvent.surrenderRoom(RoomEventData data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.roomScope,
       action: SmartDuelEventConstants.roomSurrenderAction,
@@ -135,7 +136,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.shuffleDeck(SmartDuelEventData? data) {
+  factory SmartDuelEvent.shuffleDeck(DeckEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.deckScope,
       action: SmartDuelEventConstants.deckShuffleAction,
@@ -143,7 +144,7 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.rollDice(SmartDuelEventData? data) {
+  factory SmartDuelEvent.rollDice(DuelistEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.duelistScope,
       action: SmartDuelEventConstants.duelistRollDiceAction,
@@ -151,10 +152,26 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
-  factory SmartDuelEvent.flipCoin(SmartDuelEventData? data) {
+  factory SmartDuelEvent.flipCoin(DuelistEventData? data) {
     return SmartDuelEvent._(
       scope: SmartDuelEventConstants.duelistScope,
       action: SmartDuelEventConstants.duelistFlipCoinAction,
+      data: data,
+    );
+  }
+
+  factory SmartDuelEvent.declarePhase(DuelistEventData? data) {
+    return SmartDuelEvent._(
+      scope: SmartDuelEventConstants.duelistScope,
+      action: SmartDuelEventConstants.duelistDeclarePhaseAction,
+      data: data,
+    );
+  }
+
+  factory SmartDuelEvent.endTurn(DuelistEventData? data) {
+    return SmartDuelEvent._(
+      scope: SmartDuelEventConstants.duelistScope,
+      action: SmartDuelEventConstants.duelistEndTurnAction,
       data: data,
     );
   }

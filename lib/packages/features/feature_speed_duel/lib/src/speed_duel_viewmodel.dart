@@ -10,24 +10,15 @@ import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_messaging/lib/core_messaging.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart';
-import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/src/entities/event_data/deck_event_data.dart';
-import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/src/entities/event_data/duelist_event_data.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature_speed_duel.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/models/play_card_dialog_result.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/helpers/speed_duel_event_animation_handler.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/card_position.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_event.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_screen_state.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_state.dart';
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/usecases/can_card_attack_zone_use_case.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/usecases/move_card_use_case.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/lib/wrapper_crashlytics.dart';
 
 import 'helpers/speed_duel_event_emitter.dart';
-import 'models/player_state.dart';
-import 'models/zone_type.dart';
+import 'models/speed_duel_models.dart';
 import 'usecases/create_play_card_use_case.dart';
 import 'usecases/create_player_state_use_case.dart';
 import 'usecases/does_card_fit_in_zone_use_case.dart';
@@ -92,7 +83,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     final canPop = _duelOver || _screenState.value is! SpeedDuelData;
     if (!canPop) {
-      _snackBarService.showSnackBar('Currently, the back key cannot be used.');
+      _showSpeedDuelSnackBar('Currently, the back key cannot be used.');
     }
 
     return canPop;
@@ -113,6 +104,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       await _setDeck();
       _shuffleDeck();
       _drawStartHand();
+      _selectStartPlayer();
 
       _initSmartDuelEventSubscription();
 
@@ -149,6 +141,8 @@ class SpeedDuelViewModel extends BaseViewModel {
       SpeedDuelState(
         userState: userState,
         opponentState: opponentState,
+        duelPhase: _duelRoom!.duelPhase,
+        turn: 1,
       ),
     );
   }
@@ -159,6 +153,15 @@ class SpeedDuelViewModel extends BaseViewModel {
     for (var i = 0; i < _speedDuelStartHandLength; i++) {
       _drawCard();
     }
+  }
+
+  void _selectStartPlayer() {
+    logger.verbose(_tag, '_drawStartHand()');
+
+    final initialPhase = _duelRoom!.duelPhase;
+    final userStarts = initialPhase.duelistId == _smartDuelServer.getDuelistId()!;
+
+    _showSpeedDuelSnackBar(userStarts ? "You're going FIRST" : "You're going SECOND");
   }
 
   void _initSmartDuelEventSubscription() {
@@ -333,7 +336,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     final deck = deckZone.cards.toList();
     if (deck.isEmpty) {
-      _snackBarService.showSnackBar('Deck is empty');
+      _showSpeedDuelSnackBar('Deck is empty');
       return;
     }
 
@@ -388,7 +391,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     final userState = _duelState.value.userState;
     final availableZones = userState.mainMonsterZones.where((zone) => zone.isEmpty);
     if (availableZones.isEmpty) {
-      _snackBarService.showSnackBar('You need an empty main monster zone to summon a token.');
+      _showSpeedDuelSnackBar('No empty main monster zone');
       return;
     }
 
@@ -579,6 +582,19 @@ class SpeedDuelViewModel extends BaseViewModel {
     logger.info(_tag, 'onRollDicePressed()');
 
     _speedDuelEventEmitter.sendRollDiceEvent();
+  }
+
+  Future<void> onDuelPhasePressed() async {
+    logger.info(_tag, 'onDuelPhasePressed()');
+
+    final duelState = _duelState.value;
+    final result = await _router.showDeclarePhaseDialog(duelState.duelPhase.duelPhaseType);
+
+    if (result is DeclarePhaseEndTurn) {
+      _speedDuelEventEmitter.sendEndTurnEvent();
+    } else if (result is DeclarePhaseDeclaration) {
+      _speedDuelEventEmitter.sendDeclarePhaseEvent(result.duelPhaseType);
+    }
   }
 
   //endregion
@@ -953,6 +969,12 @@ class SpeedDuelViewModel extends BaseViewModel {
         case SmartDuelEventConstants.duelistFlipCoinAction:
           await _handleFlipCoinEvent(eventData);
           break;
+        case SmartDuelEventConstants.duelistDeclarePhaseAction:
+          await _handleDeclarePhaseEvent(eventData);
+          break;
+        case SmartDuelEventConstants.duelistEndTurnAction:
+          await _handleEndTurnEvent(eventData);
+          break;
       }
     }
   }
@@ -960,26 +982,64 @@ class SpeedDuelViewModel extends BaseViewModel {
   Future<void> _handleRollDiceEvent(DuelistEventData event) async {
     logger.verbose(_tag, '_handleRollDiceEvent(event: $event)');
 
-    _snackBarService.showSnackBar(
-      'Die roll result: ${event.result}',
-      fontSize: 16.0,
-      textAlign: TextAlign.center,
-    );
+    _showSpeedDuelSnackBar('Die roll result: ${event.result}');
   }
 
   Future<void> _handleFlipCoinEvent(DuelistEventData event) async {
     logger.verbose(_tag, '_handleFlipCoinEvent(event: $event)');
 
-    _snackBarService.showSnackBar(
-      'Coin flip result: ${event.result}',
-      fontSize: 16.0,
-      textAlign: TextAlign.center,
+    _showSpeedDuelSnackBar('Coin flip result: ${event.result}');
+  }
+
+  Future<void> _handleDeclarePhaseEvent(DuelistEventData event) async {
+    logger.verbose(_tag, '_handleDeclarePhaseEvent(event: $event)');
+
+    final phaseType = event.phase;
+    if (phaseType == null) {
+      return;
+    }
+
+    _duelState.safeAdd(
+      _duelState.value.copyWith(
+        duelPhase: DuelPhase(
+          duelistId: event.duelistId,
+          duelPhaseType: phaseType,
+        ),
+      ),
+    );
+  }
+
+  Future<void> _handleEndTurnEvent(DuelistEventData event) async {
+    logger.verbose(_tag, '_handleEndTurnEvent(event: $event)');
+
+    final duelState = _duelState.value;
+    final opposingDuelistId =
+        duelState.getPlayerStates().map((ps) => ps.duelistId).firstWhere((id) => id != event.duelistId);
+
+    _duelState.safeAdd(
+      _duelState.value.copyWith(
+        turn: duelState.turn + 1,
+        duelPhase: DuelPhase(
+          duelistId: opposingDuelistId,
+          duelPhaseType: DuelPhaseType.drawPhase,
+        ),
+      ),
     );
   }
 
   //endregion
 
   //endregion
+
+  void _showSpeedDuelSnackBar(String message) {
+    logger.verbose(_tag, '_showSpeedDuelSnackBar(message: $message)');
+
+    _snackBarService.showSnackBar(
+      message,
+      fontSize: 16.0,
+      textAlign: TextAlign.center,
+    );
+  }
 
   //region Clean-up
 

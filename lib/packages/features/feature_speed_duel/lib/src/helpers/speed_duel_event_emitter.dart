@@ -1,14 +1,12 @@
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart';
-import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/src/entities/event_data/deck_event_data.dart';
-import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/src/entities/event_data/duelist_event_data.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/speed_duel_models.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_enum_helper/lib/wrapper_enum_helper.dart';
 
 @LazySingleton()
 class SpeedDuelEventEmitter {
-  static const _tag = 'SpeedDuelEventHandler';
+  static const _tag = 'SpeedDuelEventEmitter';
 
   final SmartDuelServer _smartDuelServer;
   final EnumHelper _enumHelper;
@@ -19,6 +17,8 @@ class SpeedDuelEventEmitter {
     this._enumHelper,
     this._logger,
   );
+
+  //region Card events
 
   void sendPlayCardEvent(PlayCard card, ZoneType zoneType, CardPosition newPosition) {
     _logger.info(
@@ -152,6 +152,10 @@ class SpeedDuelEventEmitter {
     );
   }
 
+  //endregion
+
+  //region Room events
+
   void sendSurrenderEvent(DuelRoom duelRoom) {
     _logger.info(_tag, 'sendSurrenderEvent(duelRoom: ${duelRoom.roomName})');
 
@@ -162,6 +166,10 @@ class SpeedDuelEventEmitter {
     );
   }
 
+  //endregion
+
+  //region Deck events
+
   void sendShuffleDeckEvent() {
     _logger.info(_tag, 'sendShuffleDeckEvent()');
 
@@ -171,6 +179,10 @@ class SpeedDuelEventEmitter {
       ),
     );
   }
+
+  //endregion
+
+  //region Duelist events
 
   void sendRollDiceEvent() {
     _logger.info(_tag, 'sendRollDiceEvent()');
@@ -191,4 +203,29 @@ class SpeedDuelEventEmitter {
       ),
     );
   }
+
+  void sendDeclarePhaseEvent(DuelPhaseType duelPhaseType) {
+    _logger.info(_tag, 'sendDeclarePhaseEvent(duelPhaseType: $duelPhaseType)');
+
+    _smartDuelServer.emitEvent(
+      SmartDuelEvent.declarePhase(
+        DuelistEventData(
+          duelistId: _smartDuelServer.getDuelistId()!,
+          phase: duelPhaseType,
+        ),
+      ),
+    );
+  }
+
+  void sendEndTurnEvent() {
+    _logger.info(_tag, 'sendEndTurnEvent()');
+
+    _smartDuelServer.emitEvent(
+      SmartDuelEvent.endTurn(
+        DuelistEventData(duelistId: _smartDuelServer.getDuelistId()!),
+      ),
+    );
+  }
+
+  //endregion
 }

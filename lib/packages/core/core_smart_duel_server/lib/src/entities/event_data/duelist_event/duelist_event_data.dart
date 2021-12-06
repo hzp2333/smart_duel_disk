@@ -1,8 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
+import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart';
 
-import 'smart_duel_event_data.dart';
+import 'duel_phase_type.dart';
 
 part 'duelist_event_data.g.dart';
 
@@ -10,16 +11,19 @@ part 'duelist_event_data.g.dart';
 @JsonSerializable()
 class DuelistEventData extends Equatable implements SmartDuelEventData {
   final String duelistId;
+  final DuelPhaseType? phase;
   final String? result;
 
   const DuelistEventData({
     required this.duelistId,
+    this.phase,
     this.result,
   });
 
   @override
   List<Object?> get props => [
         duelistId,
+        phase,
         result,
       ];
 

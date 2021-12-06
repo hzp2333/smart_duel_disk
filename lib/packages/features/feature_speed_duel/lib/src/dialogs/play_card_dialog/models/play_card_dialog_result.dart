@@ -13,7 +13,10 @@ class PlayCardUpdatePosition extends PlayCardDialogResult {
   }) : super();
 
   @override
-  List<Object?> get props => [position];
+  List<Object?> get props => [
+        ...super.props,
+        position,
+      ];
 }
 
 class PlayCardDeclare extends PlayCardDialogResult {

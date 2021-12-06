@@ -28,7 +28,7 @@ class SpeedDuelField extends StatelessWidget {
           _PlayerField(playerState: state.opponentState),
           SizedBox(
             height: context.screenHeight * 0.1,
-            child: const ActionsRow(),
+            child: ActionsRow(duelState: state),
           ),
           _PlayerField(playerState: state.userState),
         ],

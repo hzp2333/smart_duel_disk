@@ -180,7 +180,7 @@ class _PlayCardCounters extends StatelessWidget {
       return const SizedBox.shrink();
     }
 
-    final circleSize = context.playCardHeight / 3.5;
+    final circleSize = context.playCardHeight / 3;
     final quarterTurns = playerState.isOpponent
         ? playCard.position.isAttack
             ? 2
@@ -197,17 +197,15 @@ class _PlayCardCounters extends StatelessWidget {
         decoration: BoxDecoration(
           color: Colors.white,
           shape: BoxShape.circle,
-          border: Border.all(
-            width: 2.5,
-          ),
+          border: Border.all(width: 2.5),
         ),
         child: Center(
           child: Text(
             playCard.counters.toString(),
-            style: const TextStyle(
+            style: TextStyle(
               color: Colors.black,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
+              fontSize: circleSize / 1.5,
+              fontWeight: FontWeight.w600,
             ),
           ),
         ),

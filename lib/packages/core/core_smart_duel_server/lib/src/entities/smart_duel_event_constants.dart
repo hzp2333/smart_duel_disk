@@ -39,6 +39,8 @@ abstract class SmartDuelEventConstants {
 
   static const duelistRollDiceAction = 'roll-dice';
   static const duelistFlipCoinAction = 'flip-coin';
+  static const duelistDeclarePhaseAction = 'declare-phase';
+  static const duelistEndTurnAction = 'end-turn';
 
   //endregion
 }

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class BorderedText extends StatelessWidget {
   final String text;
+  final TextStyle style;
 
   const BorderedText({
     required this.text,
+    this.style = const TextStyle(),
   });
 
   @override
@@ -13,14 +15,17 @@ class BorderedText extends StatelessWidget {
       children: [
         Text(
           text,
-          style: TextStyle(
+          style: style.copyWith(
             foreground: Paint()
               ..style = PaintingStyle.stroke
               ..strokeWidth = 2
               ..color = Colors.black,
           ),
         ),
-        Text(text),
+        Text(
+          text,
+          style: style,
+        ),
       ],
     );
   }

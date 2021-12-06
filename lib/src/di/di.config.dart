@@ -50,7 +50,7 @@ import '../../packages/core/core_display_config/lib/core_display_config.dart'
 import '../../packages/core/core_display_config/lib/src/display_config_service.dart'
     as _i105;
 import '../../packages/core/core_file_manager/lib/src/di/file_manager_module.dart'
-    as _i111;
+    as _i112;
 import '../../packages/core/core_file_manager/lib/src/file_manager.dart'
     as _i51;
 import '../../packages/core/core_general/lib/core_general.dart' as _i65;
@@ -89,7 +89,7 @@ import '../../packages/core/core_ygoprodeck/lib/core_ygoprodeck.dart' as _i99;
 import '../../packages/core/core_ygoprodeck/lib/src/api/ygoprodeck_api.dart'
     as _i96;
 import '../../packages/core/core_ygoprodeck/lib/src/di/ygoprodeck_module.dart'
-    as _i112;
+    as _i111;
 import '../../packages/core/core_ygoprodeck/lib/src/ygoprodeck_api_provider.dart'
     as _i106;
 import '../../packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart'
@@ -119,7 +119,7 @@ import '../../packages/features/feature_privacy_policy/lib/src/privacy_policy_vi
     as _i69;
 import '../../packages/features/feature_speed_duel/lib/feature_speed_duel.dart'
     as _i8;
-import '../../packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/use_cases/create_play_card_dialog_actions_use_case.dart'
+import '../../packages/features/feature_speed_duel/lib/src/dialogs/play_card_dialog/usecases/create_play_card_dialog_actions_use_case.dart'
     as _i22;
 import '../../packages/features/feature_speed_duel/lib/src/dialogs/speed_duel_dialog_provider.dart'
     as _i83;
@@ -184,9 +184,9 @@ import '../../packages/wrappers/wrapper_path_provider/lib/src/path_provider_wrap
 import '../../packages/wrappers/wrapper_remote_config/lib/src/di/remote_config_module.dart'
     as _i115;
 import '../../packages/wrappers/wrapper_remote_config/lib/src/firebase/firebase_remote_config_provider.dart'
-    as _i72;
-import '../../packages/wrappers/wrapper_remote_config/lib/src/web/web_remote_config_provider.dart'
     as _i73;
+import '../../packages/wrappers/wrapper_remote_config/lib/src/web/web_remote_config_provider.dart'
+    as _i72;
 import '../../packages/wrappers/wrapper_remote_config/lib/wrapper_remote_config.dart'
     as _i71;
 import '../../packages/wrappers/wrapper_shared_preferences/lib/src/di/shared_preferences_module.dart'
@@ -229,8 +229,8 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   final storageModule = _$StorageModule();
   final localizationModule = _$LocalizationModule();
   final connectivityModule = _$ConnectivityModule();
-  final fileManagerModule = _$FileManagerModule();
   final ygoProDeckModule = _$YgoProDeckModule();
+  final fileManagerModule = _$FileManagerModule();
   final crashlyticsModule = _$CrashlyticsModule();
   final cloudDatabaseModule = _$CloudDatabaseModule();
   final remoteConfigModule = _$RemoteConfigModule();
@@ -299,13 +299,13 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i37.DialogService>(
       () => _i37.DialogServiceImpl(get<_i5.AutoRouteRouter>()));
   gh.lazySingleton<_i38.Dio>(
-      () => fileManagerModule.provideFileManagerDio(get<_i4.AppConfig>(),
-          get<_i4.DioPluginProvider>(), get<_i31.Logger>()),
-      instanceName: 'FileManagerDio');
-  gh.lazySingleton<_i38.Dio>(
       () => ygoProDeckModule.provideYgoProDeckDio(get<_i4.AppConfig>(),
           get<_i4.DioPluginProvider>(), get<_i31.Logger>()),
       instanceName: 'YgoProDeckDio');
+  gh.lazySingleton<_i38.Dio>(
+      () => fileManagerModule.provideFileManagerDio(get<_i4.AppConfig>(),
+          get<_i4.DioPluginProvider>(), get<_i31.Logger>()),
+      instanceName: 'FileManagerDio');
   gh.lazySingleton<_i39.DioPluginProvider>(() => _i39.DioPluginProviderImpl());
   gh.lazySingleton<_i40.DoesCardFitInZoneUseCase>(
       () => _i40.DoesCardFitInZoneUseCase());
@@ -366,11 +366,11 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i70.RemoteConfig>(
       () => remoteConfigModule.provideRemoteConfig());
   gh.lazySingleton<_i71.RemoteConfigProvider>(
-      () => _i72.FirebaseRemoteConfigProvider(get<_i70.RemoteConfig>()),
-      registerFor: {_mobile});
-  gh.lazySingleton<_i71.RemoteConfigProvider>(
-      () => _i73.WebRemoteConfigProvider(),
+      () => _i72.WebRemoteConfigProvider(),
       registerFor: {_web});
+  gh.lazySingleton<_i71.RemoteConfigProvider>(
+      () => _i73.FirebaseRemoteConfigProvider(get<_i70.RemoteConfig>()),
+      registerFor: {_mobile});
   gh.factory<_i74.SelectDeckDialogViewModel>(() =>
       _i74.SelectDeckDialogViewModel(
           get<_i5.AppRouter>(),
@@ -475,9 +475,9 @@ class _$LocalizationModule extends _i109.LocalizationModule {}
 
 class _$ConnectivityModule extends _i110.ConnectivityModule {}
 
-class _$FileManagerModule extends _i111.FileManagerModule {}
+class _$YgoProDeckModule extends _i111.YgoProDeckModule {}
 
-class _$YgoProDeckModule extends _i112.YgoProDeckModule {}
+class _$FileManagerModule extends _i112.FileManagerModule {}
 
 class _$CrashlyticsModule extends _i113.CrashlyticsModule {}
 
