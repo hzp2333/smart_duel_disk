@@ -24,6 +24,7 @@ dependencies:
     sdk: flutter
   flutter_dotenv: ^5.0.2
   flutter_hooks: ^0.18.0
+  flutter_simple_calculator: ^2.0.0+1
   flutter_svg: ^0.22.0
   flutter_widget_from_html_core: ^0.7.0
   font_awesome_flutter: ^9.1.0

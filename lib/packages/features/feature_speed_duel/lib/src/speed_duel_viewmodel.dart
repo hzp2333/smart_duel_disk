@@ -597,6 +597,18 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
   }
 
+  Future<void> onLifepointsPressed() async {
+    logger.verbose(_tag, 'onLifepointsPressed()');
+
+    final currentLifepoints = _duelState.value.userState.lifepoints.toDouble();
+    final updatedLifepoints = await _router.showLifepointsCalculator(initialValue: currentLifepoints);
+    if (updatedLifepoints == null) {
+      return;
+    }
+
+    _speedDuelEventEmitter.sendUpdateLifepointsEvent(updatedLifepoints.toInt());
+  }
+
   //endregion
 
   //region Receive smart duel events
@@ -975,6 +987,9 @@ class SpeedDuelViewModel extends BaseViewModel {
         case SmartDuelEventConstants.duelistEndTurnAction:
           await _handleEndTurnEvent(eventData);
           break;
+        case SmartDuelEventConstants.duelistUpdateLifepointsAction:
+          await _handleUpdateLifepointsEvent(eventData);
+          break;
       }
     }
   }
@@ -988,7 +1003,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   Future<void> _handleFlipCoinEvent(DuelistEventData event) async {
     logger.verbose(_tag, '_handleFlipCoinEvent(event: $event)');
 
-    _showSpeedDuelSnackBar('Coin flip result: ${event.result}');
+    _showSpeedDuelSnackBar('Coin flip result: ${event.result?.toUpperCase()}');
   }
 
   Future<void> _handleDeclarePhaseEvent(DuelistEventData event) async {
@@ -1017,12 +1032,33 @@ class SpeedDuelViewModel extends BaseViewModel {
         duelState.getPlayerStates().map((ps) => ps.duelistId).firstWhere((id) => id != event.duelistId);
 
     _duelState.safeAdd(
-      _duelState.value.copyWith(
+      duelState.copyWith(
         turn: duelState.turn + 1,
         duelPhase: DuelPhase(
           duelistId: opposingDuelistId,
           duelPhaseType: DuelPhaseType.drawPhase,
         ),
+      ),
+    );
+  }
+
+  Future<void> _handleUpdateLifepointsEvent(DuelistEventData event) async {
+    final duelState = _duelState.value;
+    final playerStates = duelState.getPlayerStates();
+
+    final playerState = playerStates.firstWhere((ps) => ps.duelistId == event.duelistId);
+    final updatedPlayerState = playerState.copyWith(lifepoints: event.lifepoints);
+
+    final updatedPlayerStates = playerStates.toList()
+      ..remove(playerState)
+      ..add(updatedPlayerState);
+
+    final userId = _smartDuelServer.getDuelistId()!;
+
+    _duelState.safeAdd(
+      duelState.copyWith(
+        userState: updatedPlayerStates.firstWhere((ps) => ps.duelistId == userId),
+        opponentState: updatedPlayerStates.firstWhere((ps) => ps.duelistId != userId),
       ),
     );
   }

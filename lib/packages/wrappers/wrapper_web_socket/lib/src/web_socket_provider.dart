@@ -139,5 +139,6 @@ class WebSocketProviderImpl implements WebSocketProvider {
     _registerHandler(scope, SmartDuelEventConstants.duelistFlipCoinAction);
     _registerHandler(scope, SmartDuelEventConstants.duelistDeclarePhaseAction);
     _registerHandler(scope, SmartDuelEventConstants.duelistEndTurnAction);
+    _registerHandler(scope, SmartDuelEventConstants.duelistUpdateLifepointsAction);
   }
 }

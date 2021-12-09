@@ -176,6 +176,14 @@ class SmartDuelEvent extends Equatable {
     );
   }
 
+  factory SmartDuelEvent.updateLifepoints(DuelistEventData? data) {
+    return SmartDuelEvent._(
+      scope: SmartDuelEventConstants.duelistScope,
+      action: SmartDuelEventConstants.duelistUpdateLifepointsAction,
+      data: data,
+    );
+  }
+
   @override
   List<Object?> get props => [
         scope,

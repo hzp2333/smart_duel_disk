@@ -10,6 +10,7 @@ abstract class DialogService {
   Future<bool?> showAlertDialog(DialogConfig dialogConfig);
   void popDialog<T>(T result);
   Future<T?> showCustomDialog<T>(Widget child);
+  Future<T?> showModal<T>(Widget child);
 }
 
 @LazySingleton(as: DialogService)
@@ -96,6 +97,15 @@ class DialogServiceImpl implements DialogService {
       context: _router.navigatorKey.currentState!.overlay!.context,
       barrierDismissible: true,
       useRootNavigator: true,
+      builder: (_) => child,
+    );
+  }
+
+  @override
+  Future<T?> showModal<T>(Widget child) {
+    return showModalBottomSheet<T>(
+      context: _router.navigatorKey.currentState!.overlay!.context,
+      isScrollControlled: true,
       builder: (_) => child,
     );
   }

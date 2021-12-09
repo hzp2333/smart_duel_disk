@@ -8,6 +8,7 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/declare_phase_dialog/models/declare_phase_dialog_parameters.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart';
+import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_url_launcher/lib/wrapper_url_launcher.dart';
 
 import '../core_navigation.dart';
@@ -18,20 +19,22 @@ abstract class AppRouter {
   Future<void> launchUrl(String url);
 
   Future<void> showHome();
+
   Future<void> showNewsDetails(String? newsItemId, String? newsItemAuthorId);
   Future<void> showYoutube();
   Future<void> showTwitter();
   Future<void> showDiscord();
   Future<void> showDeckBuilder({PreBuiltDeck? preBuiltDeck});
+  Future<void> showYugiohCardDetail(CardCopy cardCopy, String tag);
   Future<void> showSpeedDuel(DuelRoom duelRoom);
   Future<PreBuiltDeck?> showSelectDeckDialog();
-  Future<void> showYugiohCardDetail(CardCopy cardCopy, String ta);
   Future<void> showDrawCard(VoidCallback cardDrawnCallback);
   Future<PlayCardDialogResult?> showPlayCardDialog(PlayCard playCard, {Zone? newZone, bool showActions = false});
   Future<AddCardToDeckDialogResult?> showAddCardToDeckDialog(PlayCard playCard);
   Future<DeclarePhaseDialogResult?> showDeclarePhaseDialog(DuelPhaseType duelPhaseType);
   Future<void> showDuelRoom(PreBuiltDeck preBuiltDeck);
   Future<void> showUserSettings();
+  Future<double?> showLifepointsCalculator({required double initialValue});
 }
 
 @LazySingleton(as: AppRouter)
@@ -202,4 +205,10 @@ class AppRouterImpl implements AppRouter {
   }
 
   //endregion
+
+  @override
+  Future<double?> showLifepointsCalculator({required double initialValue}) {
+    final calculatorScreen = CalculatorProvider(initialValue: initialValue);
+    return _dialogService.showModal<double>(calculatorScreen);
+  }
 }

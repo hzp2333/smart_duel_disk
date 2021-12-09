@@ -227,5 +227,18 @@ class SpeedDuelEventEmitter {
     );
   }
 
+  void sendUpdateLifepointsEvent(int lifepoints) {
+    _logger.info(_tag, 'sendUpdateLifepointsEvent(lifepoints: $lifepoints)');
+
+    _smartDuelServer.emitEvent(
+      SmartDuelEvent.updateLifepoints(
+        DuelistEventData(
+          duelistId: _smartDuelServer.getDuelistId()!,
+          lifepoints: lifepoints,
+        ),
+      ),
+    );
+  }
+
   //endregion
 }

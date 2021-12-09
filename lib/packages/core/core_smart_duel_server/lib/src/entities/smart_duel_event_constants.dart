@@ -41,6 +41,7 @@ abstract class SmartDuelEventConstants {
   static const duelistFlipCoinAction = 'flip-coin';
   static const duelistDeclarePhaseAction = 'declare-phase';
   static const duelistEndTurnAction = 'end-turn';
+  static const duelistUpdateLifepointsAction = 'update-lifepoints';
 
   //endregion
 }

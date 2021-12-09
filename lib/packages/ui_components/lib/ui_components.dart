@@ -11,6 +11,7 @@ export 'src/scrolling/no_scroll_glow_behavior.dart';
 export 'src/widgets/app_bar/sdd_app_bar.dart';
 export 'src/widgets/bordered_text.dart';
 export 'src/widgets/buttons/primary_button.dart';
+export 'src/widgets/calculator/widgets/calculator_provider.dart';
 export 'src/widgets/card/card_image.dart';
 export 'src/widgets/card/image_error.dart';
 export 'src/widgets/card/image_placeholder.dart';

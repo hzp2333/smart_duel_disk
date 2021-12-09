@@ -184,9 +184,9 @@ import '../../packages/wrappers/wrapper_path_provider/lib/src/path_provider_wrap
 import '../../packages/wrappers/wrapper_remote_config/lib/src/di/remote_config_module.dart'
     as _i115;
 import '../../packages/wrappers/wrapper_remote_config/lib/src/firebase/firebase_remote_config_provider.dart'
-    as _i73;
-import '../../packages/wrappers/wrapper_remote_config/lib/src/web/web_remote_config_provider.dart'
     as _i72;
+import '../../packages/wrappers/wrapper_remote_config/lib/src/web/web_remote_config_provider.dart'
+    as _i73;
 import '../../packages/wrappers/wrapper_remote_config/lib/wrapper_remote_config.dart'
     as _i71;
 import '../../packages/wrappers/wrapper_shared_preferences/lib/src/di/shared_preferences_module.dart'
@@ -366,11 +366,11 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i70.RemoteConfig>(
       () => remoteConfigModule.provideRemoteConfig());
   gh.lazySingleton<_i71.RemoteConfigProvider>(
-      () => _i72.WebRemoteConfigProvider(),
-      registerFor: {_web});
-  gh.lazySingleton<_i71.RemoteConfigProvider>(
-      () => _i73.FirebaseRemoteConfigProvider(get<_i70.RemoteConfig>()),
+      () => _i72.FirebaseRemoteConfigProvider(get<_i70.RemoteConfig>()),
       registerFor: {_mobile});
+  gh.lazySingleton<_i71.RemoteConfigProvider>(
+      () => _i73.WebRemoteConfigProvider(),
+      registerFor: {_web});
   gh.factory<_i74.SelectDeckDialogViewModel>(() =>
       _i74.SelectDeckDialogViewModel(
           get<_i5.AppRouter>(),

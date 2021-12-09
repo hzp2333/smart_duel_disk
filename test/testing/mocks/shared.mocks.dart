@@ -144,6 +144,10 @@ class MockDialogService extends _i1.Mock implements _i8.DialogService {
       (super.noSuchMethod(Invocation.method(#showCustomDialog, [child]),
           returnValue: Future<T?>.value()) as _i3.Future<T?>);
   @override
+  _i3.Future<T?> showModal<T>(_i4.Widget? child) =>
+      (super.noSuchMethod(Invocation.method(#showModal, [child]),
+          returnValue: Future<T?>.value()) as _i3.Future<T?>);
+  @override
   String toString() => super.toString();
 }
 
@@ -204,6 +208,12 @@ class MockAppRouter extends _i1.Mock implements _i8.AppRouter {
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
+  _i3.Future<void> showYugiohCardDetail(_i2.CardCopy? cardCopy, String? tag) =>
+      (super.noSuchMethod(
+          Invocation.method(#showYugiohCardDetail, [cardCopy, tag]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  @override
   _i3.Future<void> showSpeedDuel(_i9.DuelRoom? duelRoom) =>
       (super.noSuchMethod(Invocation.method(#showSpeedDuel, [duelRoom]),
           returnValue: Future<void>.value(),
@@ -213,12 +223,6 @@ class MockAppRouter extends _i1.Mock implements _i8.AppRouter {
       (super.noSuchMethod(Invocation.method(#showSelectDeckDialog, []),
               returnValue: Future<_i2.PreBuiltDeck?>.value())
           as _i3.Future<_i2.PreBuiltDeck?>);
-  @override
-  _i3.Future<void> showYugiohCardDetail(_i2.CardCopy? cardCopy, String? ta) =>
-      (super.noSuchMethod(
-          Invocation.method(#showYugiohCardDetail, [cardCopy, ta]),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
   _i3.Future<void> showDrawCard(_i5.VoidCallback? cardDrawnCallback) =>
       (super.noSuchMethod(Invocation.method(#showDrawCard, [cardDrawnCallback]),
@@ -242,6 +246,13 @@ class MockAppRouter extends _i1.Mock implements _i8.AppRouter {
               returnValue: Future<_i10.AddCardToDeckDialogResult?>.value())
           as _i3.Future<_i10.AddCardToDeckDialogResult?>);
   @override
+  _i3.Future<_i10.DeclarePhaseDialogResult?> showDeclarePhaseDialog(
+          _i9.DuelPhaseType? duelPhaseType) =>
+      (super.noSuchMethod(
+              Invocation.method(#showDeclarePhaseDialog, [duelPhaseType]),
+              returnValue: Future<_i10.DeclarePhaseDialogResult?>.value())
+          as _i3.Future<_i10.DeclarePhaseDialogResult?>);
+  @override
   _i3.Future<void> showDuelRoom(_i2.PreBuiltDeck? preBuiltDeck) =>
       (super.noSuchMethod(Invocation.method(#showDuelRoom, [preBuiltDeck]),
           returnValue: Future<void>.value(),
@@ -251,6 +262,12 @@ class MockAppRouter extends _i1.Mock implements _i8.AppRouter {
       (super.noSuchMethod(Invocation.method(#showUserSettings, []),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  @override
+  _i3.Future<double?> showLifepointsCalculator({double? initialValue}) =>
+      (super.noSuchMethod(
+          Invocation.method(
+              #showLifepointsCalculator, [], {#initialValue: initialValue}),
+          returnValue: Future<double?>.value()) as _i3.Future<double?>);
   @override
   String toString() => super.toString();
 }

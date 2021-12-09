@@ -7,8 +7,11 @@ import 'zone.dart';
 
 @immutable
 class PlayerState extends Equatable {
+  static const _speedDuelStartLifepoints = 4000;
+
   final String duelistId;
   final bool isOpponent;
+  final int lifepoints;
   final Zone hand;
   final Zone fieldZone;
   final Zone mainMonsterZone1;
@@ -26,7 +29,8 @@ class PlayerState extends Equatable {
   PlayerState({
     required this.duelistId,
     required this.isOpponent,
-  })  : hand = Zone(zoneType: ZoneType.hand, duelistId: duelistId),
+  })  : lifepoints = _speedDuelStartLifepoints,
+        hand = Zone(zoneType: ZoneType.hand, duelistId: duelistId),
         fieldZone = Zone(zoneType: ZoneType.field, duelistId: duelistId),
         mainMonsterZone1 = Zone(zoneType: ZoneType.mainMonster1, duelistId: duelistId),
         mainMonsterZone2 = Zone(zoneType: ZoneType.mainMonster2, duelistId: duelistId),
@@ -43,6 +47,7 @@ class PlayerState extends Equatable {
   const PlayerState._({
     required this.duelistId,
     required this.isOpponent,
+    required this.lifepoints,
     required this.hand,
     required this.fieldZone,
     required this.mainMonsterZone1,
@@ -59,6 +64,7 @@ class PlayerState extends Equatable {
   });
 
   PlayerState copyWith({
+    int? lifepoints,
     Zone? hand,
     Zone? fieldZone,
     Zone? mainMonsterZone1,
@@ -76,6 +82,7 @@ class PlayerState extends Equatable {
     return PlayerState._(
       duelistId: duelistId,
       isOpponent: isOpponent,
+      lifepoints: lifepoints ?? this.lifepoints,
       hand: hand ?? this.hand,
       fieldZone: fieldZone ?? this.fieldZone,
       mainMonsterZone1: mainMonsterZone1 ?? this.mainMonsterZone1,
@@ -96,6 +103,7 @@ class PlayerState extends Equatable {
     return PlayerState._(
       duelistId: duelistId,
       isOpponent: isOpponent,
+      lifepoints: lifepoints,
       hand: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.hand),
       fieldZone: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.field),
       mainMonsterZone1: updatedZones.singleWhere((zone) => zone.zoneType == ZoneType.mainMonster1),
@@ -158,6 +166,7 @@ class PlayerState extends Equatable {
   List<Object?> get props => [
         duelistId,
         isOpponent,
+        lifepoints,
         hand,
         fieldZone,
         mainMonsterZone1,

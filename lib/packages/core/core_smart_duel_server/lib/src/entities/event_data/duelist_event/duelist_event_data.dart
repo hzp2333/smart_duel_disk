@@ -13,11 +13,13 @@ class DuelistEventData extends Equatable implements SmartDuelEventData {
   final String duelistId;
   final DuelPhaseType? phase;
   final String? result;
+  final int? lifepoints;
 
   const DuelistEventData({
     required this.duelistId,
     this.phase,
     this.result,
+    this.lifepoints,
   });
 
   @override
@@ -25,6 +27,7 @@ class DuelistEventData extends Equatable implements SmartDuelEventData {
         duelistId,
         phase,
         result,
+        lifepoints,
       ];
 
   @override

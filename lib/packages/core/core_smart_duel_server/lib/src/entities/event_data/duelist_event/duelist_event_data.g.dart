@@ -11,6 +11,7 @@ DuelistEventData _$DuelistEventDataFromJson(Map<String, dynamic> json) =>
       duelistId: json['duelistId'] as String,
       phase: _$enumDecodeNullable(_$DuelPhaseTypeEnumMap, json['phase']),
       result: json['result'] as String?,
+      lifepoints: json['lifepoints'] as int?,
     );
 
 Map<String, dynamic> _$DuelistEventDataToJson(DuelistEventData instance) =>
@@ -18,6 +19,7 @@ Map<String, dynamic> _$DuelistEventDataToJson(DuelistEventData instance) =>
       'duelistId': instance.duelistId,
       'phase': _$DuelPhaseTypeEnumMap[instance.phase],
       'result': instance.result,
+      'lifepoints': instance.lifepoints,
     };
 
 K _$enumDecode<K, V>(

@@ -230,6 +230,9 @@ class SmartDuelServerImpl implements SmartDuelServer, SmartDuelEventReceiver {
       case SmartDuelEventConstants.duelistEndTurnAction:
         event = SmartDuelEvent.endTurn(data);
         break;
+      case SmartDuelEventConstants.duelistUpdateLifepointsAction:
+        event = SmartDuelEvent.updateLifepoints(data);
+        break;
     }
 
     if (event != null && !_duelistEvents.isClosed) {

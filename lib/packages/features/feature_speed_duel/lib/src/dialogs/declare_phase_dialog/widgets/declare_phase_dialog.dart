@@ -21,18 +21,21 @@ class DeclarePhaseDialog extends StatelessWidget {
       child: Card(
         margin: EdgeInsets.zero,
         color: AppColors.cardDialogBackgroundColor,
-        child: SizedBox(
-          width: MediaQuery.of(context).size.width * 2 / 3,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: actionsAndSeparators,
-              ),
-              const SizedBox(height: 32.0),
-              const _EndTurnButton(),
-            ],
+        child: Padding(
+          padding: const EdgeInsets.all(AppSizes.screenMargin),
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width * 2 / 3,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: actionsAndSeparators,
+                ),
+                const SizedBox(height: 32.0),
+                const _EndTurnButton(),
+              ],
+            ),
           ),
         ),
       ),
