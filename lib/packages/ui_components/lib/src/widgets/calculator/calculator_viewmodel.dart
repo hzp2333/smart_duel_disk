@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/src/logger.dart';

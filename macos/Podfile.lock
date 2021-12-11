@@ -338,6 +338,8 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
+  - audioplayers (0.0.1):
+    - FlutterMacOS
   - BoringSSL-GRPC (0.0.7):
     - BoringSSL-GRPC/Implementation (= 0.0.7)
     - BoringSSL-GRPC/Interface (= 0.0.7)
@@ -476,6 +478,7 @@ PODS:
     - FlutterMacOS
 
 DEPENDENCIES:
+  - audioplayers (from `Flutter/ephemeral/.symlinks/plugins/audioplayers/macos`)
   - cloud_firestore (from `Flutter/ephemeral/.symlinks/plugins/cloud_firestore/macos`)
   - connectivity_plus_macos (from `Flutter/ephemeral/.symlinks/plugins/connectivity_plus_macos/macos`)
   - firebase_core (from `Flutter/ephemeral/.symlinks/plugins/firebase_core/macos`)
@@ -510,6 +513,8 @@ SPEC REPOS:
     - ReachabilitySwift
 
 EXTERNAL SOURCES:
+  audioplayers:
+    :path: Flutter/ephemeral/.symlinks/plugins/audioplayers/macos
   cloud_firestore:
     :path: Flutter/ephemeral/.symlinks/plugins/cloud_firestore/macos
   connectivity_plus_macos:
@@ -533,6 +538,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
+  audioplayers: 8b48e22684b6e0d9df143b2d1bbd61dca9dab6b4
   BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   cloud_firestore: 8225c834676914dc425d6ae68815b923e98be6ad
   connectivity_plus_macos: f6e86fd000e971d361e54b5afcadc8c8fa773308

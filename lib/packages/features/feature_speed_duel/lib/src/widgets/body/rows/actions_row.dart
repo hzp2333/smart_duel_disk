@@ -44,7 +44,7 @@ class ActionsRow extends StatelessWidget {
             const SizedBox(width: AppSizes.duelFieldCardSpacing),
             _IconAction(
               icon: FontAwesomeIcons.dice,
-              hint: 'Roll die',
+              hint: 'Roll dice',
               onPressed: vm.onRollDicePressed,
             ),
           ],

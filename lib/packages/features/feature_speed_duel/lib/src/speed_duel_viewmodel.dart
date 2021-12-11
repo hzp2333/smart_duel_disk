@@ -17,6 +17,7 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/use
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/usecases/move_card_use_case.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_crashlytics/lib/wrapper_crashlytics.dart';
 
+import 'helpers/speed_duel_event_audio_handler.dart';
 import 'helpers/speed_duel_event_emitter.dart';
 import 'models/speed_duel_models.dart';
 import 'usecases/create_play_card_use_case.dart';
@@ -39,6 +40,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   final MoveCardUseCase _moveCardUseCase;
   final SpeedDuelEventEmitter _speedDuelEventEmitter;
   final SpeedDuelEventAnimationHandler _speedDuelEventAnimationHandler;
+  final SpeedDuelEventAudioHandler _speedDuelEventAudioHandler;
   final DataManager _dataManager;
   final CrashlyticsProvider _crashlyticsProvider;
   final SnackBarService _snackBarService;
@@ -69,6 +71,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     this._moveCardUseCase,
     this._speedDuelEventEmitter,
     this._speedDuelEventAnimationHandler,
+    this._speedDuelEventAudioHandler,
     this._dataManager,
     this._crashlyticsProvider,
     this._snackBarService,
@@ -350,6 +353,8 @@ class SpeedDuelViewModel extends BaseViewModel {
     );
 
     _duelState.safeAdd(_duelState.value.copyWith(userState: updatedUserState));
+
+    _speedDuelEventAudioHandler.onDeckDrawEvent();
   }
 
   void _shuffleDeck() {
@@ -365,6 +370,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     _speedDuelEventEmitter.sendShuffleDeckEvent();
     _speedDuelEventAnimationHandler.onShuffleDeckEvent(_smartDuelServer.getDuelistId()!);
+    _speedDuelEventAudioHandler.onDeckShuffleEvent();
   }
 
   Future<void> _surrender() async {
@@ -477,9 +483,13 @@ class SpeedDuelViewModel extends BaseViewModel {
       _duelState.value.copyWith(userState: updatedState),
     );
 
-    addCounter
-        ? _speedDuelEventEmitter.sendAddCounterToCardEvent(card)
-        : _speedDuelEventEmitter.sendRemoveCounterFromCardEvent(card);
+    if (addCounter) {
+      _speedDuelEventEmitter.sendAddCounterToCardEvent(card);
+      _speedDuelEventAudioHandler.onAddCounterToCardEvent();
+    } else {
+      _speedDuelEventEmitter.sendRemoveCounterFromCardEvent(card);
+      _speedDuelEventAudioHandler.onRemoveCounterFromCardEvent();
+    }
   }
 
   void _updateCardVisibility(PlayCard card, PlayCardDialogResult result) {
@@ -546,6 +556,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     _speedDuelEventEmitter.sendDeclareCardEvent(card);
     _speedDuelEventAnimationHandler.onDeclareCardEvent(card);
+    _speedDuelEventAudioHandler.onDeclareCardEvent();
   }
 
   Future<void> _handleOpponentCardPressed(PlayCard card) async {
@@ -660,13 +671,13 @@ class SpeedDuelViewModel extends BaseViewModel {
           await _handleAttackCardEvent(eventData);
           break;
         case SmartDuelEventConstants.cardDeclareAction:
-          await _handleDeclareCardEvent(eventData);
+          _handleDeclareCardEvent(eventData);
           break;
         case SmartDuelEventConstants.cardAddCounterAction:
-          await _handleCardCounterEvent(eventData, addCounter: true);
+          _handleCardCounterEvent(eventData, addCounter: true);
           break;
         case SmartDuelEventConstants.cardRemoveCounterAction:
-          await _handleCardCounterEvent(eventData, addCounter: false);
+          _handleCardCounterEvent(eventData, addCounter: false);
           break;
         case SmartDuelEventConstants.cardRevealAction:
           await _handleCardVisibilityEvent(eventData, revealed: true);
@@ -756,7 +767,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
   }
 
-  Future<void> _handleDeclareCardEvent(CardEventData data) async {
+  void _handleDeclareCardEvent(CardEventData data) {
     logger.verbose(_tag, '_handleDeclareCardEvent(data: $data)');
 
     final cardId = data.cardId;
@@ -766,11 +777,12 @@ class SpeedDuelViewModel extends BaseViewModel {
         .firstWhere((card) => card?.yugiohCard.id == cardId && card?.copyNumber == copyNumber, orElse: () => null);
 
     if (declaringCard != null) {
-      await _speedDuelEventAnimationHandler.onDeclareCardEvent(declaringCard);
+      _speedDuelEventAnimationHandler.onDeclareCardEvent(declaringCard);
+      _speedDuelEventAudioHandler.onDeclareCardEvent();
     }
   }
 
-  Future<void> _handleCardCounterEvent(CardEventData data, {required bool addCounter}) async {
+  void _handleCardCounterEvent(CardEventData data, {required bool addCounter}) {
     logger.verbose(_tag, '_handleCardCounterEvent(data: $data, addCounter: $addCounter)');
 
     final cardId = data.cardId;
@@ -795,6 +807,10 @@ class SpeedDuelViewModel extends BaseViewModel {
     _duelState.safeAdd(
       _duelState.value.copyWith(opponentState: updatedState),
     );
+
+    addCounter
+        ? _speedDuelEventAudioHandler.onAddCounterToCardEvent()
+        : _speedDuelEventAudioHandler.onRemoveCounterFromCardEvent();
   }
 
   Future<void> _handleCardVisibilityEvent(CardEventData data, {required bool revealed}) async {
@@ -889,6 +905,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     logger.verbose(_tag, '_handleShuffleDeckEvent(data: $data)');
 
     _speedDuelEventAnimationHandler.onShuffleDeckEvent(data.duelistId);
+    _speedDuelEventAudioHandler.onDeckShuffleEvent();
   }
 
   //endregion
@@ -997,13 +1014,17 @@ class SpeedDuelViewModel extends BaseViewModel {
   Future<void> _handleRollDiceEvent(DuelistEventData event) async {
     logger.verbose(_tag, '_handleRollDiceEvent(event: $event)');
 
-    _showSpeedDuelSnackBar('Die roll result: ${event.result}');
+    _showSpeedDuelSnackBar('Dice roll result: ${event.result}');
+
+    await _speedDuelEventAudioHandler.onRollDiceEvent();
   }
 
   Future<void> _handleFlipCoinEvent(DuelistEventData event) async {
     logger.verbose(_tag, '_handleFlipCoinEvent(event: $event)');
 
     _showSpeedDuelSnackBar('Coin flip result: ${event.result?.toUpperCase()}');
+
+    await _speedDuelEventAudioHandler.onFlipCoinEvent();
   }
 
   Future<void> _handleDeclarePhaseEvent(DuelistEventData event) async {
@@ -1022,6 +1043,8 @@ class SpeedDuelViewModel extends BaseViewModel {
         ),
       ),
     );
+
+    await _speedDuelEventAudioHandler.onDeclarePhaseEvent();
   }
 
   Future<void> _handleEndTurnEvent(DuelistEventData event) async {
@@ -1040,6 +1063,8 @@ class SpeedDuelViewModel extends BaseViewModel {
         ),
       ),
     );
+
+    await _speedDuelEventAudioHandler.onEndTurnEvent();
   }
 
   Future<void> _handleUpdateLifepointsEvent(DuelistEventData event) async {
@@ -1061,6 +1086,8 @@ class SpeedDuelViewModel extends BaseViewModel {
         opponentState: updatedPlayerStates.firstWhere((ps) => ps.duelistId != userId),
       ),
     );
+
+    await _speedDuelEventAudioHandler.onUpdateLifepointsEvent();
   }
 
   //endregion

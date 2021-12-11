@@ -1,11 +1,12 @@
 name: smart_duel_disk
 description: A Smart Duel Disk app for playing Yu-Gi-Oh!.
-version: 0.9.1+90100
+version: 0.10.0+100000
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
+  audioplayers: ^0.20.1
   auto_route: ^2.4.0
   auto_size_text: ^3.0.0-nullsafety.0
   cached_network_image: ^3.1.0
@@ -78,6 +79,7 @@ flutter:
     - assets/icons/
     - assets/illustrations/
     - assets/illustrations/duelists/
+    - assets/sound/sound_effects/
     - secrets.env
 
 scripts:
