@@ -24,6 +24,7 @@ abstract class  LocaleKeys {
   static const deck_pre_built_decks_title = 'deck_pre_built_decks_title';
   static const deck_pre_built_kaiba_title = 'deck_pre_built_kaiba_title';
   static const deck_pre_built_mai_title = 'deck_pre_built_mai_title';
+  static const deck_pre_built_test_title = 'deck_pre_built_test_title';
   static const deck_pre_built_yugi_title = 'deck_pre_built_yugi_title';
   static const duel_deck_opponent_tooltip = 'duel_deck_opponent_tooltip';
   static const duel_deck_user_tooltip = 'duel_deck_user_tooltip';

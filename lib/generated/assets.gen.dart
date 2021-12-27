@@ -54,6 +54,7 @@ class $AssetsIllustrationsDuelistsGen {
 
   AssetGenImage get duelistKaiba => const AssetGenImage('assets/illustrations/duelists/duelist_kaiba.png');
   AssetGenImage get duelistMai => const AssetGenImage('assets/illustrations/duelists/duelist_mai.png');
+  AssetGenImage get duelistTest => const AssetGenImage('assets/illustrations/duelists/duelist_test.png');
   AssetGenImage get duelistYugi => const AssetGenImage('assets/illustrations/duelists/duelist_yugi.png');
 }
 

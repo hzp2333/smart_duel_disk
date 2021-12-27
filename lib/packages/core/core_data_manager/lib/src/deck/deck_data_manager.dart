@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_cloud_database/lib/wrapper_cloud_database.dart';
 
@@ -11,6 +12,9 @@ abstract class DeckDataManager {
 @LazySingleton(as: DeckDataManager)
 class DeckDataManagerImpl implements DeckDataManager {
   static final _preBuiltDecks = [
+    if (kDebugMode) ...[
+      TestDeck(),
+    ],
     KaibaDeck(),
     MaiDeck(),
     YugiDeck(),

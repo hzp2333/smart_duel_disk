@@ -21,10 +21,25 @@ abstract class PreBuiltDeck extends Equatable {
   });
 
   @override
-  List<Object> get props => [id, titleId, backgroundColor, imageUrl];
+  List<Object> get props => [
+        id,
+        titleId,
+        backgroundColor,
+        imageUrl,
+      ];
 
   @override
   bool get stringify => true;
+}
+
+class TestDeck extends PreBuiltDeck {
+  TestDeck()
+      : super(
+          id: 'Test',
+          titleId: LocaleKeys.deck_pre_built_test_title,
+          backgroundColor: AppColors.deckTestBackgroundColor,
+          imageUrl: Assets.illustrations.duelists.duelistTest.path,
+        );
 }
 
 class KaibaDeck extends PreBuiltDeck {
