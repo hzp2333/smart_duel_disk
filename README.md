@@ -2,25 +2,23 @@
 
 [![Build Status - Codemagic][]][Build status link] [![Twitter handle][]][Twitter link] [![Discord handle][]][Discord link]
 
-Smart Duel Disk (SDD) is a mobile application used for playing the popular TCG named Yu-Gi-Oh!. Players can create a deck and duel against other duelists. During a duel, users are encouraged to wear their smart device on their arm and use it as a so called duel disk. The goal of this project is to make a completely digital product for playing Yu-Gi-Oh! the way Seto Kaiba does in [The Dark Side of Dimensions][DSoD].
+Smart Duel Disk (SDD) is a mobile application used for playing the popular TCG named Yu-Gi-Oh!. Players can create a deck and duel against other duelists. During a duel, users are encouraged to wear their smart device on their arm and use it as a so called duel disk. The goal of this project is to make a completely digital product for playing Yu-Gi-Oh! the way Seto Kaiba does in [The Dark Side of Dimensions][DSoD]. This app is also used to stay up-to-date with the latest news about the project, for tournaments, for statistics, ...
 
 ## What about Project A.T.E.M.?
 
-This project started as a mobile application where users can use their phone to look at a card and a 3D model of the character on the card would appear. The SDD won't have this functionality. Why? Because the SDD is going to be the core of a larger project. It will only be used to manage user decks and placing cards on the field. There will be a [Smart Duel Gazer][Smart Duel Gazer] (SDG) which is going to be an extension of this project.
+This project started as a mobile application where users can use their phone to look at a card and a 3D model of the character on the card would appear. The SDD won't have this functionality. Why? Because the SDD is going to be the core of a larger project. It will only be used to manage user decks and placing cards on the field. There is a [Smart Duel Gazer][Smart Duel Gazer] (SDG) project which is used to enhance the experience using augmented reality.
 
-Let's say you summon a Blue-Eyes White Dragon in the Smart Duel Disk (SDD). The SDD will then send an event to the Smart Duel Gazer (SDG) to let it know that a BEWD has been summoned. The user performs the action using the SDD and the SDG will visualise this action.
+Let's say you're playing a Yu-Gi-Oh! duel and you summon a Blue-Eyes White Dragon (BEWD) in the Smart Duel Disk (SDD). The SDD will then send an event to the Smart Duel Server (SDS) to let it know that a BEWD has been summoned. The SDS will then send an event to the SDG, informing it that a BEWD has been summoned in a specific zone on the field. To keep it short: the user performs an action using the SDD and the SDG will visualise it using 3D models and/or VFX.
 
-The SDD runs on an Android/iOS device and is something you wear on your arm, like a duel disk. The SDG runs on AR glasses / an AR headset / Google Cardboard / ... which is something you wear on your head.
+The SDD runs on an Android/iOS device and is something you wear on your arm, like a duel disk. The SDG runs on AR glasses / an AR headset / ... which is something you wear on your head.
 
 ## How to install the app?
 
-### Android
+iPhone users:
+ - Download & install Apple's TestFlight (https://apps.apple.com/en/app/testflight/id899247664)
+ - Donwload the Smart Duel Disk via TestFlight: https://testflight.apple.com/join/eBlsGP1I
 
-The app currently isn't published in the Play Store but luckily on Android it's possible to download and install the app without it. Head over to [the releases page][Releases] to download and install the latest version of the app.
-
-### iOS
-
-To be able to distribute the iOS application, we need an Apple Developer license. This costs 100 dollars and since we currently don't have an income we won't be able to distribute the iOS app. A Patreon account will be set up later to help finance the project.
+Android users: https://play.google.com/store/apps/details?id=com.crowncorp.smartdueldisk
 
 ## Getting involved
 
