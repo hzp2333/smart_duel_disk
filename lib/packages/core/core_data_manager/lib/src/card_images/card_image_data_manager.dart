@@ -35,7 +35,7 @@ class CardImageDataManagerImpl implements CardImageDataManager {
 
       final card = cards.elementAt(i);
       final filePath = _getCardImagePath(card);
-      await _fileManager.downloadAndSaveFileIfNecessary(card.imageLargeUrl, filePath);
+      await _fileManager.downloadAndSaveFile(card.imageLargeUrl, filePath);
     }
   }
 

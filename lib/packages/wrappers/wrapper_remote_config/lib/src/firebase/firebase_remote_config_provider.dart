@@ -1,6 +1,5 @@
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:injectable/injectable.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_remote_config/lib/src/remote_config_provider.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_remote_config/lib/wrapper_remote_config.dart';
 import 'package:smart_duel_disk/src/di/di.dart';
 

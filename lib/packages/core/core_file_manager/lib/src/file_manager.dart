@@ -6,7 +6,7 @@ import 'di/file_manager_module.dart';
 
 abstract class FileManager {
   File? getFile(String filePath);
-  Future<void> downloadAndSaveFileIfNecessary(String urlPath, String filePath);
+  Future<void> downloadAndSaveFile(String urlPath, String filePath);
 }
 
 @LazySingleton(as: FileManager)
@@ -23,12 +23,31 @@ class FileManagerImpl implements FileManager {
   }
 
   @override
-  Future<void> downloadAndSaveFileIfNecessary(String urlPath, String filePath) async {
+  Future<void> downloadAndSaveFile(String urlPath, String filePath) async {
     if (_isFileCached(filePath)) {
       return;
     }
 
-    await _dio.download(urlPath, filePath);
+    try {
+      await _dio.download(urlPath, filePath);
+    } catch (e) {
+      await _deleteFile(filePath);
+    }
+  }
+
+  Future<void> _deleteFile(String filePath, {bool cancelOnFailure = false}) async {
+    final file = getFile(filePath);
+    if (file == null) {
+      return;
+    }
+
+    try {
+      await file.delete();
+    } catch (e) {
+      if (!cancelOnFailure) {
+        await _deleteFile(filePath, cancelOnFailure: true);
+      }
+    }
   }
 
   bool _isFileCached(String filePath) {

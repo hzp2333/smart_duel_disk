@@ -4,7 +4,6 @@ import 'package:injectable/injectable.dart';
 import 'package:universal_io/io.dart';
 
 import '../../core_navigation.dart';
-import 'entities/dialog_config.dart';
 
 abstract class DialogService {
   Future<bool?> showAlertDialog(DialogConfig dialogConfig);

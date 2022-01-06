@@ -3,8 +3,6 @@ import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart';
 
-import 'duel_phase_type.dart';
-
 part 'duelist_event_data.g.dart';
 
 @immutable

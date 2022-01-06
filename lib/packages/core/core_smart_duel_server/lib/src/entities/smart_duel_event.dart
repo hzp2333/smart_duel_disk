@@ -2,9 +2,6 @@ import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart';
 
-import 'event_data/smart_duel_event_data.dart';
-import 'smart_duel_event_constants.dart';
-
 @immutable
 class SmartDuelEvent extends Equatable {
   final String scope;
