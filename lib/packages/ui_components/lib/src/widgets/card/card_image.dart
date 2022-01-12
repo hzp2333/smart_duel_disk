@@ -24,7 +24,10 @@ class CardImage extends StatelessWidget {
     if (image != null) {
       // This can be used for web, but it ruins Hero animations.
       // return Image.memory(File(image!.path).readAsBytesSync());
-      return Image.file(image!);
+      return Image.file(
+        image!,
+        frameBuilder: (_, child, frame, ___) => frame == null ? _placeHolder : child,
+      );
     }
 
     return CachedNetworkImage(

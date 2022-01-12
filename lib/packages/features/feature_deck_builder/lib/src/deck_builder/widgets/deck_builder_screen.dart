@@ -95,12 +95,14 @@ class _PreBuiltDeckBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      shrinkWrap: true,
-      physics: const ClampingScrollPhysics(),
-      itemCount: sections.length,
-      itemBuilder: (context, index) => _PreBuiltDeckSection(section: sections.elementAt(index)),
-      separatorBuilder: (context, index) => const SizedBox(height: AppSizes.deckBuilderSectionSeparator),
+    return Scrollbar(
+      child: ListView.separated(
+        shrinkWrap: true,
+        physics: const ClampingScrollPhysics(),
+        itemCount: sections.length,
+        itemBuilder: (context, index) => _PreBuiltDeckSection(section: sections.elementAt(index)),
+        separatorBuilder: (context, index) => const SizedBox(height: AppSizes.deckBuilderSectionSeparator),
+      ),
     );
   }
 }

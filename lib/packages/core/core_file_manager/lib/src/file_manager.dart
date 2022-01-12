@@ -1,8 +1,6 @@
-import 'package:dio/dio.dart';
+import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
 import 'package:universal_io/io.dart';
-
-import 'di/file_manager_module.dart';
 
 abstract class FileManager {
   File? getFile(String filePath);
@@ -11,12 +9,6 @@ abstract class FileManager {
 
 @LazySingleton(as: FileManager)
 class FileManagerImpl implements FileManager {
-  final Dio _dio;
-
-  FileManagerImpl(
-    @Named(fileManagerDioName) this._dio,
-  );
-
   @override
   File? getFile(String filePath) {
     return _isFileCached(filePath) ? File(filePath) : null;
@@ -29,7 +21,21 @@ class FileManagerImpl implements FileManager {
     }
 
     try {
-      await _dio.download(urlPath, filePath);
+      // Dio is not used here because I couldn't find a way to detect when a download is incomplete,
+      // which means that sometimes images were cut off or couldn't even be loaded at all.
+      final uri = Uri.tryParse(urlPath);
+      if (uri == null) {
+        return;
+      }
+
+      final response = await http.get(uri);
+      if (response.bodyBytes.lengthInBytes == 0) {
+        return;
+      }
+
+      final file = File(filePath);
+      await file.create(recursive: true);
+      await file.writeAsBytes(response.bodyBytes);
     } catch (e) {
       await _deleteFile(filePath);
     }

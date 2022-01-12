@@ -9,6 +9,7 @@ import 'package:audioplayers/web/audioplayers_web.dart';
 import 'package:cloud_firestore_web/cloud_firestore_web.dart';
 import 'package:connectivity_plus_web/connectivity_plus_web.dart';
 import 'package:firebase_core_web/firebase_core_web.dart';
+import 'package:firebase_remote_config_web/firebase_remote_config_web.dart';
 import 'package:shared_preferences_web/shared_preferences_web.dart';
 import 'package:url_launcher_web/url_launcher_web.dart';
 
@@ -20,6 +21,7 @@ void registerPlugins(Registrar registrar) {
   FirebaseFirestoreWeb.registerWith(registrar);
   ConnectivityPlusPlugin.registerWith(registrar);
   FirebaseCoreWeb.registerWith(registrar);
+  FirebaseRemoteConfigWeb.registerWith(registrar);
   SharedPreferencesPlugin.registerWith(registrar);
   UrlLauncherPlugin.registerWith(registrar);
   registrar.registerMessageHandler();

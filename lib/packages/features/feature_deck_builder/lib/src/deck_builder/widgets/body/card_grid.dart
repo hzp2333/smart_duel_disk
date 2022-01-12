@@ -18,23 +18,25 @@ class CardGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: GridView.builder(
-        shrinkWrap: true,
-        physics: scrollPhysics,
-        padding: const EdgeInsets.all(AppSizes.screenMarginSmall),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: _cardsPerRow,
-          mainAxisSpacing: AppSizes.deckBuilderGridSpacing,
-          crossAxisSpacing: AppSizes.deckBuilderGridSpacing,
-          childAspectRatio: AppSizes.yugiohCardAspectRatio,
+      child: Scrollbar(
+        child: GridView.builder(
+          shrinkWrap: true,
+          physics: scrollPhysics,
+          padding: const EdgeInsets.all(AppSizes.screenMarginSmall),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: _cardsPerRow,
+            mainAxisSpacing: AppSizes.deckBuilderGridSpacing,
+            crossAxisSpacing: AppSizes.deckBuilderGridSpacing,
+            childAspectRatio: AppSizes.yugiohCardAspectRatio,
+          ),
+          itemCount: cards.length,
+          itemBuilder: (context, index) {
+            return _GridCard(
+              cardCopy: cards.elementAt(index),
+              index: index,
+            );
+          },
         ),
-        itemCount: cards.length,
-        itemBuilder: (context, index) {
-          return _GridCard(
-            cardCopy: cards.elementAt(index),
-            index: index,
-          );
-        },
       ),
     );
   }
