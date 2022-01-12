@@ -616,7 +616,8 @@ class SpeedDuelViewModel extends BaseViewModel {
       return;
     }
 
-    _speedDuelEventEmitter.sendUpdateLifepointsEvent(updatedLifepoints.toInt());
+    final formattedLifepoints = updatedLifepoints < 0 ? 0 : updatedLifepoints;
+    _speedDuelEventEmitter.sendUpdateLifepointsEvent(formattedLifepoints.toInt());
   }
 
   //endregion
