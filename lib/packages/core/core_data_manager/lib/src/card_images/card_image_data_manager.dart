@@ -1,7 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_file_manager/lib/src/file_manager.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_path_provider/lib/src/path_provider_wrapper.dart';
+import 'package:smart_duel_disk/packages/wrappers/wrapper_path_provider/lib/src/di/path_provider_module.dart';
 import 'package:universal_io/io.dart';
 
 abstract class CardImageDataManager {
@@ -12,21 +12,13 @@ abstract class CardImageDataManager {
 @LazySingleton(as: CardImageDataManager)
 class CardImageDataManagerImpl implements CardImageDataManager {
   final FileManager _fileManager;
-  final PathProviderWrapper _pathProvider;
 
-  String? _cardImagesDirectory;
+  final String _cardImagesDirectory;
 
   CardImageDataManagerImpl(
     this._fileManager,
-    this._pathProvider,
-  ) {
-    _initCardImagesDirectory();
-  }
-
-  Future<void> _initCardImagesDirectory() async {
-    final appDirectory = await _pathProvider.getAppDirectory();
-    _cardImagesDirectory = '${appDirectory?.path}/card_images';
-  }
+    @Named(appDirectoryName) Directory? appDirectory,
+  ) : _cardImagesDirectory = '${appDirectory?.path}/card_images';
 
   @override
   Stream<int> cacheCardImages(Iterable<YugiohCard> cards) async* {

@@ -9,8 +9,11 @@ import 'di.config.dart';
 
 final di = GetIt.instance;
 
-const mobile = Environment('mobile');
-const web = Environment('web');
+const mobileEnvName = 'mobile';
+const mobile = Environment(mobileEnvName);
+
+const webEnvName = 'web';
+const web = Environment(webEnvName);
 
 @InjectableInit()
 Future<void> initDependencies(AppConfig appConfig, Environment environment) async {

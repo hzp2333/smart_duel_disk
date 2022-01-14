@@ -10,8 +10,6 @@ void main() {
   late CardImageDataManager _dataManager;
 
   late MockFileManager _fileManager;
-  late MockPathProviderWrapper _pathProvider;
-
   late MockDirectory _directory;
 
   const _appDocDirectory = 'appDocDirectory';
@@ -29,17 +27,13 @@ void main() {
 
   setUp(() {
     _fileManager = MockFileManager();
-    _pathProvider = MockPathProviderWrapper();
-
     _directory = MockDirectory();
 
     when(_directory.path).thenReturn(_appDocDirectory);
 
-    when(_pathProvider.getAppDirectory()).thenAnswer((_) => Future.value(_directory));
-
     _dataManager = CardImageDataManagerImpl(
       _fileManager,
-      _pathProvider,
+      _directory,
     );
   });
 
