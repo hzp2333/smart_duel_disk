@@ -14,6 +14,13 @@ class FirebaseRemoteConfigProvider extends RemoteConfigProvider {
 
   @override
   Future<void> init() async {
+    await _remoteConfig.setConfigSettings(
+      RemoteConfigSettings(
+        fetchTimeout: const Duration(minutes: 1),
+        minimumFetchInterval: Duration.zero,
+      ),
+    );
+
     await _remoteConfig.setDefaults(<String, Object>{
       RemoteConfigKeys.lastCardDatabaseUpdate: '2021-09-01T00:00:00Z',
     });

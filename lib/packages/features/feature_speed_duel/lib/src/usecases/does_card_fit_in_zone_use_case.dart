@@ -43,6 +43,7 @@ class DoesCardFitInZoneUseCase {
       case ZoneType.banished:
         return _fitsInGraveyard(card);
 
+      case ZoneType.skill:
       default:
         return false;
     }
@@ -64,10 +65,10 @@ class DoesCardFitInZoneUseCase {
   bool _fitsInDeck(PlayCard playCard) {
     final card = playCard.yugiohCard;
 
-    return !playCard.belongsInExtraDeck && card.type != CardType.token && card.type != CardType.unknown;
+    return !playCard.belongsInExtraDeck && _fitsInGraveyard(card);
   }
 
   bool _fitsInGraveyard(YugiohCard card) {
-    return card.type != CardType.token && card.type != CardType.unknown;
+    return card.type != CardType.token && card.type != CardType.skillCard && card.type != CardType.unknown;
   }
 }

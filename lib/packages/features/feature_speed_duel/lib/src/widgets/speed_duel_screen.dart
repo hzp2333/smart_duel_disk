@@ -54,7 +54,7 @@ class _SpeedDuelScreenState extends State<SpeedDuelScreen> {
 
     _bottomSheetController = _scaffoldKey.currentState!.showBottomSheet(
       (_) => CardListBottomSheet(playerState: playerState, zone: zone),
-      backgroundColor: AppColors.cardBackgroundColor,
+      backgroundColor: AppColors.cardBackgroundColor.withOpacity(0.9),
     );
   }
 

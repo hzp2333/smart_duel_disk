@@ -18,35 +18,35 @@ class ZoneBackground extends StatelessWidget {
     final cardWidth = context.playCardHeight * AppSizes.yugiohCardAspectRatio;
     final zoneWidth = zoneType.isMainMonsterZone || zoneType.isSpellTrapCardZone ? cardHeight : null;
 
-    return Stack(
-      alignment: Alignment.center,
-      children: [
-        SizedBox(
-          height: cardHeight,
-          width: zoneWidth,
-        ),
-        if (zoneType.isMainMonsterZone) ...{
-          Container(
-            width: cardHeight,
-            height: cardWidth,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.white70),
+    return SizedBox(
+      height: cardHeight,
+      width: zoneWidth,
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          if (zoneType.isMainMonsterZone) ...{
+            Container(
+              width: cardHeight,
+              height: cardWidth,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.white70),
+              ),
+            ),
+          },
+          AspectRatio(
+            aspectRatio: AppSizes.yugiohCardAspectRatio,
+            child: Container(
+              height: cardHeight,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.white),
+              ),
             ),
           ),
-        },
-        AspectRatio(
-          aspectRatio: AppSizes.yugiohCardAspectRatio,
-          child: Container(
-            height: cardHeight,
-            decoration: BoxDecoration(
-              border: Border.all(color: Colors.white),
-            ),
-          ),
-        ),
-        if (card != null) ...{
-          card!,
-        },
-      ],
+          if (card != null) ...{
+            card!,
+          },
+        ],
+      ),
     );
   }
 }
