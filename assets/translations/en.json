@@ -84,5 +84,6 @@
     "speed_duel_card_action_to_defence": "To DEF",
     "user_setting_developer_mode_title": "Developer mode",
     "user_setting_developer_mode_update_message": "The developer mode has been turned {}. Please restart the app.",
+    "user_setting_sign_out_title": "Sign out",
     "user_settings_title": "User Settings"
 }

@@ -12,12 +12,16 @@ import '../../../testing/mocks/shared.mocks.dart';
 void main() {
   late UserSettingsViewModel _viewModel;
 
+  late MockAppRouter _appRouter;
+  late MockAuthenticationService _authService;
   late MockDataManager _dataManager;
   late MockSnackBarService _snackBarService;
   late MockStringProvider _stringProvider;
   late MockLogger _logger;
 
   setUp(() {
+    _appRouter = MockAppRouter();
+    _authService = MockAuthenticationService();
     _dataManager = MockDataManager();
     _snackBarService = MockSnackBarService();
     _stringProvider = MockStringProvider();
@@ -32,6 +36,8 @@ void main() {
         .thenAnswer((realInvocation) => realInvocation.positionalArguments.join(', '));
 
     _viewModel = UserSettingsViewModel(
+      _appRouter,
+      _authService,
       _dataManager,
       _snackBarService,
       _stringProvider,

@@ -37,10 +37,15 @@ class _SmartDuelDiskAppState extends State<SmartDuelDiskApp> {
           primarySwatch: Colors.blue,
           brightness: Brightness.dark,
           visualDensity: VisualDensity.adaptivePlatformDensity,
+          backgroundColor: AppColors.primaryBackgroundColor,
           textSelectionTheme: const TextSelectionThemeData(
             cursorColor: AppColors.primaryAccentColor,
             selectionColor: AppColors.primaryAccentColor,
             selectionHandleColor: AppColors.primaryAccentColor,
+          ),
+          inputDecorationTheme: const InputDecorationTheme(
+            contentPadding: EdgeInsets.all(AppSizes.screenMargin),
+            border: OutlineInputBorder(),
           ),
         ),
         scaffoldMessengerKey: snackBarService.messengerKey,

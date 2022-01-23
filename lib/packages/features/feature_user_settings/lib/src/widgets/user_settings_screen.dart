@@ -45,19 +45,21 @@ class _Body extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<UserSettingsViewModel>(context);
-    final userSettings = useStream(vm.userSettings);
+    final userSettingsSnapshot = useStream(vm.userSettings);
 
-    if (!userSettings.hasData) {
+    if (!userSettingsSnapshot.hasData) {
       return const GeneralLoadingState();
     }
 
-    return ListView.builder(
+    final userSettings = userSettingsSnapshot.requireData;
+
+    return ListView.separated(
       shrinkWrap: true,
       padding: const EdgeInsets.all(AppSizes.screenMargin),
-      itemCount: userSettings.data!.length,
-      itemBuilder: (context, index) {
-        return _SettingListItemContainer(settingItem: userSettings.data!.elementAt(index));
-      },
+      physics: const ClampingScrollPhysics(),
+      itemCount: userSettings.length,
+      itemBuilder: (_, index) => _SettingListItemContainer(settingItem: userSettings.elementAt(index)),
+      separatorBuilder: (_, __) => const SizedBox(height: AppSizes.screenMarginSmall),
     );
   }
 }
@@ -72,10 +74,7 @@ class _SettingListItemContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 12,
-        vertical: 4,
-      ),
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
         color: AppColors.cardBackgroundColor,
         borderRadius: BorderRadius.circular(AppSizes.generalBorderRadius),
@@ -100,16 +99,16 @@ class _SettingsListItem extends StatelessWidget with ProviderMixin {
     final title = stringProvider.getString(item.titleId);
 
     if (item is SwitchSettingItem) {
-      return ListTile(
-        leading: Icon(item.leadingIcon),
-        title: Text(title),
-        contentPadding: EdgeInsets.zero,
-        horizontalTitleGap: 0,
-        trailing: Switch.adaptive(
-          value: item.value,
-          activeColor: AppColors.primaryAccentColor,
-          onChanged: item.onValueChanged,
-        ),
+      return _SwitchSettingListItem(
+        title: title,
+        settingItem: item,
+      );
+    }
+
+    if (item is ActionSettingItem) {
+      return _ActionSettingListItem(
+        title: title,
+        settingItem: item,
       );
     }
 
@@ -118,6 +117,53 @@ class _SettingsListItem extends StatelessWidget with ProviderMixin {
       title: Text(title),
       contentPadding: EdgeInsets.zero,
       horizontalTitleGap: 0,
+    );
+  }
+}
+
+class _SwitchSettingListItem extends StatelessWidget {
+  final String title;
+  final SwitchSettingItem settingItem;
+
+  const _SwitchSettingListItem({
+    required this.title,
+    required this.settingItem,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Icon(settingItem.leadingIcon),
+      title: Text(title),
+      contentPadding: EdgeInsets.zero,
+      horizontalTitleGap: 0,
+      onTap: () => settingItem.onValueChanged(!settingItem.value),
+      trailing: Switch.adaptive(
+        value: settingItem.value,
+        activeColor: AppColors.primaryAccentColor,
+        onChanged: settingItem.onValueChanged,
+      ),
+    );
+  }
+}
+
+class _ActionSettingListItem extends StatelessWidget {
+  final String title;
+  final ActionSettingItem settingItem;
+
+  const _ActionSettingListItem({
+    required this.title,
+    required this.settingItem,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      leading: Icon(settingItem.leadingIcon),
+      title: Text(title),
+      contentPadding: EdgeInsets.zero,
+      horizontalTitleGap: 0,
+      onTap: settingItem.onPressed,
     );
   }
 }

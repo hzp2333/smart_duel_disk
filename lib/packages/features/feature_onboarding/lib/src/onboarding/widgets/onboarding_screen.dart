@@ -65,7 +65,7 @@ class _Body extends StatelessWidget {
                     flex: 8,
                     child: _Footer(),
                   ),
-                  _Disclaimer(),
+                  CrownCorpFineprint(),
                 ],
               ),
             ),
@@ -132,22 +132,10 @@ class _Header extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: const [
-        _CrownCorpLogo(),
+        CrownCorpLogo.onboarding(),
         SizedBox(height: AppSizes.screenMarginSmall),
         _AppTitle(),
       ],
-    );
-  }
-}
-
-class _CrownCorpLogo extends StatelessWidget {
-  const _CrownCorpLogo();
-
-  @override
-  Widget build(BuildContext context) {
-    return Image.asset(
-      Assets.illustrations.crowncorpLogo.path,
-      width: 250,
     );
   }
 }
@@ -272,24 +260,6 @@ class _OnboardingButton extends StatelessWidget with ProviderMixin {
           text: stringProvider.getString(textId),
           onPressed: onPressed,
         ),
-      ),
-    );
-  }
-}
-
-class _Disclaimer extends StatelessWidget with ProviderMixin {
-  const _Disclaimer();
-
-  @override
-  Widget build(BuildContext context) {
-    final stringProvider = getStringProvider(context);
-
-    return Padding(
-      padding: const EdgeInsets.only(top: 28.0),
-      child: Text(
-        stringProvider.getString(LocaleKeys.onboarding_fineprint),
-        textAlign: TextAlign.center,
-        style: TextStyles.onboardingFineprint,
       ),
     );
   }

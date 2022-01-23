@@ -52,12 +52,10 @@ class TextFieldWithValidation extends HookWidget {
       onChanged: onChanged,
       keyboardType: textInputType,
       decoration: InputDecoration(
-        contentPadding: const EdgeInsets.all(16),
         labelText: label,
         labelStyle: TextStyle(color: labelColor),
         hintText: hint,
         errorText: errorText,
-        border: const OutlineInputBorder(),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: AppColors.primaryAccentColor),
         ),

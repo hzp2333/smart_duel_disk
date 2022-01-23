@@ -86,6 +86,7 @@ abstract class  LocaleKeys {
   static const speed_duel_card_action_to_defence = 'speed_duel_card_action_to_defence';
   static const user_setting_developer_mode_title = 'user_setting_developer_mode_title';
   static const user_setting_developer_mode_update_message = 'user_setting_developer_mode_update_message';
+  static const user_setting_sign_out_title = 'user_setting_sign_out_title';
   static const user_settings_title = 'user_settings_title';
 
 }

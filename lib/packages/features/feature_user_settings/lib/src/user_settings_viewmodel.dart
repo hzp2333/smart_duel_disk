@@ -1,11 +1,13 @@
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/generated/locale_keys.g.dart';
+import 'package:smart_duel_disk/packages/core/authentication/authentication.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_localization/lib/core_localization.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/src/logger.dart';
 import 'package:smart_duel_disk/packages/core/core_messaging/lib/core_messaging.dart';
+import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/features/feature_user_settings/lib/src/models/user_setting_type.dart';
 
 import 'models/setting_item.dart';
@@ -16,8 +18,11 @@ class UserSettingsViewModel extends BaseViewModel {
 
   static const _userSettingTypes = [
     UserSettingType.developerModeEnabled,
+    UserSettingType.signOut,
   ];
 
+  final AppRouter _router;
+  final AuthenticationService _authService;
   final DataManager _dataManager;
   final SnackBarService _snackBarService;
   final StringProvider _stringProvider;
@@ -26,6 +31,8 @@ class UserSettingsViewModel extends BaseViewModel {
   Stream<Iterable<SettingItem>> get userSettings => _userSettings.stream;
 
   UserSettingsViewModel(
+    this._router,
+    this._authService,
     this._dataManager,
     this._snackBarService,
     this._stringProvider,
@@ -38,9 +45,12 @@ class UserSettingsViewModel extends BaseViewModel {
     var userSettings = _userSettingTypes.map((type) => type.toSettingItem()).toList();
 
     userSettings = _updateDeveloperModeEnabledSetting(userSettings);
+    userSettings = _updateSignOutSetting(userSettings);
 
     _userSettings.safeAdd(userSettings);
   }
+
+  //region Developer mode
 
   List<SettingItem> _updateDeveloperModeEnabledSetting(List<SettingItem> settings) {
     logger.verbose(_tag, '_updateDeveloperModeEnabledSetting()');
@@ -79,6 +89,38 @@ class UserSettingsViewModel extends BaseViewModel {
 
     _userSettings.safeAdd(updatedUserSettings);
   }
+
+  //endregion
+
+  //region Sign out
+
+  List<SettingItem> _updateSignOutSetting(List<SettingItem> settings) {
+    logger.verbose(_tag, '_updateDeveloperModeEnabledSetting()');
+
+    final oldSetting = settings.firstWhere((setting) => setting.type == UserSettingType.signOut);
+    final oldSettingIndex = settings.indexOf(oldSetting);
+
+    final newSetting = ActionSettingItem(
+      titleId: oldSetting.titleId,
+      leadingIcon: oldSetting.leadingIcon,
+      type: oldSetting.type,
+      onPressed: _signOut,
+    );
+
+    settings.remove(oldSetting);
+    settings.insert(oldSettingIndex, newSetting);
+
+    return settings;
+  }
+
+  Future<void> _signOut() async {
+    logger.verbose(_tag, '_signOut()');
+
+    await _authService.signOut();
+    await _router.showOnboarding();
+  }
+
+  //endregion
 
   @override
   void dispose() {

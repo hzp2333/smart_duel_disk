@@ -27,8 +27,6 @@ class AppColors {
   static const primaryLogoColor = Color(0xffcb35ef);
   static const secondaryLogoColor = Color(0xff6c1981);
 
-  static final fineprintTextColor = Colors.grey[400];
-
   static const cardAnimationAttack = Color(0xffff5252);
   static const cardAnimationDeclare = Color(0xffffff00);
   static const zoneAnimationShuffle = Color(0xff448aff);

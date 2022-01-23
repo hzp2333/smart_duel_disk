@@ -1,4 +1,4 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_config/lib/core_config.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
@@ -18,6 +18,7 @@ abstract class AppRouter {
   Future<bool?> showDialog(DialogConfig dialogConfig);
   Future<void> launchUrl(String url);
 
+  Future<void> showOnboarding();
   Future<void> showSignIn();
   Future<void> showHome();
   Future<void> showNewsDetails(String? newsItemId, String? newsItemAuthorId);
@@ -55,6 +56,8 @@ class AppRouterImpl implements AppRouter {
     this._speedDuelDialogProvider,
   );
 
+  bool popUntilRootPredicate(Route<dynamic> route) => false;
+
   @override
   Future<void> closeScreen() {
     return _router.pop();
@@ -73,8 +76,13 @@ class AppRouterImpl implements AppRouter {
   //region Onboarding
 
   @override
+  Future<void> showOnboarding() {
+    return _router.pushAndPopUntil(const OnboardingRoute(), predicate: popUntilRootPredicate);
+  }
+
+  @override
   Future<void> showSignIn() {
-    return _router.navigate(const SignInRoute());
+    return _router.pushAndPopUntil(const SignInRoute(), predicate: popUntilRootPredicate);
   }
 
   //endregion
@@ -83,7 +91,7 @@ class AppRouterImpl implements AppRouter {
 
   @override
   Future<void> showHome() {
-    return _router.replace(const HomeRoute());
+    return _router.pushAndPopUntil(const HomeRoute(), predicate: popUntilRootPredicate);
   }
 
   //endregion

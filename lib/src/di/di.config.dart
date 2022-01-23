@@ -270,9 +270,9 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       () => audioPlayerModule.provideAudioCache());
   gh.lazySingleton<_i13.AudioPlayerProvider>(
       () => _i13.AudioPlayerProviderImpl(get<_i12.AudioCache>()));
-  gh.singleton<_i14.AuthenticationService>(
-      _i14.AuthenticationServiceImpl(
-          get<_i5.AppRouter>(), get<_i15.AuthProvider>(), get<_i16.Logger>()),
+  gh.lazySingleton<_i14.AuthenticationService>(
+      () => _i14.AuthenticationServiceImpl(
+          get<_i15.AuthProvider>(), get<_i16.Logger>()),
       dispose: (i) => i.dispose());
   await gh.lazySingletonAsync<_i17.Box<_i18.DbYugiohCard>>(
       () => storageModule.provideYugiohCardBox(),
@@ -428,8 +428,10 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       preResolve: true);
   gh.lazySingleton<_i84.SharedPreferencesProvider>(
       () => _i84.SharedPreferencesProviderImpl(get<_i83.SharedPreferences>()));
-  gh.factory<_i85.SignInViewModel>(
-      () => _i85.SignInViewModel(get<_i63.Logger>()));
+  gh.factory<_i85.SignInViewModel>(() => _i85.SignInViewModel(
+      get<_i73.AuthenticationService>(),
+      get<_i5.AppRouter>(),
+      get<_i63.Logger>()));
   gh.lazySingleton<_i86.SmartDuelServer>(() => _i86.SmartDuelServerImpl(
       get<_i87.WebSocketFactory>(), get<_i16.Logger>()));
   gh.lazySingleton<_i88.SnackBarService>(() => _i88.SnackBarServiceImpl());
@@ -473,6 +475,8 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i100.UrlLauncherProvider>(
       () => _i100.UrlLauncherProviderImpl());
   gh.factory<_i101.UserSettingsViewModel>(() => _i101.UserSettingsViewModel(
+      get<_i5.AppRouter>(),
+      get<_i73.AuthenticationService>(),
       get<_i10.DataManager>(),
       get<_i39.SnackBarService>(),
       get<_i35.StringProvider>(),

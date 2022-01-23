@@ -38,6 +38,8 @@ void main() {
 
     when(_router.showDialog(any)).thenAnswer((_) => Future.value(false));
 
+    when(_authService.isSignedIn()).thenReturn(false);
+
     _viewModel = OnboardingViewModel(
       _router,
       _authService,
@@ -79,6 +81,14 @@ void main() {
           ),
         ).called(1);
       });
+    });
+  });
+
+  group('When onSignInPressed is called', () {
+    test('then the sign in screen is shown', () async {
+      await _viewModel.onSignInPressed();
+
+      verify(_router.showSignIn()).called(1);
     });
   });
 

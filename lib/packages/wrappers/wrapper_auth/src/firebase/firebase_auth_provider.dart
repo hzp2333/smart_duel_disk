@@ -24,4 +24,9 @@ class FirebaseAuthProvider extends AuthProvider {
       );
     });
   }
+
+  @override
+  Future<void> signOut() {
+    return _firebaseAuth.signOut();
+  }
 }

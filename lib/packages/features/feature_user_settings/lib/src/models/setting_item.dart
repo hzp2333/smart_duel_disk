@@ -28,7 +28,21 @@ class SettingItem extends Equatable {
   bool get stringify => true;
 }
 
-@immutable
+class ActionSettingItem extends SettingItem {
+  final FutureOr<void> Function() onPressed;
+
+  const ActionSettingItem({
+    required String titleId,
+    required IconData leadingIcon,
+    required UserSettingType type,
+    required this.onPressed,
+  }) : super(
+          titleId: titleId,
+          leadingIcon: leadingIcon,
+          type: type,
+        );
+}
+
 class SwitchSettingItem extends SettingItem {
   final bool value;
   final FutureOr<void> Function(bool value) onValueChanged;
@@ -47,12 +61,7 @@ class SwitchSettingItem extends SettingItem {
 
   @override
   List<Object> get props => [
-        titleId,
-        leadingIcon,
-        type,
+        ...props,
         value,
       ];
-
-  @override
-  bool get stringify => true;
 }

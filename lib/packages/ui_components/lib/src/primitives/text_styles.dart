@@ -36,9 +36,4 @@ class TextStyles {
   static const button = TextStyle(
     fontSize: TextSizes.button,
   );
-
-  static final onboardingFineprint = TextStyle(
-    color: AppColors.fineprintTextColor,
-    fontSize: TextSizes.onboardingFineprint,
-  );
 }

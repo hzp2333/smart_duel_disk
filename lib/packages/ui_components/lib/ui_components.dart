@@ -15,6 +15,8 @@ export 'src/widgets/calculator/widgets/calculator_provider.dart';
 export 'src/widgets/card/card_image.dart';
 export 'src/widgets/card/image_error.dart';
 export 'src/widgets/card/image_placeholder.dart';
+export 'src/widgets/crowncorp_fineprint.dart';
+export 'src/widgets/crowncorp_logo.dart';
 export 'src/widgets/forms/text_field_with_validation.dart';
 export 'src/widgets/forms/text_field_without_validation.dart';
 export 'src/widgets/image_asset_provider.dart';

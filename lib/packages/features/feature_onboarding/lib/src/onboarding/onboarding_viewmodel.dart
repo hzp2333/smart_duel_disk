@@ -45,9 +45,8 @@ class OnboardingViewModel extends BaseViewModel {
     await _ensureUserIsConnected();
     await _ensureSpeedDuelCardsAvailable();
     await _showDownloadCardImagesDialogIfNecessary();
-    await _ensureUserIsSignedIn();
 
-    _onboardingState.safeAdd(const OnboardingReady());
+    await _ensureUserIsSignedIn();
   }
 
   //region Connectivity check
@@ -197,9 +196,7 @@ class OnboardingViewModel extends BaseViewModel {
     logger.verbose(_tag, '_ensureUserIsSignedIn()');
 
     final signedIn = _authService.isSignedIn();
-    if (!signedIn) {
-      _onboardingState.safeAdd(const OnboardingSignedOut());
-    }
+    _onboardingState.safeAdd(signedIn ? const OnboardingReady() : const OnboardingSignedOut());
   }
 
   //endregion
