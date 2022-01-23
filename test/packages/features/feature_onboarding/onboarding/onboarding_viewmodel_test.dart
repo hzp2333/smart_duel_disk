@@ -11,6 +11,7 @@ void main() {
   late OnboardingViewModel _viewModel;
 
   late MockAppRouter _router;
+  late MockAuthenticationService _authService;
   late MockDataManager _dataManager;
   late MockAreAllCardImagesCachedUseCase _areAllCardImagesCachedUseCase;
   late MockCacheCardImagesUseCase _cacheCardImagesUseCase;
@@ -20,6 +21,7 @@ void main() {
 
   setUp(() {
     _router = MockAppRouter();
+    _authService = MockAuthenticationService();
     _dataManager = MockDataManager();
     _areAllCardImagesCachedUseCase = MockAreAllCardImagesCachedUseCase();
     _cacheCardImagesUseCase = MockCacheCardImagesUseCase();
@@ -38,6 +40,7 @@ void main() {
 
     _viewModel = OnboardingViewModel(
       _router,
+      _authService,
       _dataManager,
       _areAllCardImagesCachedUseCase,
       _cacheCardImagesUseCase,

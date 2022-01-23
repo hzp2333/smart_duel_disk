@@ -14,7 +14,7 @@ class WebRemoteConfigProvider extends RemoteConfigProvider {
   String getString(String key) {
     // TODO: update this value whenever it is changed on Firebase.
     if (key == RemoteConfigKeys.lastCardDatabaseUpdate) {
-      return '2021-09-26T14:13:00Z';
+      return '2022-01-14T00:00:00Z';
     }
 
     // Ignore on web. Firebase Remote Config isn't supported yet.

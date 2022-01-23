@@ -1,6 +1,7 @@
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/generated/locale_keys.g.dart';
+import 'package:smart_duel_disk/packages/core/authentication/authentication.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_localization/lib/core_localization.dart';
@@ -17,6 +18,7 @@ class OnboardingViewModel extends BaseViewModel {
   static const _tag = 'OnboardingViewModel';
 
   final AppRouter _router;
+  final AuthenticationService _authService;
   final DataManager _dataManager;
   final AreAllCardImagesCachedUseCase _areAllCardImagesCachedUseCase;
   final CacheCardImagesUseCase _cacheCardImagesUseCase;
@@ -28,6 +30,7 @@ class OnboardingViewModel extends BaseViewModel {
 
   OnboardingViewModel(
     this._router,
+    this._authService,
     this._dataManager,
     this._areAllCardImagesCachedUseCase,
     this._cacheCardImagesUseCase,
@@ -42,6 +45,7 @@ class OnboardingViewModel extends BaseViewModel {
     await _ensureUserIsConnected();
     await _ensureSpeedDuelCardsAvailable();
     await _showDownloadCardImagesDialogIfNecessary();
+    await _ensureUserIsSignedIn();
 
     _onboardingState.safeAdd(const OnboardingReady());
   }
@@ -187,6 +191,27 @@ class OnboardingViewModel extends BaseViewModel {
 
   //endregion
 
+  //region Authentication check
+
+  Future<void> _ensureUserIsSignedIn() async {
+    logger.verbose(_tag, '_ensureUserIsSignedIn()');
+
+    final signedIn = _authService.isSignedIn();
+    if (!signedIn) {
+      _onboardingState.safeAdd(const OnboardingSignedOut());
+    }
+  }
+
+  //endregion
+
+  //region Button actions
+
+  Future<void> onSignInPressed() async {
+    logger.info(_tag, 'onSignInPressed()');
+
+    await _router.showSignIn();
+  }
+
   Future<void> onInitiateLinkPressed() async {
     logger.info(_tag, 'onInitiateLinkPressed()');
 
@@ -199,6 +224,10 @@ class OnboardingViewModel extends BaseViewModel {
     await _router.showHome();
   }
 
+  //endregion
+
+  //region Clean-up
+
   @override
   void dispose() {
     logger.info(_tag, 'dispose()');
@@ -207,4 +236,6 @@ class OnboardingViewModel extends BaseViewModel {
 
     super.dispose();
   }
+
+  //endregion
 }

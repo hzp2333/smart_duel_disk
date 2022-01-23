@@ -18,8 +18,8 @@ abstract class AppRouter {
   Future<bool?> showDialog(DialogConfig dialogConfig);
   Future<void> launchUrl(String url);
 
+  Future<void> showSignIn();
   Future<void> showHome();
-
   Future<void> showNewsDetails(String? newsItemId, String? newsItemAuthorId);
   Future<void> showYoutube();
   Future<void> showTwitter();
@@ -69,6 +69,15 @@ class AppRouterImpl implements AppRouter {
   Future<void> launchUrl(String url) async {
     await _urlLauncherProvider.launchUrl(url);
   }
+
+  //region Onboarding
+
+  @override
+  Future<void> showSignIn() {
+    return _router.navigate(const SignInRoute());
+  }
+
+  //endregion
 
   //region Home
 

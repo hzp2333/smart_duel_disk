@@ -191,6 +191,7 @@ class _Footer extends HookWidget with ProviderMixin {
       cachingCardImages: (progress) => _LoadingState(
         text: '${stringProvider.getString(LocaleKeys.onboarding_status_card_image_cache_check)}\n$progress',
       ),
+      signedOut: () => const _SignInButton(),
     );
   }
 }
@@ -213,9 +214,7 @@ class _LoadingState extends StatelessWidget {
           const SizedBox(height: AppSizes.screenMarginLarge),
           Text(
             text,
-            style: TextStyles.subtitle.copyWith(
-              height: 2,
-            ),
+            style: TextStyles.subtitle.copyWith(height: 2),
             textAlign: TextAlign.center,
           ),
         ],
@@ -224,12 +223,45 @@ class _LoadingState extends StatelessWidget {
   }
 }
 
-class _InitiateLinkButton extends StatelessWidget with ProviderMixin {
+class _InitiateLinkButton extends StatelessWidget {
   const _InitiateLinkButton();
 
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<OnboardingViewModel>(context);
+
+    return _OnboardingButton(
+      textId: LocaleKeys.onboarding_initiate_link,
+      onPressed: vm.onInitiateLinkPressed,
+    );
+  }
+}
+
+class _SignInButton extends StatelessWidget {
+  const _SignInButton();
+
+  @override
+  Widget build(BuildContext context) {
+    final vm = Provider.of<OnboardingViewModel>(context);
+
+    return _OnboardingButton(
+      textId: LocaleKeys.onboarding_sign_in,
+      onPressed: vm.onSignInPressed,
+    );
+  }
+}
+
+class _OnboardingButton extends StatelessWidget with ProviderMixin {
+  final String textId;
+  final VoidCallback onPressed;
+
+  const _OnboardingButton({
+    required this.textId,
+    required this.onPressed,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     final stringProvider = getStringProvider(context);
 
     return Align(
@@ -237,8 +269,8 @@ class _InitiateLinkButton extends StatelessWidget with ProviderMixin {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: AppSizes.screenMarginSmall),
         child: PrimaryButton(
-          text: stringProvider.getString(LocaleKeys.onboarding_initiate_link),
-          onPressed: vm.onInitiateLinkPressed,
+          text: stringProvider.getString(textId),
+          onPressed: onPressed,
         ),
       ),
     );

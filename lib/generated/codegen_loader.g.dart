@@ -77,6 +77,7 @@ class CodegenLoader extends AssetLoader{
   "onboarding_cards_cache_error_description": "Something went wrong while trying to make sure all cards are available. Please try again.",
   "onboarding_fineprint": "Smart Duel Disk is an unofficial Fan Project and is not approved or endorsed by Konami. Portions of the materials used are property of Konami Digital Entertainment.",
   "onboarding_initiate_link": "Initiate link!",
+  "onboarding_sign_in": "Sign in",
   "onboarding_status_card_image_cache_check": "Downloading card images...",
   "onboarding_status_cards_cache_check": "Validating cards cache...",
   "onboarding_status_connectivity_check": "Checking network connectivity...",

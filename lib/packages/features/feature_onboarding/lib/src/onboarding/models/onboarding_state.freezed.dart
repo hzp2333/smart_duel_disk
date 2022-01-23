@@ -31,6 +31,10 @@ class _$OnboardingStateTearOff {
     );
   }
 
+  OnboardingSignedOut signedOut() {
+    return const OnboardingSignedOut();
+  }
+
   OnboardingReady ready() {
     return const OnboardingReady();
   }
@@ -46,6 +50,7 @@ mixin _$OnboardingState {
     required TResult Function() connecting,
     required TResult Function() cachingCards,
     required TResult Function(String progress) cachingCardImages,
+    required TResult Function() signedOut,
     required TResult Function() ready,
   }) =>
       throw _privateConstructorUsedError;
@@ -54,6 +59,7 @@ mixin _$OnboardingState {
     TResult Function()? connecting,
     TResult Function()? cachingCards,
     TResult Function(String progress)? cachingCardImages,
+    TResult Function()? signedOut,
     TResult Function()? ready,
   }) =>
       throw _privateConstructorUsedError;
@@ -62,6 +68,7 @@ mixin _$OnboardingState {
     TResult Function()? connecting,
     TResult Function()? cachingCards,
     TResult Function(String progress)? cachingCardImages,
+    TResult Function()? signedOut,
     TResult Function()? ready,
     required TResult orElse(),
   }) =>
@@ -72,6 +79,7 @@ mixin _$OnboardingState {
     required TResult Function(OnboardingCachingCards value) cachingCards,
     required TResult Function(OnboardingCachingCardImages value)
         cachingCardImages,
+    required TResult Function(OnboardingSignedOut value) signedOut,
     required TResult Function(OnboardingReady value) ready,
   }) =>
       throw _privateConstructorUsedError;
@@ -80,6 +88,7 @@ mixin _$OnboardingState {
     TResult Function(OnboardingConnecting value)? connecting,
     TResult Function(OnboardingCachingCards value)? cachingCards,
     TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
+    TResult Function(OnboardingSignedOut value)? signedOut,
     TResult Function(OnboardingReady value)? ready,
   }) =>
       throw _privateConstructorUsedError;
@@ -88,6 +97,7 @@ mixin _$OnboardingState {
     TResult Function(OnboardingConnecting value)? connecting,
     TResult Function(OnboardingCachingCards value)? cachingCards,
     TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
+    TResult Function(OnboardingSignedOut value)? signedOut,
     TResult Function(OnboardingReady value)? ready,
     required TResult orElse(),
   }) =>
@@ -154,6 +164,7 @@ class _$OnboardingConnecting implements OnboardingConnecting {
     required TResult Function() connecting,
     required TResult Function() cachingCards,
     required TResult Function(String progress) cachingCardImages,
+    required TResult Function() signedOut,
     required TResult Function() ready,
   }) {
     return connecting();
@@ -165,6 +176,7 @@ class _$OnboardingConnecting implements OnboardingConnecting {
     TResult Function()? connecting,
     TResult Function()? cachingCards,
     TResult Function(String progress)? cachingCardImages,
+    TResult Function()? signedOut,
     TResult Function()? ready,
   }) {
     return connecting?.call();
@@ -176,6 +188,7 @@ class _$OnboardingConnecting implements OnboardingConnecting {
     TResult Function()? connecting,
     TResult Function()? cachingCards,
     TResult Function(String progress)? cachingCardImages,
+    TResult Function()? signedOut,
     TResult Function()? ready,
     required TResult orElse(),
   }) {
@@ -192,6 +205,7 @@ class _$OnboardingConnecting implements OnboardingConnecting {
     required TResult Function(OnboardingCachingCards value) cachingCards,
     required TResult Function(OnboardingCachingCardImages value)
         cachingCardImages,
+    required TResult Function(OnboardingSignedOut value) signedOut,
     required TResult Function(OnboardingReady value) ready,
   }) {
     return connecting(this);
@@ -203,6 +217,7 @@ class _$OnboardingConnecting implements OnboardingConnecting {
     TResult Function(OnboardingConnecting value)? connecting,
     TResult Function(OnboardingCachingCards value)? cachingCards,
     TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
+    TResult Function(OnboardingSignedOut value)? signedOut,
     TResult Function(OnboardingReady value)? ready,
   }) {
     return connecting?.call(this);
@@ -214,6 +229,7 @@ class _$OnboardingConnecting implements OnboardingConnecting {
     TResult Function(OnboardingConnecting value)? connecting,
     TResult Function(OnboardingCachingCards value)? cachingCards,
     TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
+    TResult Function(OnboardingSignedOut value)? signedOut,
     TResult Function(OnboardingReady value)? ready,
     required TResult orElse(),
   }) {
@@ -271,6 +287,7 @@ class _$OnboardingCachingCards implements OnboardingCachingCards {
     required TResult Function() connecting,
     required TResult Function() cachingCards,
     required TResult Function(String progress) cachingCardImages,
+    required TResult Function() signedOut,
     required TResult Function() ready,
   }) {
     return cachingCards();
@@ -282,6 +299,7 @@ class _$OnboardingCachingCards implements OnboardingCachingCards {
     TResult Function()? connecting,
     TResult Function()? cachingCards,
     TResult Function(String progress)? cachingCardImages,
+    TResult Function()? signedOut,
     TResult Function()? ready,
   }) {
     return cachingCards?.call();
@@ -293,6 +311,7 @@ class _$OnboardingCachingCards implements OnboardingCachingCards {
     TResult Function()? connecting,
     TResult Function()? cachingCards,
     TResult Function(String progress)? cachingCardImages,
+    TResult Function()? signedOut,
     TResult Function()? ready,
     required TResult orElse(),
   }) {
@@ -309,6 +328,7 @@ class _$OnboardingCachingCards implements OnboardingCachingCards {
     required TResult Function(OnboardingCachingCards value) cachingCards,
     required TResult Function(OnboardingCachingCardImages value)
         cachingCardImages,
+    required TResult Function(OnboardingSignedOut value) signedOut,
     required TResult Function(OnboardingReady value) ready,
   }) {
     return cachingCards(this);
@@ -320,6 +340,7 @@ class _$OnboardingCachingCards implements OnboardingCachingCards {
     TResult Function(OnboardingConnecting value)? connecting,
     TResult Function(OnboardingCachingCards value)? cachingCards,
     TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
+    TResult Function(OnboardingSignedOut value)? signedOut,
     TResult Function(OnboardingReady value)? ready,
   }) {
     return cachingCards?.call(this);
@@ -331,6 +352,7 @@ class _$OnboardingCachingCards implements OnboardingCachingCards {
     TResult Function(OnboardingConnecting value)? connecting,
     TResult Function(OnboardingCachingCards value)? cachingCards,
     TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
+    TResult Function(OnboardingSignedOut value)? signedOut,
     TResult Function(OnboardingReady value)? ready,
     required TResult orElse(),
   }) {
@@ -417,6 +439,7 @@ class _$OnboardingCachingCardImages implements OnboardingCachingCardImages {
     required TResult Function() connecting,
     required TResult Function() cachingCards,
     required TResult Function(String progress) cachingCardImages,
+    required TResult Function() signedOut,
     required TResult Function() ready,
   }) {
     return cachingCardImages(progress);
@@ -428,6 +451,7 @@ class _$OnboardingCachingCardImages implements OnboardingCachingCardImages {
     TResult Function()? connecting,
     TResult Function()? cachingCards,
     TResult Function(String progress)? cachingCardImages,
+    TResult Function()? signedOut,
     TResult Function()? ready,
   }) {
     return cachingCardImages?.call(progress);
@@ -439,6 +463,7 @@ class _$OnboardingCachingCardImages implements OnboardingCachingCardImages {
     TResult Function()? connecting,
     TResult Function()? cachingCards,
     TResult Function(String progress)? cachingCardImages,
+    TResult Function()? signedOut,
     TResult Function()? ready,
     required TResult orElse(),
   }) {
@@ -455,6 +480,7 @@ class _$OnboardingCachingCardImages implements OnboardingCachingCardImages {
     required TResult Function(OnboardingCachingCards value) cachingCards,
     required TResult Function(OnboardingCachingCardImages value)
         cachingCardImages,
+    required TResult Function(OnboardingSignedOut value) signedOut,
     required TResult Function(OnboardingReady value) ready,
   }) {
     return cachingCardImages(this);
@@ -466,6 +492,7 @@ class _$OnboardingCachingCardImages implements OnboardingCachingCardImages {
     TResult Function(OnboardingConnecting value)? connecting,
     TResult Function(OnboardingCachingCards value)? cachingCards,
     TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
+    TResult Function(OnboardingSignedOut value)? signedOut,
     TResult Function(OnboardingReady value)? ready,
   }) {
     return cachingCardImages?.call(this);
@@ -477,6 +504,7 @@ class _$OnboardingCachingCardImages implements OnboardingCachingCardImages {
     TResult Function(OnboardingConnecting value)? connecting,
     TResult Function(OnboardingCachingCards value)? cachingCards,
     TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
+    TResult Function(OnboardingSignedOut value)? signedOut,
     TResult Function(OnboardingReady value)? ready,
     required TResult orElse(),
   }) {
@@ -495,6 +523,129 @@ abstract class OnboardingCachingCardImages implements OnboardingState {
   @JsonKey(ignore: true)
   $OnboardingCachingCardImagesCopyWith<OnboardingCachingCardImages>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $OnboardingSignedOutCopyWith<$Res> {
+  factory $OnboardingSignedOutCopyWith(
+          OnboardingSignedOut value, $Res Function(OnboardingSignedOut) then) =
+      _$OnboardingSignedOutCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class _$OnboardingSignedOutCopyWithImpl<$Res>
+    extends _$OnboardingStateCopyWithImpl<$Res>
+    implements $OnboardingSignedOutCopyWith<$Res> {
+  _$OnboardingSignedOutCopyWithImpl(
+      OnboardingSignedOut _value, $Res Function(OnboardingSignedOut) _then)
+      : super(_value, (v) => _then(v as OnboardingSignedOut));
+
+  @override
+  OnboardingSignedOut get _value => super._value as OnboardingSignedOut;
+}
+
+/// @nodoc
+
+class _$OnboardingSignedOut implements OnboardingSignedOut {
+  const _$OnboardingSignedOut();
+
+  @override
+  String toString() {
+    return 'OnboardingState.signedOut()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) || (other is OnboardingSignedOut);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() connecting,
+    required TResult Function() cachingCards,
+    required TResult Function(String progress) cachingCardImages,
+    required TResult Function() signedOut,
+    required TResult Function() ready,
+  }) {
+    return signedOut();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? connecting,
+    TResult Function()? cachingCards,
+    TResult Function(String progress)? cachingCardImages,
+    TResult Function()? signedOut,
+    TResult Function()? ready,
+  }) {
+    return signedOut?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? connecting,
+    TResult Function()? cachingCards,
+    TResult Function(String progress)? cachingCardImages,
+    TResult Function()? signedOut,
+    TResult Function()? ready,
+    required TResult orElse(),
+  }) {
+    if (signedOut != null) {
+      return signedOut();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(OnboardingConnecting value) connecting,
+    required TResult Function(OnboardingCachingCards value) cachingCards,
+    required TResult Function(OnboardingCachingCardImages value)
+        cachingCardImages,
+    required TResult Function(OnboardingSignedOut value) signedOut,
+    required TResult Function(OnboardingReady value) ready,
+  }) {
+    return signedOut(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(OnboardingConnecting value)? connecting,
+    TResult Function(OnboardingCachingCards value)? cachingCards,
+    TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
+    TResult Function(OnboardingSignedOut value)? signedOut,
+    TResult Function(OnboardingReady value)? ready,
+  }) {
+    return signedOut?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(OnboardingConnecting value)? connecting,
+    TResult Function(OnboardingCachingCards value)? cachingCards,
+    TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
+    TResult Function(OnboardingSignedOut value)? signedOut,
+    TResult Function(OnboardingReady value)? ready,
+    required TResult orElse(),
+  }) {
+    if (signedOut != null) {
+      return signedOut(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class OnboardingSignedOut implements OnboardingState {
+  const factory OnboardingSignedOut() = _$OnboardingSignedOut;
 }
 
 /// @nodoc
@@ -540,6 +691,7 @@ class _$OnboardingReady implements OnboardingReady {
     required TResult Function() connecting,
     required TResult Function() cachingCards,
     required TResult Function(String progress) cachingCardImages,
+    required TResult Function() signedOut,
     required TResult Function() ready,
   }) {
     return ready();
@@ -551,6 +703,7 @@ class _$OnboardingReady implements OnboardingReady {
     TResult Function()? connecting,
     TResult Function()? cachingCards,
     TResult Function(String progress)? cachingCardImages,
+    TResult Function()? signedOut,
     TResult Function()? ready,
   }) {
     return ready?.call();
@@ -562,6 +715,7 @@ class _$OnboardingReady implements OnboardingReady {
     TResult Function()? connecting,
     TResult Function()? cachingCards,
     TResult Function(String progress)? cachingCardImages,
+    TResult Function()? signedOut,
     TResult Function()? ready,
     required TResult orElse(),
   }) {
@@ -578,6 +732,7 @@ class _$OnboardingReady implements OnboardingReady {
     required TResult Function(OnboardingCachingCards value) cachingCards,
     required TResult Function(OnboardingCachingCardImages value)
         cachingCardImages,
+    required TResult Function(OnboardingSignedOut value) signedOut,
     required TResult Function(OnboardingReady value) ready,
   }) {
     return ready(this);
@@ -589,6 +744,7 @@ class _$OnboardingReady implements OnboardingReady {
     TResult Function(OnboardingConnecting value)? connecting,
     TResult Function(OnboardingCachingCards value)? cachingCards,
     TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
+    TResult Function(OnboardingSignedOut value)? signedOut,
     TResult Function(OnboardingReady value)? ready,
   }) {
     return ready?.call(this);
@@ -600,6 +756,7 @@ class _$OnboardingReady implements OnboardingReady {
     TResult Function(OnboardingConnecting value)? connecting,
     TResult Function(OnboardingCachingCards value)? cachingCards,
     TResult Function(OnboardingCachingCardImages value)? cachingCardImages,
+    TResult Function(OnboardingSignedOut value)? signedOut,
     TResult Function(OnboardingReady value)? ready,
     required TResult orElse(),
   }) {

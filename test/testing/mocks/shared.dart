@@ -1,4 +1,5 @@
 import 'package:mockito/annotations.dart';
+import 'package:smart_duel_disk/packages/core/authentication/authentication.dart';
 import 'package:smart_duel_disk/packages/core/core_config/lib/core_config.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_file_manager/lib/core_file_manager.dart';
@@ -34,5 +35,6 @@ import 'package:universal_io/io.dart';
   FileManager,
   Directory,
   AreAllCardImagesCachedUseCase,
+  AuthenticationService,
 ])
 void main() {}

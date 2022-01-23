@@ -7,5 +7,6 @@ class OnboardingState with _$OnboardingState {
   const factory OnboardingState.connecting() = OnboardingConnecting;
   const factory OnboardingState.cachingCards() = OnboardingCachingCards;
   const factory OnboardingState.cachingCardImages(String progress) = OnboardingCachingCardImages;
+  const factory OnboardingState.signedOut() = OnboardingSignedOut;
   const factory OnboardingState.ready() = OnboardingReady;
 }

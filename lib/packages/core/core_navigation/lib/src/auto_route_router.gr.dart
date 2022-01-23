@@ -7,6 +7,8 @@
 // **************************************************************************
 // AutoRouteGenerator
 // **************************************************************************
+//
+// ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i10;
 import 'package:flutter/material.dart' as _i11;
@@ -18,7 +20,7 @@ import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/featu
     as _i3;
 import 'package:smart_duel_disk/packages/features/feature_draw_card/lib/feature_draw_card.dart'
     as _i5;
-import 'package:smart_duel_disk/packages/features/feature_duel_room/lib/src/widgets/duel_room_screen_provider.dart'
+import 'package:smart_duel_disk/packages/features/feature_duel_room/lib/feature_duel_room.dart'
     as _i8;
 import 'package:smart_duel_disk/packages/features/feature_home/lib/feature_home.dart'
     as _i2;
@@ -28,7 +30,7 @@ import 'package:smart_duel_disk/packages/features/feature_privacy_policy/lib/fea
     as _i6;
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature_speed_duel.dart'
     as _i7;
-import 'package:smart_duel_disk/packages/features/feature_user_settings/lib/src/widgets/user_settings_screen_provider.dart'
+import 'package:smart_duel_disk/packages/features/feature_user_settings/lib/feature_user_settings.dart'
     as _i9;
 import 'package:smart_duel_disk/packages/features/feature_yugioh_card_detail/lib/feature_yugioh_card_detail.dart'
     as _i4;
@@ -42,6 +44,10 @@ class AutoRouteRouter extends _i10.RootStackRouter {
     OnboardingRoute.name: (routeData) {
       return _i10.AdaptivePage<void>(
           routeData: routeData, child: _i1.OnboardingScreenProvider());
+    },
+    SignInRoute.name: (routeData) {
+      return _i10.AdaptivePage<void>(
+          routeData: routeData, child: _i1.SignInScreenProvider());
     },
     HomeRoute.name: (routeData) {
       return _i10.AdaptivePage<void>(
@@ -112,6 +118,7 @@ class AutoRouteRouter extends _i10.RootStackRouter {
   @override
   List<_i10.RouteConfig> get routes => [
         _i10.RouteConfig(OnboardingRoute.name, path: '/'),
+        _i10.RouteConfig(SignInRoute.name, path: '/sign-in'),
         _i10.RouteConfig(HomeRoute.name, path: '/home', children: [
           _i10.RouteConfig(DuelTab.name, path: 'duel', parent: HomeRoute.name),
           _i10.RouteConfig(NewsTab.name, path: 'news', parent: HomeRoute.name),
@@ -134,6 +141,14 @@ class OnboardingRoute extends _i10.PageRouteInfo<void> {
   const OnboardingRoute() : super(OnboardingRoute.name, path: '/');
 
   static const String name = 'OnboardingRoute';
+}
+
+/// generated route for
+/// [_i1.SignInScreenProvider]
+class SignInRoute extends _i10.PageRouteInfo<void> {
+  const SignInRoute() : super(SignInRoute.name, path: '/sign-in');
+
+  static const String name = 'SignInRoute';
 }
 
 /// generated route for
