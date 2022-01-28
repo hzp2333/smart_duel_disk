@@ -13,9 +13,11 @@
 import 'package:auto_route/auto_route.dart' as _i10;
 import 'package:flutter/material.dart' as _i11;
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart'
+    as _i13;
+import 'package:smart_duel_disk/packages/core/core_navigation/lib/src/guards/auth_guard.dart'
     as _i12;
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart'
-    as _i13;
+    as _i14;
 import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/feature_deck_builder.dart'
     as _i3;
 import 'package:smart_duel_disk/packages/features/feature_draw_card/lib/feature_draw_card.dart'
@@ -36,8 +38,12 @@ import 'package:smart_duel_disk/packages/features/feature_yugioh_card_detail/lib
     as _i4;
 
 class AutoRouteRouter extends _i10.RootStackRouter {
-  AutoRouteRouter([_i11.GlobalKey<_i11.NavigatorState>? navigatorKey])
+  AutoRouteRouter(
+      {_i11.GlobalKey<_i11.NavigatorState>? navigatorKey,
+      required this.authGuard})
       : super(navigatorKey);
+
+  final _i12.AuthGuard authGuard;
 
   @override
   final Map<String, _i10.PageFactory> pagesMap = {
@@ -46,8 +52,11 @@ class AutoRouteRouter extends _i10.RootStackRouter {
           routeData: routeData, child: _i1.OnboardingScreenProvider());
     },
     SignInRoute.name: (routeData) {
+      final args = routeData.argsAs<SignInRouteArgs>(
+          orElse: () => const SignInRouteArgs());
       return _i10.AdaptivePage<void>(
-          routeData: routeData, child: _i1.SignInScreenProvider());
+          routeData: routeData,
+          child: _i1.SignInScreenProvider(onSignedIn: args.onSignedIn));
     },
     HomeRoute.name: (routeData) {
       return _i10.AdaptivePage<void>(
@@ -119,19 +128,30 @@ class AutoRouteRouter extends _i10.RootStackRouter {
   List<_i10.RouteConfig> get routes => [
         _i10.RouteConfig(OnboardingRoute.name, path: '/'),
         _i10.RouteConfig(SignInRoute.name, path: '/sign-in'),
-        _i10.RouteConfig(HomeRoute.name, path: '/home', children: [
-          _i10.RouteConfig(DuelTab.name, path: 'duel', parent: HomeRoute.name),
-          _i10.RouteConfig(NewsTab.name, path: 'news', parent: HomeRoute.name),
-          _i10.RouteConfig(DeckTab.name, path: 'deck', parent: HomeRoute.name)
+        _i10.RouteConfig(HomeRoute.name, path: '/home', guards: [
+          authGuard
+        ], children: [
+          _i10.RouteConfig(DuelTab.name,
+              path: 'duel', parent: HomeRoute.name, guards: [authGuard]),
+          _i10.RouteConfig(NewsTab.name,
+              path: 'news', parent: HomeRoute.name, guards: [authGuard]),
+          _i10.RouteConfig(DeckTab.name,
+              path: 'deck', parent: HomeRoute.name, guards: [authGuard])
         ]),
-        _i10.RouteConfig(DeckBuilderRoute.name, path: '/deck-builder'),
-        _i10.RouteConfig(YugiohCardDetailRoute.name, path: '/card-detail'),
+        _i10.RouteConfig(DeckBuilderRoute.name,
+            path: '/deck-builder', guards: [authGuard]),
+        _i10.RouteConfig(YugiohCardDetailRoute.name,
+            path: '/card-detail', guards: [authGuard]),
         _i10.RouteConfig(DrawCardRoute.name,
             path: '/draw-card-screen-provider'),
-        _i10.RouteConfig(PrivacyPolicyRoute.name, path: '/privacy-policy'),
-        _i10.RouteConfig(SpeedDuelRoute.name, path: '/speed-duel'),
-        _i10.RouteConfig(DuelRoomRoute.name, path: '/duel-room'),
-        _i10.RouteConfig(UserSettingsRoute.name, path: '/user-settings')
+        _i10.RouteConfig(PrivacyPolicyRoute.name,
+            path: '/privacy-policy', guards: [authGuard]),
+        _i10.RouteConfig(SpeedDuelRoute.name,
+            path: '/speed-duel', guards: [authGuard]),
+        _i10.RouteConfig(DuelRoomRoute.name,
+            path: '/duel-room', guards: [authGuard]),
+        _i10.RouteConfig(UserSettingsRoute.name,
+            path: '/user-settings', guards: [authGuard])
       ];
 }
 
@@ -145,10 +165,23 @@ class OnboardingRoute extends _i10.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i1.SignInScreenProvider]
-class SignInRoute extends _i10.PageRouteInfo<void> {
-  const SignInRoute() : super(SignInRoute.name, path: '/sign-in');
+class SignInRoute extends _i10.PageRouteInfo<SignInRouteArgs> {
+  SignInRoute({void Function(bool)? onSignedIn})
+      : super(SignInRoute.name,
+            path: '/sign-in', args: SignInRouteArgs(onSignedIn: onSignedIn));
 
   static const String name = 'SignInRoute';
+}
+
+class SignInRouteArgs {
+  const SignInRouteArgs({this.onSignedIn});
+
+  final void Function(bool)? onSignedIn;
+
+  @override
+  String toString() {
+    return 'SignInRouteArgs{onSignedIn: $onSignedIn}';
+  }
 }
 
 /// generated route for
@@ -163,7 +196,7 @@ class HomeRoute extends _i10.PageRouteInfo<void> {
 /// generated route for
 /// [_i3.DeckBuilderScreenProvider]
 class DeckBuilderRoute extends _i10.PageRouteInfo<DeckBuilderRouteArgs> {
-  DeckBuilderRoute({_i12.PreBuiltDeck? preBuiltDeck})
+  DeckBuilderRoute({_i13.PreBuiltDeck? preBuiltDeck})
       : super(DeckBuilderRoute.name,
             path: '/deck-builder',
             args: DeckBuilderRouteArgs(preBuiltDeck: preBuiltDeck));
@@ -174,7 +207,7 @@ class DeckBuilderRoute extends _i10.PageRouteInfo<DeckBuilderRouteArgs> {
 class DeckBuilderRouteArgs {
   const DeckBuilderRouteArgs({this.preBuiltDeck});
 
-  final _i12.PreBuiltDeck? preBuiltDeck;
+  final _i13.PreBuiltDeck? preBuiltDeck;
 
   @override
   String toString() {
@@ -186,7 +219,7 @@ class DeckBuilderRouteArgs {
 /// [_i4.YugiohCardDetailScreenProvider]
 class YugiohCardDetailRoute
     extends _i10.PageRouteInfo<YugiohCardDetailRouteArgs> {
-  YugiohCardDetailRoute({required _i12.CardCopy cardCopy, required String tag})
+  YugiohCardDetailRoute({required _i13.CardCopy cardCopy, required String tag})
       : super(YugiohCardDetailRoute.name,
             path: '/card-detail',
             args: YugiohCardDetailRouteArgs(cardCopy: cardCopy, tag: tag));
@@ -197,7 +230,7 @@ class YugiohCardDetailRoute
 class YugiohCardDetailRouteArgs {
   const YugiohCardDetailRouteArgs({required this.cardCopy, required this.tag});
 
-  final _i12.CardCopy cardCopy;
+  final _i13.CardCopy cardCopy;
 
   final String tag;
 
@@ -241,7 +274,7 @@ class PrivacyPolicyRoute extends _i10.PageRouteInfo<void> {
 /// generated route for
 /// [_i7.SpeedDuelScreenProvider]
 class SpeedDuelRoute extends _i10.PageRouteInfo<SpeedDuelRouteArgs> {
-  SpeedDuelRoute({required _i13.DuelRoom duelRoom})
+  SpeedDuelRoute({required _i14.DuelRoom duelRoom})
       : super(SpeedDuelRoute.name,
             path: '/speed-duel', args: SpeedDuelRouteArgs(duelRoom: duelRoom));
 
@@ -251,7 +284,7 @@ class SpeedDuelRoute extends _i10.PageRouteInfo<SpeedDuelRouteArgs> {
 class SpeedDuelRouteArgs {
   const SpeedDuelRouteArgs({required this.duelRoom});
 
-  final _i13.DuelRoom duelRoom;
+  final _i14.DuelRoom duelRoom;
 
   @override
   String toString() {
@@ -262,7 +295,7 @@ class SpeedDuelRouteArgs {
 /// generated route for
 /// [_i8.DuelRoomScreenProvider]
 class DuelRoomRoute extends _i10.PageRouteInfo<DuelRoomRouteArgs> {
-  DuelRoomRoute({required _i12.PreBuiltDeck preBuiltDeck})
+  DuelRoomRoute({required _i13.PreBuiltDeck preBuiltDeck})
       : super(DuelRoomRoute.name,
             path: '/duel-room',
             args: DuelRoomRouteArgs(preBuiltDeck: preBuiltDeck));
@@ -273,7 +306,7 @@ class DuelRoomRoute extends _i10.PageRouteInfo<DuelRoomRouteArgs> {
 class DuelRoomRouteArgs {
   const DuelRoomRouteArgs({required this.preBuiltDeck});
 
-  final _i12.PreBuiltDeck preBuiltDeck;
+  final _i13.PreBuiltDeck preBuiltDeck;
 
   @override
   String toString() {

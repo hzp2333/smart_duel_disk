@@ -23,14 +23,17 @@ class _SignInScreenState extends State<SignInScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return firebase_ui.SignInScreen(
-      headerBuilder: (_, __, ___) => const Center(
-        child: CrownCorpLogo.signIn(),
+    return WillPopScope(
+      onWillPop: () => Future.value(false),
+      child: firebase_ui.SignInScreen(
+        headerBuilder: (_, __, ___) => const Center(
+          child: CrownCorpLogo.signIn(),
+        ),
+        footerBuilder: (_, __) => const CrownCorpFineprint(),
+        providerConfigs: const [
+          firebase_ui.EmailProviderConfiguration(),
+        ],
       ),
-      footerBuilder: (_, __) => const CrownCorpFineprint(),
-      providerConfigs: const [
-        firebase_ui.EmailProviderConfiguration(),
-      ],
     );
   }
 }

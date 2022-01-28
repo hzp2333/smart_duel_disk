@@ -9,31 +9,33 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature
 import 'package:smart_duel_disk/packages/features/feature_user_settings/lib/feature_user_settings.dart';
 import 'package:smart_duel_disk/packages/features/feature_yugioh_card_detail/lib/feature_yugioh_card_detail.dart';
 
+import 'routes/smart_duel_disk_route.dart';
+
 @AdaptiveAutoRouter(
   replaceInRouteName: 'ScreenProvider,Route',
   routes: <AutoRoute>[
     AutoRoute<void>(page: OnboardingScreenProvider, initial: true),
     AutoRoute<void>(page: SignInScreenProvider, path: '/sign-in'),
-    AutoRoute<void>(
+    SmartDuelDiskRoute<void>(
       page: HomeScreenProvider,
       path: '/home',
       children: [
-        AutoRoute<void>(name: 'DuelTab', page: DuelScreenProvider, path: 'duel'),
-        AutoRoute<void>(name: 'NewsTab', page: NewsScreenProvider, path: 'news'),
-        AutoRoute<void>(name: 'DeckTab', page: DeckScreenProvider, path: 'deck'),
+        SmartDuelDiskRoute<void>(name: 'DuelTab', page: DuelScreenProvider, path: 'duel'),
+        SmartDuelDiskRoute<void>(name: 'NewsTab', page: NewsScreenProvider, path: 'news'),
+        SmartDuelDiskRoute<void>(name: 'DeckTab', page: DeckScreenProvider, path: 'deck'),
       ],
     ),
-    AutoRoute<void>(page: DeckBuilderScreenProvider, path: '/deck-builder'),
-    AutoRoute<void>(page: YugiohCardDetailScreenProvider, path: '/card-detail'),
+    SmartDuelDiskRoute<void>(page: DeckBuilderScreenProvider, path: '/deck-builder'),
+    SmartDuelDiskRoute<void>(page: YugiohCardDetailScreenProvider, path: '/card-detail'),
     CustomRoute<void>(
       page: DrawCardScreenProvider,
       durationInMilliseconds: 0,
       reverseDurationInMilliseconds: 0,
     ),
-    AutoRoute<void>(page: PrivacyPolicyScreenProvider, path: '/privacy-policy'),
-    AutoRoute<void>(page: SpeedDuelScreenProvider, path: '/speed-duel'),
-    AutoRoute<void>(page: DuelRoomScreenProvider, path: '/duel-room'),
-    AutoRoute<void>(page: UserSettingsScreenProvider, path: '/user-settings', fullscreenDialog: true)
+    SmartDuelDiskRoute<void>(page: PrivacyPolicyScreenProvider, path: '/privacy-policy'),
+    SmartDuelDiskRoute<void>(page: SpeedDuelScreenProvider, path: '/speed-duel'),
+    SmartDuelDiskRoute<void>(page: DuelRoomScreenProvider, path: '/duel-room'),
+    SmartDuelDiskRoute<void>(page: UserSettingsScreenProvider, path: '/user-settings', fullscreenDialog: true)
   ],
 )
 class $AutoRouteRouter {}

@@ -58,28 +58,8 @@ class _Body extends HookWidget {
       padding: const EdgeInsets.all(AppSizes.screenMargin),
       physics: const ClampingScrollPhysics(),
       itemCount: userSettings.length,
-      itemBuilder: (_, index) => _SettingListItemContainer(settingItem: userSettings.elementAt(index)),
+      itemBuilder: (_, index) => _SettingsListItem(settingItem: userSettings.elementAt(index)),
       separatorBuilder: (_, __) => const SizedBox(height: AppSizes.screenMarginSmall),
-    );
-  }
-}
-
-class _SettingListItemContainer extends StatelessWidget {
-  final SettingItem settingItem;
-
-  const _SettingListItemContainer({
-    required this.settingItem,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12),
-      decoration: BoxDecoration(
-        color: AppColors.cardBackgroundColor,
-        borderRadius: BorderRadius.circular(AppSizes.generalBorderRadius),
-      ),
-      child: _SettingsListItem(settingItem: settingItem),
     );
   }
 }
@@ -112,12 +92,7 @@ class _SettingsListItem extends StatelessWidget with ProviderMixin {
       );
     }
 
-    return ListTile(
-      leading: Icon(item.leadingIcon),
-      title: Text(title),
-      contentPadding: EdgeInsets.zero,
-      horizontalTitleGap: 0,
-    );
+    return _SettingListItem(settingItem: settingItem);
   }
 }
 
@@ -132,12 +107,9 @@ class _SwitchSettingListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Icon(settingItem.leadingIcon),
-      title: Text(title),
-      contentPadding: EdgeInsets.zero,
-      horizontalTitleGap: 0,
-      onTap: () => settingItem.onValueChanged(!settingItem.value),
+    return _SettingListItem(
+      settingItem: settingItem,
+      onPressed: () => settingItem.onValueChanged(!settingItem.value),
       trailing: Switch.adaptive(
         value: settingItem.value,
         activeColor: AppColors.primaryAccentColor,
@@ -158,12 +130,41 @@ class _ActionSettingListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return _SettingListItem(
+      settingItem: settingItem,
+      onPressed: settingItem.onPressed,
+    );
+  }
+}
+
+class _SettingListItem extends StatelessWidget with ProviderMixin {
+  final SettingItem settingItem;
+  final VoidCallback? onPressed;
+  final Widget? trailing;
+
+  const _SettingListItem({
+    required this.settingItem,
+    this.onPressed,
+    this.trailing,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final stringProvider = getStringProvider(context);
+
+    final title = stringProvider.getString(settingItem.titleId);
+
     return ListTile(
       leading: Icon(settingItem.leadingIcon),
       title: Text(title),
-      contentPadding: EdgeInsets.zero,
+      contentPadding: const EdgeInsets.symmetric(horizontal: 12.0),
       horizontalTitleGap: 0,
-      onTap: settingItem.onPressed,
+      tileColor: AppColors.cardBackgroundColor,
+      onTap: onPressed,
+      trailing: trailing,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppSizes.generalBorderRadius),
+      ),
     );
   }
 }

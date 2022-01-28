@@ -6,49 +6,52 @@ import 'dart:async' as _i3;
 import 'dart:io' as _i6;
 import 'dart:ui' as _i5;
 
-import 'package:flutter/material.dart' as _i4;
-import 'package:flutter/services.dart' as _i23;
+import 'package:flutter/cupertino.dart' as _i4;
+import 'package:flutter/material.dart' as _i17;
+import 'package:flutter/services.dart' as _i25;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:smart_duel_disk/packages/core/authentication/authentication.dart'
-    as _i26;
+    as _i28;
 import 'package:smart_duel_disk/packages/core/core_config/lib/core_config.dart'
-    as _i17;
+    as _i19;
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart'
     as _i2;
 import 'package:smart_duel_disk/packages/core/core_file_manager/lib/src/file_manager.dart'
-    as _i25;
+    as _i27;
 import 'package:smart_duel_disk/packages/core/core_localization/lib/core_localization.dart'
-    as _i21;
+    as _i23;
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart'
     as _i7;
 import 'package:smart_duel_disk/packages/core/core_messaging/lib/src/snack_bar/snack_bar_service.dart'
-    as _i15;
+    as _i16;
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart'
     as _i8;
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart'
-    as _i9;
-import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart'
-    as _i18;
-import 'package:smart_duel_disk/packages/features/feature_home/lib/feature_home.dart'
-    as _i14;
-import 'package:smart_duel_disk/packages/features/feature_home/lib/src/duel/mixins/duel_form_validators.dart'
-    as _i13;
-import 'package:smart_duel_disk/packages/features/feature_home/lib/src/home/models/home_tab.dart'
-    as _i20;
-import 'package:smart_duel_disk/packages/features/feature_home/lib/src/home/usecases/get_home_tabs_use_case.dart'
-    as _i19;
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature_speed_duel.dart'
     as _i10;
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart'
-    as _i11;
-import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart'
-    as _i12;
-import 'package:smart_duel_disk/packages/wrappers/wrapper_connectivity/lib/src/connectivity_provider.dart'
-    as _i24;
-import 'package:smart_duel_disk/packages/wrappers/wrapper_shared_preferences/lib/wrapper_shared_preferences.dart'
-    as _i16;
-import 'package:smart_duel_disk/packages/wrappers/wrapper_system_chrome/lib/src/system_chrome_provider.dart'
+import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart'
+    as _i20;
+import 'package:smart_duel_disk/packages/features/feature_home/lib/feature_home.dart'
+    as _i15;
+import 'package:smart_duel_disk/packages/features/feature_home/lib/src/duel/mixins/duel_form_validators.dart'
+    as _i14;
+import 'package:smart_duel_disk/packages/features/feature_home/lib/src/home/models/home_tab.dart'
     as _i22;
+import 'package:smart_duel_disk/packages/features/feature_home/lib/src/home/usecases/get_home_tabs_use_case.dart'
+    as _i21;
+import 'package:smart_duel_disk/packages/features/feature_onboarding/lib/src/sign_in/sign_in_viewmodel.dart'
+    as _i9;
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature_speed_duel.dart'
+    as _i11;
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/play_card.dart'
+    as _i12;
+import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart'
+    as _i13;
+import 'package:smart_duel_disk/packages/wrappers/wrapper_connectivity/lib/src/connectivity_provider.dart'
+    as _i26;
+import 'package:smart_duel_disk/packages/wrappers/wrapper_shared_preferences/lib/wrapper_shared_preferences.dart'
+    as _i18;
+import 'package:smart_duel_disk/packages/wrappers/wrapper_system_chrome/lib/src/system_chrome_provider.dart'
+    as _i24;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
@@ -174,8 +177,9 @@ class MockAppRouter extends _i1.Mock implements _i8.AppRouter {
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
-  _i3.Future<void> showSignIn() =>
-      (super.noSuchMethod(Invocation.method(#showSignIn, []),
+  _i3.Future<void> showSignIn({_i9.SignInCallback? onSignedIn}) =>
+      (super.noSuchMethod(
+          Invocation.method(#showSignIn, [], {#onSignedIn: onSignedIn}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
@@ -219,7 +223,7 @@ class MockAppRouter extends _i1.Mock implements _i8.AppRouter {
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
-  _i3.Future<void> showSpeedDuel(_i9.DuelRoom? duelRoom) =>
+  _i3.Future<void> showSpeedDuel(_i10.DuelRoom? duelRoom) =>
       (super.noSuchMethod(Invocation.method(#showSpeedDuel, [duelRoom]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
@@ -234,29 +238,29 @@ class MockAppRouter extends _i1.Mock implements _i8.AppRouter {
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
-  _i3.Future<_i10.PlayCardDialogResult?> showPlayCardDialog(
-          _i11.PlayCard? playCard,
-          {_i12.Zone? newZone,
+  _i3.Future<_i11.PlayCardDialogResult?> showPlayCardDialog(
+          _i12.PlayCard? playCard,
+          {_i13.Zone? newZone,
           bool? showActions = false}) =>
       (super.noSuchMethod(
               Invocation.method(#showPlayCardDialog, [playCard],
                   {#newZone: newZone, #showActions: showActions}),
-              returnValue: Future<_i10.PlayCardDialogResult?>.value())
-          as _i3.Future<_i10.PlayCardDialogResult?>);
+              returnValue: Future<_i11.PlayCardDialogResult?>.value())
+          as _i3.Future<_i11.PlayCardDialogResult?>);
   @override
-  _i3.Future<_i10.AddCardToDeckDialogResult?> showAddCardToDeckDialog(
-          _i11.PlayCard? playCard) =>
+  _i3.Future<_i11.AddCardToDeckDialogResult?> showAddCardToDeckDialog(
+          _i12.PlayCard? playCard) =>
       (super.noSuchMethod(
               Invocation.method(#showAddCardToDeckDialog, [playCard]),
-              returnValue: Future<_i10.AddCardToDeckDialogResult?>.value())
-          as _i3.Future<_i10.AddCardToDeckDialogResult?>);
+              returnValue: Future<_i11.AddCardToDeckDialogResult?>.value())
+          as _i3.Future<_i11.AddCardToDeckDialogResult?>);
   @override
-  _i3.Future<_i10.DeclarePhaseDialogResult?> showDeclarePhaseDialog(
-          _i9.DuelPhaseType? duelPhaseType) =>
+  _i3.Future<_i11.DeclarePhaseDialogResult?> showDeclarePhaseDialog(
+          _i10.DuelPhaseType? duelPhaseType) =>
       (super.noSuchMethod(
               Invocation.method(#showDeclarePhaseDialog, [duelPhaseType]),
-              returnValue: Future<_i10.DeclarePhaseDialogResult?>.value())
-          as _i3.Future<_i10.DeclarePhaseDialogResult?>);
+              returnValue: Future<_i11.DeclarePhaseDialogResult?>.value())
+          as _i3.Future<_i11.DeclarePhaseDialogResult?>);
   @override
   _i3.Future<void> showDuelRoom(_i2.PreBuiltDeck? preBuiltDeck) =>
       (super.noSuchMethod(Invocation.method(#showDuelRoom, [preBuiltDeck]),
@@ -365,7 +369,7 @@ class MockDataManager extends _i1.Mock implements _i2.DataManager {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDuelFormValidators extends _i1.Mock
-    implements _i13.DuelFormValidators {
+    implements _i14.DuelFormValidators {
   MockDuelFormValidators() {
     _i1.throwOnMissingStub(this);
   }
@@ -394,7 +398,7 @@ class MockDuelFormValidators extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDuelDialogProvider extends _i1.Mock
-    implements _i14.DuelDialogProvider {
+    implements _i15.DuelDialogProvider {
   MockDuelDialogProvider() {
     _i1.throwOnMissingStub(this);
   }
@@ -408,16 +412,16 @@ class MockDuelDialogProvider extends _i1.Mock
 /// A class which mocks [SnackBarService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSnackBarService extends _i1.Mock implements _i15.SnackBarService {
+class MockSnackBarService extends _i1.Mock implements _i16.SnackBarService {
   MockSnackBarService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.GlobalKey<_i4.ScaffoldMessengerState> get messengerKey =>
+  _i4.GlobalKey<_i17.ScaffoldMessengerState> get messengerKey =>
       (super.noSuchMethod(Invocation.getter(#messengerKey),
-              returnValue: _FakeGlobalKey_3<_i4.ScaffoldMessengerState>())
-          as _i4.GlobalKey<_i4.ScaffoldMessengerState>);
+              returnValue: _FakeGlobalKey_3<_i17.ScaffoldMessengerState>())
+          as _i4.GlobalKey<_i17.ScaffoldMessengerState>);
   @override
   void showSnackBar(String? message,
           {_i5.TextAlign? textAlign = _i5.TextAlign.left,
@@ -436,7 +440,7 @@ class MockSnackBarService extends _i1.Mock implements _i15.SnackBarService {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockSharedPreferencesProvider extends _i1.Mock
-    implements _i16.SharedPreferencesProvider {
+    implements _i18.SharedPreferencesProvider {
   MockSharedPreferencesProvider() {
     _i1.throwOnMissingStub(this);
   }
@@ -496,7 +500,7 @@ class MockSharedPreferencesProvider extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 // ignore: must_be_immutable
-class MockAppConfig extends _i1.Mock implements _i17.AppConfig {
+class MockAppConfig extends _i1.Mock implements _i19.AppConfig {
   MockAppConfig() {
     _i1.throwOnMissingStub(this);
   }
@@ -563,14 +567,14 @@ class MockAppConfig extends _i1.Mock implements _i17.AppConfig {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDuelStorageProvider extends _i1.Mock
-    implements _i18.DuelStorageProvider {
+    implements _i20.DuelStorageProvider {
   MockDuelStorageProvider() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
   _i3.Future<void> saveConnectionInfo(
-          _i18.ConnectionInfoModel? connectionInfo) =>
+          _i20.ConnectionInfoModel? connectionInfo) =>
       (super.noSuchMethod(
           Invocation.method(#saveConnectionInfo, [connectionInfo]),
           returnValue: Future<void>.value(),
@@ -590,21 +594,21 @@ class MockDuelStorageProvider extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetHomeTabsUseCase extends _i1.Mock
-    implements _i19.GetHomeTabsUseCase {
+    implements _i21.GetHomeTabsUseCase {
   MockGetHomeTabsUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  Iterable<_i20.HomeTab> call() =>
+  Iterable<_i22.HomeTab> call() =>
       (super.noSuchMethod(Invocation.method(#call, []),
-          returnValue: <_i20.HomeTab>[]) as Iterable<_i20.HomeTab>);
+          returnValue: <_i22.HomeTab>[]) as Iterable<_i22.HomeTab>);
 }
 
 /// A class which mocks [StringProvider].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockStringProvider extends _i1.Mock implements _i21.StringProvider {
+class MockStringProvider extends _i1.Mock implements _i23.StringProvider {
   MockStringProvider() {
     _i1.throwOnMissingStub(this);
   }
@@ -619,21 +623,21 @@ class MockStringProvider extends _i1.Mock implements _i21.StringProvider {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockSystemChromeProvider extends _i1.Mock
-    implements _i22.SystemChromeProvider {
+    implements _i24.SystemChromeProvider {
   MockSystemChromeProvider() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
   _i3.Future<void> setPreferredOrientations(
-          List<_i23.DeviceOrientation>? orientations) =>
+          List<_i25.DeviceOrientation>? orientations) =>
       (super.noSuchMethod(
           Invocation.method(#setPreferredOrientations, [orientations]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
-  _i3.Future<void> setEnabledSystemUIMode(_i23.SystemUiMode? mode,
-          {List<_i23.SystemUiOverlay>? overlays}) =>
+  _i3.Future<void> setEnabledSystemUIMode(_i25.SystemUiMode? mode,
+          {List<_i25.SystemUiOverlay>? overlays}) =>
       (super.noSuchMethod(
           Invocation.method(
               #setEnabledSystemUIMode, [mode], {#overlays: overlays}),
@@ -645,7 +649,7 @@ class MockSystemChromeProvider extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockConnectivityProvider extends _i1.Mock
-    implements _i24.ConnectivityProvider {
+    implements _i26.ConnectivityProvider {
   MockConnectivityProvider() {
     _i1.throwOnMissingStub(this);
   }
@@ -679,7 +683,7 @@ class MockCacheCardImagesUseCase extends _i1.Mock
 /// A class which mocks [FileManager].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockFileManager extends _i1.Mock implements _i25.FileManager {
+class MockFileManager extends _i1.Mock implements _i27.FileManager {
   MockFileManager() {
     _i1.throwOnMissingStub(this);
   }
@@ -826,15 +830,15 @@ class MockAreAllCardImagesCachedUseCase extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockAuthenticationService extends _i1.Mock
-    implements _i26.AuthenticationService {
+    implements _i28.AuthenticationService {
   MockAuthenticationService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i3.Stream<_i26.User?> get authState =>
+  _i3.Stream<_i28.User?> get authState =>
       (super.noSuchMethod(Invocation.getter(#authState),
-          returnValue: Stream<_i26.User?>.empty()) as _i3.Stream<_i26.User?>);
+          returnValue: Stream<_i28.User?>.empty()) as _i3.Stream<_i28.User?>);
   @override
   bool isSignedIn() => (super.noSuchMethod(Invocation.method(#isSignedIn, []),
       returnValue: false) as bool);
