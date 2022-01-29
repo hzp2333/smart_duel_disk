@@ -1065,6 +1065,10 @@ class SpeedDuelViewModel extends BaseViewModel {
     );
 
     await _speedDuelEventAudioHandler.onEndTurnEvent();
+
+    if (opposingDuelistId == duelState.userState.duelistId) {
+      await _showDrawCard();
+    }
   }
 
   Future<void> _handleUpdateLifepointsEvent(DuelistEventData event) async {
