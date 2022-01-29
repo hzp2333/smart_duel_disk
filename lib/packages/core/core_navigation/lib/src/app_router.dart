@@ -36,6 +36,7 @@ abstract class AppRouter {
   Future<DeclarePhaseDialogResult?> showDeclarePhaseDialog(DuelPhaseType duelPhaseType);
   Future<void> showDuelRoom(PreBuiltDeck preBuiltDeck);
   Future<void> showUserSettings();
+  Future<void> showProfile();
   Future<double?> showLifepointsCalculator({required double initialValue});
 }
 
@@ -220,6 +221,11 @@ class AppRouterImpl implements AppRouter {
   @override
   Future<void> showUserSettings() {
     return _router.navigate(const UserSettingsRoute());
+  }
+
+  @override
+  Future<void> showProfile() {
+    return _router.navigate(const ProfileRoute());
   }
 
   //endregion

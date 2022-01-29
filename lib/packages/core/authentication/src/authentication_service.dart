@@ -10,6 +10,7 @@ abstract class AuthenticationService {
   User? getUser();
   bool isSignedIn();
   Future<void> signOut();
+  Future<void> updateUsername(String username);
   void dispose();
 }
 
@@ -21,7 +22,7 @@ class AuthenticationServiceImpl implements AuthenticationService {
   final Logger _logger;
 
   @override
-  Stream<User?> get authState => _authProvider.authStateChanges();
+  Stream<User?> get authState => _authProvider.userChanges();
 
   User? _user;
   StreamSubscription<User?>? _authStateSubscription;
@@ -58,6 +59,13 @@ class AuthenticationServiceImpl implements AuthenticationService {
     _logger.info(_tag, 'signOut()');
 
     await _authProvider.signOut();
+  }
+
+  @override
+  Future<void> updateUsername(String username) async {
+    _logger.info(_tag, 'updateUsername(username: $username)');
+
+    await _authProvider.updateUsername(username);
   }
 
   @override

@@ -7,7 +7,7 @@ class TextFieldWithValidation extends HookWidget {
   final String label;
   final String hint;
   final Stream<String?> textStream;
-  final TextChangedCallback onChanged;
+  final TextChangedCallback? onChanged;
   final TextChangedCallback onSubmitted;
   final TextInputType textInputType;
 

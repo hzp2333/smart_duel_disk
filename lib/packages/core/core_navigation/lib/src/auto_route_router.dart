@@ -8,6 +8,7 @@ import 'package:smart_duel_disk/packages/features/feature_privacy_policy/lib/fea
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature_speed_duel.dart';
 import 'package:smart_duel_disk/packages/features/feature_user_settings/lib/feature_user_settings.dart';
 import 'package:smart_duel_disk/packages/features/feature_yugioh_card_detail/lib/feature_yugioh_card_detail.dart';
+import 'package:smart_duel_disk/packages/features/profile/src/widgets/profile_screen_provider.dart';
 
 import 'routes/smart_duel_disk_route.dart';
 
@@ -35,7 +36,8 @@ import 'routes/smart_duel_disk_route.dart';
     SmartDuelDiskRoute<void>(page: PrivacyPolicyScreenProvider, path: '/privacy-policy'),
     SmartDuelDiskRoute<void>(page: SpeedDuelScreenProvider, path: '/speed-duel'),
     SmartDuelDiskRoute<void>(page: DuelRoomScreenProvider, path: '/duel-room'),
-    SmartDuelDiskRoute<void>(page: UserSettingsScreenProvider, path: '/user-settings', fullscreenDialog: true)
+    SmartDuelDiskRoute<void>(page: UserSettingsScreenProvider, path: '/user-settings', fullscreenDialog: true),
+    SmartDuelDiskRoute<void>(page: ProfileScreenProvider, path: '/user-settings/profile'),
   ],
 )
 class $AutoRouteRouter {}

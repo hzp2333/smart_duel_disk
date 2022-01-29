@@ -17,8 +17,9 @@ class UserSettingsViewModel extends BaseViewModel {
   static const _tag = 'UserSettingsViewModel';
 
   static const _userSettingTypes = [
-    UserSettingType.developerModeEnabled,
+    UserSettingType.profile,
     UserSettingType.signOut,
+    UserSettingType.developerModeEnabled,
   ];
 
   final AppRouter _router;
@@ -44,11 +45,65 @@ class UserSettingsViewModel extends BaseViewModel {
 
     var userSettings = _userSettingTypes.map((type) => type.toSettingItem()).toList();
 
+    userSettings = _updateProfileSetting(userSettings);
     userSettings = _updateDeveloperModeEnabledSetting(userSettings);
     userSettings = _updateSignOutSetting(userSettings);
 
     _userSettings.safeAdd(userSettings);
   }
+
+  //region Profile
+
+  List<SettingItem> _updateProfileSetting(List<SettingItem> settings) {
+    logger.verbose(_tag, '_updateProfileSetting()');
+
+    final oldSetting = settings.firstWhere((setting) => setting.type == UserSettingType.profile);
+    final oldSettingIndex = settings.indexOf(oldSetting);
+
+    final newSetting = ActionSettingItem(
+      titleId: oldSetting.titleId,
+      leadingIcon: oldSetting.leadingIcon,
+      type: oldSetting.type,
+      onPressed: _router.showProfile,
+    );
+
+    settings.remove(oldSetting);
+    settings.insert(oldSettingIndex, newSetting);
+
+    return settings;
+  }
+
+  //endregion
+
+  //region Sign out
+
+  List<SettingItem> _updateSignOutSetting(List<SettingItem> settings) {
+    logger.verbose(_tag, '_updateSignOutSetting()');
+
+    final oldSetting = settings.firstWhere((setting) => setting.type == UserSettingType.signOut);
+    final oldSettingIndex = settings.indexOf(oldSetting);
+
+    final newSetting = ActionSettingItem(
+      titleId: oldSetting.titleId,
+      leadingIcon: oldSetting.leadingIcon,
+      type: oldSetting.type,
+      onPressed: _signOut,
+    );
+
+    settings.remove(oldSetting);
+    settings.insert(oldSettingIndex, newSetting);
+
+    return settings;
+  }
+
+  Future<void> _signOut() async {
+    logger.verbose(_tag, '_signOut()');
+
+    await _authService.signOut();
+    await _router.showOnboarding();
+  }
+
+  //endregion
 
   //region Developer mode
 
@@ -88,36 +143,6 @@ class UserSettingsViewModel extends BaseViewModel {
     final updatedUserSettings = _updateDeveloperModeEnabledSetting(currentUserSettings);
 
     _userSettings.safeAdd(updatedUserSettings);
-  }
-
-  //endregion
-
-  //region Sign out
-
-  List<SettingItem> _updateSignOutSetting(List<SettingItem> settings) {
-    logger.verbose(_tag, '_updateDeveloperModeEnabledSetting()');
-
-    final oldSetting = settings.firstWhere((setting) => setting.type == UserSettingType.signOut);
-    final oldSettingIndex = settings.indexOf(oldSetting);
-
-    final newSetting = ActionSettingItem(
-      titleId: oldSetting.titleId,
-      leadingIcon: oldSetting.leadingIcon,
-      type: oldSetting.type,
-      onPressed: _signOut,
-    );
-
-    settings.remove(oldSetting);
-    settings.insert(oldSettingIndex, newSetting);
-
-    return settings;
-  }
-
-  Future<void> _signOut() async {
-    logger.verbose(_tag, '_signOut()');
-
-    await _authService.signOut();
-    await _router.showOnboarding();
   }
 
   //endregion

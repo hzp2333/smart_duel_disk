@@ -70,7 +70,7 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: AppColors.primaryBackgroundColor,
       actions: [
         IconButton(
-          icon: const Icon(Icons.person),
+          icon: const Icon(Icons.account_circle),
           tooltip: 'Settings',
           onPressed: vm.onShowUserSettingsPressed,
         ),

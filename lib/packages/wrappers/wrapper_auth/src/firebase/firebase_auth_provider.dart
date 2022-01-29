@@ -13,8 +13,8 @@ class FirebaseAuthProvider extends AuthProvider {
   );
 
   @override
-  Stream<auth_service.User?> authStateChanges() {
-    return _firebaseAuth.authStateChanges().map((user) {
+  Stream<auth_service.User?> userChanges() {
+    return _firebaseAuth.userChanges().map((user) {
       if (user == null) {
         return null;
       }
@@ -26,7 +26,12 @@ class FirebaseAuthProvider extends AuthProvider {
   }
 
   @override
-  Future<void> signOut() {
-    return _firebaseAuth.signOut();
+  Future<void> signOut() async {
+    await _firebaseAuth.signOut();
+  }
+
+  @override
+  Future<void> updateUsername(String username) async {
+    await _firebaseAuth.currentUser?.updateDisplayName(username);
   }
 }

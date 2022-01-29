@@ -68,6 +68,13 @@ abstract class  LocaleKeys {
   static const onboarding_status_cards_cache_check = 'onboarding_status_cards_cache_check';
   static const onboarding_status_connectivity_check = 'onboarding_status_connectivity_check';
   static const privacy_policy_title = 'privacy_policy_title';
+  static const profile_form_invalid_username = 'profile_form_invalid_username';
+  static const profile_form_no_username = 'profile_form_no_username';
+  static const profile_hint_username = 'profile_hint_username';
+  static const profile_label_username = 'profile_label_username';
+  static const profile_screen_title = 'profile_screen_title';
+  static const profile_update_username_failure = 'profile_update_username_failure';
+  static const profile_update_username_success = 'profile_update_username_success';
   static const speed_duel_card_action_activate = 'speed_duel_card_action_activate';
   static const speed_duel_card_action_add_counter = 'speed_duel_card_action_add_counter';
   static const speed_duel_card_action_declare = 'speed_duel_card_action_declare';
@@ -86,6 +93,7 @@ abstract class  LocaleKeys {
   static const speed_duel_card_action_to_defence = 'speed_duel_card_action_to_defence';
   static const user_setting_developer_mode_title = 'user_setting_developer_mode_title';
   static const user_setting_developer_mode_update_message = 'user_setting_developer_mode_update_message';
+  static const user_setting_profile_title = 'user_setting_profile_title';
   static const user_setting_sign_out_title = 'user_setting_sign_out_title';
   static const user_settings_title = 'user_settings_title';
 

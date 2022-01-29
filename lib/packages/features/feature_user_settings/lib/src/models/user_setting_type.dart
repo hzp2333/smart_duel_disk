@@ -4,13 +4,20 @@ import 'package:smart_duel_disk/generated/locale_keys.g.dart';
 import 'setting_item.dart';
 
 enum UserSettingType {
-  developerModeEnabled,
+  profile,
   signOut,
+  developerModeEnabled,
 }
 
 extension UserSettingTypeExtensions on UserSettingType {
   SettingItem toSettingItem() {
     switch (this) {
+      case UserSettingType.profile:
+        return const SettingItem(
+          titleId: LocaleKeys.user_setting_profile_title,
+          leadingIcon: Icons.person,
+          type: UserSettingType.profile,
+        );
       case UserSettingType.developerModeEnabled:
         return const SettingItem(
           titleId: LocaleKeys.user_setting_developer_mode_title,

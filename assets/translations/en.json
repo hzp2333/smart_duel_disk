@@ -66,6 +66,13 @@
     "onboarding_status_cards_cache_check": "Validating cards cache...",
     "onboarding_status_connectivity_check": "Checking network connectivity...",
     "privacy_policy_title": "Privacy Policy",
+    "profile_form_invalid_username": "Username should be between 3 and 12 characters long",
+    "profile_form_no_username": "Username is required",
+    "profile_hint_username": "E.g. Noobmaster",
+    "profile_label_username": "Username",
+    "profile_screen_title": "Profile",
+    "profile_update_username_failure": "Something went wrong while updating your username. Please try again.",
+    "profile_update_username_success": "Your username has been updated successfully!",
     "speed_duel_card_action_activate": "Activate",
     "speed_duel_card_action_add_counter": "Add\ncounter",
     "speed_duel_card_action_declare": "Declare",
@@ -84,6 +91,7 @@
     "speed_duel_card_action_to_defence": "To DEF",
     "user_setting_developer_mode_title": "Developer mode",
     "user_setting_developer_mode_update_message": "The developer mode has been turned {}. Please restart the app.",
+    "user_setting_profile_title": "Profile",
     "user_setting_sign_out_title": "Sign out",
     "user_settings_title": "User Settings"
 }
