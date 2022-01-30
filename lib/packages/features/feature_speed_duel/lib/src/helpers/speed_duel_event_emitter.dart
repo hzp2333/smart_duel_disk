@@ -20,10 +20,10 @@ class SpeedDuelEventEmitter {
 
   //region Card events
 
-  void sendPlayCardEvent(PlayCard card, ZoneType zoneType, CardPosition newPosition) {
+  void sendPlayCardEvent(PlayCard card, ZoneType zoneType, CardPosition newPosition, CardPlayType? playType) {
     _logger.info(
       _tag,
-      'sendPlayCardEvent(card: ${card.yugiohCard.id}, zoneType: $zoneType, newPosition: $newPosition)',
+      'sendPlayCardEvent(card: ${card.yugiohCard.id}, zoneType: $zoneType, newPosition: $newPosition, playType: $playType)',
     );
 
     _smartDuelServer.emitEvent(
@@ -34,6 +34,7 @@ class SpeedDuelEventEmitter {
           copyNumber: card.copyNumber,
           cardPosition: _enumHelper.convertToString(newPosition),
           zoneName: _enumHelper.convertToString(zoneType),
+          cardPlayType: playType,
         ),
       ),
     );

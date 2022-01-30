@@ -346,9 +346,9 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       registerFor: {_mobile},
       preResolve: true);
   await gh.lazySingletonAsync<_i47.Directory>(
-      () => pathProviderModule.provideWebTempDirectory(),
+      () => pathProviderModule.provideMobileTempDirectory(),
       instanceName: 'TempDirectoryName',
-      registerFor: {_web},
+      registerFor: {_mobile},
       preResolve: true);
   await gh.lazySingletonAsync<_i47.Directory>(
       () => pathProviderModule.provideWebAppDirectory(),
@@ -356,9 +356,9 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       registerFor: {_web},
       preResolve: true);
   await gh.lazySingletonAsync<_i47.Directory>(
-      () => pathProviderModule.provideMobileTempDirectory(),
+      () => pathProviderModule.provideWebTempDirectory(),
       instanceName: 'TempDirectoryName',
-      registerFor: {_mobile},
+      registerFor: {_web},
       preResolve: true);
   gh.lazySingleton<_i48.DoesCardFitInZoneUseCase>(
       () => _i48.DoesCardFitInZoneUseCase());

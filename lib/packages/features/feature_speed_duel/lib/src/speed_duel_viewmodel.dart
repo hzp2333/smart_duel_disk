@@ -218,7 +218,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     } else {
       final result = await _router.showPlayCardDialog(card, newZone: zone, showActions: true);
       if (result is PlayCardUpdatePosition) {
-        movedCard = _moveCardToNewZone(card, zone, result.position);
+        movedCard = _moveCardToNewZone(card, zone, result.position, playType: result.playType);
       }
     }
 
@@ -236,6 +236,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     _speedDuelEventEmitter.sendAttackCardEvent(attackingCard, targettedZone.zoneType);
     _speedDuelEventAnimationHandler.onAttackCardEvent(attackingCard, targettedZone);
+    _speedDuelEventAudioHandler.onAttackCardEvent();
   }
 
   Future<void> _onDeckZoneAcceptsCard(PlayCard card, Zone deckZone) async {
@@ -258,10 +259,16 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
   }
 
-  bool _moveCardToNewZone(PlayCard card, Zone newZone, CardPosition position, {bool moveToTop = true}) {
+  bool _moveCardToNewZone(
+    PlayCard card,
+    Zone newZone,
+    CardPosition position, {
+    bool moveToTop = true,
+    CardPlayType? playType,
+  }) {
     logger.verbose(
       _tag,
-      '_moveCardToNewZone(card: ${card.yugiohCard.id}, zone: ${newZone.zoneType}, position: $position, moveToTop: $moveToTop)',
+      '_moveCardToNewZone(card: ${card.yugiohCard.id}, zone: ${newZone.zoneType}, position: $position, moveToTop: $moveToTop, playType: $playType)',
     );
 
     if (card.zoneType == newZone.zoneType) {
@@ -274,8 +281,9 @@ class SpeedDuelViewModel extends BaseViewModel {
       return false;
     }
 
-    _speedDuelEventEmitter.sendPlayCardEvent(card, newZone.zoneType, position);
+    _speedDuelEventEmitter.sendPlayCardEvent(card, newZone.zoneType, position, playType);
     _duelState.safeAdd(_duelState.value.copyWith(userState: updatedUserState));
+    _speedDuelEventAudioHandler.onCardPlayed(playType);
 
     return true;
   }
@@ -344,7 +352,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     final drawnCard = deck.removeLast().copyWith(zoneType: ZoneType.hand);
 
-    _speedDuelEventEmitter.sendPlayCardEvent(drawnCard, ZoneType.hand, CardPosition.faceUp);
+    _speedDuelEventEmitter.sendPlayCardEvent(drawnCard, ZoneType.hand, CardPosition.faceUp, CardPlayType.draw);
 
     final updatedUserState = userState.copyWith(
       deckZone: userState.deckZone.copyWith(cards: deck),
@@ -353,7 +361,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     _duelState.safeAdd(_duelState.value.copyWith(userState: updatedUserState));
 
-    _speedDuelEventAudioHandler.onDeckDrawEvent();
+    _speedDuelEventAudioHandler.onCardPlayed(CardPlayType.draw);
   }
 
   void _shuffleDeck() {
@@ -433,7 +441,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
 
     if (result is PlayCardUpdatePosition) {
-      _updateCardPosition(card, result.position);
+      _updateCardPosition(card, result.position, result.playType);
     } else if (result is PlayCardDeclare) {
       _onCardDeclaration(card);
     } else if (result is PlayCardAddCounter || result is PlayCardRemoveCounter) {
@@ -445,8 +453,8 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
   }
 
-  void _updateCardPosition(PlayCard card, CardPosition position) {
-    logger.verbose(_tag, '_updateCardPosition(card: $card, position: $position)');
+  void _updateCardPosition(PlayCard card, CardPosition position, CardPlayType? playType) {
+    logger.verbose(_tag, '_updateCardPosition(card: $card, position: $position, playType: $playType)');
 
     final userState = _duelState.value.userState;
     final updatedUserState = _moveCardUseCase(userState, card, position);
@@ -457,7 +465,8 @@ class SpeedDuelViewModel extends BaseViewModel {
     if (position == CardPosition.destroy) {
       _speedDuelEventEmitter.sendRemoveCardEvent(card);
     } else {
-      _speedDuelEventEmitter.sendPlayCardEvent(card, card.zoneType, position);
+      _speedDuelEventEmitter.sendPlayCardEvent(card, card.zoneType, position, playType);
+      _speedDuelEventAudioHandler.onCardPlayed(playType);
     }
 
     _duelState.safeAdd(_duelState.value.copyWith(userState: updatedUserState));
@@ -668,7 +677,7 @@ class SpeedDuelViewModel extends BaseViewModel {
           await _handleRemoveCardEvent(eventData);
           break;
         case SmartDuelEventConstants.cardAttackAction:
-          await _handleAttackCardEvent(eventData);
+          _handleAttackCardEvent(eventData);
           break;
         case SmartDuelEventConstants.cardDeclareAction:
           _handleDeclareCardEvent(eventData);
@@ -726,6 +735,8 @@ class SpeedDuelViewModel extends BaseViewModel {
     }
 
     _duelState.safeAdd(_duelState.value.copyWith(opponentState: updatedOpponentState));
+
+    _speedDuelEventAudioHandler.onCardPlayed(data.cardPlayType);
   }
 
   Future<void> _handleRemoveCardEvent(CardEventData data) async {
@@ -747,7 +758,7 @@ class SpeedDuelViewModel extends BaseViewModel {
     _duelState.safeAdd(_duelState.value.copyWith(opponentState: updatedOpponentState));
   }
 
-  Future<void> _handleAttackCardEvent(CardEventData data) async {
+  void _handleAttackCardEvent(CardEventData data) {
     logger.verbose(_tag, '_handleAttackCardEvent(data: $data)');
 
     final cardId = data.cardId;
@@ -763,7 +774,8 @@ class SpeedDuelViewModel extends BaseViewModel {
     final targetZone = duelState.userState.getZone(zoneType);
 
     if (attackingCard != null) {
-      await _speedDuelEventAnimationHandler.onAttackCardEvent(attackingCard, targetZone);
+      _speedDuelEventAnimationHandler.onAttackCardEvent(attackingCard, targetZone);
+      _speedDuelEventAudioHandler.onAttackCardEvent();
     }
   }
 
@@ -1016,7 +1028,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     _showSpeedDuelSnackBar('Dice roll result: ${event.result}');
 
-    await _speedDuelEventAudioHandler.onRollDiceEvent();
+    _speedDuelEventAudioHandler.onRollDiceEvent();
   }
 
   Future<void> _handleFlipCoinEvent(DuelistEventData event) async {
@@ -1024,7 +1036,7 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     _showSpeedDuelSnackBar('Coin flip result: ${event.result?.toUpperCase()}');
 
-    await _speedDuelEventAudioHandler.onFlipCoinEvent();
+    _speedDuelEventAudioHandler.onFlipCoinEvent();
   }
 
   Future<void> _handleDeclarePhaseEvent(DuelistEventData event) async {
@@ -1044,7 +1056,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       ),
     );
 
-    await _speedDuelEventAudioHandler.onDeclarePhaseEvent();
+    _speedDuelEventAudioHandler.onDeclarePhaseEvent();
   }
 
   Future<void> _handleEndTurnEvent(DuelistEventData event) async {
@@ -1064,7 +1076,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       ),
     );
 
-    await _speedDuelEventAudioHandler.onEndTurnEvent();
+    _speedDuelEventAudioHandler.onEndTurnEvent();
 
     if (opposingDuelistId == duelState.userState.duelistId) {
       await _showDrawCard();
@@ -1091,7 +1103,7 @@ class SpeedDuelViewModel extends BaseViewModel {
       ),
     );
 
-    await _speedDuelEventAudioHandler.onUpdateLifepointsEvent();
+    _speedDuelEventAudioHandler.onUpdateLifepointsEvent();
   }
 
   //endregion

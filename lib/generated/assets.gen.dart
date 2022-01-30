@@ -62,12 +62,16 @@ class $AssetsSoundSoundEffectsGen {
   const $AssetsSoundSoundEffectsGen();
 
   String get seActivateEffect => 'assets/sound/sound_effects/se_activate_effect.mp3';
+  String get seAttack => 'assets/sound/sound_effects/se_attack.mp3';
   String get seDeclarePhase => 'assets/sound/sound_effects/se_declare_phase.mp3';
   String get seDrawCard => 'assets/sound/sound_effects/se_draw_card.mp3';
   String get seFlipCoin => 'assets/sound/sound_effects/se_flip_coin.mp3';
   String get seNextTurn => 'assets/sound/sound_effects/se_next_turn.mp3';
+  String get seNormalSummon => 'assets/sound/sound_effects/se_normal_summon.mp3';
   String get seRollDice => 'assets/sound/sound_effects/se_roll_dice.mp3';
+  String get seSetCard => 'assets/sound/sound_effects/se_set_card.mp3';
   String get seShuffle => 'assets/sound/sound_effects/se_shuffle.mp3';
+  String get seSpecialSummon => 'assets/sound/sound_effects/se_special_summon.mp3';
   String get seUpdateCounter => 'assets/sound/sound_effects/se_update_counter.mp3';
   String get seUpdateLifepoints => 'assets/sound/sound_effects/se_update_lifepoints.mp3';
 }

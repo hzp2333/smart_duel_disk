@@ -1,6 +1,7 @@
 library core_smart_duel_server;
 
 export 'src/entities/event_data/card_event/card_event_data.dart';
+export 'src/entities/event_data/card_event/card_play_type.dart';
 export 'src/entities/event_data/deck_event/deck_event_data.dart';
 export 'src/entities/event_data/duelist_event/duel_phase_type.dart';
 export 'src/entities/event_data/duelist_event/duelist_event_data.dart';

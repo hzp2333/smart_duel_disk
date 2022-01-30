@@ -11,8 +11,10 @@ class CardEventData extends Equatable implements SmartDuelEventData {
   final String duelistId;
   final int cardId;
   final int copyNumber;
-  final String? zoneName;
-  final String? cardPosition;
+  final String? zoneName; // TODO: why didn't I use an enum here?
+  final String? cardPosition; // TODO: why didn't I use an enum here?
+  @JsonKey(unknownEnumValue: CardPlayType.other)
+  final CardPlayType? cardPlayType;
 
   const CardEventData({
     required this.duelistId,
@@ -20,6 +22,7 @@ class CardEventData extends Equatable implements SmartDuelEventData {
     required this.copyNumber,
     this.zoneName,
     this.cardPosition,
+    this.cardPlayType,
   });
 
   @override
@@ -27,8 +30,9 @@ class CardEventData extends Equatable implements SmartDuelEventData {
         duelistId,
         cardId,
         copyNumber,
-        cardPosition,
         zoneName,
+        cardPosition,
+        cardPlayType,
       ];
 
   @override
