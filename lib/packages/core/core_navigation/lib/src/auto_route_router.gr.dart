@@ -112,6 +112,14 @@ class AutoRouteRouter extends _i11.RootStackRouter {
           child: _i9.UserSettingsScreenProvider(),
           fullscreenDialog: true);
     },
+    GameSettingsRoute.name: (routeData) {
+      final args = routeData.argsAs<GameSettingsRouteArgs>();
+      return _i11.AdaptivePage<void>(
+          routeData: routeData,
+          child: _i9.GameSettingsScreenProvider(
+              showBackButton: args.showBackButton,
+              showCloseButton: args.showCloseButton));
+    },
     ProfileRoute.name: (routeData) {
       return _i11.AdaptivePage<void>(
           routeData: routeData, child: _i10.ProfileScreenProvider());
@@ -158,6 +166,8 @@ class AutoRouteRouter extends _i11.RootStackRouter {
             path: '/duel-room', guards: [authGuard]),
         _i11.RouteConfig(UserSettingsRoute.name,
             path: '/user-settings', guards: [authGuard]),
+        _i11.RouteConfig(GameSettingsRoute.name,
+            path: '/user-settings/game-settings', guards: [authGuard]),
         _i11.RouteConfig(ProfileRoute.name,
             path: '/user-settings/profile', guards: [authGuard])
       ];
@@ -329,6 +339,34 @@ class UserSettingsRoute extends _i11.PageRouteInfo<void> {
       : super(UserSettingsRoute.name, path: '/user-settings');
 
   static const String name = 'UserSettingsRoute';
+}
+
+/// generated route for
+/// [_i9.GameSettingsScreenProvider]
+class GameSettingsRoute extends _i11.PageRouteInfo<GameSettingsRouteArgs> {
+  GameSettingsRoute(
+      {required bool showBackButton, required bool showCloseButton})
+      : super(GameSettingsRoute.name,
+            path: '/user-settings/game-settings',
+            args: GameSettingsRouteArgs(
+                showBackButton: showBackButton,
+                showCloseButton: showCloseButton));
+
+  static const String name = 'GameSettingsRoute';
+}
+
+class GameSettingsRouteArgs {
+  const GameSettingsRouteArgs(
+      {required this.showBackButton, required this.showCloseButton});
+
+  final bool showBackButton;
+
+  final bool showCloseButton;
+
+  @override
+  String toString() {
+    return 'GameSettingsRouteArgs{showBackButton: $showBackButton, showCloseButton: $showCloseButton}';
+  }
 }
 
 /// generated route for

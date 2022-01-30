@@ -42,6 +42,8 @@
     "duel_room_title": "Duel Room",
     "feature_create_personal_deck": "Creating a personal deck",
     "feature_not_available_yet_description": "{} is not available yet",
+    "game_setting_sound_effect_volume_title": "Sound effects",
+    "game_settings_title": "Game Settings",
     "general_dialog_no": "No",
     "general_dialog_yes": "Yes",
     "general_error_dialog_title": "An error occurred",
@@ -91,6 +93,7 @@
     "speed_duel_card_action_to_defence": "To DEF",
     "user_setting_developer_mode_title": "Developer mode",
     "user_setting_developer_mode_update_message": "The developer mode has been turned {}. Please restart the app.",
+    "user_setting_game_settings_title": "Game settings",
     "user_setting_profile_title": "Profile",
     "user_setting_sign_out_title": "Sign out",
     "user_settings_title": "User Settings"

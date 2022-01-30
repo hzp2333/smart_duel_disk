@@ -617,7 +617,7 @@ class SpeedDuelViewModel extends BaseViewModel {
   }
 
   Future<void> onLifepointsPressed() async {
-    logger.verbose(_tag, 'onLifepointsPressed()');
+    logger.info(_tag, 'onLifepointsPressed()');
 
     final currentLifepoints = _duelState.value.userState.lifepoints.toDouble();
     final updatedLifepoints = await _router.showLifepointsCalculator(initialValue: currentLifepoints);
@@ -627,6 +627,12 @@ class SpeedDuelViewModel extends BaseViewModel {
 
     final formattedLifepoints = updatedLifepoints < 0 ? 0 : updatedLifepoints;
     _speedDuelEventEmitter.sendUpdateLifepointsEvent(formattedLifepoints.toInt());
+  }
+
+  Future<void> onGameSettingsPressed() async {
+    logger.info(_tag, 'onGameSettingsPressed()');
+
+    await _router.showGameSettings(asModel: true);
   }
 
   //endregion

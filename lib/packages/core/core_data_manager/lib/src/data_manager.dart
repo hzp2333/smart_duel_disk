@@ -117,6 +117,16 @@ class DataManagerImpl implements DataManager {
     return _settingsDataManager.saveDeveloperModeEnabled(value: value);
   }
 
+  @override
+  double getSoundEffectVolume() {
+    return _settingsDataManager.getSoundEffectVolume();
+  }
+
+  @override
+  Future<void> saveSoundEffectVolume(double value) {
+    return _settingsDataManager.saveSoundEffectVolume(value);
+  }
+
   //endregion
 
   //region Card Images

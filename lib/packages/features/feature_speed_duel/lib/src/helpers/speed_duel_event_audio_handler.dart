@@ -1,14 +1,14 @@
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/generated/assets.gen.dart';
+import 'package:smart_duel_disk/packages/core/audio/audio.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart';
-import 'package:smart_duel_disk/packages/wrappers/audio_player/src/audio_player_provider.dart';
 
 @LazySingleton()
 class SpeedDuelEventAudioHandler {
-  final AudioPlayerProvider _audioPlayer;
+  final AudioService _audioService;
 
   SpeedDuelEventAudioHandler(
-    this._audioPlayer,
+    this._audioService,
   );
 
   //region Card events
@@ -16,52 +16,52 @@ class SpeedDuelEventAudioHandler {
   void onCardPlayed(CardPlayType? playType) {
     switch (playType) {
       case CardPlayType.normalSummon:
-        _audioPlayer.play(Assets.sound.soundEffects.seNormalSummon);
+        _audioService.playSoundEffect(Assets.sound.soundEffects.seNormalSummon);
         break;
       case CardPlayType.specialSummon:
-        _audioPlayer.play(Assets.sound.soundEffects.seSpecialSummon);
+        _audioService.playSoundEffect(Assets.sound.soundEffects.seSpecialSummon);
         break;
       case CardPlayType.set:
-        _audioPlayer.play(Assets.sound.soundEffects.seSetCard);
+        _audioService.playSoundEffect(Assets.sound.soundEffects.seSetCard);
         break;
       case CardPlayType.activate:
-        _audioPlayer.play(Assets.sound.soundEffects.seActivateEffect);
+        _audioService.playSoundEffect(Assets.sound.soundEffects.seActivateEffect);
         break;
       case CardPlayType.draw:
-        _audioPlayer.play(Assets.sound.soundEffects.seDrawCard);
+        _audioService.playSoundEffect(Assets.sound.soundEffects.seDrawCard);
         break;
       default:
         break;
     }
   }
 
-  void onAttackCardEvent() => _audioPlayer.play(Assets.sound.soundEffects.seAttack);
+  void onAttackCardEvent() => _audioService.playSoundEffect(Assets.sound.soundEffects.seAttack);
 
-  void onDeclareCardEvent() => _audioPlayer.play(Assets.sound.soundEffects.seActivateEffect);
+  void onDeclareCardEvent() => _audioService.playSoundEffect(Assets.sound.soundEffects.seActivateEffect);
 
-  void onAddCounterToCardEvent() => _audioPlayer.play(Assets.sound.soundEffects.seUpdateCounter);
+  void onAddCounterToCardEvent() => _audioService.playSoundEffect(Assets.sound.soundEffects.seUpdateCounter);
 
-  void onRemoveCounterFromCardEvent() => _audioPlayer.play(Assets.sound.soundEffects.seUpdateCounter);
+  void onRemoveCounterFromCardEvent() => _audioService.playSoundEffect(Assets.sound.soundEffects.seUpdateCounter);
 
   //endregion
 
   //region Deck
 
-  void onDeckShuffleEvent() => _audioPlayer.play(Assets.sound.soundEffects.seShuffle);
+  void onDeckShuffleEvent() => _audioService.playSoundEffect(Assets.sound.soundEffects.seShuffle);
 
   //endregion
 
   //region Duelist events
 
-  void onRollDiceEvent() => _audioPlayer.play(Assets.sound.soundEffects.seRollDice);
+  void onRollDiceEvent() => _audioService.playSoundEffect(Assets.sound.soundEffects.seRollDice);
 
-  void onFlipCoinEvent() => _audioPlayer.play(Assets.sound.soundEffects.seFlipCoin);
+  void onFlipCoinEvent() => _audioService.playSoundEffect(Assets.sound.soundEffects.seFlipCoin);
 
-  void onDeclarePhaseEvent() => _audioPlayer.play(Assets.sound.soundEffects.seDeclarePhase);
+  void onDeclarePhaseEvent() => _audioService.playSoundEffect(Assets.sound.soundEffects.seDeclarePhase);
 
-  void onEndTurnEvent() => _audioPlayer.play(Assets.sound.soundEffects.seNextTurn);
+  void onEndTurnEvent() => _audioService.playSoundEffect(Assets.sound.soundEffects.seNextTurn);
 
-  void onUpdateLifepointsEvent() => _audioPlayer.play(Assets.sound.soundEffects.seUpdateLifepoints);
+  void onUpdateLifepointsEvent() => _audioService.playSoundEffect(Assets.sound.soundEffects.seUpdateLifepoints);
 
   //endregion
 }

@@ -44,6 +44,8 @@ abstract class  LocaleKeys {
   static const duel_room_title = 'duel_room_title';
   static const feature_create_personal_deck = 'feature_create_personal_deck';
   static const feature_not_available_yet_description = 'feature_not_available_yet_description';
+  static const game_setting_sound_effect_volume_title = 'game_setting_sound_effect_volume_title';
+  static const game_settings_title = 'game_settings_title';
   static const general_dialog_no = 'general_dialog_no';
   static const general_dialog_yes = 'general_dialog_yes';
   static const general_error_dialog_title = 'general_error_dialog_title';
@@ -93,6 +95,7 @@ abstract class  LocaleKeys {
   static const speed_duel_card_action_to_defence = 'speed_duel_card_action_to_defence';
   static const user_setting_developer_mode_title = 'user_setting_developer_mode_title';
   static const user_setting_developer_mode_update_message = 'user_setting_developer_mode_update_message';
+  static const user_setting_game_settings_title = 'user_setting_game_settings_title';
   static const user_setting_profile_title = 'user_setting_profile_title';
   static const user_setting_sign_out_title = 'user_setting_sign_out_title';
   static const user_settings_title = 'user_settings_title';

@@ -4,6 +4,8 @@ import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart
 abstract class SettingsDataManager {
   bool isDeveloperModeEnabled();
   Future<void> saveDeveloperModeEnabled({required bool value});
+  double getSoundEffectVolume();
+  Future<void> saveSoundEffectVolume(double value);
 }
 
 @LazySingleton(as: SettingsDataManager)
@@ -20,4 +22,10 @@ class SettingsDataManagerImpl implements SettingsDataManager {
   @override
   Future<void> saveDeveloperModeEnabled({required bool value}) =>
       _settingsStorageProvider.saveDeveloperModeEnabled(value: value);
+
+  @override
+  double getSoundEffectVolume() => _settingsStorageProvider.getSoundEffectVolume() ?? 1.0;
+
+  @override
+  Future<void> saveSoundEffectVolume(double value) => _settingsStorageProvider.saveSoundEffectVolume(value);
 }

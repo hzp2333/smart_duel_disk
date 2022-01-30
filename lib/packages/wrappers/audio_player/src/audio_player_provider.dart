@@ -2,7 +2,7 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class AudioPlayerProvider {
-  Future<void> play(String filePath);
+  Future<void> play(String filePath, double volume);
 }
 
 @LazySingleton(as: AudioPlayerProvider)
@@ -14,7 +14,7 @@ class AudioPlayerProviderImpl implements AudioPlayerProvider {
   );
 
   @override
-  Future<void> play(String filePath) {
-    return _audioPlayer.play(filePath);
+  Future<void> play(String filePath, double volume) {
+    return _audioPlayer.play(filePath, volume: volume);
   }
 }

@@ -3,9 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
-import 'package:smart_duel_disk/packages/features/feature_user_settings/lib/src/models/setting_item.dart';
 import 'package:smart_duel_disk/packages/features/feature_user_settings/lib/src/models/user_setting_type.dart';
 import 'package:smart_duel_disk/packages/features/feature_user_settings/lib/src/user_settings_viewmodel.dart';
+import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
 import '../../../testing/mocks/shared.mocks.dart';
 

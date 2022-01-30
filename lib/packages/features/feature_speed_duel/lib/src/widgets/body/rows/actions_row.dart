@@ -34,7 +34,7 @@ class ActionsRow extends StatelessWidget {
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _IconAction(
+            SpeedDuelIconAction(
               icon: FontAwesomeIcons.bitcoin,
               hint: 'Flip coin',
               onPressed: vm.onFlipCoinPressed,
@@ -42,7 +42,7 @@ class ActionsRow extends StatelessWidget {
             const SizedBox(width: AppSizes.duelFieldCardSpacing),
             _DuelPhaseButton(duelState: duelState),
             const SizedBox(width: AppSizes.duelFieldCardSpacing),
-            _IconAction(
+            SpeedDuelIconAction(
               icon: FontAwesomeIcons.dice,
               hint: 'Roll dice',
               onPressed: vm.onRollDicePressed,
@@ -62,12 +62,12 @@ class ActionsRow extends StatelessWidget {
   }
 }
 
-class _IconAction extends StatelessWidget {
+class SpeedDuelIconAction extends StatelessWidget {
   final IconData icon;
   final String hint;
   final VoidCallback onPressed;
 
-  const _IconAction({
+  const SpeedDuelIconAction({
     required this.icon,
     required this.hint,
     required this.onPressed,

@@ -37,6 +37,7 @@ import 'routes/smart_duel_disk_route.dart';
     SmartDuelDiskRoute<void>(page: SpeedDuelScreenProvider, path: '/speed-duel'),
     SmartDuelDiskRoute<void>(page: DuelRoomScreenProvider, path: '/duel-room'),
     SmartDuelDiskRoute<void>(page: UserSettingsScreenProvider, path: '/user-settings', fullscreenDialog: true),
+    SmartDuelDiskRoute<void>(page: GameSettingsScreenProvider, path: '/user-settings/game-settings'),
     SmartDuelDiskRoute<void>(page: ProfileScreenProvider, path: '/user-settings/profile'),
   ],
 )

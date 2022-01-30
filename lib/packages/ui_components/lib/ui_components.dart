@@ -24,6 +24,8 @@ export 'src/widgets/keyboard_dismisser.dart';
 export 'src/widgets/popup_menu_button_with_callback.dart';
 export 'src/widgets/section/icon_title_tile.dart';
 export 'src/widgets/section/section.dart';
+export 'src/widgets/settings/models/setting_item.dart';
+export 'src/widgets/settings/widgets/base_settings_screen_provider.dart';
 export 'src/widgets/state/general_error_state.dart';
 export 'src/widgets/state/general_loading_state.dart';
 export 'src/widgets/status_bar_overrider.dart';

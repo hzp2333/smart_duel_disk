@@ -8,9 +8,9 @@ import 'package:smart_duel_disk/packages/core/core_localization/lib/core_localiz
 import 'package:smart_duel_disk/packages/core/core_logger/lib/src/logger.dart';
 import 'package:smart_duel_disk/packages/core/core_messaging/lib/core_messaging.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
-import 'package:smart_duel_disk/packages/features/feature_user_settings/lib/src/models/user_setting_type.dart';
+import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
-import 'models/setting_item.dart';
+import 'models/user_setting_type.dart';
 
 @Injectable()
 class UserSettingsViewModel extends BaseViewModel {
@@ -18,8 +18,9 @@ class UserSettingsViewModel extends BaseViewModel {
 
   static const _userSettingTypes = [
     UserSettingType.profile,
-    UserSettingType.signOut,
+    UserSettingType.gameSettings,
     UserSettingType.developerModeEnabled,
+    UserSettingType.signOut,
   ];
 
   final AppRouter _router;
@@ -28,7 +29,7 @@ class UserSettingsViewModel extends BaseViewModel {
   final SnackBarService _snackBarService;
   final StringProvider _stringProvider;
 
-  final _userSettings = BehaviorSubject<Iterable<SettingItem>>();
+  final _userSettings = BehaviorSubject<Iterable<SettingItem<UserSettingType>>>();
   Stream<Iterable<SettingItem>> get userSettings => _userSettings.stream;
 
   UserSettingsViewModel(
@@ -45,6 +46,7 @@ class UserSettingsViewModel extends BaseViewModel {
 
     var userSettings = _userSettingTypes.map((type) => type.toSettingItem()).toList();
 
+    userSettings = _updateGameSettingsSetting(userSettings);
     userSettings = _updateProfileSetting(userSettings);
     userSettings = _updateDeveloperModeEnabledSetting(userSettings);
     userSettings = _updateSignOutSetting(userSettings);
@@ -52,15 +54,38 @@ class UserSettingsViewModel extends BaseViewModel {
     _userSettings.safeAdd(userSettings);
   }
 
+  //region Game settings
+
+  List<SettingItem<UserSettingType>> _updateGameSettingsSetting(List<SettingItem<UserSettingType>> settings) {
+    logger.verbose(_tag, '_updateGameSettingsSetting()');
+
+    final oldSetting = settings.firstWhere((setting) => setting.type == UserSettingType.gameSettings);
+    final oldSettingIndex = settings.indexOf(oldSetting);
+
+    final newSetting = ActionSettingItem<UserSettingType>(
+      titleId: oldSetting.titleId,
+      leadingIcon: oldSetting.leadingIcon,
+      type: oldSetting.type,
+      onPressed: _router.showGameSettings,
+    );
+
+    settings.remove(oldSetting);
+    settings.insert(oldSettingIndex, newSetting);
+
+    return settings;
+  }
+
+  //endregion
+
   //region Profile
 
-  List<SettingItem> _updateProfileSetting(List<SettingItem> settings) {
+  List<SettingItem<UserSettingType>> _updateProfileSetting(List<SettingItem<UserSettingType>> settings) {
     logger.verbose(_tag, '_updateProfileSetting()');
 
     final oldSetting = settings.firstWhere((setting) => setting.type == UserSettingType.profile);
     final oldSettingIndex = settings.indexOf(oldSetting);
 
-    final newSetting = ActionSettingItem(
+    final newSetting = ActionSettingItem<UserSettingType>(
       titleId: oldSetting.titleId,
       leadingIcon: oldSetting.leadingIcon,
       type: oldSetting.type,
@@ -77,7 +102,7 @@ class UserSettingsViewModel extends BaseViewModel {
 
   //region Sign out
 
-  List<SettingItem> _updateSignOutSetting(List<SettingItem> settings) {
+  List<SettingItem<UserSettingType>> _updateSignOutSetting(List<SettingItem<UserSettingType>> settings) {
     logger.verbose(_tag, '_updateSignOutSetting()');
 
     final oldSetting = settings.firstWhere((setting) => setting.type == UserSettingType.signOut);
@@ -107,7 +132,7 @@ class UserSettingsViewModel extends BaseViewModel {
 
   //region Developer mode
 
-  List<SettingItem> _updateDeveloperModeEnabledSetting(List<SettingItem> settings) {
+  List<SettingItem<UserSettingType>> _updateDeveloperModeEnabledSetting(List<SettingItem<UserSettingType>> settings) {
     logger.verbose(_tag, '_updateDeveloperModeEnabledSetting()');
 
     final oldSetting = settings.firstWhere((setting) => setting.type == UserSettingType.developerModeEnabled);

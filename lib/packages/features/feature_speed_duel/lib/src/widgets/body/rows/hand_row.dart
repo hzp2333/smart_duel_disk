@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:smart_duel_disk/generated/locale_keys.g.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/player_state.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/speed_duel_viewmodel.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
+import 'actions_row.dart';
 import 'zones/cards/player_card.dart';
 import 'zones/shared/card_drag_target.dart';
 
@@ -16,7 +18,7 @@ class HandRow extends StatelessWidget {
     final zone = playerState.hand;
 
     return Stack(
-      alignment: Alignment.bottomLeft,
+      alignment: Alignment.bottomCenter,
       children: [
         CardDragTarget(
           zone: zone,
@@ -31,9 +33,13 @@ class HandRow extends StatelessWidget {
             ),
           ),
         ),
-        Positioned(
+        Align(
+          alignment: Alignment.bottomLeft,
           child: _LifepointsContainer(playerState: playerState),
         ),
+        if (!playerState.isOpponent) ...[
+          const _GameSettingsAction(),
+        ],
       ],
     );
   }
@@ -90,6 +96,25 @@ class _Lifepoints extends StatelessWidget {
           style: const TextStyle(fontSize: 26.0),
         ),
       ],
+    );
+  }
+}
+
+class _GameSettingsAction extends StatelessWidget with ProviderMixin {
+  const _GameSettingsAction();
+
+  @override
+  Widget build(BuildContext context) {
+    final vm = Provider.of<SpeedDuelViewModel>(context);
+    final stringProvider = getStringProvider(context);
+
+    return Align(
+      alignment: Alignment.bottomRight,
+      child: SpeedDuelIconAction(
+        icon: Icons.settings,
+        hint: stringProvider.getString(LocaleKeys.user_setting_game_settings_title),
+        onPressed: vm.onGameSettingsPressed,
+      ),
     );
   }
 }
