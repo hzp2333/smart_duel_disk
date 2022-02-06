@@ -59,6 +59,9 @@ class SliderSettingListItem extends HookWidget {
             child: Slider(
               value: volume.requireData,
               onChanged: item.onValueChanged,
+              thumbColor: AppColors.primaryAccentColor,
+              activeColor: AppColors.primaryAccentColor,
+              inactiveColor: AppColors.secondaryLogoColor,
             ),
           ),
           Icon(item.trailingIcon),

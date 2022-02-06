@@ -20,7 +20,7 @@ class AppColors {
   static const deckMaiBackgroundColor = Color(0xfffdd835);
   static const deckYugiBackgroundColor = Color(0xffd32f2f);
 
-  static final cardDialogAccent = Colors.greenAccent;
+  static const cardDialogAccent = Colors.greenAccent;
   static final cardDialogBackgroundColor = Colors.black.withOpacity(0.4);
 
   static const primaryAccentColor = Color(0xffae43d7);

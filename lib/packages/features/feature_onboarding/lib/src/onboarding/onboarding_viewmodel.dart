@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/generated/locale_keys.g.dart';
@@ -91,6 +92,12 @@ class OnboardingViewModel extends BaseViewModel {
     try {
       await _dataManager.getSpeedDuelCards();
       await _dataManager.getToken();
+      if (kDebugMode) {
+        await _dataManager.getSpeedDuelCard(70095154); // Cyber Dragon
+        await _dataManager.getSpeedDuelCard(21844576); // Elemental HERO Avian
+        await _dataManager.getSpeedDuelCard(58932615); // Elemental HERO Burstinatrix
+        await _dataManager.getSpeedDuelCard(35809262); // Elemental HERO Flame Wingman
+      }
 
       final hasCache = _dataManager.hasSpeedDuelCardsCache();
       if (!hasCache) {

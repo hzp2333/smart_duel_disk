@@ -186,7 +186,7 @@ class _ThirdRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       playCard!.formattedRaceAndType,
-      style: TextStyle(color: AppColors.cardDialogAccent),
+      style: const TextStyle(color: AppColors.cardDialogAccent),
     );
   }
 }
