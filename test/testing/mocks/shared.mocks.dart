@@ -77,13 +77,15 @@ class _FakeGlobalKey_3<T extends _i4.State<_i4.StatefulWidget>> extends _i1.Fake
 
 class _FakeLocale_4 extends _i1.Fake implements _i5.Locale {}
 
-class _FakeUri_5 extends _i1.Fake implements Uri {}
+class _FakeFile_5 extends _i1.Fake implements _i6.File {}
 
-class _FakeDirectory_6 extends _i1.Fake implements _i6.Directory {}
+class _FakeUri_6 extends _i1.Fake implements Uri {}
 
-class _FakeFileStat_7 extends _i1.Fake implements _i6.FileStat {}
+class _FakeDirectory_7 extends _i1.Fake implements _i6.Directory {}
 
-class _FakeFileSystemEntity_8 extends _i1.Fake implements _i6.FileSystemEntity {
+class _FakeFileStat_8 extends _i1.Fake implements _i6.FileStat {}
+
+class _FakeFileSystemEntity_9 extends _i1.Fake implements _i6.FileSystemEntity {
 }
 
 /// A class which mocks [Logger].
@@ -712,6 +714,11 @@ class MockFileManager extends _i1.Mock implements _i26.FileManager {
       (super.noSuchMethod(Invocation.method(#getFile, [filePath]))
           as _i6.File?);
   @override
+  _i3.Future<_i6.File> pickYugiohDeck() =>
+      (super.noSuchMethod(Invocation.method(#pickYugiohDeck, []),
+              returnValue: Future<_i6.File>.value(_FakeFile_5()))
+          as _i3.Future<_i6.File>);
+  @override
   _i3.Future<void> downloadAndSaveFile(String? urlPath, String? filePath) =>
       (super.noSuchMethod(
           Invocation.method(#downloadAndSaveFile, [urlPath, filePath]),
@@ -732,23 +739,23 @@ class MockDirectory extends _i1.Mock implements _i6.Directory {
       (super.noSuchMethod(Invocation.getter(#path), returnValue: '') as String);
   @override
   Uri get uri =>
-      (super.noSuchMethod(Invocation.getter(#uri), returnValue: _FakeUri_5())
+      (super.noSuchMethod(Invocation.getter(#uri), returnValue: _FakeUri_6())
           as Uri);
   @override
   _i6.Directory get absolute =>
       (super.noSuchMethod(Invocation.getter(#absolute),
-          returnValue: _FakeDirectory_6()) as _i6.Directory);
+          returnValue: _FakeDirectory_7()) as _i6.Directory);
   @override
   bool get isAbsolute =>
       (super.noSuchMethod(Invocation.getter(#isAbsolute), returnValue: false)
           as bool);
   @override
   _i6.Directory get parent => (super.noSuchMethod(Invocation.getter(#parent),
-      returnValue: _FakeDirectory_6()) as _i6.Directory);
+      returnValue: _FakeDirectory_7()) as _i6.Directory);
   @override
   _i3.Future<_i6.Directory> create({bool? recursive = false}) => (super
           .noSuchMethod(Invocation.method(#create, [], {#recursive: recursive}),
-              returnValue: Future<_i6.Directory>.value(_FakeDirectory_6()))
+              returnValue: Future<_i6.Directory>.value(_FakeDirectory_7()))
       as _i3.Future<_i6.Directory>);
   @override
   void createSync({bool? recursive = false}) => super.noSuchMethod(
@@ -757,12 +764,12 @@ class MockDirectory extends _i1.Mock implements _i6.Directory {
   @override
   _i3.Future<_i6.Directory> createTemp([String? prefix]) =>
       (super.noSuchMethod(Invocation.method(#createTemp, [prefix]),
-              returnValue: Future<_i6.Directory>.value(_FakeDirectory_6()))
+              returnValue: Future<_i6.Directory>.value(_FakeDirectory_7()))
           as _i3.Future<_i6.Directory>);
   @override
   _i6.Directory createTempSync([String? prefix]) =>
       (super.noSuchMethod(Invocation.method(#createTempSync, [prefix]),
-          returnValue: _FakeDirectory_6()) as _i6.Directory);
+          returnValue: _FakeDirectory_7()) as _i6.Directory);
   @override
   _i3.Future<String> resolveSymbolicLinks() =>
       (super.noSuchMethod(Invocation.method(#resolveSymbolicLinks, []),
@@ -774,12 +781,12 @@ class MockDirectory extends _i1.Mock implements _i6.Directory {
   @override
   _i3.Future<_i6.Directory> rename(String? newPath) =>
       (super.noSuchMethod(Invocation.method(#rename, [newPath]),
-              returnValue: Future<_i6.Directory>.value(_FakeDirectory_6()))
+              returnValue: Future<_i6.Directory>.value(_FakeDirectory_7()))
           as _i3.Future<_i6.Directory>);
   @override
   _i6.Directory renameSync(String? newPath) =>
       (super.noSuchMethod(Invocation.method(#renameSync, [newPath]),
-          returnValue: _FakeDirectory_6()) as _i6.Directory);
+          returnValue: _FakeDirectory_7()) as _i6.Directory);
   @override
   _i3.Stream<_i6.FileSystemEntity> list(
           {bool? recursive = false, bool? followLinks = true}) =>
@@ -805,17 +812,17 @@ class MockDirectory extends _i1.Mock implements _i6.Directory {
   @override
   _i3.Future<_i6.FileStat> stat() =>
       (super.noSuchMethod(Invocation.method(#stat, []),
-              returnValue: Future<_i6.FileStat>.value(_FakeFileStat_7()))
+              returnValue: Future<_i6.FileStat>.value(_FakeFileStat_8()))
           as _i3.Future<_i6.FileStat>);
   @override
   _i6.FileStat statSync() =>
       (super.noSuchMethod(Invocation.method(#statSync, []),
-          returnValue: _FakeFileStat_7()) as _i6.FileStat);
+          returnValue: _FakeFileStat_8()) as _i6.FileStat);
   @override
   _i3.Future<_i6.FileSystemEntity> delete({bool? recursive = false}) => (super
           .noSuchMethod(Invocation.method(#delete, [], {#recursive: recursive}),
               returnValue:
-                  Future<_i6.FileSystemEntity>.value(_FakeFileSystemEntity_8()))
+                  Future<_i6.FileSystemEntity>.value(_FakeFileSystemEntity_9()))
       as _i3.Future<_i6.FileSystemEntity>);
   @override
   void deleteSync({bool? recursive = false}) => super.noSuchMethod(

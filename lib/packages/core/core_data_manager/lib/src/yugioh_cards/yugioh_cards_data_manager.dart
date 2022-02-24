@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart';
@@ -58,7 +59,9 @@ class YugiohCardsDataManagerImpl implements YugiohCardsDataManager {
       return cards;
     }
 
-    final apiCards = await _ygoProDeckApiProvider.getSpeedDuelCards();
+    final apiCards = kDebugMode
+        ? await _ygoProDeckApiProvider.getAllYugiohCards()
+        : await _ygoProDeckApiProvider.getSpeedDuelCards();
     final cards = apiCards.map((apiCard) => apiCard.toEntity());
 
     await _yugiohCardsStorageProvider.saveSpeedDuelCards(cards.map((card) => card.toDbModel(_enumHelper)));

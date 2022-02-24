@@ -18,6 +18,9 @@ abstract class YgoProDeckRestClient {
     @Path('id') required int id,
   });
 
+  @GET('/cardinfo.php')
+  Future<GetSpeedDuelCardsResponseModel> getAllYugiohCards();
+
   @GET('/cardinfo.php?format=Speed%20Duel')
   Future<GetSpeedDuelCardsResponseModel> getSpeedDuelCards();
 }

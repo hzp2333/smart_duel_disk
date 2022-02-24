@@ -1,17 +1,52 @@
 import 'package:http/http.dart' as http;
 import 'package:injectable/injectable.dart';
+import 'package:smart_duel_disk/packages/wrappers/file_picker/file_picker.dart';
 import 'package:universal_io/io.dart';
+
+import '../core_file_manager.dart';
 
 abstract class FileManager {
   File? getFile(String filePath);
+  Future<File> pickYugiohDeck();
   Future<void> downloadAndSaveFile(String urlPath, String filePath);
 }
 
 @LazySingleton(as: FileManager)
 class FileManagerImpl implements FileManager {
+  static const _yugiohDeckExtension = 'ydk';
+
+  final FilePickerProvider _filePicker;
+
+  FileManagerImpl(
+    this._filePicker,
+  );
+
   @override
   File? getFile(String filePath) {
     return _isFileCached(filePath) ? File(filePath) : null;
+  }
+
+  @override
+  Future<File> pickYugiohDeck() {
+    return _pickFile([_yugiohDeckExtension]);
+  }
+
+  Future<File> _pickFile(Iterable<String> allowedExtensions) async {
+    final platformFile = await _filePicker.pickFile();
+    if (platformFile == null || platformFile.extension == null || platformFile.path == null) {
+      throw const FileNotFoundException();
+    }
+
+    if (platformFile.extension == null || !allowedExtensions.contains(platformFile.extension)) {
+      throw const InvalidExtensionException();
+    }
+
+    final file = getFile(platformFile.path!);
+    if (file == null) {
+      throw const FileNotFoundException();
+    }
+
+    return file;
   }
 
   @override

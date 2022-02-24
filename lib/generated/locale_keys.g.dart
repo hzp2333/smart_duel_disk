@@ -55,6 +55,13 @@ abstract class  LocaleKeys {
   static const home_tab_deck = 'home_tab_deck';
   static const home_tab_duel = 'home_tab_duel';
   static const home_tab_news = 'home_tab_news';
+  static const invalid_deck_reason_extra_deck_size = 'invalid_deck_reason_extra_deck_size';
+  static const invalid_deck_reason_invalid_card_id = 'invalid_deck_reason_invalid_card_id';
+  static const invalid_deck_reason_invalid_file = 'invalid_deck_reason_invalid_file';
+  static const invalid_deck_reason_main_deck_size = 'invalid_deck_reason_main_deck_size';
+  static const invalid_deck_reason_not_speed_duel_card = 'invalid_deck_reason_not_speed_duel_card';
+  static const invalid_deck_reason_skill_card = 'invalid_deck_reason_skill_card';
+  static const invalid_deck_reason_too_many_copies = 'invalid_deck_reason_too_many_copies';
   static const news_general_error_description = 'news_general_error_description';
   static const no_connection_dialog_description = 'no_connection_dialog_description';
   static const no_connection_dialog_title = 'no_connection_dialog_title';

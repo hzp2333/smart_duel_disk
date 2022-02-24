@@ -6,6 +6,7 @@ import 'api/ygoprodeck_api.dart';
 
 abstract class YgoProDeckApiProvider {
   Future<SpeedDuelCardModel> getSpeedDuelCard(int id);
+  Future<Iterable<SpeedDuelCardModel>> getAllYugiohCards();
   Future<Iterable<SpeedDuelCardModel>> getSpeedDuelCards();
 }
 
@@ -27,6 +28,14 @@ class YgoProDeckApiProviderImpl implements YgoProDeckApiProvider {
 
     final response = await _restClient.getSpeedDuelCard(id: id);
     return response.speedDuelCards.first;
+  }
+
+  @override
+  Future<Iterable<SpeedDuelCardModel>> getAllYugiohCards() async {
+    _logger.info(_tag, 'getAllYugiohCards()');
+
+    final response = await _restClient.getAllYugiohCards();
+    return response.speedDuelCards;
   }
 
   @override
