@@ -44,6 +44,8 @@ class DeckViewModel extends BaseViewModel {
     final x = cardIds.toList();
     final y  = x;
 
+    // TODO: error handling from errors in FileManager and UseCase
+
     // final featureName = _stringProvider.getString(LocaleKeys.feature_create_personal_deck);
     // final featureNotAvailableText =
     //     _stringProvider.getString(LocaleKeys.feature_not_available_yet_description, [featureName]);

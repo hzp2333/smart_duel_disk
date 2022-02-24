@@ -1,4 +1,6 @@
-class InvalidDeckException implements Exception {
+import 'package:equatable/equatable.dart';
+
+class InvalidDeckException extends Equatable implements Exception {
   final String reason;
 
   const InvalidDeckException({
@@ -6,5 +8,10 @@ class InvalidDeckException implements Exception {
   });
 
   @override
-  String toString() => 'This deck is invalid. Reason: $reason';
+  List<Object?> get props => [
+        reason,
+      ];
+
+  @override
+  bool? get stringify => true;
 }

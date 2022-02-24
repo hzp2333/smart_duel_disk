@@ -28,19 +28,6 @@ class GetCardIdsFromDeckFileUseCase {
   final FileManager _fileManager;
   final StringProvider _stringProvider;
 
-  // Rules:
-// - Every ydk file must have main, extra and side tags
-// - Main Deck is required
-// - Main Deck min. size is 20
-// - Main Deck max. size is 30
-// - Extra Deck is optional
-// - Extra Deck min. size is 0
-// - Extra Deck max. size is 5
-// - No more than 3 copies of the same card
-// - Make sure card ids are valid (= can parse int)
-// - Don't allow skill cards
-// - Only allow speed duel cards
-
   GetCardIdsFromDeckFileUseCase(
     this._dataManager,
     this._fileManager,

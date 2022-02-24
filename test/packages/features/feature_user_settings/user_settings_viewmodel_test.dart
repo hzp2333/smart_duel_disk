@@ -46,8 +46,8 @@ void main() {
   });
 
   group('When the viewmodel is initialized', () {
-    test('then the isDeveloperModeEnabled setting is fetched', () async {
-      await _viewModel.init();
+    test('then the isDeveloperModeEnabled setting is fetched', () {
+      _viewModel.init();
 
       verify(_dataManager.isDeveloperModeEnabled()).called(1);
     });
@@ -55,8 +55,8 @@ void main() {
     test('then the user settings are emitted', () {
       final observable = _viewModel.userSettings;
 
-      scheduleMicrotask(() async {
-        await _viewModel.init();
+      scheduleMicrotask(() {
+        _viewModel.init();
       });
 
       expect(
@@ -76,7 +76,7 @@ void main() {
 
   group('When the value of the isDeveloperModeEnabled setting is changed', () {
     test('then the new value is saved', () async {
-      await _viewModel.init();
+      _viewModel.init();
 
       await _viewModel.onDeveloperModeEnabledChanged(true);
 
@@ -84,7 +84,7 @@ void main() {
     });
 
     test('then a snackbar message is shown', () async {
-      await _viewModel.init();
+      _viewModel.init();
 
       await _viewModel.onDeveloperModeEnabledChanged(true);
       verify(_snackBarService.showSnackBar('user_setting_developer_mode_update_message, [general_switch_on, null]'))
@@ -95,10 +95,10 @@ void main() {
           .called(1);
     });
 
-    test('then the updated user settings are emitted', () async {
+    test('then the updated user settings are emitted', () {
       final observable = _viewModel.userSettings;
 
-      await _viewModel.init();
+      _viewModel.init();
 
       when(_dataManager.isDeveloperModeEnabled()).thenReturn(true);
 

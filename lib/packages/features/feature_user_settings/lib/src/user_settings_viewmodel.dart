@@ -41,7 +41,7 @@ class UserSettingsViewModel extends BaseViewModel {
     Logger logger,
   ) : super(logger);
 
-  Future<void> init() async {
+  void init() {
     logger.info(_tag, 'init()');
 
     var userSettings = _userSettingTypes.map((type) => type.toSettingItem()).toList();

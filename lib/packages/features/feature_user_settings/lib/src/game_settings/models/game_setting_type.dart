@@ -10,13 +10,11 @@ extension GameSettingTypeExtensions on GameSettingType {
   SettingItem<GameSettingType> toSettingItem() {
     switch (this) {
       case GameSettingType.soundEffectVolume:
-        return const SettingItem<GameSettingType>(
+        return const SettingItem(
           titleId: LocaleKeys.game_setting_sound_effect_volume_title,
           leadingIcon: Icons.volume_mute,
           type: GameSettingType.soundEffectVolume,
         );
-      default:
-        throw Exception('Invalid user setting type');
     }
   }
 }
