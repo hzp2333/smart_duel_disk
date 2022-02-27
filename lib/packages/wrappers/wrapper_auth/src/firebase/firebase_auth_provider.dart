@@ -20,6 +20,7 @@ class FirebaseAuthProvider extends AuthProvider {
       }
 
       return auth_service.User(
+        id: user.uid,
         displayName: user.displayName,
       );
     });

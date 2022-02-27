@@ -342,8 +342,8 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
           get<_i10.DataManager>(),
           get<_i40.StringProvider>(),
           get<_i20.Logger>()));
-  gh.lazySingleton<_i41.DeckDataManager>(
-      () => _i41.DeckDataManagerImpl(get<_i42.CloudDatabaseProvider>()));
+  gh.lazySingleton<_i41.DeckDataManager>(() => _i41.DeckDataManagerImpl(
+      get<_i17.AuthenticationService>(), get<_i42.CloudDatabaseProvider>()));
   gh.lazySingleton<_i43.DelayProvider>(() => _i43.DelayProviderImpl());
   gh.lazySingleton<_i44.DialogService>(
       () => _i44.DialogServiceImpl(get<_i5.AutoRouteRouter>()));
@@ -407,8 +407,11 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i66.FirebaseFirestore>(
       () => cloudDatabaseModule.provideFirebaseFirestore());
   gh.lazySingleton<_i67.GetCardIdsFromDeckFileUseCase>(() =>
-      _i67.GetCardIdsFromDeckFileUseCase(get<_i10.DataManager>(),
-          get<_i68.FileManager>(), get<_i40.StringProvider>()));
+      _i67.GetCardIdsFromDeckFileUseCase(
+          get<_i10.DataManager>(),
+          get<_i68.FileManager>(),
+          get<_i40.StringProvider>(),
+          get<_i20.Logger>()));
   gh.lazySingleton<_i69.GetHomeTabsUseCase>(() => _i69.GetHomeTabsUseCase());
   gh.factory<_i70.HomeViewModel>(() => _i70.HomeViewModel(get<_i5.AppRouter>(),
       get<_i69.GetHomeTabsUseCase>(), get<_i20.Logger>()));
@@ -549,6 +552,7 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       get<_i5.AppRouter>(),
       get<_i10.DataManager>(),
       get<_i54.SnackBarService>(),
+      get<_i5.DialogService>(),
       get<_i40.StringProvider>(),
       get<_i67.GetCardIdsFromDeckFileUseCase>()));
   gh.lazySingleton<_i125.DisplayConfigService>(

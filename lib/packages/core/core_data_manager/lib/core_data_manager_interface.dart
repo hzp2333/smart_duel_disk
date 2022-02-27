@@ -7,6 +7,8 @@ export 'src/card_images/usecases/cache_card_images_use_case.dart' show CacheCard
 export 'src/data_manager.dart' show DataManager;
 export 'src/deck/deck_data_manager.dart' show DeckDataManager;
 export 'src/deck/entities/pre_built_deck.dart';
+export 'src/deck/entities/user_data/user_data.dart';
+export 'src/deck/entities/user_data/user_deck.dart';
 export 'src/duel/duel_data_manager.dart' show DuelDataManager;
 export 'src/duel/entities/connection_info.dart';
 export 'src/duel/entities/deck_action.dart';

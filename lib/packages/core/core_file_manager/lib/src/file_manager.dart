@@ -33,8 +33,8 @@ class FileManagerImpl implements FileManager {
 
   Future<File> _pickFile(Iterable<String> allowedExtensions) async {
     final platformFile = await _filePicker.pickFile();
-    if (platformFile == null || platformFile.extension == null || platformFile.path == null) {
-      throw const FileNotFoundException();
+    if (platformFile == null) {
+      throw const NoFileSelectedException();
     }
 
     if (platformFile.extension == null || !allowedExtensions.contains(platformFile.extension)) {

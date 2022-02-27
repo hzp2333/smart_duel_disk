@@ -18,6 +18,11 @@ abstract class  LocaleKeys {
   static const deck_builder_skill_cards_section = 'deck_builder_skill_cards_section';
   static const deck_builder_spell_cards_section = 'deck_builder_spell_cards_section';
   static const deck_builder_trap_cards_section = 'deck_builder_trap_cards_section';
+  static const deck_create_error_description_deck_limit = 'deck_create_error_description_deck_limit';
+  static const deck_create_error_description_file_not_found = 'deck_create_error_description_file_not_found';
+  static const deck_create_error_description_invalid_extension = 'deck_create_error_description_invalid_extension';
+  static const deck_create_error_description_unexpected = 'deck_create_error_description_unexpected';
+  static const deck_create_error_title = 'deck_create_error_title';
   static const deck_personal_create_deck = 'deck_personal_create_deck';
   static const deck_personal_decks_title = 'deck_personal_decks_title';
   static const deck_personal_search_card = 'deck_personal_search_card';
@@ -47,6 +52,7 @@ abstract class  LocaleKeys {
   static const game_setting_sound_effect_volume_title = 'game_setting_sound_effect_volume_title';
   static const game_settings_title = 'game_settings_title';
   static const general_dialog_no = 'general_dialog_no';
+  static const general_dialog_ok = 'general_dialog_ok';
   static const general_dialog_yes = 'general_dialog_yes';
   static const general_error_dialog_title = 'general_error_dialog_title';
   static const general_error_try_again = 'general_error_try_again';

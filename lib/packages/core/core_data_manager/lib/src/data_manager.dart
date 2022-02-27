@@ -74,6 +74,16 @@ class DataManagerImpl implements DataManager {
     return _deckDataManager.getPreBuiltDeckCardIds(deck);
   }
 
+  @override
+  Future<bool> canCreateDeck() {
+    return _deckDataManager.canCreateDeck();
+  }
+
+  @override
+  Future<void> createDeck(Iterable<int> cardIds) {
+    return _deckDataManager.createDeck(cardIds);
+  }
+
   //endregion
 
   //region Duel

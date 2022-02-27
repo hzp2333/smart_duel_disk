@@ -7,7 +7,7 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_auth/wrapper_auth.dart
 
 abstract class AuthenticationService {
   Stream<User?> get authState;
-  User? getUser();
+  User getUser();
   bool isSignedIn();
   Future<void> signOut();
   Future<void> updateUsername(String username);
@@ -41,17 +41,22 @@ class AuthenticationServiceImpl implements AuthenticationService {
   }
 
   @override
-  User? getUser() {
+  User getUser() {
     _logger.info(_tag, 'getUser()');
 
-    return _user;
+    final user = _user;
+    if (user == null) {
+      throw const UnauthenticatedException();
+    }
+
+    return user;
   }
 
   @override
   bool isSignedIn() {
     _logger.info(_tag, 'isSignedIn()');
 
-    return getUser() != null;
+    return _user != null;
   }
 
   @override

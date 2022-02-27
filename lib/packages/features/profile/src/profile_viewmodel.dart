@@ -33,7 +33,7 @@ class ProfileViewModel extends BaseViewModel {
   ) : super(logger);
 
   Future<void> onUsernameSubmitted(String? username) async {
-    if ((_debounceTimer?.isActive ?? false) || (username == _authService.getUser()?.displayName)) {
+    if ((_debounceTimer?.isActive ?? false) || (username == _authService.getUser().displayName)) {
       return;
     }
 
