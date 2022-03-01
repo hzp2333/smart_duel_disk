@@ -68,11 +68,12 @@ class DeckViewModel extends BaseViewModel {
       await _showDeckBuildErrorDialog(LocaleKeys.deck_create_error_description_unexpected);
     } finally {
       // TODO: loading state
-      // TODO: look into isolates for heavy computations
       // TODO: firebase rules
       // TODO: show decks on deck screen
       // TODO: deck detail screen with options to edit title and delete deck
       // TODO: allow user to select personal deck for duelling
+      // TODO: banlist
+      // TODO: indicate which cards have 3D model
     }
   }
 

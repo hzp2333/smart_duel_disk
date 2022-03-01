@@ -17,9 +17,6 @@ class CreatePlayerStateUseCase {
 
   Future<PlayerState> call(Duelist duelist, {bool isOpponent = false}) async {
     final allCards = await _dataManager.getSpeedDuelCards();
-
-    // TODO: as this is a heavy computation we should probably spawn an isolate.
-    // Curently having a problem with that though: Invalid argument(s): Illegal argument in isolate message : (object is a closure - Function '<anonymous closure>':.)
     final yugiohCards = duelist.deckList.map((cardId) => allCards.firstWhere((card) => card.id == cardId));
 
     final playCards = <PlayCard>[];
@@ -47,7 +44,7 @@ class CreatePlayerStateUseCase {
     try {
       skillCard = playCards.firstWhere((card) => card.yugiohCard.type == CardType.skillCard);
     } catch (e) {
-      // ignore;
+      // ignore
     }
 
     final playCardsWithoutSkill = skillCard == null ? playCards : playCards

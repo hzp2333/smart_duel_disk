@@ -407,11 +407,8 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i66.FirebaseFirestore>(
       () => cloudDatabaseModule.provideFirebaseFirestore());
   gh.lazySingleton<_i67.GetCardIdsFromDeckFileUseCase>(() =>
-      _i67.GetCardIdsFromDeckFileUseCase(
-          get<_i10.DataManager>(),
-          get<_i68.FileManager>(),
-          get<_i40.StringProvider>(),
-          get<_i20.Logger>()));
+      _i67.GetCardIdsFromDeckFileUseCase(get<_i10.DataManager>(),
+          get<_i68.FileManager>(), get<_i40.StringProvider>()));
   gh.lazySingleton<_i69.GetHomeTabsUseCase>(() => _i69.GetHomeTabsUseCase());
   gh.factory<_i70.HomeViewModel>(() => _i70.HomeViewModel(get<_i5.AppRouter>(),
       get<_i69.GetHomeTabsUseCase>(), get<_i20.Logger>()));
@@ -525,11 +522,8 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       (_cardCopy, _tag) =>
           _i114.YugiohCardDetailViewModel(_cardCopy, _tag, get<_i20.Logger>()));
   gh.lazySingleton<_i115.YugiohCardsDataManager>(() =>
-      _i115.YugiohCardsDataManagerImpl(
-          get<_i116.YgoProDeckApiProvider>(),
-          get<_i23.YugiohCardsStorageProvider>(),
-          get<_i34.EnumHelper>(),
-          get<_i20.Logger>()));
+      _i115.YugiohCardsDataManagerImpl(get<_i116.YgoProDeckApiProvider>(),
+          get<_i23.YugiohCardsStorageProvider>(), get<_i20.Logger>()));
   gh.lazySingleton<_i117.YugiohCardsStorageProvider>(() =>
       _i117.YugiohCardsStorageProviderImpl(
           get<_i22.Box<_i23.DbYugiohCard>>(),

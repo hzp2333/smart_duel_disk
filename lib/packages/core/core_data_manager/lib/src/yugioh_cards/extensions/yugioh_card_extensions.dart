@@ -1,13 +1,12 @@
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_enum_helper/lib/wrapper_enum_helper.dart';
 
 extension YugiohCardExtensions on YugiohCard {
-  DbYugiohCard toDbModel(EnumHelper enumHelper) {
-    final cardType = enumHelper.fromString(DbCardType.values, enumHelper.convertToString(type)) ?? DbCardType.unknown;
-    final cardRace = enumHelper.fromString(DbCardRace.values, enumHelper.convertToString(race)) ?? DbCardRace.unknown;
+  DbYugiohCard toDbModel() {
+    final cardType = DbCardType.values.byName(type.name);
+    final cardRace = DbCardRace.values.byName(race.name);
     final cardAttribute =
-        enumHelper.fromString(DbCardAttribute.values, enumHelper.convertToString(attribute)) ?? DbCardAttribute.unknown;
+        attribute?.name == null ? DbCardAttribute.unknown : DbCardAttribute.values.byName(attribute!.name);
 
     return DbYugiohCard(
       id: id,

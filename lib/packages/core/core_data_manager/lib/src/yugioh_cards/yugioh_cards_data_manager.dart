@@ -3,7 +3,6 @@ import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart';
 import 'package:smart_duel_disk/packages/core/core_ygoprodeck/lib/core_ygoprodeck.dart';
-import 'package:smart_duel_disk/packages/wrappers/wrapper_enum_helper/lib/wrapper_enum_helper.dart';
 
 import 'entities/yugioh_card.dart';
 import 'extensions/db_yugioh_card_extensions.dart';
@@ -22,13 +21,11 @@ class YugiohCardsDataManagerImpl implements YugiohCardsDataManager {
 
   final YgoProDeckApiProvider _ygoProDeckApiProvider;
   final YugiohCardsStorageProvider _yugiohCardsStorageProvider;
-  final EnumHelper _enumHelper;
   final Logger _logger;
 
   YugiohCardsDataManagerImpl(
     this._ygoProDeckApiProvider,
     this._yugiohCardsStorageProvider,
-    this._enumHelper,
     this._logger,
   );
 
@@ -38,13 +35,13 @@ class YugiohCardsDataManagerImpl implements YugiohCardsDataManager {
 
     final dbCard = _yugiohCardsStorageProvider.getSpeedDuelCard(cardId);
     if (dbCard != null) {
-      return dbCard.toEntity(_enumHelper);
+      return dbCard.toEntity();
     }
 
     final apiCard = await _ygoProDeckApiProvider.getSpeedDuelCard(cardId);
     final card = apiCard.toEntity();
 
-    await _yugiohCardsStorageProvider.saveSpeedDuelCard(card.toDbModel(_enumHelper));
+    await _yugiohCardsStorageProvider.saveSpeedDuelCard(card.toDbModel());
 
     return card;
   }
@@ -53,20 +50,33 @@ class YugiohCardsDataManagerImpl implements YugiohCardsDataManager {
   Future<Iterable<YugiohCard>> getSpeedDuelCards() async {
     _logger.info(_tag, 'getSpeedDuelCards()');
 
-    final dbCards = _yugiohCardsStorageProvider.getSpeedDuelCards();
+    var dbCards = _yugiohCardsStorageProvider.getSpeedDuelCards();
     if (dbCards != null) {
-      final cards = dbCards.map((dbCard) => dbCard.toEntity(_enumHelper));
+      final cards = await compute(_mapDatabaseCardsToEntities, dbCards.toList());
       return cards;
     }
 
     final apiCards = kDebugMode
         ? await _ygoProDeckApiProvider.getAllYugiohCards()
         : await _ygoProDeckApiProvider.getSpeedDuelCards();
-    final cards = apiCards.map((apiCard) => apiCard.toEntity());
+    final cards = await compute(_mapApiCardsToEntities, apiCards.toList());
 
-    await _yugiohCardsStorageProvider.saveSpeedDuelCards(cards.map((card) => card.toDbModel(_enumHelper)));
+    dbCards = await compute(_mapCardsToDatabaseModels, cards);
+    await _yugiohCardsStorageProvider.saveSpeedDuelCards(dbCards!);
 
     return cards;
+  }
+
+  static List<YugiohCard> _mapDatabaseCardsToEntities(List<DbYugiohCard> cards) {
+    return cards.map((card) => card.toEntity()).toList();
+  }
+
+  static List<YugiohCard> _mapApiCardsToEntities(List<SpeedDuelCardModel> cards) {
+    return cards.map((card) => card.toEntity()).toList();
+  }
+
+  static List<DbYugiohCard> _mapCardsToDatabaseModels(List<YugiohCard> cards) {
+    return cards.map((card) => card.toDbModel()).toList();
   }
 
   @override
