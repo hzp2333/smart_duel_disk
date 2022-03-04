@@ -7,8 +7,10 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_cloud_database/lib/wra
 abstract class DeckDataManager {
   Iterable<PreBuiltDeck> getPreBuiltDecks();
   Future<Iterable<int>> getPreBuiltDeckCardIds(PreBuiltDeck deck);
+  Stream<Iterable<UserDeck>> getUserDecks();
   Future<bool> canCreateDeck();
-  Future<void> createDeck(Iterable<int> cardIds);
+  Future<void> createDeck(String name, Iterable<int> cardIds);
+  Future<void> deleteDeck(UserDeck deck);
 }
 
 @LazySingleton(as: DeckDataManager)
@@ -41,33 +43,54 @@ class DeckDataManagerImpl implements DeckDataManager {
   }
 
   @override
-  Future<bool> canCreateDeck() async {
-    final userId = _authService.getUser().id;
-    final currentUserData = await _getUserData(userId);
+  Stream<Iterable<UserDeck>> getUserDecks() {
+    final userId = _getUserId();
+    return _cloudDatabaseProvider.getUserData(userId).map((userData) => userData?.decks ?? []);
+  }
 
+  @override
+  Future<bool> canCreateDeck() async {
+    final currentUserData = await _getUserData();
     return currentUserData.decks.length < 20;
   }
 
   @override
-  Future<void> createDeck(Iterable<int> cardIds) async {
-    final userId = _authService.getUser().id;
-    final currentUserData = await _getUserData(userId);
+  Future<void> createDeck(String name, Iterable<int> cardIds) async {
+    final currentUserData = await _getUserData();
 
     final updatedUserData = currentUserData.copyWith(
       decks: [
         ...currentUserData.decks,
         UserDeck(
-          name: 'Deck ${currentUserData.decks.length + 1}',
+          name: name,
           cardIds: cardIds,
         ),
       ],
     );
 
+    final userId = _getUserId();
     await _cloudDatabaseProvider.updateUserData(userId, updatedUserData);
   }
 
-  Future<UserData> _getUserData(String userId) async {
+  @override
+  Future<void> deleteDeck(UserDeck deck) async {
+    final currentUserData = await _getUserData();
+
+    final updatedDecks = currentUserData.decks.toList()..remove(deck);
+    final updatedUserData = currentUserData.copyWith(decks: updatedDecks);
+
+    final userId = _getUserId();
+    await _cloudDatabaseProvider.updateUserData(userId, updatedUserData);
+  }
+
+  String _getUserId() {
+    return _authService.getUser().id;
+  }
+
+  Future<UserData> _getUserData() async {
+    final userId = _getUserId();
     final userData = await _cloudDatabaseProvider.getCurrentUserData(userId);
+
     return userData ?? UserData.create();
   }
 }

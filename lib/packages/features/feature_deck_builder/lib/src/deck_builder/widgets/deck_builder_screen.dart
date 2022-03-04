@@ -46,13 +46,27 @@ class _AppBar extends StatelessWidget with ProviderMixin implements PreferredSiz
       elevation: 0,
       backgroundColor: AppColors.primaryBackgroundColor,
       leading: const BackButton(color: AppColors.primaryIconColor),
-      title: vm.preBuiltDeckTitle != null
-          ? Text(vm.preBuiltDeckTitle!)
+      title: vm.deckTitle != null
+          ? Text(vm.deckTitle!)
           : TextFieldWithoutValidation(
               hintText: stringProvider.getString(LocaleKeys.deck_builder_search_hint),
               onChanged: vm.onTextFilterChanged,
               onClearPressed: vm.onClearTextFilterPressed,
             ),
+      actions: vm.isPersonalDeck
+          ? [
+              IconButton(
+                icon: const Icon(Icons.edit),
+                tooltip: 'Edit deck',
+                onPressed: () {},
+              ),
+              IconButton(
+                icon: const Icon(Icons.delete),
+                tooltip: 'Delete deck',
+                onPressed: vm.onDeleteDeckPressed,
+              ),
+            ]
+          : null,
     );
   }
 

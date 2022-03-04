@@ -30,7 +30,7 @@ class CreatePlayerStateUseCase {
               : ZoneType.deck;
 
       playCards.add(
-        _createPlayCardUseCase(
+        await _createPlayCardUseCase(
           card,
           duelist.id,
           copyNumber,

@@ -69,8 +69,8 @@ class AutoRouteRouter extends _i11.RootStackRouter {
           orElse: () => const DeckBuilderRouteArgs());
       return _i11.AdaptivePage<void>(
           routeData: routeData,
-          child:
-              _i3.DeckBuilderScreenProvider(preBuiltDeck: args.preBuiltDeck));
+          child: _i3.DeckBuilderScreenProvider(
+              preBuiltDeck: args.preBuiltDeck, userDeck: args.userDeck));
     },
     YugiohCardDetailRoute.name: (routeData) {
       final args = routeData.argsAs<YugiohCardDetailRouteArgs>();
@@ -214,22 +214,25 @@ class HomeRoute extends _i11.PageRouteInfo<void> {
 /// generated route for
 /// [_i3.DeckBuilderScreenProvider]
 class DeckBuilderRoute extends _i11.PageRouteInfo<DeckBuilderRouteArgs> {
-  DeckBuilderRoute({_i14.PreBuiltDeck? preBuiltDeck})
+  DeckBuilderRoute({_i14.PreBuiltDeck? preBuiltDeck, _i14.UserDeck? userDeck})
       : super(DeckBuilderRoute.name,
             path: '/deck-builder',
-            args: DeckBuilderRouteArgs(preBuiltDeck: preBuiltDeck));
+            args: DeckBuilderRouteArgs(
+                preBuiltDeck: preBuiltDeck, userDeck: userDeck));
 
   static const String name = 'DeckBuilderRoute';
 }
 
 class DeckBuilderRouteArgs {
-  const DeckBuilderRouteArgs({this.preBuiltDeck});
+  const DeckBuilderRouteArgs({this.preBuiltDeck, this.userDeck});
 
   final _i14.PreBuiltDeck? preBuiltDeck;
 
+  final _i14.UserDeck? userDeck;
+
   @override
   String toString() {
-    return 'DeckBuilderRouteArgs{preBuiltDeck: $preBuiltDeck}';
+    return 'DeckBuilderRouteArgs{preBuiltDeck: $preBuiltDeck, userDeck: $userDeck}';
   }
 }
 

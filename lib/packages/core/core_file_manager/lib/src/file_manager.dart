@@ -6,7 +6,7 @@ import 'package:universal_io/io.dart';
 import '../core_file_manager.dart';
 
 abstract class FileManager {
-  File? getFile(String filePath);
+  Future<File?> getFile(String filePath);
   Future<File> pickYugiohDeck();
   Future<void> downloadAndSaveFile(String urlPath, String filePath);
 }
@@ -22,8 +22,8 @@ class FileManagerImpl implements FileManager {
   );
 
   @override
-  File? getFile(String filePath) {
-    return _isFileCached(filePath) ? File(filePath) : null;
+  Future<File?> getFile(String filePath) async {
+    return await _isFileCached(filePath) ? File(filePath) : null;
   }
 
   @override
@@ -41,7 +41,7 @@ class FileManagerImpl implements FileManager {
       throw const InvalidExtensionException();
     }
 
-    final file = getFile(platformFile.path!);
+    final file = await getFile(platformFile.path!);
     if (file == null) {
       throw const FileNotFoundException();
     }
@@ -51,7 +51,7 @@ class FileManagerImpl implements FileManager {
 
   @override
   Future<void> downloadAndSaveFile(String urlPath, String filePath) async {
-    if (_isFileCached(filePath)) {
+    if (await _isFileCached(filePath)) {
       return;
     }
 
@@ -77,7 +77,7 @@ class FileManagerImpl implements FileManager {
   }
 
   Future<void> _deleteFile(String filePath, {bool cancelOnFailure = false}) async {
-    final file = getFile(filePath);
+    final file = await getFile(filePath);
     if (file == null) {
       return;
     }
@@ -91,8 +91,8 @@ class FileManagerImpl implements FileManager {
     }
   }
 
-  bool _isFileCached(String filePath) {
+  Future<bool> _isFileCached(String filePath) {
     final file = File(filePath);
-    return file.existsSync();
+    return file.exists();
   }
 }

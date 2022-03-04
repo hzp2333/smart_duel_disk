@@ -26,7 +26,7 @@ class AreAllCardImagesCachedUseCaseImpl implements AreAllCardImagesCachedUseCase
     final allCards = [...cards, token];
 
     for (final card in allCards) {
-      final image = _dataManager.getCardImageFile(card);
+      final image = await _dataManager.getCardImageFile(card);
       if (image == null) {
         return false;
       }

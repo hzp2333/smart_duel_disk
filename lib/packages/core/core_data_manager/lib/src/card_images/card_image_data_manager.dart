@@ -6,7 +6,7 @@ import 'package:universal_io/io.dart';
 
 abstract class CardImageDataManager {
   Stream<int> cacheCardImages(Iterable<YugiohCard> cards);
-  File? getCardImageFile(YugiohCard card);
+  Future<File?> getCardImageFile(YugiohCard card);
 }
 
 @LazySingleton(as: CardImageDataManager)
@@ -32,7 +32,7 @@ class CardImageDataManagerImpl implements CardImageDataManager {
   }
 
   @override
-  File? getCardImageFile(YugiohCard card) {
+  Future<File?> getCardImageFile(YugiohCard card) {
     final filePath = _getCardImagePath(card);
     return _fileManager.getFile(filePath);
   }

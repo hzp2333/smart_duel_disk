@@ -9,4 +9,6 @@ class TextSizes {
   static const button = 18.0;
 
   static const onboardingAppTitle = 42.0;
+
+  static const deckName = 14.0;
 }

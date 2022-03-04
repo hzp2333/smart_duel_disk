@@ -16,14 +16,14 @@ class CreatePlayCardUseCase {
     this._enumHelper,
   );
 
-  PlayCard call(
+  Future<PlayCard> call(
     YugiohCard card,
     String duelistId,
     int copyNumber, {
     CardPosition? position,
     ZoneType? zoneType,
-  }) {
-    final image = _dataManager.getCardImageFile(card);
+  }) async {
+    final image = await _dataManager.getCardImageFile(card);
     final raceAndType =
         '[${_enumHelper.convertToString(card.race, camelCase: true)} / ${_enumHelper.convertToString(card.type, camelCase: true)}]';
 

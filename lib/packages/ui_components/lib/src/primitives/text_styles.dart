@@ -36,4 +36,9 @@ class TextStyles {
   static const button = TextStyle(
     fontSize: TextSizes.button,
   );
+
+  static const deckName = TextStyle(
+    fontSize: TextSizes.deckName,
+    fontWeight: FontWeight.w600,
+  );
 }

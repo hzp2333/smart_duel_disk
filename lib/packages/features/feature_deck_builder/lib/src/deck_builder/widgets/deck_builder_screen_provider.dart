@@ -8,9 +8,11 @@ import 'deck_builder_screen.dart';
 
 class DeckBuilderScreenProvider extends StatelessWidget {
   final PreBuiltDeck? preBuiltDeck;
+  final UserDeck? userDeck;
 
   const DeckBuilderScreenProvider({
     this.preBuiltDeck,
+    this.userDeck,
   });
 
   @override
@@ -18,7 +20,7 @@ class DeckBuilderScreenProvider extends StatelessWidget {
     return MultiProvider(
       providers: [
         Provider<DeckBuilderViewModel>(
-          create: (_) => di.get<DeckBuilderViewModel>(param1: preBuiltDeck),
+          create: (_) => di.get<DeckBuilderViewModel>(param1: preBuiltDeck, param2: userDeck),
           dispose: (_, vm) => vm.dispose(),
         ),
       ],

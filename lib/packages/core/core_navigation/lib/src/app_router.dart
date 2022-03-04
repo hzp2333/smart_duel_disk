@@ -26,7 +26,7 @@ abstract class AppRouter {
   Future<void> showYoutube();
   Future<void> showTwitter();
   Future<void> showDiscord();
-  Future<void> showDeckBuilder({PreBuiltDeck? preBuiltDeck});
+  Future<void> showDeckBuilder({PreBuiltDeck? preBuiltDeck, UserDeck? userDeck});
   Future<void> showYugiohCardDetail(CardCopy cardCopy, String tag);
   Future<void> showSpeedDuel(DuelRoom duelRoom);
   Future<PreBuiltDeck?> showSelectDeckDialog();
@@ -144,8 +144,8 @@ class AppRouterImpl implements AppRouter {
   //region Deck
 
   @override
-  Future<void> showDeckBuilder({PreBuiltDeck? preBuiltDeck}) {
-    return _router.navigate(DeckBuilderRoute(preBuiltDeck: preBuiltDeck));
+  Future<void> showDeckBuilder({PreBuiltDeck? preBuiltDeck, UserDeck? userDeck}) {
+    return _router.navigate(DeckBuilderRoute(preBuiltDeck: preBuiltDeck, userDeck: userDeck));
   }
 
   //endregion

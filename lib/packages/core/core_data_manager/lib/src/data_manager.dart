@@ -75,13 +75,23 @@ class DataManagerImpl implements DataManager {
   }
 
   @override
+  Stream<Iterable<UserDeck>> getUserDecks() {
+    return _deckDataManager.getUserDecks();
+  }
+
+  @override
   Future<bool> canCreateDeck() {
     return _deckDataManager.canCreateDeck();
   }
 
   @override
-  Future<void> createDeck(Iterable<int> cardIds) {
-    return _deckDataManager.createDeck(cardIds);
+  Future<void> createDeck(String name, Iterable<int> cardIds) {
+    return _deckDataManager.createDeck(name, cardIds);
+  }
+
+  @override
+  Future<void> deleteDeck(UserDeck deck) {
+    return _deckDataManager.deleteDeck(deck);
   }
 
   //endregion
@@ -147,7 +157,7 @@ class DataManagerImpl implements DataManager {
   }
 
   @override
-  File? getCardImageFile(YugiohCard card) {
+  Future<File?> getCardImageFile(YugiohCard card) {
     return _cardImageDataManager.getCardImageFile(card);
   }
 

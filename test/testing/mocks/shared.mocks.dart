@@ -222,10 +222,11 @@ class MockAppRouter extends _i1.Mock implements _i9.AppRouter {
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
-  _i3.Future<void> showDeckBuilder({_i2.PreBuiltDeck? preBuiltDeck}) =>
+  _i3.Future<void> showDeckBuilder(
+          {_i2.PreBuiltDeck? preBuiltDeck, _i2.UserDeck? userDeck}) =>
       (super.noSuchMethod(
-          Invocation.method(
-              #showDeckBuilder, [], {#preBuiltDeck: preBuiltDeck}),
+          Invocation.method(#showDeckBuilder, [],
+              {#preBuiltDeck: preBuiltDeck, #userDeck: userDeck}),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
@@ -345,12 +346,22 @@ class MockDataManager extends _i1.Mock implements _i2.DataManager {
               returnValue: Future<Iterable<int>>.value(<int>[]))
           as _i3.Future<Iterable<int>>);
   @override
+  _i3.Stream<Iterable<_i2.UserDeck>> getUserDecks() =>
+      (super.noSuchMethod(Invocation.method(#getUserDecks, []),
+              returnValue: Stream<Iterable<_i2.UserDeck>>.empty())
+          as _i3.Stream<Iterable<_i2.UserDeck>>);
+  @override
   _i3.Future<bool> canCreateDeck() =>
       (super.noSuchMethod(Invocation.method(#canCreateDeck, []),
           returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
   @override
-  _i3.Future<void> createDeck(Iterable<int>? cardIds) =>
-      (super.noSuchMethod(Invocation.method(#createDeck, [cardIds]),
+  _i3.Future<void> createDeck(String? name, Iterable<int>? cardIds) =>
+      (super.noSuchMethod(Invocation.method(#createDeck, [name, cardIds]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  @override
+  _i3.Future<void> deleteDeck(_i2.UserDeck? deck) =>
+      (super.noSuchMethod(Invocation.method(#deleteDeck, [deck]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
@@ -401,9 +412,9 @@ class MockDataManager extends _i1.Mock implements _i2.DataManager {
       (super.noSuchMethod(Invocation.method(#cacheCardImages, [cards]),
           returnValue: Stream<int>.empty()) as _i3.Stream<int>);
   @override
-  _i6.File? getCardImageFile(_i2.YugiohCard? card) =>
-      (super.noSuchMethod(Invocation.method(#getCardImageFile, [card]))
-          as _i6.File?);
+  _i3.Future<_i6.File?> getCardImageFile(_i2.YugiohCard? card) =>
+      (super.noSuchMethod(Invocation.method(#getCardImageFile, [card]),
+          returnValue: Future<_i6.File?>.value()) as _i3.Future<_i6.File?>);
 }
 
 /// A class which mocks [DuelFormValidators].
@@ -730,9 +741,9 @@ class MockFileManager extends _i1.Mock implements _i27.FileManager {
   }
 
   @override
-  _i6.File? getFile(String? filePath) =>
-      (super.noSuchMethod(Invocation.method(#getFile, [filePath]))
-          as _i6.File?);
+  _i3.Future<_i6.File?> getFile(String? filePath) =>
+      (super.noSuchMethod(Invocation.method(#getFile, [filePath]),
+          returnValue: Future<_i6.File?>.value()) as _i3.Future<_i6.File?>);
   @override
   _i3.Future<_i6.File> pickYugiohDeck() =>
       (super.noSuchMethod(Invocation.method(#pickYugiohDeck, []),

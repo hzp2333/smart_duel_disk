@@ -2,10 +2,12 @@ import 'dart:async';
 
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:smart_duel_disk/generated/locale_keys.g.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
 import 'package:smart_duel_disk/packages/core/core_localization/lib/core_localization.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
+import 'package:smart_duel_disk/packages/core/core_messaging/lib/core_messaging.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 
 import 'models/deck_builder_section.dart';
@@ -16,9 +18,12 @@ class DeckBuilderViewModel extends BaseViewModel {
   static const _tag = 'DeckBuilderViewModel';
 
   final PreBuiltDeck? _preBuiltDeck;
+  final UserDeck? _userDeck;
   final AppRouter _router;
   final DataManager _dataManager;
   final StringProvider _stringProvider;
+  final DialogService _dialogService;
+  final SnackBarService _snackBarService;
 
   final _deckBuilderState = BehaviorSubject<DeckBuilderState>.seeded(const DeckBuilderLoading());
   Stream<DeckBuilderState> get deckBuilderState => _deckBuilderState.stream;
@@ -29,14 +34,29 @@ class DeckBuilderViewModel extends BaseViewModel {
 
   late StreamSubscription<DeckBuilderState>? _filteredCardsSubscription;
 
-  String? get preBuiltDeckTitle => _preBuiltDeck == null ? null : _stringProvider.getString(_preBuiltDeck!.titleId);
+  String? get deckTitle {
+    if (_preBuiltDeck != null) {
+      return _stringProvider.getString(_preBuiltDeck!.titleId);
+    }
+
+    if (_userDeck != null) {
+      return _userDeck!.name;
+    }
+
+    return null;
+  }
+
+  bool get isPersonalDeck => _userDeck != null;
 
   DeckBuilderViewModel(
+    Logger logger,
     @factoryParam this._preBuiltDeck,
+    @factoryParam this._userDeck,
     this._router,
     this._dataManager,
     this._stringProvider,
-    Logger logger,
+    this._dialogService,
+    this._snackBarService,
   ) : super(logger);
 
   Future<void> init() async {
@@ -55,17 +75,21 @@ class DeckBuilderViewModel extends BaseViewModel {
       Iterable<YugiohCard> cards,
       Iterable<int> cardIds,
       String filterValue,
-    ) {
+    ) async {
       final cardCopies = <CardCopy>[];
       for (final card in cards) {
-        final image = _dataManager.getCardImageFile(card);
+        final image = await _dataManager.getCardImageFile(card);
         cardCopies.add(CardCopy(card, image));
       }
 
       cardCopies.sort((cc1, cc2) => cc1.card.name.compareTo(cc2.card.name));
 
       if (cardIds.isNotEmpty) {
-        return _createPreBuiltDeckState(cardIds, cardCopies);
+        return _createDeckState(cardIds, cardCopies);
+      }
+
+      if (_userDeck != null && _userDeck!.cardIds.isNotEmpty) {
+        return _createDeckState(_userDeck!.cardIds, cardCopies);
       }
 
       if (filterValue.isNullOrEmpty) {
@@ -73,10 +97,10 @@ class DeckBuilderViewModel extends BaseViewModel {
       }
 
       return _createFilteredCardsState(cardCopies, filterValue);
-    }).listen(_deckBuilderState.safeAdd);
+    }).asyncMap((event) => event).listen(_deckBuilderState.safeAdd);
   }
 
-  DeckBuilderState _createPreBuiltDeckState(Iterable<int> cardIds, Iterable<CardCopy> cards) {
+  DeckBuilderState _createDeckState(Iterable<int> cardIds, Iterable<CardCopy> cards) {
     logger.verbose(_tag, '_createPreBuiltDeckState()');
 
     final cardCopies = cardIds.map((id) => cards.firstWhere((cc) => cc.card.id == id));
@@ -146,13 +170,12 @@ class DeckBuilderViewModel extends BaseViewModel {
   Future<void> _fetchPreBuiltDeckCardIds() async {
     logger.verbose(_tag, '_fetchPreBuiltDeckCardIds()');
 
-    final deck = _preBuiltDeck;
-    if (deck == null) {
+    if (_preBuiltDeck == null) {
       _preBuiltDeckCardIds.safeAdd(<int>[]);
       return;
     }
 
-    final preBuiltDeckCardIds = await _dataManager.getPreBuiltDeckCardIds(deck);
+    final preBuiltDeckCardIds = await _dataManager.getPreBuiltDeckCardIds(_preBuiltDeck!);
     _preBuiltDeckCardIds.safeAdd(preBuiltDeckCardIds);
   }
 
@@ -182,6 +205,30 @@ class DeckBuilderViewModel extends BaseViewModel {
     logger.info(_tag, 'onClearTextFilterPressed()');
 
     _textFilter.safeAdd('');
+  }
+
+  Future<void> onDeleteDeckPressed() async {
+    final deleteDeck = await _dialogService.showAlertDialog(
+      DialogConfig(
+        title: 'Delete deck',
+        description: 'Are you sure you want to delete this deck?',
+        positiveButtonText: _stringProvider.getString(LocaleKeys.general_dialog_yes),
+        negativeButtonText: _stringProvider.getString(LocaleKeys.general_dialog_no),
+      ),
+    );
+
+    if (deleteDeck == null || !deleteDeck) {
+      return;
+    }
+
+    try {
+      await _dataManager.deleteDeck(_userDeck!);
+      _snackBarService.showSnackBar('Deck "${_userDeck!.name}" was deleted successfully!');
+      await _router.closeScreen();
+    } catch (e, stackTrace) {
+      logger.error(_tag, 'An error occurred while trying to delete deck', e, stackTrace);
+      _snackBarService.showSnackBar('An error occurred while trying to delete deck "${_userDeck!.name}".');
+    }
   }
 
   //endregion

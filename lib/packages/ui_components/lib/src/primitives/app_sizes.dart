@@ -1,5 +1,6 @@
 class AppSizes {
   static const screenMarginSmall = 8.0;
+  static const screenMarginSmallMedium = 12.0;
   static const screenMargin = 16.0;
   static const screenMarginLarge = 24.0;
 
