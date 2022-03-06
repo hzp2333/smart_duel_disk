@@ -100,9 +100,8 @@ class DeckViewModel extends BaseViewModel {
     } finally {
       _deckState.safeAdd(_deckState.value.copyWith(loading: false));
 
-      // TODO: Deck icon
-      // TODO: deck detail screen with options to edit title and delete deck
       // TODO: allow user to select personal deck for duelling
+      // TODO: allow user to select skill card
 
       // TODO: firebase rules
       // TODO: banlist

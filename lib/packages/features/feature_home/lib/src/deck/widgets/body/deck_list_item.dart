@@ -52,6 +52,7 @@ class DeckListItem extends StatelessWidget {
             child: AutoSizeText(
               deckName,
               maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               style: TextStyles.deckName,
             ),

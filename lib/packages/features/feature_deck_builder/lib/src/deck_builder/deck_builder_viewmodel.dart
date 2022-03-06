@@ -28,6 +28,12 @@ class DeckBuilderViewModel extends BaseViewModel {
   final _deckBuilderState = BehaviorSubject<DeckBuilderState>.seeded(const DeckBuilderLoading());
   Stream<DeckBuilderState> get deckBuilderState => _deckBuilderState.stream;
 
+  final _editMode = BehaviorSubject<bool>.seeded(false);
+  Stream<bool> get isEditMode => _editMode.stream;
+
+  final BehaviorSubject<String> _deckName;
+  Stream<String> get deckName => _deckName.stream;
+
   final _speedDuelCards = BehaviorSubject<Iterable<YugiohCard>>();
   final _preBuiltDeckCardIds = BehaviorSubject<Iterable<int>>();
   final _textFilter = BehaviorSubject<String>.seeded('');
@@ -40,7 +46,7 @@ class DeckBuilderViewModel extends BaseViewModel {
     }
 
     if (_userDeck != null) {
-      return _userDeck!.name;
+      return _deckName.value;
     }
 
     return null;
@@ -57,7 +63,8 @@ class DeckBuilderViewModel extends BaseViewModel {
     this._stringProvider,
     this._dialogService,
     this._snackBarService,
-  ) : super(logger);
+  )   : _deckName = BehaviorSubject.seeded(_userDeck?.name ?? ''),
+        super(logger);
 
   Future<void> init() async {
     logger.info(_tag, 'init()');
@@ -195,16 +202,21 @@ class DeckBuilderViewModel extends BaseViewModel {
     await _fetchData();
   }
 
-  void onTextFilterChanged(String value) {
-    logger.info(_tag, 'onTextFilterChanged($value)');
+  void onSearchFilterChanged(String value) {
+    logger.info(_tag, 'onSearchFilterChanged($value)');
 
     _textFilter.safeAdd(value);
   }
 
-  void onClearTextFilterPressed() {
-    logger.info(_tag, 'onClearTextFilterPressed()');
+  void onClearSearchFilterPressed() {
+    logger.info(_tag, 'onClearSearchFilterPressed()');
 
     _textFilter.safeAdd('');
+  }
+
+  void onEditDeckPressed() {
+    final editMode = _editMode.value;
+    _editMode.safeAdd(!editMode);
   }
 
   Future<void> onDeleteDeckPressed() async {
@@ -231,6 +243,23 @@ class DeckBuilderViewModel extends BaseViewModel {
     }
   }
 
+  void onDeckNameChanged(String value) {}
+
+  Future<void> onDeckNameSubmitted(String value) async {
+    try {
+      if (value.isNotEmpty) {
+        await _dataManager.updateDeckName(value, _userDeck!);
+        _deckName.safeAdd(value);
+        _snackBarService.showSnackBar('Deck name updated successfully!');
+      }
+    } catch (e, stackTrace) {
+      logger.error(_tag, 'An error occurred while trying to update the deck name', e, stackTrace);
+      _snackBarService.showSnackBar('An error occurred while trying to update the deck name. Please try again.');
+    } finally {
+      _editMode.safeAdd(false);
+    }
+  }
+
   //endregion
 
   //region Clean-up
@@ -243,6 +272,7 @@ class DeckBuilderViewModel extends BaseViewModel {
     _filteredCardsSubscription = null;
 
     _deckBuilderState.close();
+    _editMode.close();
     _speedDuelCards.close();
     _preBuiltDeckCardIds.close();
     _textFilter.close();

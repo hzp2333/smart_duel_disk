@@ -15,6 +15,13 @@ class UserDeck extends Equatable {
     required this.cardIds,
   });
 
+  UserDeck copyWith({String? name}) {
+    return UserDeck(
+      name: name ?? this.name,
+      cardIds: cardIds,
+    );
+  }
+
   @override
   List<Object?> get props => [
         name,

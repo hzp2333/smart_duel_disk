@@ -10,6 +10,7 @@ abstract class DeckDataManager {
   Stream<Iterable<UserDeck>> getUserDecks();
   Future<bool> canCreateDeck();
   Future<void> createDeck(String name, Iterable<int> cardIds);
+  Future<void> updateDeckName(String newName, UserDeck deck);
   Future<void> deleteDeck(UserDeck deck);
 }
 
@@ -67,6 +68,23 @@ class DeckDataManagerImpl implements DeckDataManager {
         ),
       ],
     );
+
+    final userId = _getUserId();
+    await _cloudDatabaseProvider.updateUserData(userId, updatedUserData);
+  }
+
+  @override
+  Future<void> updateDeckName(String newName, UserDeck deck) async {
+    final currentUserData = await _getUserData();
+    final currentDecks = currentUserData.decks.toList();
+    final deckIndex = currentDecks.indexOf(deck);
+
+    final updatedDeck = deck.copyWith(name: newName);
+    final updatedDecks = currentDecks
+      ..removeAt(deckIndex)
+      ..insert(deckIndex, updatedDeck);
+
+    final updatedUserData = currentUserData.copyWith(decks: updatedDecks);
 
     final userId = _getUserId();
     await _cloudDatabaseProvider.updateUserData(userId, updatedUserData);

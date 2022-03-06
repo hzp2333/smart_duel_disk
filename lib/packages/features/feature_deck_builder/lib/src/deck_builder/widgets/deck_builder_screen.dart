@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:provider/provider.dart';
 import 'package:smart_duel_disk/generated/locale_keys.g.dart';
 import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/src/deck_builder/deck_builder_viewmodel.dart';
@@ -34,7 +35,7 @@ class _DeckBuilderScreenState extends State<DeckBuilderScreen> {
   }
 }
 
-class _AppBar extends StatelessWidget with ProviderMixin implements PreferredSizeWidget {
+class _AppBar extends HookWidget with ProviderMixin implements PreferredSizeWidget {
   const _AppBar();
 
   @override
@@ -42,23 +43,38 @@ class _AppBar extends StatelessWidget with ProviderMixin implements PreferredSiz
     final vm = Provider.of<DeckBuilderViewModel>(context);
     final stringProvider = getStringProvider(context);
 
+    final editMode = useStream(useMemoized(() => vm.isEditMode), initialData: false);
+    final isEditMode = editMode.requireData;
+
     return AppBar(
       elevation: 0,
       backgroundColor: AppColors.primaryBackgroundColor,
       leading: const BackButton(color: AppColors.primaryIconColor),
-      title: vm.deckTitle != null
-          ? Text(vm.deckTitle!)
-          : TextFieldWithoutValidation(
-              hintText: stringProvider.getString(LocaleKeys.deck_builder_search_hint),
-              onChanged: vm.onTextFilterChanged,
-              onClearPressed: vm.onClearTextFilterPressed,
-            ),
+      title: isEditMode
+          ? TextFieldWithValidation(
+              label: '',
+              hint: 'Deck name',
+              textStream: vm.deckName,
+              onChanged: vm.onDeckNameChanged,
+              onSubmitted: vm.onDeckNameSubmitted,
+            )
+          : vm.deckTitle != null
+              ? Text(
+                  vm.deckTitle!,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                )
+              : TextFieldWithoutValidation(
+                  hintText: stringProvider.getString(LocaleKeys.deck_builder_search_hint),
+                  onChanged: vm.onSearchFilterChanged,
+                  onClearPressed: vm.onClearSearchFilterPressed,
+                ),
       actions: vm.isPersonalDeck
           ? [
               IconButton(
                 icon: const Icon(Icons.edit),
                 tooltip: 'Edit deck',
-                onPressed: () {},
+                onPressed: vm.onEditDeckPressed,
               ),
               IconButton(
                 icon: const Icon(Icons.delete),

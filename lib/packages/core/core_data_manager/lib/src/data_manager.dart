@@ -90,6 +90,11 @@ class DataManagerImpl implements DataManager {
   }
 
   @override
+  Future<void> updateDeckName(String newName, UserDeck deck) {
+    return _deckDataManager.updateDeckName(newName, deck);
+  }
+
+  @override
   Future<void> deleteDeck(UserDeck deck) {
     return _deckDataManager.deleteDeck(deck);
   }
