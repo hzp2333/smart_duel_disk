@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/authentication/authentication.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
+import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart';
+import 'package:smart_duel_disk/packages/wrappers/uuid/uuid.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_cloud_database/lib/wrapper_cloud_database.dart';
 
 abstract class DeckDataManager {
@@ -12,6 +14,10 @@ abstract class DeckDataManager {
   Future<void> createDeck(String name, Iterable<int> cardIds);
   Future<void> updateDeckName(String newName, UserDeck deck);
   Future<void> deleteDeck(UserDeck deck);
+  String? getLastSelectedDeckId();
+  Future<void> setLastSelectedDeckId(String deckId);
+  int? getLastSelectedSkillCardId();
+  Future<void> setLastSelectedSkillCardId(int cardId);
 }
 
 @LazySingleton(as: DeckDataManager)
@@ -27,10 +33,14 @@ class DeckDataManagerImpl implements DeckDataManager {
 
   final AuthenticationService _authService;
   final CloudDatabaseProvider _cloudDatabaseProvider;
+  final DeckStorageProvider _deckStorageProvider;
+  final UuidProvider _uuidProvider;
 
   DeckDataManagerImpl(
     this._authService,
     this._cloudDatabaseProvider,
+    this._deckStorageProvider,
+    this._uuidProvider,
   );
 
   @override
@@ -63,6 +73,7 @@ class DeckDataManagerImpl implements DeckDataManager {
       decks: [
         ...currentUserData.decks,
         UserDeck(
+          id: _uuidProvider.generateUuid(),
           name: name,
           cardIds: cardIds,
         ),
@@ -110,5 +121,25 @@ class DeckDataManagerImpl implements DeckDataManager {
     final userData = await _cloudDatabaseProvider.getCurrentUserData(userId);
 
     return userData ?? UserData.create();
+  }
+
+  @override
+  String? getLastSelectedDeckId() {
+    return _deckStorageProvider.getLastSelectedDeckId();
+  }
+
+  @override
+  Future<void> setLastSelectedDeckId(String deckId) {
+    return _deckStorageProvider.setLastSelectedDeckId(deckId);
+  }
+
+  @override
+  int? getLastSelectedSkillCardId() {
+    return _deckStorageProvider.getLastSelectedSkillCardId();
+  }
+
+  @override
+  Future<void> setLastSelectedSkillCardId(int cardId) {
+    return _deckStorageProvider.setLastSelectedSkillCardId(cardId);
   }
 }

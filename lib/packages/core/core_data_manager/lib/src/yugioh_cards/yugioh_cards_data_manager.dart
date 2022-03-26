@@ -5,7 +5,6 @@ import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart';
 import 'package:smart_duel_disk/packages/core/core_ygoprodeck/lib/core_ygoprodeck.dart';
 
-import 'entities/yugioh_card.dart';
 import 'extensions/db_yugioh_card_extensions.dart';
 import 'extensions/yugioh_card_extensions.dart';
 

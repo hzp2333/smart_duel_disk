@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:collection/collection.dart';
 import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
@@ -84,28 +85,35 @@ class DuelRoomViewModel extends BaseViewModel {
     logger.verbose(_tag, '_initDecksAndSkillCards()');
 
     try {
-      final userDecks = (await _dataManager.getUserDecks().first).map(
-        (deck) => Deck(
-          name: deck.name,
-          cardIds: deck.cardIds,
-        ),
-      );
-
-      final prebuiltDecks = await _getPrebuiltDecks();
-
-      final skillCards = (await _dataManager.getSkillCards()).toList()..sort((c1, c2) => c1.name.compareTo(c2.name));
-
-      _deckListState.safeAdd(
-        DeckListData(
-          decks: [...userDecks, ...prebuiltDecks],
-          skillCards: skillCards,
-        ),
-      );
+      await _initDeckListData();
+      _prefillSelectedDeckAndSkillCard();
     } catch (e, stackTrace) {
       logger.error(_tag, 'An error occurred while initializing the deck state.', e, stackTrace);
 
       _deckListState.safeAdd(const DeckListLoading());
     }
+  }
+
+  Future<void> _initDeckListData() async {
+    logger.verbose(_tag, '_initDeckListData()');
+
+    final userDecks = (await _dataManager.getUserDecks().first).map(
+      (deck) => Deck(
+        id: deck.id,
+        name: deck.name,
+        cardIds: deck.cardIds,
+      ),
+    );
+
+    final prebuiltDecks = await _getPrebuiltDecks();
+    final skillCards = (await _dataManager.getSkillCards()).toList()..sort((c1, c2) => c1.name.compareTo(c2.name));
+
+    _deckListState.safeAdd(
+      DeckListData(
+        decks: [...userDecks, ...prebuiltDecks],
+        skillCards: skillCards,
+      ),
+    );
   }
 
   Future<Iterable<Deck>> _getPrebuiltDecks() async {
@@ -114,11 +122,36 @@ class DuelRoomViewModel extends BaseViewModel {
     return Future.wait(
       _dataManager.getPreBuiltDecks().map(
             (deck) async => Deck(
+              id: deck.id,
               name: _stringProvider.getString(deck.titleId),
               cardIds: await _dataManager.getPreBuiltDeckCardIds(deck),
             ),
           ),
     );
+  }
+
+  void _prefillSelectedDeckAndSkillCard() {
+    logger.verbose(_tag, '_prefillSelectedDeckAndSkillCard()');
+
+    final deckListState = _deckListState.value;
+    if (deckListState is DeckListData) {
+      final lastSelectedDeckId = _dataManager.getLastSelectedDeckId();
+      if (lastSelectedDeckId != null) {
+        final lastSelectedDeck = deckListState.decks.firstWhereOrNull((deck) => deck.id == lastSelectedDeckId);
+        if (lastSelectedDeck != null) {
+          _selectedDeck.safeAdd(lastSelectedDeck);
+        }
+      }
+
+      final lastSelectedSkillCardId = _dataManager.getLastSelectedSkillCardId();
+      if (lastSelectedSkillCardId != null) {
+        final lastSelectedSkillCard =
+            deckListState.skillCards.firstWhereOrNull((card) => card.id == lastSelectedSkillCardId);
+        if (lastSelectedSkillCard != null) {
+          _selectedSkillCard.safeAdd(lastSelectedSkillCard);
+        }
+      }
+    }
   }
 
   //endregion
@@ -144,17 +177,23 @@ class DuelRoomViewModel extends BaseViewModel {
   void onDeckSelected(Deck? deck) {
     logger.info(_tag, 'onDeckSelected(deck: $deck)');
 
-    if (deck != null) {
-      _selectedDeck.safeAdd(deck);
+    if (deck == null) {
+      return;
     }
+
+    _selectedDeck.safeAdd(deck);
+    _dataManager.setLastSelectedDeckId(deck.id);
   }
 
   void onSkillcardSelected(YugiohCard? card) {
     logger.info(_tag, 'onSkillcardSelected(card: ${card?.name})');
 
-    if (card != null) {
-      _selectedSkillCard.safeAdd(card);
+    if (card == null) {
+      return;
     }
+
+    _selectedSkillCard.safeAdd(card);
+    _dataManager.setLastSelectedSkillCardId(card.id);
   }
 
   Future<void> onCreateRoomPressed() async {

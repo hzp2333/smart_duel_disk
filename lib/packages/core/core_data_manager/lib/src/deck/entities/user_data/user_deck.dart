@@ -7,16 +7,19 @@ part 'user_deck.g.dart';
 @immutable
 @JsonSerializable()
 class UserDeck extends Equatable {
+  final String id;
   final String name;
   final Iterable<int> cardIds;
 
   const UserDeck({
+    required this.id,
     required this.name,
     required this.cardIds,
   });
 
   UserDeck copyWith({String? name}) {
     return UserDeck(
+      id: id,
       name: name ?? this.name,
       cardIds: cardIds,
     );
@@ -24,6 +27,7 @@ class UserDeck extends Equatable {
 
   @override
   List<Object?> get props => [
+        id,
         name,
         cardIds,
       ];

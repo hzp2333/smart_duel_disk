@@ -1,5 +1,6 @@
 library core_storage;
 
+export 'src/deck/deck_storage_provider.dart' show DeckStorageProvider;
 export 'src/duel/duel_storage_provider.dart' show DuelStorageProvider;
 export 'src/duel/models/connection_info_model.dart';
 export 'src/settings/settings_storage_provider.dart' show SettingsStorageProvider;

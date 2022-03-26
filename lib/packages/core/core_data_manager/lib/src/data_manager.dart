@@ -104,6 +104,26 @@ class DataManagerImpl implements DataManager {
     return _deckDataManager.deleteDeck(deck);
   }
 
+  @override
+  String? getLastSelectedDeckId() {
+    return _deckDataManager.getLastSelectedDeckId();
+  }
+
+  @override
+  Future<void> setLastSelectedDeckId(String deckId) {
+    return _deckDataManager.setLastSelectedDeckId(deckId);
+  }
+
+  @override
+  int? getLastSelectedSkillCardId() {
+    return _deckDataManager.getLastSelectedSkillCardId();
+  }
+
+  @override
+  Future<void> setLastSelectedSkillCardId(int cardId) {
+    return _deckDataManager.setLastSelectedSkillCardId(cardId);
+  }
+
   //endregion
 
   //region Duel
