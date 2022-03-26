@@ -9,21 +9,30 @@ import '../duel_room_viewmodel.dart';
 import 'body/connected_state.dart';
 import 'body/create_room_state.dart';
 
-class DuelRoomScreen extends StatelessWidget with ProviderMixin {
+class DuelRoomScreen extends StatefulWidget {
   const DuelRoomScreen();
 
   @override
+  _DuelRoomScreenState createState() => _DuelRoomScreenState();
+}
+
+class _DuelRoomScreenState extends State<DuelRoomScreen> with ProviderMixin {
+  @override
+  void initState() {
+    super.initState();
+
+    final vm = getViewModel<DuelRoomViewModel>(context, listen: false);
+    vm.init();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final vm = Provider.of<DuelRoomViewModel>(context);
     final stringProvider = getStringProvider(context);
 
-    return WillPopScope(
-      onWillPop: vm.onWillPop,
-      child: Scaffold(
-        appBar: SddAppBar(title: stringProvider.getString(LocaleKeys.duel_room_title)),
-        body: const _Body(),
-        backgroundColor: AppColors.primaryBackgroundColor,
-      ),
+    return Scaffold(
+      appBar: SddAppBar(title: stringProvider.getString(LocaleKeys.duel_room_title)),
+      body: const _Body(),
+      backgroundColor: AppColors.primaryBackgroundColor,
     );
   }
 }

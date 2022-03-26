@@ -42,7 +42,7 @@ void main() {
     final file = File(filePath);
 
     setUp(() {
-      when(_fileManager.getFile(filePath)).thenReturn(file);
+      when(_fileManager.getFile(filePath)).thenAnswer((_) => Future.value(file));
     });
 
     test('then the image file is fetched from the file manager', () {
@@ -51,8 +51,8 @@ void main() {
       verify(_fileManager.getFile(filePath)).called(1);
     });
 
-    test('then the image file is returned', () {
-      final result = _dataManager.getCardImageFile(_card);
+    test('then the image file is returned', () async {
+      final result = await _dataManager.getCardImageFile(_card);
 
       expect(result, file);
     });

@@ -383,15 +383,14 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
   gh.lazySingleton<_i51.DuelDialogProvider>(() => _i51.DuelDialogProvider());
   gh.lazySingleton<_i52.DuelFormValidators>(
       () => _i52.DuelFormValidators(get<_i40.StringProvider>()));
-  gh.factoryParam<_i53.DuelRoomViewModel, _i10.PreBuiltDeck?, dynamic>(
-      (_preBuiltDeck, _) => _i53.DuelRoomViewModel(
-          _preBuiltDeck,
-          get<_i5.AppRouter>(),
-          get<_i54.SmartDuelServer>(),
-          get<_i10.DataManager>(),
-          get<_i41.SnackBarService>(),
-          get<_i55.ClipboardProvider>(),
-          get<_i20.Logger>()));
+  gh.factory<_i53.DuelRoomViewModel>(() => _i53.DuelRoomViewModel(
+      get<_i20.Logger>(),
+      get<_i5.AppRouter>(),
+      get<_i54.SmartDuelServer>(),
+      get<_i10.DataManager>(),
+      get<_i41.SnackBarService>(),
+      get<_i55.ClipboardProvider>(),
+      get<_i40.StringProvider>()));
   gh.lazySingleton<_i56.DuelStorageProvider>(() =>
       _i56.DuelStorageProviderImpl(get<_i57.SharedPreferencesProvider>()));
   gh.factory<_i58.DuelViewModel>(() => _i58.DuelViewModel(

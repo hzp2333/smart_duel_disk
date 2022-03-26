@@ -101,7 +101,7 @@ class DuelViewModel extends BaseViewModel {
 
     await _dataManager.saveUseOnlineDuelRoom(value: true);
 
-    await _selectDeckAndEnterDuelRoom();
+    await _enterDuelRoom();
   }
 
   Future<void> onEnterLocalDuelRoomPressed() async {
@@ -116,18 +116,13 @@ class DuelViewModel extends BaseViewModel {
 
     await _dataManager.saveUseOnlineDuelRoom(value: false);
 
-    await _selectDeckAndEnterDuelRoom();
+    await _enterDuelRoom();
   }
 
-  Future<void> _selectDeckAndEnterDuelRoom() async {
-    logger.verbose(_tag, '_selectDeckAndEnterDuelRoom()');
+  Future<void> _enterDuelRoom() async {
+    logger.verbose(_tag, '_enterDuelRoom()');
 
-    final deck = await _router.showSelectDeckDialog();
-    if (deck == null) {
-      return;
-    }
-
-    await _router.showDuelRoom(deck);
+    await _router.showDuelRoom();
   }
 
   //endregion

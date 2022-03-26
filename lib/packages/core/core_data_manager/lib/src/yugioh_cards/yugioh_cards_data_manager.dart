@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart';
 import 'package:smart_duel_disk/packages/core/core_ygoprodeck/lib/core_ygoprodeck.dart';
@@ -11,6 +12,7 @@ import 'extensions/yugioh_card_extensions.dart';
 abstract class YugiohCardsDataManager {
   Future<YugiohCard> getSpeedDuelCard(int cardId);
   Future<Iterable<YugiohCard>> getSpeedDuelCards();
+  Future<Iterable<YugiohCard>> getSkillCards();
   Future<YugiohCard> getToken();
   bool hasSpeedDuelCardsCache();
 }
@@ -77,6 +79,14 @@ class YugiohCardsDataManagerImpl implements YugiohCardsDataManager {
 
   static List<DbYugiohCard> _mapCardsToDatabaseModels(List<YugiohCard> cards) {
     return cards.map((card) => card.toDbModel()).toList();
+  }
+
+  @override
+  Future<Iterable<YugiohCard>> getSkillCards() async {
+    _logger.info(_tag, 'getSkillCards()');
+
+    final cards = await getSpeedDuelCards();
+    return cards.where((card) => card.type == CardType.skillCard).toList();
   }
 
   @override

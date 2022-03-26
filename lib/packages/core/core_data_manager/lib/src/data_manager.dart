@@ -51,6 +51,11 @@ class DataManagerImpl implements DataManager {
   }
 
   @override
+  Future<Iterable<YugiohCard>> getSkillCards() {
+    return _yugiohCardsDataManager.getSkillCards();
+  }
+
+  @override
   Future<YugiohCard> getToken() {
     return _yugiohCardsDataManager.getToken();
   }

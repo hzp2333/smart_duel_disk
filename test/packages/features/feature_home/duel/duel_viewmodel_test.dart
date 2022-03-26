@@ -31,8 +31,6 @@ void main() {
     _dataManager = MockDataManager();
     _logger = MockLogger();
 
-    when(_router.showSelectDeckDialog()).thenAnswer((_) => Future.value());
-
     when(_dataManager.isDeveloperModeEnabled()).thenReturn(true);
 
     when(_dataManager.getConnectionInfo(forceLocalInfo: true)).thenReturn(_connectionInfo);
@@ -92,35 +90,12 @@ void main() {
       verify(_dataManager.saveUseOnlineDuelRoom(value: true)).called(1);
     });
 
-    test('then the select deck dialog is shown', () async {
+    test('then the duel room screen is opened with the selected deck', () async {
       _viewModel.init();
 
       await _viewModel.onEnterOnlineDuelRoomPressed();
 
-      verify(_router.showSelectDeckDialog()).called(1);
-    });
-
-    group('and the selected deck is null', () {
-      test('then the duel room screen is not opened', () async {
-        _viewModel.init();
-
-        await _viewModel.onEnterOnlineDuelRoomPressed();
-
-        verify(_router.showSelectDeckDialog()).called(1);
-        verifyNoMoreInteractions(_router);
-      });
-    });
-
-    group('and the selected deck is not null', () {
-      test('then the duel room screen is opened with the selected deck', () async {
-        final deck = KaibaDeck();
-        when(_router.showSelectDeckDialog()).thenAnswer((_) => Future.value(deck));
-        _viewModel.init();
-
-        await _viewModel.onEnterOnlineDuelRoomPressed();
-
-        verify(_router.showDuelRoom(deck)).called(1);
-      });
+      verify(_router.showDuelRoom()).called(1);
     });
   });
 
@@ -141,35 +116,10 @@ void main() {
       verify(_dataManager.saveUseOnlineDuelRoom(value: false)).called(1);
     });
 
-    test('then the select deck dialog is shown', () async {
+    test('then the duel room screen is opened with the selected deck', () async {
       _viewModel.init();
 
       await _viewModel.onEnterLocalDuelRoomPressed();
-
-      verify(_router.showSelectDeckDialog()).called(1);
-    });
-
-    group('and the selected deck is null', () {
-      test('then the duel room screen is not opened', () async {
-        _viewModel.init();
-
-        await _viewModel.onEnterLocalDuelRoomPressed();
-
-        verify(_router.showSelectDeckDialog()).called(1);
-        verifyNoMoreInteractions(_router);
-      });
-    });
-
-    group('and the selected deck is not null', () {
-      test('then the duel room screen is opened with the selected deck', () async {
-        final deck = KaibaDeck();
-        when(_router.showSelectDeckDialog()).thenAnswer((_) => Future.value(deck));
-        _viewModel.init();
-
-        await _viewModel.onEnterLocalDuelRoomPressed();
-
-        verify(_router.showDuelRoom(deck)).called(1);
-      });
     });
   });
 }

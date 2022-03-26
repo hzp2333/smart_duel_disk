@@ -4,10 +4,13 @@ import 'package:injectable/injectable.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_general/lib/core_general.dart';
+import 'package:smart_duel_disk/packages/core/core_localization/lib/core_localization.dart';
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_messaging/lib/core_messaging.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart';
+import 'package:smart_duel_disk/packages/core/entities/entities.dart';
+import 'package:smart_duel_disk/packages/features/feature_duel_room/lib/src/models/deck_list_state.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_clipboard/lib/wrapper_clipboard.dart';
 
 import 'models/duel_room_state.dart';
@@ -16,12 +19,12 @@ import 'models/duel_room_state.dart';
 class DuelRoomViewModel extends BaseViewModel {
   static const _tag = 'DuelRoomViewModel';
 
-  late final PreBuiltDeck? _preBuiltDeck;
   final AppRouter _router;
   final SmartDuelServer _smartDuelServer;
   final DataManager _dataManager;
   final SnackBarService _snackBarService;
   final ClipboardProvider _clipboardProvider;
+  final StringProvider _stringProvider;
 
   final _roomName = BehaviorSubject<String>();
   Stream<String> get roomName => _roomName.stream;
@@ -29,37 +32,41 @@ class DuelRoomViewModel extends BaseViewModel {
   final _duelRoomState = BehaviorSubject<DuelRoomState>.seeded(const DuelRoomConnecting());
   Stream<DuelRoomState> get roomState => _duelRoomState.stream;
 
+  final _deckListState = BehaviorSubject<DeckListState>.seeded(const DeckListLoading());
+  Stream<DeckListState> get deckListState => _deckListState.stream;
+
+  final _selectedDeck = BehaviorSubject<Deck>();
+  Stream<Deck> get selectedDeck => _selectedDeck.stream;
+
+  final _selectedSkillCard = BehaviorSubject<YugiohCard>();
+  Stream<YugiohCard> get selectedSkillCard => _selectedSkillCard.stream;
+
+  Stream<bool> get isDeckReady => Rx.combineLatest2(
+        selectedDeck,
+        selectedSkillCard,
+        (Deck? deck, YugiohCard? skillCard) => deck != null && skillCard != null,
+      );
+
   StreamSubscription<SmartDuelEvent>? _smartDuelEventSubscription;
   bool _startedDuelSuccessfully = false;
 
   DuelRoomViewModel(
-    @factoryParam this._preBuiltDeck,
+    Logger logger,
     this._router,
     this._smartDuelServer,
     this._dataManager,
     this._snackBarService,
     this._clipboardProvider,
-    Logger logger,
-  ) : super(logger) {
-    _init();
-  }
-
-  //region Lifecycle
-
-  Future<bool> onWillPop() {
-    logger.info(_tag, 'onWillPop()');
-
-    return Future.value(true);
-  }
-
-  //endregion
+    this._stringProvider,
+  ) : super(logger);
 
   //region Initialization
 
-  void _init() {
-    logger.verbose(_tag, '_init()');
+  Future<void> init() async {
+    logger.info(_tag, 'init()');
 
     _initSmartDuelEventSubscription();
+    await _initDecksAndSkillCards();
   }
 
   void _initSmartDuelEventSubscription() {
@@ -73,18 +80,59 @@ class DuelRoomViewModel extends BaseViewModel {
     _smartDuelServer.init();
   }
 
+  Future<void> _initDecksAndSkillCards() async {
+    logger.verbose(_tag, '_initDecksAndSkillCards()');
+
+    try {
+      final userDecks = (await _dataManager.getUserDecks().first).map(
+        (deck) => Deck(
+          name: deck.name,
+          cardIds: deck.cardIds,
+        ),
+      );
+
+      final prebuiltDecks = await _getPrebuiltDecks();
+
+      final skillCards = (await _dataManager.getSkillCards()).toList()..sort((c1, c2) => c1.name.compareTo(c2.name));
+
+      _deckListState.safeAdd(
+        DeckListData(
+          decks: [...userDecks, ...prebuiltDecks],
+          skillCards: skillCards,
+        ),
+      );
+    } catch (e, stackTrace) {
+      logger.error(_tag, 'An error occurred while initializing the deck state.', e, stackTrace);
+
+      _deckListState.safeAdd(const DeckListLoading());
+    }
+  }
+
+  Future<Iterable<Deck>> _getPrebuiltDecks() async {
+    logger.verbose(_tag, '_getPrebuiltDecks()');
+
+    return Future.wait(
+      _dataManager.getPreBuiltDecks().map(
+            (deck) async => Deck(
+              name: _stringProvider.getString(deck.titleId),
+              cardIds: await _dataManager.getPreBuiltDeckCardIds(deck),
+            ),
+          ),
+    );
+  }
+
   //endregion
 
   //region Form fields
 
   void onRoomNameChanged(String roomName) {
-    logger.info(_tag, 'onRoomNameChanged($roomName)');
+    logger.info(_tag, 'onRoomNameChanged(roomName: $roomName)');
 
     _roomName.safeAdd(roomName);
   }
 
   void onRoomNameSubmitted(String roomName) {
-    logger.info(_tag, 'onRoomNameSubmitted($roomName)');
+    logger.info(_tag, 'onRoomNameSubmitted(roomName: roomName)');
 
     _roomName.safeAdd(roomName);
   }
@@ -93,16 +141,37 @@ class DuelRoomViewModel extends BaseViewModel {
 
   //region Send smart duel events
 
+  void onDeckSelected(Deck? deck) {
+    logger.info(_tag, 'onDeckSelected(deck: $deck)');
+
+    if (deck != null) {
+      _selectedDeck.safeAdd(deck);
+    }
+  }
+
+  void onSkillcardSelected(YugiohCard? card) {
+    logger.info(_tag, 'onSkillcardSelected(card: ${card?.name})');
+
+    if (card != null) {
+      _selectedSkillCard.safeAdd(card);
+    }
+  }
+
   Future<void> onCreateRoomPressed() async {
     logger.info(_tag, 'onCreateRoomPressed()');
 
-    final deckList = await _dataManager.getPreBuiltDeckCardIds(_preBuiltDeck!);
-
     _smartDuelServer.emitEvent(
       SmartDuelEvent.createRoom(
-        RoomEventData(deckList: deckList),
+        RoomEventData(deckList: _getSelectedDeckList()),
       ),
     );
+  }
+
+  Iterable<int> _getSelectedDeckList() {
+    final selectedDeck = _selectedDeck.value;
+    final selectedSkillCard = _selectedSkillCard.value;
+
+    return [...selectedDeck.cardIds, selectedSkillCard.id];
   }
 
   void onCopyRoomCodePressed() {
@@ -136,13 +205,11 @@ class DuelRoomViewModel extends BaseViewModel {
       return;
     }
 
-    final deckList = await _dataManager.getPreBuiltDeckCardIds(_preBuiltDeck!);
-
     _smartDuelServer.emitEvent(
       SmartDuelEvent.joinRoom(
         RoomEventData(
           roomName: _roomName.value,
-          deckList: deckList,
+          deckList: _getSelectedDeckList(),
         ),
       ),
     );
@@ -293,6 +360,9 @@ class DuelRoomViewModel extends BaseViewModel {
 
     _roomName.close();
     _duelRoomState.close();
+    _deckListState.close();
+    _selectedDeck.close();
+    _selectedSkillCard.close();
 
     super.dispose();
   }

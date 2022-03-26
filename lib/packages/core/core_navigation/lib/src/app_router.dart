@@ -34,7 +34,7 @@ abstract class AppRouter {
   Future<PlayCardDialogResult?> showPlayCardDialog(PlayCard playCard, {Zone? newZone, bool showActions = false});
   Future<AddCardToDeckDialogResult?> showAddCardToDeckDialog(PlayCard playCard);
   Future<DeclarePhaseDialogResult?> showDeclarePhaseDialog(DuelPhaseType duelPhaseType);
-  Future<void> showDuelRoom(PreBuiltDeck preBuiltDeck);
+  Future<void> showDuelRoom();
   Future<void> showUserSettings();
   Future<void> showGameSettings({bool asModel = false});
   Future<void> showProfile();
@@ -211,8 +211,8 @@ class AppRouterImpl implements AppRouter {
   //region Duel Room
 
   @override
-  Future<void> showDuelRoom(PreBuiltDeck preBuiltDeck) {
-    return _router.navigate(DuelRoomRoute(preBuiltDeck: preBuiltDeck));
+  Future<void> showDuelRoom() {
+    return _router.navigate(const DuelRoomRoute());
   }
 
   //endregion

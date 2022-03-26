@@ -275,8 +275,8 @@ class MockAppRouter extends _i1.Mock implements _i9.AppRouter {
               returnValue: Future<_i12.DeclarePhaseDialogResult?>.value())
           as _i3.Future<_i12.DeclarePhaseDialogResult?>);
   @override
-  _i3.Future<void> showDuelRoom(_i2.PreBuiltDeck? preBuiltDeck) =>
-      (super.noSuchMethod(Invocation.method(#showDuelRoom, [preBuiltDeck]),
+  _i3.Future<void> showDuelRoom() =>
+      (super.noSuchMethod(Invocation.method(#showDuelRoom, []),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
@@ -328,6 +328,12 @@ class MockDataManager extends _i1.Mock implements _i2.DataManager {
                   Future<Iterable<_i2.YugiohCard>>.value(<_i2.YugiohCard>[]))
           as _i3.Future<Iterable<_i2.YugiohCard>>);
   @override
+  _i3.Future<Iterable<_i2.YugiohCard>> getSkillCards() =>
+      (super.noSuchMethod(Invocation.method(#getSkillCards, []),
+              returnValue:
+                  Future<Iterable<_i2.YugiohCard>>.value(<_i2.YugiohCard>[]))
+          as _i3.Future<Iterable<_i2.YugiohCard>>);
+  @override
   _i3.Future<_i2.YugiohCard> getToken() =>
       (super.noSuchMethod(Invocation.method(#getToken, []),
               returnValue: Future<_i2.YugiohCard>.value(_FakeYugiohCard_0()))
@@ -357,6 +363,11 @@ class MockDataManager extends _i1.Mock implements _i2.DataManager {
   @override
   _i3.Future<void> createDeck(String? name, Iterable<int>? cardIds) =>
       (super.noSuchMethod(Invocation.method(#createDeck, [name, cardIds]),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  @override
+  _i3.Future<void> updateDeckName(String? newName, _i2.UserDeck? deck) =>
+      (super.noSuchMethod(Invocation.method(#updateDeckName, [newName, deck]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override

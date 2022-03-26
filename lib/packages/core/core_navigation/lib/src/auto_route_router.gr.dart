@@ -101,10 +101,8 @@ class AutoRouteRouter extends _i11.RootStackRouter {
           child: _i7.SpeedDuelScreenProvider(duelRoom: args.duelRoom));
     },
     DuelRoomRoute.name: (routeData) {
-      final args = routeData.argsAs<DuelRoomRouteArgs>();
       return _i11.AdaptivePage<void>(
-          routeData: routeData,
-          child: _i8.DuelRoomScreenProvider(preBuiltDeck: args.preBuiltDeck));
+          routeData: routeData, child: _i8.DuelRoomScreenProvider());
     },
     UserSettingsRoute.name: (routeData) {
       return _i11.AdaptivePage<void>(
@@ -315,24 +313,10 @@ class SpeedDuelRouteArgs {
 
 /// generated route for
 /// [_i8.DuelRoomScreenProvider]
-class DuelRoomRoute extends _i11.PageRouteInfo<DuelRoomRouteArgs> {
-  DuelRoomRoute({required _i14.PreBuiltDeck preBuiltDeck})
-      : super(DuelRoomRoute.name,
-            path: '/duel-room',
-            args: DuelRoomRouteArgs(preBuiltDeck: preBuiltDeck));
+class DuelRoomRoute extends _i11.PageRouteInfo<void> {
+  const DuelRoomRoute() : super(DuelRoomRoute.name, path: '/duel-room');
 
   static const String name = 'DuelRoomRoute';
-}
-
-class DuelRoomRouteArgs {
-  const DuelRoomRouteArgs({required this.preBuiltDeck});
-
-  final _i14.PreBuiltDeck preBuiltDeck;
-
-  @override
-  String toString() {
-    return 'DuelRoomRouteArgs{preBuiltDeck: $preBuiltDeck}';
-  }
 }
 
 /// generated route for

@@ -66,7 +66,7 @@ class SwitchSettingItem<T> extends SettingItem<T> {
 
   @override
   List<Object?> get props => [
-        ...props,
+        ...super.props,
         value,
       ];
 }
