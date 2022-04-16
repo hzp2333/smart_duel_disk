@@ -3,6 +3,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_duel_disk/generated/locale_keys.g.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
+import 'package:smart_duel_disk/packages/features/deck/deck.dart';
 
 @immutable
 abstract class HomeTab extends Equatable {
@@ -37,11 +38,15 @@ class NewsHomeTab extends HomeTab {
 }
 
 class DeckHomeTab extends HomeTab {
-  const DeckHomeTab()
+  DeckHomeTab()
       : super(
           titleId: LocaleKeys.home_tab_deck,
           icon: Icons.account_balance_wallet_outlined,
-          page: const DeckTab(),
+          page: DeckTab(
+            screenParams: const DeckScreenParameters(
+              isDetailScreen: false,
+            ),
+          ),
         );
 }
 

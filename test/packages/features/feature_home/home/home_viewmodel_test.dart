@@ -14,10 +14,10 @@ void main() {
   late MockGetHomeTabsUseCase _getHomeTabsUseCase;
   late MockLogger _logger;
 
-  const _homeTabs = [
-    NewsHomeTab(),
+  final _homeTabs = [
+    const NewsHomeTab(),
     DeckHomeTab(),
-    DuelHomeTab(),
+    const DuelHomeTab(),
   ];
 
   setUp(() {

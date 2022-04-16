@@ -3,7 +3,8 @@ import 'package:smart_duel_disk/generated/locale_keys.g.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_file_manager/lib/core_file_manager.dart';
 import 'package:smart_duel_disk/packages/core/core_localization/lib/core_localization.dart';
-import 'package:smart_duel_disk/packages/features/feature_home/lib/src/deck/models/invalid_deck_exception.dart';
+
+import '../models/invalid_deck_exception.dart';
 
 /// This use case is used to extract data from a .ydk (= Yu-Gi-Oh! Deck) file
 /// and create a valid decklist if possible. Only the main and extra deck sections of the

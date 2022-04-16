@@ -11,7 +11,7 @@ abstract class DeckDataManager {
   Future<Iterable<int>> getPreBuiltDeckCardIds(PreBuiltDeck deck);
   Stream<Iterable<UserDeck>> getUserDecks();
   Future<bool> canCreateDeck();
-  Future<void> createDeck(String name, Iterable<int> cardIds);
+  Future<UserDeck> createDeck(String name, Iterable<int> cardIds);
   Future<void> updateDeckName(String newName, UserDeck deck);
   Future<void> deleteDeck(UserDeck deck);
   String? getLastSelectedDeckId();
@@ -66,22 +66,26 @@ class DeckDataManagerImpl implements DeckDataManager {
   }
 
   @override
-  Future<void> createDeck(String name, Iterable<int> cardIds) async {
+  Future<UserDeck> createDeck(String name, Iterable<int> cardIds) async {
     final currentUserData = await _getUserData();
+
+    final newDeck = UserDeck(
+      id: _uuidProvider.generateUuid(),
+      name: name,
+      cardIds: cardIds,
+    );
 
     final updatedUserData = currentUserData.copyWith(
       decks: [
         ...currentUserData.decks,
-        UserDeck(
-          id: _uuidProvider.generateUuid(),
-          name: name,
-          cardIds: cardIds,
-        ),
+        newDeck,
       ],
     );
 
     final userId = _getUserId();
     await _cloudDatabaseProvider.updateUserData(userId, updatedUserData);
+
+    return newDeck;
   }
 
   @override
@@ -105,7 +109,7 @@ class DeckDataManagerImpl implements DeckDataManager {
   Future<void> deleteDeck(UserDeck deck) async {
     final currentUserData = await _getUserData();
 
-    final updatedDecks = currentUserData.decks.toList()..remove(deck);
+    final updatedDecks = currentUserData.decks.toList()..removeWhere((d) => d.id == deck.id);
     final updatedUserData = currentUserData.copyWith(decks: updatedDecks);
 
     final userId = _getUserId();

@@ -52,7 +52,7 @@ class _DropdownsBuilder extends HookWidget with ProviderMixin {
     return deckListState.requireData.when(
       data: (decks, skillCards) => Column(
         children: [
-          _Dropdown<Deck>(
+          _Dropdown<Deck>.withIcon(
             selectedItemStream: vm.selectedDeck,
             items: decks
                 .map(
@@ -64,9 +64,11 @@ class _DropdownsBuilder extends HookWidget with ProviderMixin {
                 .toList(),
             onItemSelected: vm.onDeckSelected,
             hint: 'Select a deck',
+            leadingIcon: Icons.manage_search,
+            onLeadingIconPressed: vm.onInspectDecksPressed,
           ),
           const SizedBox(height: AppSizes.screenMarginSmall),
-          _Dropdown<YugiohCard>(
+          _Dropdown<YugiohCard>.withIcon(
             selectedItemStream: vm.selectedSkillCard,
             items: skillCards
                 .map(
@@ -78,6 +80,8 @@ class _DropdownsBuilder extends HookWidget with ProviderMixin {
                 .toList(),
             onItemSelected: vm.onSkillcardSelected,
             hint: 'Select a skill card',
+            leadingIcon: Icons.manage_search,
+            onLeadingIconPressed: vm.onInspectSkillCardsPressed,
           ),
         ],
       ),
@@ -91,25 +95,51 @@ class _Dropdown<T> extends HookWidget with ProviderMixin {
   final List<DropdownMenuItem<T>> items;
   final void Function(T? value) onItemSelected;
   final String hint;
+  final IconData? leadingIcon;
+  final VoidCallback? onLeadingIconPressed;
 
   const _Dropdown({
     required this.selectedItemStream,
     required this.items,
     required this.onItemSelected,
     required this.hint,
+  })  : leadingIcon = null,
+        onLeadingIconPressed = null;
+
+  const _Dropdown.withIcon({
+    required this.selectedItemStream,
+    required this.items,
+    required this.onItemSelected,
+    required this.hint,
+    required this.leadingIcon,
+    required this.onLeadingIconPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     final selectedItem = useStream(useMemoized(() => selectedItemStream));
 
-    return DropdownButton<T>(
-      items: items,
-      value: selectedItem.data,
-      isExpanded: true,
-      hint: Text(hint),
-      onChanged: onItemSelected,
-      dropdownColor: AppColors.secondaryBackgroundColor,
+    return Row(
+      children: [
+        if (leadingIcon != null)
+          IconButton(
+            onPressed: onLeadingIconPressed,
+            icon: Icon(leadingIcon),
+            padding: EdgeInsets.zero,
+            visualDensity: VisualDensity.compact,
+            splashRadius: 24,
+          ),
+        Expanded(
+          child: DropdownButton<T>(
+            items: items,
+            value: selectedItem.data,
+            isExpanded: true,
+            hint: Text(hint),
+            onChanged: onItemSelected,
+            dropdownColor: AppColors.secondaryBackgroundColor,
+          ),
+        ),
+      ],
     );
   }
 }

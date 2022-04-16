@@ -4,10 +4,10 @@ import '../models/home_tab.dart';
 
 @LazySingleton()
 class GetHomeTabsUseCase {
-  static const _homeTabs = [
-    NewsHomeTab(),
+  static final _homeTabs = [
+    const NewsHomeTab(),
     DeckHomeTab(),
-    DuelHomeTab(),
+    const DuelHomeTab(),
   ];
 
   Iterable<HomeTab> call() {

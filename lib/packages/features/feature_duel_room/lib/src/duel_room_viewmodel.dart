@@ -196,6 +196,18 @@ class DuelRoomViewModel extends BaseViewModel {
     _dataManager.setLastSelectedSkillCardId(card.id);
   }
 
+  Future<void> onInspectDecksPressed() async {
+    logger.info(_tag, 'onInspectSkillCardsPressed()');
+
+    await _router.showDecks();
+  }
+
+  Future<void> onInspectSkillCardsPressed() async {
+    logger.info(_tag, 'onInspectSkillCardsPressed()');
+
+    await _router.showDeckBuilder(initialCardTypeFilter: CardType.skillCard);
+  }
+
   Future<void> onCreateRoomPressed() async {
     logger.info(_tag, 'onCreateRoomPressed()');
 

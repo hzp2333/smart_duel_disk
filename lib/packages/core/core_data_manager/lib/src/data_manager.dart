@@ -90,7 +90,7 @@ class DataManagerImpl implements DataManager {
   }
 
   @override
-  Future<void> createDeck(String name, Iterable<int> cardIds) {
+  Future<UserDeck> createDeck(String name, Iterable<int> cardIds) {
     return _deckDataManager.createDeck(name, cardIds);
   }
 

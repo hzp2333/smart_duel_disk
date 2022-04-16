@@ -1,10 +1,10 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/mockito.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
-import 'package:smart_duel_disk/packages/features/feature_home/lib/src/deck/models/invalid_deck_exception.dart';
-import 'package:smart_duel_disk/packages/features/feature_home/lib/src/deck/usecases/get_card_ids_from_deck_file_use_case.dart';
+import 'package:smart_duel_disk/packages/features/deck/src/models/invalid_deck_exception.dart';
+import 'package:smart_duel_disk/packages/features/deck/src/usecases/get_card_ids_from_deck_file_use_case.dart';
 
-import '../../../../../testing/mocks/shared.mocks.dart';
+import '../../../../testing/mocks/shared.mocks.dart';
 
 void main() {
   late GetCardIdsFromDeckFileUseCase _useCase;

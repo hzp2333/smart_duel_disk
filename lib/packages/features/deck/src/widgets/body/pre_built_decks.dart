@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intersperse/intersperse.dart';
 import 'package:provider/provider.dart';
-import 'package:smart_duel_disk/packages/features/feature_home/lib/src/deck/deck_viewmodel.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
+import '../../deck_viewmodel.dart';
 import 'deck_list_item.dart';
 
 class PreBuiltDecksSection extends StatelessWidget with ProviderMixin {

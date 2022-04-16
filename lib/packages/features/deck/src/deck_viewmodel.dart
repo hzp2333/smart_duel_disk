@@ -11,6 +11,7 @@ import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_messaging/lib/core_messaging.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 
+import 'models/deck_screen_parameters.dart';
 import 'models/deck_state.dart';
 import 'models/invalid_deck_exception.dart';
 import 'usecases/get_card_ids_from_deck_file_use_case.dart';
@@ -19,6 +20,7 @@ import 'usecases/get_card_ids_from_deck_file_use_case.dart';
 class DeckViewModel extends BaseViewModel {
   static const _tag = 'DeckViewModel';
 
+  final DeckScreenParameters? _screenParams;
   final AppRouter _router;
   final DataManager _dataManager;
   final SnackBarService _snackBarService;
@@ -31,8 +33,11 @@ class DeckViewModel extends BaseViewModel {
 
   StreamSubscription<Iterable<UserDeck>>? _userDeckSubscription;
 
+  bool get isDetailScreen => _screenParams?.isDetailScreen ?? false;
+
   DeckViewModel(
     Logger logger,
+    @factoryParam this._screenParams,
     this._router,
     this._dataManager,
     this._snackBarService,
@@ -83,7 +88,9 @@ class DeckViewModel extends BaseViewModel {
 
     try {
       final cardIds = await _getCardIdsFromDeckFileUseCase();
-      await _dataManager.createDeck('New Deck', cardIds);
+      final newDeck = await _dataManager.createDeck('New Deck', cardIds);
+
+      await _router.showDeckBuilder(userDeck: newDeck);
 
       _snackBarService.showSnackBar('Deck created successfully!');
     } on NoFileSelectedException {
@@ -99,13 +106,6 @@ class DeckViewModel extends BaseViewModel {
       await _showDeckBuildErrorDialog(LocaleKeys.deck_create_error_description_unexpected);
     } finally {
       _deckState.safeAdd(_deckState.value.copyWith(loading: false));
-
-      // TODO: allow user to select personal deck for duelling
-      // TODO: allow user to select skill card
-
-      // TODO: firebase rules
-      // TODO: banlist
-      // TODO: indicate which cards have 3D model
     }
   }
 

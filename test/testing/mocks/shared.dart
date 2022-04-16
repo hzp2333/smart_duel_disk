@@ -8,7 +8,6 @@ import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart';
 import 'package:smart_duel_disk/packages/core/core_messaging/lib/core_messaging.dart';
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart';
 import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart';
-import 'package:smart_duel_disk/packages/features/feature_home/lib/feature_home.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/duel/mixins/duel_form_validators.dart';
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/home/usecases/get_home_tabs_use_case.dart';
 import 'package:smart_duel_disk/packages/wrappers/wrapper_connectivity/lib/src/connectivity_provider.dart';
@@ -22,7 +21,6 @@ import 'package:universal_io/io.dart';
   AppRouter,
   DataManager,
   DuelFormValidators,
-  DuelDialogProvider,
   SnackBarService,
   SharedPreferencesProvider,
   AppConfig,

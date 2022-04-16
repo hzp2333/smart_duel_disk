@@ -3,43 +3,40 @@
 // Do not manually edit this file.
 
 import 'dart:async' as _i3;
-import 'dart:convert' as _i29;
+import 'dart:convert' as _i27;
 import 'dart:io' as _i6;
-import 'dart:typed_data' as _i30;
+import 'dart:typed_data' as _i28;
 import 'dart:ui' as _i5;
 
-import 'package:flutter/cupertino.dart' as _i4;
-import 'package:flutter/material.dart' as _i18;
-import 'package:flutter/services.dart' as _i26;
+import 'package:flutter/material.dart' as _i4;
+import 'package:flutter/services.dart' as _i24;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:smart_duel_disk/packages/core/authentication/authentication.dart'
     as _i7;
 import 'package:smart_duel_disk/packages/core/core_config/lib/core_config.dart'
-    as _i20;
+    as _i18;
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart'
     as _i2;
 import 'package:smart_duel_disk/packages/core/core_file_manager/lib/src/file_manager.dart'
-    as _i28;
+    as _i26;
 import 'package:smart_duel_disk/packages/core/core_localization/lib/core_localization.dart'
-    as _i24;
+    as _i22;
 import 'package:smart_duel_disk/packages/core/core_logger/lib/core_logger.dart'
     as _i8;
 import 'package:smart_duel_disk/packages/core/core_messaging/lib/src/snack_bar/snack_bar_service.dart'
-    as _i17;
+    as _i16;
 import 'package:smart_duel_disk/packages/core/core_navigation/lib/core_navigation.dart'
     as _i9;
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart'
     as _i11;
 import 'package:smart_duel_disk/packages/core/core_storage/lib/core_storage.dart'
-    as _i21;
-import 'package:smart_duel_disk/packages/features/feature_home/lib/feature_home.dart'
-    as _i16;
+    as _i19;
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/duel/mixins/duel_form_validators.dart'
     as _i15;
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/home/models/home_tab.dart'
-    as _i23;
+    as _i21;
 import 'package:smart_duel_disk/packages/features/feature_home/lib/src/home/usecases/get_home_tabs_use_case.dart'
-    as _i22;
+    as _i20;
 import 'package:smart_duel_disk/packages/features/feature_onboarding/lib/src/sign_in/sign_in_viewmodel.dart'
     as _i10;
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature_speed_duel.dart'
@@ -49,11 +46,11 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/models/zone.dart'
     as _i14;
 import 'package:smart_duel_disk/packages/wrappers/wrapper_connectivity/lib/src/connectivity_provider.dart'
-    as _i27;
-import 'package:smart_duel_disk/packages/wrappers/wrapper_shared_preferences/lib/wrapper_shared_preferences.dart'
-    as _i19;
-import 'package:smart_duel_disk/packages/wrappers/wrapper_system_chrome/lib/src/system_chrome_provider.dart'
     as _i25;
+import 'package:smart_duel_disk/packages/wrappers/wrapper_shared_preferences/lib/wrapper_shared_preferences.dart'
+    as _i17;
+import 'package:smart_duel_disk/packages/wrappers/wrapper_system_chrome/lib/src/system_chrome_provider.dart'
+    as _i23;
 
 // ignore_for_file: avoid_redundant_argument_values
 // ignore_for_file: avoid_setters_without_getters
@@ -66,14 +63,10 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_system_chrome/lib/src/
 
 class _FakeYugiohCard_0 extends _i1.Fake implements _i2.YugiohCard {}
 
-class _FakeStreamTransformer_1<S, T> extends _i1.Fake
-    implements _i3.StreamTransformer<S, T> {}
+class _FakeUserDeck_1 extends _i1.Fake implements _i2.UserDeck {}
 
-class _FakeWidget_2 extends _i1.Fake implements _i4.Widget {
-  @override
-  String toString({_i4.DiagnosticLevel? minLevel = _i4.DiagnosticLevel.info}) =>
-      super.toString();
-}
+class _FakeStreamTransformer_2<S, T> extends _i1.Fake
+    implements _i3.StreamTransformer<S, T> {}
 
 class _FakeGlobalKey_3<T extends _i4.State<_i4.StatefulWidget>> extends _i1.Fake
     implements _i4.GlobalKey<T> {}
@@ -223,11 +216,21 @@ class MockAppRouter extends _i1.Mock implements _i9.AppRouter {
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
+  _i3.Future<void> showDecks() =>
+      (super.noSuchMethod(Invocation.method(#showDecks, []),
+          returnValue: Future<void>.value(),
+          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+  @override
   _i3.Future<void> showDeckBuilder(
-          {_i2.PreBuiltDeck? preBuiltDeck, _i2.UserDeck? userDeck}) =>
+          {_i2.PreBuiltDeck? preBuiltDeck,
+          _i2.UserDeck? userDeck,
+          _i2.CardType? initialCardTypeFilter}) =>
       (super.noSuchMethod(
-          Invocation.method(#showDeckBuilder, [],
-              {#preBuiltDeck: preBuiltDeck, #userDeck: userDeck}),
+          Invocation.method(#showDeckBuilder, [], {
+            #preBuiltDeck: preBuiltDeck,
+            #userDeck: userDeck,
+            #initialCardTypeFilter: initialCardTypeFilter
+          }),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
@@ -241,11 +244,6 @@ class MockAppRouter extends _i1.Mock implements _i9.AppRouter {
       (super.noSuchMethod(Invocation.method(#showSpeedDuel, [duelRoom]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
-  @override
-  _i3.Future<_i2.PreBuiltDeck?> showSelectDeckDialog() =>
-      (super.noSuchMethod(Invocation.method(#showSelectDeckDialog, []),
-              returnValue: Future<_i2.PreBuiltDeck?>.value())
-          as _i3.Future<_i2.PreBuiltDeck?>);
   @override
   _i3.Future<void> showDrawCard(_i5.VoidCallback? cardDrawnCallback) =>
       (super.noSuchMethod(Invocation.method(#showDrawCard, [cardDrawnCallback]),
@@ -362,10 +360,10 @@ class MockDataManager extends _i1.Mock implements _i2.DataManager {
       (super.noSuchMethod(Invocation.method(#canCreateDeck, []),
           returnValue: Future<bool>.value(false)) as _i3.Future<bool>);
   @override
-  _i3.Future<void> createDeck(String? name, Iterable<int>? cardIds) =>
+  _i3.Future<_i2.UserDeck> createDeck(String? name, Iterable<int>? cardIds) =>
       (super.noSuchMethod(Invocation.method(#createDeck, [name, cardIds]),
-          returnValue: Future<void>.value(),
-          returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
+              returnValue: Future<_i2.UserDeck>.value(_FakeUserDeck_1()))
+          as _i3.Future<_i2.UserDeck>);
   @override
   _i3.Future<void> updateDeckName(String? newName, _i2.UserDeck? deck) =>
       (super.noSuchMethod(Invocation.method(#updateDeckName, [newName, deck]),
@@ -451,12 +449,12 @@ class MockDuelFormValidators extends _i1.Mock
   @override
   _i3.StreamTransformer<String?, String?> get ipAddressValidator =>
       (super.noSuchMethod(Invocation.getter(#ipAddressValidator),
-              returnValue: _FakeStreamTransformer_1<String?, String?>())
+              returnValue: _FakeStreamTransformer_2<String?, String?>())
           as _i3.StreamTransformer<String?, String?>);
   @override
   _i3.StreamTransformer<String?, String?> get portValidator =>
       (super.noSuchMethod(Invocation.getter(#portValidator),
-              returnValue: _FakeStreamTransformer_1<String?, String?>())
+              returnValue: _FakeStreamTransformer_2<String?, String?>())
           as _i3.StreamTransformer<String?, String?>);
   @override
   bool isValidIpAddress(String? ipAddress) =>
@@ -468,34 +466,19 @@ class MockDuelFormValidators extends _i1.Mock
           returnValue: false) as bool);
 }
 
-/// A class which mocks [DuelDialogProvider].
-///
-/// See the documentation for Mockito's code generation for more information.
-class MockDuelDialogProvider extends _i1.Mock
-    implements _i16.DuelDialogProvider {
-  MockDuelDialogProvider() {
-    _i1.throwOnMissingStub(this);
-  }
-
-  @override
-  _i4.Widget createSelectDeckDialog() =>
-      (super.noSuchMethod(Invocation.method(#createSelectDeckDialog, []),
-          returnValue: _FakeWidget_2()) as _i4.Widget);
-}
-
 /// A class which mocks [SnackBarService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockSnackBarService extends _i1.Mock implements _i17.SnackBarService {
+class MockSnackBarService extends _i1.Mock implements _i16.SnackBarService {
   MockSnackBarService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  _i4.GlobalKey<_i18.ScaffoldMessengerState> get messengerKey =>
+  _i4.GlobalKey<_i4.ScaffoldMessengerState> get messengerKey =>
       (super.noSuchMethod(Invocation.getter(#messengerKey),
-              returnValue: _FakeGlobalKey_3<_i18.ScaffoldMessengerState>())
-          as _i4.GlobalKey<_i18.ScaffoldMessengerState>);
+              returnValue: _FakeGlobalKey_3<_i4.ScaffoldMessengerState>())
+          as _i4.GlobalKey<_i4.ScaffoldMessengerState>);
   @override
   void showSnackBar(String? message,
           {_i5.TextAlign? textAlign = _i5.TextAlign.left,
@@ -514,7 +497,7 @@ class MockSnackBarService extends _i1.Mock implements _i17.SnackBarService {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockSharedPreferencesProvider extends _i1.Mock
-    implements _i19.SharedPreferencesProvider {
+    implements _i17.SharedPreferencesProvider {
   MockSharedPreferencesProvider() {
     _i1.throwOnMissingStub(this);
   }
@@ -574,7 +557,7 @@ class MockSharedPreferencesProvider extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 // ignore: must_be_immutable
-class MockAppConfig extends _i1.Mock implements _i20.AppConfig {
+class MockAppConfig extends _i1.Mock implements _i18.AppConfig {
   MockAppConfig() {
     _i1.throwOnMissingStub(this);
   }
@@ -641,14 +624,14 @@ class MockAppConfig extends _i1.Mock implements _i20.AppConfig {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockDuelStorageProvider extends _i1.Mock
-    implements _i21.DuelStorageProvider {
+    implements _i19.DuelStorageProvider {
   MockDuelStorageProvider() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
   _i3.Future<void> saveConnectionInfo(
-          _i21.ConnectionInfoModel? connectionInfo) =>
+          _i19.ConnectionInfoModel? connectionInfo) =>
       (super.noSuchMethod(
           Invocation.method(#saveConnectionInfo, [connectionInfo]),
           returnValue: Future<void>.value(),
@@ -668,21 +651,21 @@ class MockDuelStorageProvider extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockGetHomeTabsUseCase extends _i1.Mock
-    implements _i22.GetHomeTabsUseCase {
+    implements _i20.GetHomeTabsUseCase {
   MockGetHomeTabsUseCase() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
-  Iterable<_i23.HomeTab> call() =>
+  Iterable<_i21.HomeTab> call() =>
       (super.noSuchMethod(Invocation.method(#call, []),
-          returnValue: <_i23.HomeTab>[]) as Iterable<_i23.HomeTab>);
+          returnValue: <_i21.HomeTab>[]) as Iterable<_i21.HomeTab>);
 }
 
 /// A class which mocks [StringProvider].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockStringProvider extends _i1.Mock implements _i24.StringProvider {
+class MockStringProvider extends _i1.Mock implements _i22.StringProvider {
   MockStringProvider() {
     _i1.throwOnMissingStub(this);
   }
@@ -697,21 +680,21 @@ class MockStringProvider extends _i1.Mock implements _i24.StringProvider {
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockSystemChromeProvider extends _i1.Mock
-    implements _i25.SystemChromeProvider {
+    implements _i23.SystemChromeProvider {
   MockSystemChromeProvider() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
   _i3.Future<void> setPreferredOrientations(
-          List<_i26.DeviceOrientation>? orientations) =>
+          List<_i24.DeviceOrientation>? orientations) =>
       (super.noSuchMethod(
           Invocation.method(#setPreferredOrientations, [orientations]),
           returnValue: Future<void>.value(),
           returnValueForMissingStub: Future<void>.value()) as _i3.Future<void>);
   @override
-  _i3.Future<void> setEnabledSystemUIMode(_i26.SystemUiMode? mode,
-          {List<_i26.SystemUiOverlay>? overlays}) =>
+  _i3.Future<void> setEnabledSystemUIMode(_i24.SystemUiMode? mode,
+          {List<_i24.SystemUiOverlay>? overlays}) =>
       (super.noSuchMethod(
           Invocation.method(
               #setEnabledSystemUIMode, [mode], {#overlays: overlays}),
@@ -723,7 +706,7 @@ class MockSystemChromeProvider extends _i1.Mock
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockConnectivityProvider extends _i1.Mock
-    implements _i27.ConnectivityProvider {
+    implements _i25.ConnectivityProvider {
   MockConnectivityProvider() {
     _i1.throwOnMissingStub(this);
   }
@@ -757,7 +740,7 @@ class MockCacheCardImagesUseCase extends _i1.Mock
 /// A class which mocks [FileManager].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockFileManager extends _i1.Mock implements _i28.FileManager {
+class MockFileManager extends _i1.Mock implements _i26.FileManager {
   MockFileManager() {
     _i1.throwOnMissingStub(this);
   }
@@ -1002,40 +985,40 @@ class MockFile extends _i1.Mock implements _i6.File {
   @override
   _i6.IOSink openWrite(
           {_i6.FileMode? mode = _i6.FileMode.write,
-          _i29.Encoding? encoding = const _i29.Utf8Codec()}) =>
+          _i27.Encoding? encoding = const _i27.Utf8Codec()}) =>
       (super.noSuchMethod(
           Invocation.method(#openWrite, [], {#mode: mode, #encoding: encoding}),
           returnValue: _FakeIOSink_12()) as _i6.IOSink);
   @override
-  _i3.Future<_i30.Uint8List> readAsBytes() =>
+  _i3.Future<_i28.Uint8List> readAsBytes() =>
       (super.noSuchMethod(Invocation.method(#readAsBytes, []),
-              returnValue: Future<_i30.Uint8List>.value(_i30.Uint8List(0)))
-          as _i3.Future<_i30.Uint8List>);
+              returnValue: Future<_i28.Uint8List>.value(_i28.Uint8List(0)))
+          as _i3.Future<_i28.Uint8List>);
   @override
-  _i30.Uint8List readAsBytesSync() =>
+  _i28.Uint8List readAsBytesSync() =>
       (super.noSuchMethod(Invocation.method(#readAsBytesSync, []),
-          returnValue: _i30.Uint8List(0)) as _i30.Uint8List);
+          returnValue: _i28.Uint8List(0)) as _i28.Uint8List);
   @override
   _i3.Future<String> readAsString(
-          {_i29.Encoding? encoding = const _i29.Utf8Codec()}) =>
+          {_i27.Encoding? encoding = const _i27.Utf8Codec()}) =>
       (super.noSuchMethod(
           Invocation.method(#readAsString, [], {#encoding: encoding}),
           returnValue: Future<String>.value('')) as _i3.Future<String>);
   @override
-  String readAsStringSync({_i29.Encoding? encoding = const _i29.Utf8Codec()}) =>
+  String readAsStringSync({_i27.Encoding? encoding = const _i27.Utf8Codec()}) =>
       (super.noSuchMethod(
           Invocation.method(#readAsStringSync, [], {#encoding: encoding}),
           returnValue: '') as String);
   @override
   _i3.Future<List<String>> readAsLines(
-          {_i29.Encoding? encoding = const _i29.Utf8Codec()}) =>
+          {_i27.Encoding? encoding = const _i27.Utf8Codec()}) =>
       (super.noSuchMethod(
               Invocation.method(#readAsLines, [], {#encoding: encoding}),
               returnValue: Future<List<String>>.value(<String>[]))
           as _i3.Future<List<String>>);
   @override
   List<String> readAsLinesSync(
-          {_i29.Encoding? encoding = const _i29.Utf8Codec()}) =>
+          {_i27.Encoding? encoding = const _i27.Utf8Codec()}) =>
       (super.noSuchMethod(
           Invocation.method(#readAsLinesSync, [], {#encoding: encoding}),
           returnValue: <String>[]) as List<String>);
@@ -1057,7 +1040,7 @@ class MockFile extends _i1.Mock implements _i6.File {
   @override
   _i3.Future<_i6.File> writeAsString(String? contents,
           {_i6.FileMode? mode = _i6.FileMode.write,
-          _i29.Encoding? encoding = const _i29.Utf8Codec(),
+          _i27.Encoding? encoding = const _i27.Utf8Codec(),
           bool? flush = false}) =>
       (super.noSuchMethod(
               Invocation.method(#writeAsString, [contents],
@@ -1067,7 +1050,7 @@ class MockFile extends _i1.Mock implements _i6.File {
   @override
   void writeAsStringSync(String? contents,
           {_i6.FileMode? mode = _i6.FileMode.write,
-          _i29.Encoding? encoding = const _i29.Utf8Codec(),
+          _i27.Encoding? encoding = const _i27.Utf8Codec(),
           bool? flush = false}) =>
       super.noSuchMethod(
           Invocation.method(#writeAsStringSync, [contents],

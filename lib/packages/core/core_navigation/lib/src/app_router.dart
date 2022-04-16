@@ -3,7 +3,8 @@ import 'package:injectable/injectable.dart';
 import 'package:smart_duel_disk/packages/core/core_config/lib/core_config.dart';
 import 'package:smart_duel_disk/packages/core/core_data_manager/lib/core_data_manager_interface.dart';
 import 'package:smart_duel_disk/packages/core/core_smart_duel_server/lib/core_smart_duel_server.dart';
-import 'package:smart_duel_disk/packages/features/feature_home/lib/feature_home.dart';
+import 'package:smart_duel_disk/packages/features/deck/deck.dart';
+import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/feature_deck_builder.dart';
 import 'package:smart_duel_disk/packages/features/feature_onboarding/lib/src/sign_in/sign_in_viewmodel.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/feature_speed_duel.dart';
 import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/dialogs/declare_phase_dialog/models/declare_phase_dialog_parameters.dart';
@@ -26,10 +27,10 @@ abstract class AppRouter {
   Future<void> showYoutube();
   Future<void> showTwitter();
   Future<void> showDiscord();
-  Future<void> showDeckBuilder({PreBuiltDeck? preBuiltDeck, UserDeck? userDeck});
+  Future<void> showDecks();
+  Future<void> showDeckBuilder({PreBuiltDeck? preBuiltDeck, UserDeck? userDeck, CardType? initialCardTypeFilter});
   Future<void> showYugiohCardDetail(CardCopy cardCopy, String tag);
   Future<void> showSpeedDuel(DuelRoom duelRoom);
-  Future<PreBuiltDeck?> showSelectDeckDialog();
   Future<void> showDrawCard(VoidCallback cardDrawnCallback);
   Future<PlayCardDialogResult?> showPlayCardDialog(PlayCard playCard, {Zone? newZone, bool showActions = false});
   Future<AddCardToDeckDialogResult?> showAddCardToDeckDialog(PlayCard playCard);
@@ -47,7 +48,6 @@ class AppRouterImpl implements AppRouter {
   final AutoRouteRouter _router;
   final DialogService _dialogService;
   final UrlLauncherProvider _urlLauncherProvider;
-  final DuelDialogProvider _duelDialogProvider;
   final SpeedDuelDialogProvider _speedDuelDialogProvider;
 
   AppRouterImpl(
@@ -55,7 +55,6 @@ class AppRouterImpl implements AppRouter {
     this._router,
     this._dialogService,
     this._urlLauncherProvider,
-    this._duelDialogProvider,
     this._speedDuelDialogProvider,
   );
 
@@ -144,8 +143,23 @@ class AppRouterImpl implements AppRouter {
   //region Deck
 
   @override
-  Future<void> showDeckBuilder({PreBuiltDeck? preBuiltDeck, UserDeck? userDeck}) {
-    return _router.navigate(DeckBuilderRoute(preBuiltDeck: preBuiltDeck, userDeck: userDeck));
+  Future<void> showDecks() {
+    const params = DeckScreenParameters(
+      isDetailScreen: true,
+    );
+
+    return _router.navigate(DeckRoute(screenParams: params));
+  }
+
+  @override
+  Future<void> showDeckBuilder({PreBuiltDeck? preBuiltDeck, UserDeck? userDeck, CardType? initialCardTypeFilter}) {
+    final params = DeckBuilderScreenParameters(
+      preBuiltDeck: preBuiltDeck,
+      userDeck: userDeck,
+      initialCardTypeFilter: initialCardTypeFilter,
+    );
+
+    return _router.navigate(DeckBuilderRoute(screenParameters: params));
   }
 
   //endregion
@@ -155,12 +169,6 @@ class AppRouterImpl implements AppRouter {
   @override
   Future<void> showSpeedDuel(DuelRoom duelRoom) {
     return _router.replace(SpeedDuelRoute(duelRoom: duelRoom));
-  }
-
-  @override
-  Future<PreBuiltDeck?> showSelectDeckDialog() {
-    final selectDeckDialog = _duelDialogProvider.createSelectDeckDialog();
-    return _dialogService.showCustomDialog(selectDeckDialog);
   }
 
   //endregion

@@ -1,4 +1,5 @@
 import 'package:auto_route/annotations.dart';
+import 'package:smart_duel_disk/packages/features/deck/deck.dart';
 import 'package:smart_duel_disk/packages/features/feature_deck_builder/lib/feature_deck_builder.dart';
 import 'package:smart_duel_disk/packages/features/feature_draw_card/lib/feature_draw_card.dart';
 import 'package:smart_duel_disk/packages/features/feature_duel_room/lib/feature_duel_room.dart';
@@ -26,6 +27,7 @@ import 'routes/smart_duel_disk_route.dart';
         SmartDuelDiskRoute<void>(name: 'DeckTab', page: DeckScreenProvider, path: 'deck'),
       ],
     ),
+    SmartDuelDiskRoute<void>(page: DeckScreenProvider, path: '/decks'),
     SmartDuelDiskRoute<void>(page: DeckBuilderScreenProvider, path: '/deck-builder'),
     SmartDuelDiskRoute<void>(page: YugiohCardDetailScreenProvider, path: '/card-detail'),
     CustomRoute<void>(

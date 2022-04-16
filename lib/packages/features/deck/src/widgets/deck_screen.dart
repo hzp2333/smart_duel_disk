@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:smart_duel_disk/generated/locale_keys.g.dart';
-import 'package:smart_duel_disk/packages/features/feature_home/lib/src/deck/models/deck_state.dart';
 import 'package:smart_duel_disk/packages/ui_components/lib/ui_components.dart';
 
 import '../deck_viewmodel.dart';
+import '../models/deck_state.dart';
 import 'body/personal_decks.dart';
 import 'body/pre_built_decks.dart';
 
@@ -14,13 +14,18 @@ class DeckScreen extends HookWidget with ProviderMixin {
   @override
   Widget build(BuildContext context) {
     final vm = getViewModel<DeckViewModel>(context);
-
     final deckState = useStream(useMemoized(() => vm.deckState));
-    if (!deckState.hasData) {
-      return const SizedBox.shrink();
+
+    final body = deckState.hasData ? _DeckScreenBody(state: deckState.requireData) : const SizedBox.shrink();
+
+    if (!vm.isDetailScreen) {
+      return body;
     }
 
-    return _DeckScreenBody(state: deckState.requireData);
+    return Scaffold(
+      appBar: const SddAppBar(title: 'Decks'),
+      body: body,
+    );
   }
 }
 
