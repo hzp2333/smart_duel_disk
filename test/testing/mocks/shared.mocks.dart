@@ -351,6 +351,11 @@ class MockDataManager extends _i1.Mock implements _i2.DataManager {
               returnValue: Future<Iterable<int>>.value(<int>[]))
           as _i3.Future<Iterable<int>>);
   @override
+  _i3.Future<Iterable<int>> getSpeedDuelBanlist() =>
+      (super.noSuchMethod(Invocation.method(#getSpeedDuelBanlist, []),
+              returnValue: Future<Iterable<int>>.value(<int>[]))
+          as _i3.Future<Iterable<int>>);
+  @override
   _i3.Stream<Iterable<_i2.UserDeck>> getUserDecks() =>
       (super.noSuchMethod(Invocation.method(#getUserDecks, []),
               returnValue: Stream<Iterable<_i2.UserDeck>>.empty())

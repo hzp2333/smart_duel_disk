@@ -61,6 +61,7 @@ abstract class  LocaleKeys {
   static const home_tab_deck = 'home_tab_deck';
   static const home_tab_duel = 'home_tab_duel';
   static const home_tab_news = 'home_tab_news';
+  static const invalid_deck_reason_banned = 'invalid_deck_reason_banned';
   static const invalid_deck_reason_extra_deck_size = 'invalid_deck_reason_extra_deck_size';
   static const invalid_deck_reason_invalid_card_id = 'invalid_deck_reason_invalid_card_id';
   static const invalid_deck_reason_invalid_file = 'invalid_deck_reason_invalid_file';

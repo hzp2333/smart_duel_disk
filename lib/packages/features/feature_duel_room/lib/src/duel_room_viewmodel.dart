@@ -105,8 +105,14 @@ class DuelRoomViewModel extends BaseViewModel {
       ),
     );
 
-    final prebuiltDecks = await _getPrebuiltDecks();
-    final skillCards = (await _dataManager.getSkillCards()).toList()..sort((c1, c2) => c1.name.compareTo(c2.name));
+    final banlist = (await _dataManager.getSpeedDuelBanlist()).toList();
+
+    final prebuiltDecks = (await _getPrebuiltDecks()).toList()
+      ..removeWhere((deck) => deck.cardIds.any((cardId) => banlist.contains(cardId)));
+
+    final skillCards = (await _dataManager.getSkillCards()).toList()
+      ..sort((c1, c2) => c1.name.compareTo(c2.name))
+      ..removeWhere((card) => banlist.contains(card.id));
 
     _deckListState.safeAdd(
       DeckListData(

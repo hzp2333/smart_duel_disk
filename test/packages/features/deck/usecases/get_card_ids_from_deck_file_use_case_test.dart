@@ -59,8 +59,10 @@ void main() {
   const _validDeckData = [
     _mainDeckTag,
     ..._validMainDeck,
+    '',
     _extraDeckTag,
     ..._validExtraDeck,
+    '',
     _sideDeckTag,
   ];
 
@@ -76,10 +78,15 @@ void main() {
   );
 
   const _nonSpeedDuelCardId = '11738489';
+  const _bannedCardId = '19230407';
 
   final _speedDuelCards = [
     _skillCard,
-    ...[..._validMainDeck, ..._validExtraDeck].map(
+    ...[
+      ..._validMainDeck,
+      ..._validExtraDeck,
+      _bannedCardId,
+    ].map(
       (cardId) => YugiohCard(
         id: int.parse(cardId),
         name: '',
@@ -102,6 +109,7 @@ void main() {
     _stringProvider = MockStringProvider();
 
     when(_dataManager.getSpeedDuelCards()).thenAnswer((_) => Future.value(_speedDuelCards));
+    when(_dataManager.getSpeedDuelBanlist()).thenAnswer((_) => Future.value([int.parse(_bannedCardId)]));
 
     when(_fileManager.pickYugiohDeck()).thenAnswer((_) => Future.value(_file));
 
@@ -331,6 +339,30 @@ void main() {
             _useCase(),
             throwsA(
               const InvalidDeckException(reason: 'invalid_deck_reason_not_speed_duel_card - [$_nonSpeedDuelCardId]'),
+            ),
+          );
+        });
+      });
+
+      group('and there is a card that is on the banlist', () {
+        setUp(() {
+          when(_file.readAsLines()).thenAnswer(
+            (_) => Future.value([
+              _mainDeckTag,
+              _bannedCardId,
+              ..._validMainDeck.getRange(0, 20),
+              _extraDeckTag,
+              ..._validExtraDeck,
+              _sideDeckTag,
+            ]),
+          );
+        });
+
+        test('then the flow is cancelled', () {
+          expect(
+            _useCase(),
+            throwsA(
+              const InvalidDeckException(reason: 'invalid_deck_reason_banned - [$_bannedCardId]'),
             ),
           );
         });

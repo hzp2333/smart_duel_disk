@@ -9,6 +9,7 @@ import 'package:smart_duel_disk/packages/wrappers/wrapper_cloud_database/lib/wra
 abstract class DeckDataManager {
   Iterable<PreBuiltDeck> getPreBuiltDecks();
   Future<Iterable<int>> getPreBuiltDeckCardIds(PreBuiltDeck deck);
+  Future<Iterable<int>> getSpeedDuelBanlist();
   Stream<Iterable<UserDeck>> getUserDecks();
   Future<bool> canCreateDeck();
   Future<UserDeck> createDeck(String name, Iterable<int> cardIds);
@@ -51,6 +52,11 @@ class DeckDataManagerImpl implements DeckDataManager {
   @override
   Future<Iterable<int>> getPreBuiltDeckCardIds(PreBuiltDeck deck) {
     return _cloudDatabaseProvider.getPreBuiltDeckCardIds(deck.id);
+  }
+
+  @override
+  Future<Iterable<int>> getSpeedDuelBanlist() {
+    return _cloudDatabaseProvider.getSpeedDuelBanlist();
   }
 
   @override

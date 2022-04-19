@@ -10,7 +10,8 @@ import '../models/invalid_deck_exception.dart';
 /// and create a valid decklist if possible. Only the main and extra deck sections of the
 /// data will be used, as the app currently doesn't support side decks.
 /// Skill cards aren't stored in ydk files, so duelists will have to select
-/// one before they start a duel.
+/// one before they start a duel. Some cards are banned because the app cannot let you
+/// use them properly.
 @LazySingleton()
 class GetCardIdsFromDeckFileUseCase {
   static const _mainDeckTag = '#main';
@@ -21,7 +22,7 @@ class GetCardIdsFromDeckFileUseCase {
   static const _mainDeckMaxSize = 30;
 
   static const _extraDeckMinSize = 0;
-  static const _extraDeckMaxSize = 5;
+  static const _extraDeckMaxSize = 6;
 
   static const _maxCopiesOfCard = 3;
 
@@ -37,7 +38,8 @@ class GetCardIdsFromDeckFileUseCase {
 
   Future<Iterable<int>> call() async {
     final deckFile = await _fileManager.pickYugiohDeck();
-    final deckFileData = await deckFile.readAsLines();
+    final deckFileData = (await deckFile.readAsLines()).toList();
+    deckFileData.removeWhere((line) => line.isEmpty);
 
     final deckData = _extractDeckData(deckFileData);
     _verifyDeckSize(deckData);
@@ -113,10 +115,13 @@ class GetCardIdsFromDeckFileUseCase {
     final skillCardsIds = speedDuelCards.where((card) => card.type == CardType.skillCard).map((card) => card.id);
     final speedDuelCardIds = speedDuelCards.map((card) => card.id);
 
+    final banlistCardIds = await _dataManager.getSpeedDuelBanlist();
+
     for (final cardId in cardIds) {
       _verifyAmountOfCopies(cardIds, cardId);
       _verifyCardIsNotSkillCard(skillCardsIds, cardId);
       _verifyCardIsSpeedDuelCard(speedDuelCardIds, cardId);
+      _verifyCardIsNotOnBanlist(banlistCardIds, cardId);
     }
   }
 
@@ -139,6 +144,12 @@ class GetCardIdsFromDeckFileUseCase {
   void _verifyCardIsSpeedDuelCard(Iterable<int> speedDuelCardIds, int cardId) {
     if (!speedDuelCardIds.contains(cardId)) {
       _cancelFlow(LocaleKeys.invalid_deck_reason_not_speed_duel_card, [cardId.toString()]);
+    }
+  }
+
+  void _verifyCardIsNotOnBanlist(Iterable<int> banlistCardIds, int cardId) {
+    if (banlistCardIds.contains(cardId)) {
+      _cancelFlow(LocaleKeys.invalid_deck_reason_banned, [cardId.toString()]);
     }
   }
 

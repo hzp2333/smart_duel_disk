@@ -22,6 +22,14 @@ class FirebaseCloudDatabaseProvider extends CloudDatabaseProvider {
   }
 
   @override
+  Future<Iterable<int>> getSpeedDuelBanlist() async {
+    final response = await _firebaseFirestore.collection('banlists').doc('speed_duel').get();
+    final getDeckResponse = GetDeckResponse.fromJson(response.data()!);
+
+    return getDeckResponse.cardIds;
+  }
+
+  @override
   Stream<UserData?> getUserData(String userId) {
     return _getUserRef().doc(userId).snapshots().map((userDoc) => userDoc.data());
   }

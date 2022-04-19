@@ -59,6 +59,7 @@
     "home_tab_deck": "Deck",
     "home_tab_duel": "Duel",
     "home_tab_news": "News",
+    "invalid_deck_reason_banned": "Card with id {} is banned. Cards that manipulate the normal draw during the draw phase can currently not be used.",
     "invalid_deck_reason_extra_deck_size": "Extra deck size is incorrect. Make sure your extra deck contains between {} and {} cards and try again.",
     "invalid_deck_reason_invalid_card_id": "Card id {} is invalid. Make sure your deck only contains valid cards and try again.",
     "invalid_deck_reason_invalid_file": "The given deck file does not have a main deck, extra deck and side deck section. Make sure the file is valid and try again.",

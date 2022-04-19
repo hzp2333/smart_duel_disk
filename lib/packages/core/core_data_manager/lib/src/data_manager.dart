@@ -80,6 +80,11 @@ class DataManagerImpl implements DataManager {
   }
 
   @override
+  Future<Iterable<int>> getSpeedDuelBanlist() {
+    return _deckDataManager.getSpeedDuelBanlist();
+  }
+
+  @override
   Stream<Iterable<UserDeck>> getUserDecks() {
     return _deckDataManager.getUserDecks();
   }
