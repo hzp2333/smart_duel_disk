@@ -1,6 +1,6 @@
 name: smart_duel_disk
 description: A Smart Duel Disk app for playing Yu-Gi-Oh!.
-version: 0.12.0+120000
+version: 0.12.1+120100
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
