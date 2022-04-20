@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Smart&#x2007;Duel&#x2007;Disk</string>
+	<string>Smart Duel Disk</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -49,10 +49,12 @@
 	<false/>
 	<key>UIBackgroundModes</key>
 	<array>
-   		<string>fetch</string>
-   		<string>remote-notification</string>
+		<string>fetch</string>
+		<string>remote-notification</string>
 	</array>
 	<key>UISupportsDocumentBrowser</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>The app needs access to your libraries to be able to upload deck files.</string>
 </dict>
 </plist>
