@@ -38,9 +38,6 @@ class PlayCard extends Equatable {
     this.formattedLevel,
   });
 
-  bool get belongsInExtraDeck => yugiohCard.belongsInExtraDeck;
-  bool get isMonster => yugiohCard.isMonster;
-
   PlayCard copyWith({ZoneType? zoneType, CardPosition? position, int? counters, bool? revealed}) {
     return PlayCard(
       yugiohCard: yugiohCard,

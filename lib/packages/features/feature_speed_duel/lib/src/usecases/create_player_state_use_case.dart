@@ -50,8 +50,8 @@ class CreatePlayerStateUseCase {
     final playCardsWithoutSkill = skillCard == null ? playCards : playCards
       ..remove(skillCard);
 
-    final mainDeck = playCardsWithoutSkill.where((card) => !card.belongsInExtraDeck);
-    final extraDeck = playCardsWithoutSkill.where((card) => card.belongsInExtraDeck);
+    final mainDeck = playCardsWithoutSkill.where((card) => !card.yugiohCard.belongsInExtraDeck);
+    final extraDeck = playCardsWithoutSkill.where((card) => card.yugiohCard.belongsInExtraDeck);
 
     final playerState = PlayerState(duelistId: duelist.id, isOpponent: isOpponent);
 

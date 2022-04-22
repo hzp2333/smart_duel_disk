@@ -246,7 +246,7 @@ void main() {
         test('then the flow is cancelled', () {
           expect(
             _useCase(),
-            throwsA(const InvalidDeckException(reason: 'invalid_deck_reason_extra_deck_size - [0, 5]')),
+            throwsA(const InvalidDeckException(reason: 'invalid_deck_reason_extra_deck_size - [0, 6]')),
           );
         });
       });
