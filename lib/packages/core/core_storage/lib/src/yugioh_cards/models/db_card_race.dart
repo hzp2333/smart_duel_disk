@@ -165,4 +165,40 @@ enum DbCardRace {
 
   @HiveField(53)
   lumisUmbra,
+
+  @HiveField(54)
+  drVellianCrowler,
+
+  @HiveField(55)
+  chazzPrinceton,
+
+  @HiveField(56)
+  axelBrodie,
+
+  @HiveField(57)
+  yubel,
+
+  @HiveField(58)
+  jesseAnderson,
+
+  @HiveField(59)
+  alexisRhodes,
+
+  @HiveField(60)
+  zaneTruesdale,
+
+  @HiveField(61)
+  bastionMisawa,
+
+  @HiveField(62)
+  jadenYuki,
+
+  @HiveField(63)
+  tyrannoHassleberry,
+
+  @HiveField(64)
+  asterPhoenix,
+
+  @HiveField(65)
+  syrusTruesdale,
 }

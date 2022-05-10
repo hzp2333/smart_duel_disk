@@ -57,9 +57,7 @@ class YugiohCardsDataManagerImpl implements YugiohCardsDataManager {
       return cards;
     }
 
-    final apiCards = kDebugMode
-        ? await _ygoProDeckApiProvider.getAllYugiohCards()
-        : await _ygoProDeckApiProvider.getSpeedDuelCards();
+    final apiCards = await _ygoProDeckApiProvider.getSpeedDuelCards();
     final cards = await compute(_mapApiCardsToEntities, apiCards.toList());
 
     dbCards = await compute(_mapCardsToDatabaseModels, cards);

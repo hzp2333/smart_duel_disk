@@ -9,60 +9,76 @@ import 'package:smart_duel_disk/packages/features/feature_speed_duel/lib/src/mod
 @LazySingleton()
 class CreatePlayCardDialogActionsUseCase {
   Iterable<PlayCardDialogAction> call(PlayCard playCard, Zone? newZone) {
+    // Move card from multi-card zone to the field.
     if (playCard.zoneType.isMultiCardZone && newZone != null) {
       return _getMultiCardZoneActions(playCard, newZone);
     }
 
+    // Perform card action in the hand.
     if (playCard.zoneType == ZoneType.hand) {
-      return playCard.revealed
-          ? const [
-              HideCardAction(),
-              GiveToOpponentAction(),
-            ]
-          : const [
-              RevealCardAction(),
-            ];
+      return _getHandActions(playCard);
     }
 
     if (playCard.zoneType.isMainMonsterZone) {
-      return (newZone?.zoneType.isSpellTrapCardZone ?? false)
-          ? const [
-              ActivateAction(),
-              SetSpellTrapAction(),
-            ]
-          : _getMonsterPositionActions(playCard);
+      if (newZone == null) {
+        // Perform card action in the monster zone.
+        return _getMonsterPositionActions(playCard);
+      }
+
+      // Move card from monster zone to spell/trap, field or skill zone.
+      return _getMoveCardToSpellTrapSkillZoneActions(playCard);
     }
 
     if (playCard.zoneType.isSpellTrapCardZone ||
         playCard.zoneType == ZoneType.field ||
         playCard.zoneType == ZoneType.skill) {
-      return (newZone?.zoneType.isMainMonsterZone ?? false)
-          ? const [
-              NormalSummonAction(),
-              SetMonsterAction(),
-              SpecialSummonAttackAction(),
-              SpecialSummonDefenceAction(),
-            ]
-          : _getSpellTrapSkillPositionActions(playCard);
+      if (newZone == null) {
+        // Perform card action in the spell/trap, field or skill zone.
+        return _getSpellTrapSkillPositionActions(playCard);
+      }
+
+      // Move card from spell/trap, field or skill zone to monster zone.
+      return _getMoveCardToMonsterZoneActions(playCard);
     }
 
     return [];
   }
 
   Iterable<PlayCardDialogAction> _getMultiCardZoneActions(PlayCard playCard, Zone newZone) {
-    return newZone.zoneType.isMainMonsterZone
-        ? [
-            if (playCard.yugiohCard.type != CardType.token) ...const [
-              NormalSummonAction(),
-              SetMonsterAction(),
-            ],
-            const SpecialSummonAttackAction(),
-            const SpecialSummonDefenceAction(),
-          ]
-        : const [
-            ActivateAction(),
-            SetSpellTrapAction(),
-          ];
+    if (newZone.zoneType.isMainMonsterZone) {
+      return _getMoveCardToMonsterZoneActions(playCard);
+    }
+
+    return _getMoveCardToSpellTrapSkillZoneActions(playCard);
+  }
+
+  Iterable<PlayCardDialogAction> _getMoveCardToMonsterZoneActions(PlayCard playCard) {
+    return [
+      if (playCard.yugiohCard.type != CardType.token) ...const [
+        NormalSummonAction(),
+        SetMonsterAction(),
+      ],
+      const SpecialSummonAttackAction(),
+      const SpecialSummonDefenceAction(),
+    ];
+  }
+
+  Iterable<PlayCardDialogAction> _getMoveCardToSpellTrapSkillZoneActions(PlayCard playCard) {
+    return const [
+      ActivateAction(),
+      SetSpellTrapAction(),
+    ];
+  }
+
+  Iterable<PlayCardDialogAction> _getHandActions(PlayCard playCard) {
+    if (playCard.revealed) {
+      return const [
+        HideCardAction(),
+        GiveToOpponentAction(),
+      ];
+    }
+
+    return const [RevealCardAction()];
   }
 
   Iterable<PlayCardDialogAction> _getMonsterPositionActions(PlayCard playCard) {
@@ -93,8 +109,11 @@ class CreatePlayCardDialogActionsUseCase {
       ];
     }
 
+    final faceDownAction =
+        playCard.yugiohCard.type == CardType.token ? const DestroyAction() : const SetSpellTrapAction();
+
     return [
-      const SetSpellTrapAction(),
+      faceDownAction,
       ..._getGeneralPositionActions(playCard),
     ];
   }

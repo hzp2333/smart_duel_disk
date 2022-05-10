@@ -52,6 +52,18 @@ enum CardRace {
   ishizuIshtar,
   emma,
   lumisUmbra,
+  drVellianCrowler,
+  chazzPrinceton,
+  axelBrodie,
+  yubel,
+  jesseAnderson,
+  alexisRhodes,
+  zaneTruesdale,
+  bastionMisawa,
+  jadenYuki,
+  tyrannoHassleberry,
+  asterPhoenix,
+  syrusTruesdale,
   unknown,
 }
 
@@ -163,6 +175,30 @@ CardRace parseCardRace(String value) {
       return CardRace.emma;
     case 'lumis umbra':
       return CardRace.lumisUmbra;
+    case 'dr. vellian c':
+      return CardRace.drVellianCrowler;
+    case 'chazz princet':
+      return CardRace.chazzPrinceton;
+    case 'axel brodie':
+      return CardRace.axelBrodie;
+    case 'yubel':
+      return CardRace.yubel;
+    case 'jesse anderso':
+      return CardRace.jesseAnderson;
+    case 'alexis rhodes':
+      return CardRace.alexisRhodes;
+    case 'zane truesdal':
+      return CardRace.zaneTruesdale;
+    case 'bastion misaw':
+      return CardRace.bastionMisawa;
+    case 'jaden yuki':
+      return CardRace.jadenYuki;
+    case 'tyranno hassl':
+      return CardRace.tyrannoHassleberry;
+    case 'aster phoenix':
+      return CardRace.asterPhoenix;
+    case 'syrus truesda':
+      return CardRace.syrusTruesdale;
     default:
       return CardRace.unknown;
   }
