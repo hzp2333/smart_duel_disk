@@ -121,6 +121,30 @@ class DbCardRaceAdapter extends TypeAdapter<DbCardRace> {
         return DbCardRace.emma;
       case 53:
         return DbCardRace.lumisUmbra;
+      case 54:
+        return DbCardRace.drVellianCrowler;
+      case 55:
+        return DbCardRace.chazzPrinceton;
+      case 56:
+        return DbCardRace.axelBrodie;
+      case 57:
+        return DbCardRace.yubel;
+      case 58:
+        return DbCardRace.jesseAnderson;
+      case 59:
+        return DbCardRace.alexisRhodes;
+      case 60:
+        return DbCardRace.zaneTruesdale;
+      case 61:
+        return DbCardRace.bastionMisawa;
+      case 62:
+        return DbCardRace.jadenYuki;
+      case 63:
+        return DbCardRace.tyrannoHassleberry;
+      case 64:
+        return DbCardRace.asterPhoenix;
+      case 65:
+        return DbCardRace.syrusTruesdale;
       default:
         return DbCardRace.unknown;
     }
@@ -290,6 +314,42 @@ class DbCardRaceAdapter extends TypeAdapter<DbCardRace> {
         break;
       case DbCardRace.lumisUmbra:
         writer.writeByte(53);
+        break;
+      case DbCardRace.drVellianCrowler:
+        writer.writeByte(54);
+        break;
+      case DbCardRace.chazzPrinceton:
+        writer.writeByte(55);
+        break;
+      case DbCardRace.axelBrodie:
+        writer.writeByte(56);
+        break;
+      case DbCardRace.yubel:
+        writer.writeByte(57);
+        break;
+      case DbCardRace.jesseAnderson:
+        writer.writeByte(58);
+        break;
+      case DbCardRace.alexisRhodes:
+        writer.writeByte(59);
+        break;
+      case DbCardRace.zaneTruesdale:
+        writer.writeByte(60);
+        break;
+      case DbCardRace.bastionMisawa:
+        writer.writeByte(61);
+        break;
+      case DbCardRace.jadenYuki:
+        writer.writeByte(62);
+        break;
+      case DbCardRace.tyrannoHassleberry:
+        writer.writeByte(63);
+        break;
+      case DbCardRace.asterPhoenix:
+        writer.writeByte(64);
+        break;
+      case DbCardRace.syrusTruesdale:
+        writer.writeByte(65);
         break;
     }
   }

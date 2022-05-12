@@ -370,13 +370,13 @@ Future<_i1.GetIt> $initGetIt(_i1.GetIt get,
       registerFor: {_mobile},
       preResolve: true);
   await gh.lazySingletonAsync<_i51.Directory>(
-      () => pathProviderModule.provideWebTempDirectory(),
-      instanceName: 'TempDirectoryName',
+      () => pathProviderModule.provideWebAppDirectory(),
+      instanceName: 'AppDirectory',
       registerFor: {_web},
       preResolve: true);
   await gh.lazySingletonAsync<_i51.Directory>(
-      () => pathProviderModule.provideWebAppDirectory(),
-      instanceName: 'AppDirectory',
+      () => pathProviderModule.provideWebTempDirectory(),
+      instanceName: 'TempDirectoryName',
       registerFor: {_web},
       preResolve: true);
   await gh.lazySingletonAsync<_i51.Directory>(

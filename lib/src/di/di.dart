@@ -24,8 +24,8 @@ Future<void> initDependencies(AppConfig appConfig, Environment environment) asyn
 }
 
 void _registerHiveAdapters() {
-  Hive.registerAdapter(DbCardAttributeAdapter());
-  Hive.registerAdapter(DbCardRaceAdapter());
-  Hive.registerAdapter(DbCardTypeAdapter());
-  Hive.registerAdapter(DbYugiohCardAdapter());
+  Hive.registerAdapter<DbCardAttribute>(DbCardAttributeAdapter());
+  Hive.registerAdapter<DbCardRace>(DbCardRaceAdapter());
+  Hive.registerAdapter<DbCardType>(DbCardTypeAdapter());
+  Hive.registerAdapter<DbYugiohCard>(DbYugiohCardAdapter());
 }

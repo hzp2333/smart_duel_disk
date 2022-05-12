@@ -68,11 +68,10 @@ class MoveCardUseCase {
   }) {
     final updatedOldZone = oldZone.copyWith(cards: [...oldZone.cards]..remove(card));
 
-    final counters = position.isFaceUp && !newZone.zoneType.isMultiCardZone ? card.counters : 0;
     final updatedCard = card.copyWith(
       zoneType: newZone.zoneType,
       position: position,
-      counters: counters,
+      counters: 0,
       revealed: false,
     );
     final updatedNewZone = newZone.copyWith(
