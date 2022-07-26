@@ -113,7 +113,16 @@ class DeckBuilderViewModel extends BaseViewModel {
   DeckBuilderState _createDeckState(Iterable<int> cardIds, Iterable<CardCopy> cards) {
     logger.verbose(_tag, '_createPreBuiltDeckState()');
 
-    final cardCopies = cardIds.map((id) => cards.firstWhere((cc) => cc.card.id == id));
+    final cardCopies = <CardCopy>[];
+
+    for (final id in cardIds) {
+      try {
+        final card = cards.firstWhere((cc) => cc.card.id == id);
+        cardCopies.add(card);
+      } catch (e) {
+        throw Exception('Bad state: No element for $id');
+      }
+    }
 
     final sections = [
       SkillCardSection(cards: cardCopies.where((cc) => cc.card.type == CardType.skillCard)),

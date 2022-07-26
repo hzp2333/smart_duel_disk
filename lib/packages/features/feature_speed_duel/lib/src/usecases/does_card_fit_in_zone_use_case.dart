@@ -90,13 +90,12 @@ class DoesCardFitInZoneUseCase {
   }
 
   /*
-   * Tokens can only exist on the field.
-   * Extra deck monsters normally can't be in the hand, but we make an exception
-   * because a user needs to be able to give an extra deck monster to their opponent.
+
+   * Extra deck monsters and tokens normally can't be in the hand, but we make an exception
+   * because a user needs to be able to give them to their opponent.
    */
   bool _fitsInHand(PlayCard playCard) {
-    final card = playCard.yugiohCard;
-    return playCard.zoneType != ZoneType.hand && card.type != CardType.token;
+    return playCard.zoneType != ZoneType.hand;
   }
 
   /*
